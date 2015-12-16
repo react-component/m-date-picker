@@ -51,7 +51,6 @@
   ],
   "dependencies": {
     "gregorian-calendar": "~4.0.4",
-    "gregorian-calendar-format": "~4.0.4",
     "rmc-picker": "0.3.x"
   }
 }

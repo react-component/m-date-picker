@@ -4,13 +4,13 @@ import React from 'react';
 import Picker from 'rmc-picker';
 import GregorianCalendar from 'gregorian-calendar';
 import GregorianCalendarCn from 'gregorian-calendar/lib/locale/zh_CN';
-import GregorianCalendarFormat from 'gregorian-calendar-format';
-import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
-import zh_CN from './locale/zh_CN';
-import en_US from './locale/en_US';
-import { getMaxDay } from './util'
+// import GregorianCalendarFormat from 'gregorian-calendar-format';
+// import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
+import zhCN from './locale/zh_CN';
+import enUS from './locale/en_US';
+import { getMaxDay } from './util';
 
-const locale = {zh_CN, en_US};
+const locale = {zh_CN: zhCN, en_US: enUS};
 const mode = {
   datetime: 'datetime',
   date: 'date',
@@ -61,15 +61,6 @@ const MDatePicker = React.createClass({
       this.props.onValueChange(info.value);
     }
   },
-  newGregorianCalendar(d) {
-    let date = new GregorianCalendar(); // defaults to en_US
-    if (this.props.locale === 'zh_CN') {
-      date = new GregorianCalendar(GregorianCalendarCn);
-    }
-    // date.setTime(invalidDate(+new Date(d)));
-    date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
-    return date;
-  },
   getDateData(selYear, selMonth) {
     const years = [];
     for (let i = this.minDateYear; i <= this.maxDateYear; i++) {
@@ -104,7 +95,6 @@ const MDatePicker = React.createClass({
     return [years, months, days];
   },
   getTimeData(type, sel) {
-
     let minHour = 0;
     let maxHour = 23;
     let minMinute = 0;
@@ -148,6 +138,15 @@ const MDatePicker = React.createClass({
     }
     return [hours, minutes];
   },
+  newGregorianCalendar(d) {
+    let date = new GregorianCalendar(); // defaults to en_US
+    if (this.props.locale === 'zh_CN') {
+      date = new GregorianCalendar(GregorianCalendarCn);
+    }
+    // date.setTime(invalidDate(+new Date(d)));
+    date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
+    return date;
+  },
   validDate(defaultDate, minDate, maxDate) {
     const defDateTime = defaultDate.getTime();
     const maxDateTime = maxDate.getTime();
@@ -188,7 +187,7 @@ const MDatePicker = React.createClass({
       defaultDate.getMonth() + 1,
       defaultDate.getDayOfMonth(),
       defaultDate.getHourOfDay(),
-      defaultDate.getMinutes()
+      defaultDate.getMinutes(),
     ];
     let dataSource = [];
     if (props.mode === mode.datetime || props.mode === mode.date) {
