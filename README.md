@@ -60,14 +60,13 @@ see example
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
-|open | controlled open state | bool | false |
-|onChange | fire when change the selector's item | Function | '' |
-|onOk | fire when finish select the selector | Function | '' |
-|onCancel | fire when cancel select the selector | Function | '' |
-|mode | the mode of date-picker | String | 'date' (or 'date-time' / 'time') |
-|minYear | min year | String | 2000 |
-|maxYear | max year | String | 2030 |
-|format | the format of date to return | array | ['YYYY-MM-DD HH:mm', '年', '月', '日', '时', '分'] |
+|value | The currently selected date. | String | new Date() |
+|onValueChange | Date change handler. | Function | '' |
+|mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
+|minDate | min date | String/Date | new Date('2000') |
+|maxDate | max date | String/Date | new Date('2030') |
+|locale | the locale of area | String | enum('zh_CN', 'en_US') |
+|timeZoneOffset | Timezone offset in minutes. | number |  |
 
 
 ## Test Case
