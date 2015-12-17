@@ -40,10 +40,10 @@ webpackJsonp([0,1],[
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      mode: 'datetime',
-	      locale: 'zh_CN',
-	      timeZoneOffset: 480
+	      locale: __webpack_require__(174)
 	    };
 	  },
+	  // timeZoneOffset: -480, // better not to set. because locale object include it.
 	  getInitialState: function getInitialState() {
 	    return {
 	      sel: ''
@@ -81,7 +81,7 @@ webpackJsonp([0,1],[
 	      _react2['default'].createElement(
 	        _rmcDatePicker2['default'],
 	        { mode: props.mode, locale: props.locale, onValueChange: this.onValueChange,
-	          minDate: new Date('2015-10-5 18:20'), maxDate: new Date('2016-3-3'), timeZoneOffset: props.timeZoneOffset },
+	          minDate: new Date('2015-10-5 18:20'), maxDate: new Date('2016-3-3') },
 	        _react2['default'].createElement(
 	          'button',
 	          null,
@@ -175,24 +175,15 @@ webpackJsonp([0,1],[
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(174);
-	
-	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
-	
 	// import GregorianCalendarFormat from 'gregorian-calendar-format';
 	// import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
 	
-	var _localeZh_CN = __webpack_require__(175);
+	var _localeZh_CN = __webpack_require__(174);
 	
 	var _localeZh_CN2 = _interopRequireDefault(_localeZh_CN);
 	
-	var _localeEn_US = __webpack_require__(176);
+	var _util = __webpack_require__(176);
 	
-	var _localeEn_US2 = _interopRequireDefault(_localeEn_US);
-	
-	var _util = __webpack_require__(177);
-	
-	var locale = { zh_CN: _localeZh_CN2['default'], en_US: _localeEn_US2['default'] };
 	var mode = {
 	  datetime: 'datetime',
 	  date: 'date',
@@ -213,7 +204,7 @@ webpackJsonp([0,1],[
 	    minDate: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.object]),
 	    maxDate: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.object]),
 	    mode: _react2['default'].PropTypes.string,
-	    locale: _react2['default'].PropTypes.string,
+	    locale: _react2['default'].PropTypes.object,
 	    timeZoneOffset: _react2['default'].PropTypes.number,
 	    onValueChange: _react2['default'].PropTypes.func
 	  },
@@ -224,7 +215,7 @@ webpackJsonp([0,1],[
 	      maxDate: new Date('2030'),
 	      value: new Date(),
 	      mode: mode.date,
-	      locale: 'zh_CN'
+	      locale: _localeZh_CN2['default']
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -247,9 +238,10 @@ webpackJsonp([0,1],[
 	    }
 	  },
 	  getDateData: function getDateData(selYear, selMonth) {
+	    var locale = this.props.locale;
 	    var years = [];
 	    for (var i = this.minDateYear; i <= this.maxDateYear; i++) {
-	      years.push({ value: i, name: i + locale[this.props.locale].year });
+	      years.push({ value: i, name: i + locale.year });
 	    }
 	
 	    var months = [];
@@ -262,7 +254,7 @@ webpackJsonp([0,1],[
 	      maxMonth = this.maxDateMonth;
 	    }
 	    for (var i = minMonth; i <= maxMonth; i++) {
-	      months.push({ value: i, name: i + locale[this.props.locale].month });
+	      months.push({ value: i, name: i + locale.month });
 	    }
 	
 	    var days = [];
@@ -275,7 +267,7 @@ webpackJsonp([0,1],[
 	      maxDay = this.maxDateDay;
 	    }
 	    for (var i = minDay; i <= maxDay; i++) {
-	      days.push({ value: i, name: i + locale[this.props.locale].day });
+	      days.push({ value: i, name: i + locale.day });
 	    }
 	    return [years, months, days];
 	  },
@@ -314,23 +306,22 @@ webpackJsonp([0,1],[
 	
 	    var hours = [];
 	    for (var i = minHour; i <= maxHour; i++) {
-	      hours.push({ value: i, name: i + locale[this.props.locale].hour });
+	      hours.push({ value: i, name: i + this.props.locale.hour });
 	    }
 	
 	    var minutes = [];
 	    for (var i = minMinute; i <= maxMinute; i++) {
-	      minutes.push({ value: i, name: i + locale[this.props.locale].minute });
+	      minutes.push({ value: i, name: i + this.props.locale.minute });
 	    }
 	    return [hours, minutes];
 	  },
 	  newGregorianCalendar: function newGregorianCalendar(d) {
-	    var date = new _gregorianCalendar2['default'](); // defaults to en_US
-	    if (this.props.locale === 'zh_CN') {
-	      date = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
-	    }
+	    var date = new _gregorianCalendar2['default'](this.props.locale.format);
 	    // date.setTime(invalidDate(+new Date(d)));
 	    date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
-	    this.props.timeZoneOffset && date.setTimezoneOffset(this.props.timeZoneOffset);
+	    if ('timeZoneOffset' in this.props && typeof this.props.timeZoneOffset === 'number') {
+	      date.setTimezoneOffset(this.props.timeZoneOffset);
+	    }
 	    return date;
 	  },
 	  validDate: function validDate(defaultDate, minDate, maxDate) {
@@ -24051,6 +24042,32 @@ webpackJsonp([0,1],[
 
 /***/ },
 /* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(175);
+	
+	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
+	
+	exports['default'] = {
+	  format: _gregorianCalendarLibLocaleZh_CN2['default'],
+	  year: '年',
+	  month: '月',
+	  day: '日',
+	  hour: '时',
+	  minute: '分'
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 175 */
 /***/ function(module, exports) {
 
 	/*
@@ -24068,43 +24085,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 175 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = {
-	  year: '年',
-	  month: '月',
-	  day: '日',
-	  hour: '时',
-	  minute: '分'
-	};
-	module.exports = exports['default'];
-
-/***/ },
 /* 176 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports['default'] = {
-	  year: '',
-	  month: '',
-	  day: '',
-	  hour: '',
-	  minute: ''
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 177 */
 /***/ function(module, exports) {
 
 	"use strict";
