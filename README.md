@@ -65,8 +65,8 @@ see example
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | String/Date | new Date('2000') |
 |maxDate | max date | String/Date | new Date('2030') |
-|locale | the locale of area | String | enum('zh_CN', 'en_US') |
-|timeZoneOffset | Timezone offset in minutes. | number |  |
+|locale | the locale of area | String | 'zh_CN' / enum('zh_CN', 'en_US') |
+|timeZoneOffset | Timezone offset in minutes. | number | 480 (same as locale setting) |
 
 
 ## Test Case

@@ -14,6 +14,7 @@ const Demo = React.createClass({
     return {
       mode: 'datetime',
       locale: 'zh_CN',
+      timeZoneOffset: 480,
     };
   },
   getInitialState() {
@@ -44,7 +45,7 @@ const Demo = React.createClass({
     return (<div style={{margin: '10px 30px'}}>
       <p>您选择的日期是：{this.state.sel}</p>
       <MDatePicker mode={props.mode} locale={props.locale} onValueChange={this.onValueChange}
-        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')} timeZoneOffset={20}>
+        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')} timeZoneOffset={props.timeZoneOffset}>
         <button>trigger</button>
       </MDatePicker>
     </div>);
