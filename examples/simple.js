@@ -40,7 +40,8 @@ webpackJsonp([0,1],[
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      mode: 'datetime',
-	      locale: 'zh_CN'
+	      locale: 'zh_CN',
+	      timeZoneOffset: 480
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -80,7 +81,7 @@ webpackJsonp([0,1],[
 	      _react2['default'].createElement(
 	        _rmcDatePicker2['default'],
 	        { mode: props.mode, locale: props.locale, onValueChange: this.onValueChange,
-	          minDate: new Date('2015-10-5 18:20'), maxDate: new Date('2016-3-3'), timeZoneOffset: 20 },
+	          minDate: new Date('2015-10-5 18:20'), maxDate: new Date('2016-3-3'), timeZoneOffset: props.timeZoneOffset },
 	        _react2['default'].createElement(
 	          'button',
 	          null,
@@ -213,6 +214,7 @@ webpackJsonp([0,1],[
 	    maxDate: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.object]),
 	    mode: _react2['default'].PropTypes.string,
 	    locale: _react2['default'].PropTypes.string,
+	    timeZoneOffset: _react2['default'].PropTypes.number,
 	    onValueChange: _react2['default'].PropTypes.func
 	  },
 	  getDefaultProps: function getDefaultProps() {
@@ -328,6 +330,7 @@ webpackJsonp([0,1],[
 	    }
 	    // date.setTime(invalidDate(+new Date(d)));
 	    date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
+	    this.props.timeZoneOffset && date.setTimezoneOffset(this.props.timeZoneOffset);
 	    return date;
 	  },
 	  validDate: function validDate(defaultDate, minDate, maxDate) {
