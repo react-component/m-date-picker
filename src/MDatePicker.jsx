@@ -3,14 +3,11 @@ import React from 'react';
 // import classNames from 'classnames';
 import Picker from 'rmc-picker';
 import GregorianCalendar from 'gregorian-calendar';
-import GregorianCalendarCn from 'gregorian-calendar/lib/locale/zh_CN';
 // import GregorianCalendarFormat from 'gregorian-calendar-format';
 // import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
 import zhCN from './locale/zh_CN';
-import enUS from './locale/en_US';
 import { getMaxDay } from './util';
 
-const locale = {zh_CN: zhCN, en_US: enUS};
 const mode = {
   datetime: 'datetime',
   date: 'date',
@@ -29,7 +26,7 @@ const MDatePicker = React.createClass({
     minDate: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]),
     maxDate: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]),
     mode: React.PropTypes.string,
-    locale: React.PropTypes.string,
+    locale: React.PropTypes.object,
     timeZoneOffset: React.PropTypes.number,
     onValueChange: React.PropTypes.func,
   },
@@ -40,7 +37,7 @@ const MDatePicker = React.createClass({
       maxDate: new Date('2030'),
       value: new Date(),
       mode: mode.date,
-      locale: 'zh_CN',
+      locale: zhCN,
     };
   },
   getInitialState() {
@@ -63,9 +60,10 @@ const MDatePicker = React.createClass({
     }
   },
   getDateData(selYear, selMonth) {
+    const locale = this.props.locale;
     const years = [];
     for (let i = this.minDateYear; i <= this.maxDateYear; i++) {
-      years.push({value: i, name: i + locale[this.props.locale].year});
+      years.push({value: i, name: i + locale.year});
     }
 
     const months = [];
@@ -78,7 +76,7 @@ const MDatePicker = React.createClass({
       maxMonth = this.maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      months.push({value: i, name: i + locale[this.props.locale].month});
+      months.push({value: i, name: i + locale.month});
     }
 
     const days = [];
@@ -91,7 +89,7 @@ const MDatePicker = React.createClass({
       maxDay = this.maxDateDay;
     }
     for (let i = minDay; i <= maxDay; i++) {
-      days.push({value: i, name: i + locale[this.props.locale].day});
+      days.push({value: i, name: i + locale.day});
     }
     return [years, months, days];
   },
@@ -130,23 +128,20 @@ const MDatePicker = React.createClass({
 
     const hours = [];
     for (let i = minHour; i <= maxHour; i++) {
-      hours.push({value: i, name: i + locale[this.props.locale].hour});
+      hours.push({value: i, name: i + this.props.locale.hour});
     }
 
     const minutes = [];
     for (let i = minMinute; i <= maxMinute; i++) {
-      minutes.push({value: i, name: i + locale[this.props.locale].minute});
+      minutes.push({value: i, name: i + this.props.locale.minute});
     }
     return [hours, minutes];
   },
   newGregorianCalendar(d) {
-    let date = new GregorianCalendar(); // defaults to en_US
-    if (this.props.locale === 'zh_CN') {
-      date = new GregorianCalendar(GregorianCalendarCn);
-    }
+    let date = new GregorianCalendar(this.props.locale.format);
     // date.setTime(invalidDate(+new Date(d)));
     date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
-    if (this.props.timeZoneOffset) {
+    if (('timeZoneOffset' in this.props) && typeof this.props.timeZoneOffset === 'number') {
       date.setTimezoneOffset(this.props.timeZoneOffset);
     }
     return date;
