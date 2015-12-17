@@ -146,7 +146,9 @@ const MDatePicker = React.createClass({
     }
     // date.setTime(invalidDate(+new Date(d)));
     date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
-    this.props.timeZoneOffset && date.setTimezoneOffset(this.props.timeZoneOffset);
+    if (this.props.timeZoneOffset) {
+      date.setTimezoneOffset(this.props.timeZoneOffset);
+    }
     return date;
   },
   validDate(defaultDate, minDate, maxDate) {
