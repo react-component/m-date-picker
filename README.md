@@ -60,8 +60,8 @@ see example
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | '' |
-|value | The currently selected date. | String | new Date() |
-|onValueChange | Date change handler. | Function | '' |
+|date | The currently selected date. | String | new Date() |
+|onDateChange | Date change handler. | Function | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | String/Date | new Date('2000') |
 |maxDate | max date | String/Date | new Date('2030') |

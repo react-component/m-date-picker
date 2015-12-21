@@ -1,6 +1,6 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
-// import classNames from 'classnames';
+import classNames from 'classnames';
 import Picker from 'rmc-picker';
 import GregorianCalendar from 'gregorian-calendar';
 // import GregorianCalendarFormat from 'gregorian-calendar-format';
@@ -28,14 +28,14 @@ const MDatePicker = React.createClass({
     mode: React.PropTypes.string,
     locale: React.PropTypes.object,
     timeZoneOffset: React.PropTypes.number,
-    onValueChange: React.PropTypes.func,
+    onDateChange: React.PropTypes.func,
   },
   getDefaultProps() {
     return {
-      prefixCls: '',
+      prefixCls: 'rmc-date-picker',
       minDate: new Date('2000'),
       maxDate: new Date('2030'),
-      value: new Date(),
+      date: new Date(),
       mode: mode.date,
       locale: zhCN,
     };
@@ -45,18 +45,11 @@ const MDatePicker = React.createClass({
       indexOfScrollers: 0,
     };
   },
-  onChange(value, info) {
-    console.log('onChang', value, info);
-    const newVal = [...info.preValue];
-    newVal[info.indexOfScrollers] = value;
-    this.value = newVal;
-    this.setState({
-      indexOfScrollers: info.indexOfScrollers,
-    });
-  },
-  onOk(info) {
-    if (this.props.onValueChange) {
-      this.props.onValueChange(info.value);
+  onValueChange(index, selectNameValue) {
+    // console.log(index, selectNameValue);
+    this.value[index] = selectNameValue.value;
+    if (this.props.onDateChange) {
+      this.props.onDateChange(selectNameValue.value, index);
     }
   },
   getDateData(selYear, selMonth) {
@@ -158,7 +151,7 @@ const MDatePicker = React.createClass({
   },
   render() {
     const props = this.props;
-    const defaultDate = this.newGregorianCalendar(props.value);
+    const defaultDate = this.newGregorianCalendar(props.date);
     let maxDate = this.newGregorianCalendar(props.maxDate);
     const minDate = this.newGregorianCalendar(props.minDate);
     this.validDate(defaultDate, minDate, maxDate);
@@ -199,9 +192,20 @@ const MDatePicker = React.createClass({
       dataSource = this.getTimeData(mode.time, newVal);
     }
 
-    return (<Picker onChange={this.onChange} onOk={this.onOk} data={dataSource} value={newVal}>
-        <button>trigger</button>
-      </Picker>);
+    // make value array lenth equal with data array length
+    dataSource.forEach((item, i) => {
+      newVal[i] = newVal[i] || '';
+    });
+
+    this.value = newVal;
+
+    return (<div className={classNames(props.className)}>
+      {dataSource.map((item, i) => {
+        return (<div key={i} className={`${props.prefixCls}-item`}>
+          <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
+        </div>);
+      })}
+    </div>);
   },
 });
 
