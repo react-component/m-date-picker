@@ -35,23 +35,9 @@ const Demo = React.createClass({
   onOk() {
     this.setVisibleState(false);
   },
-  onDateChange(value) {
+  onDateChange(value, info) {
     console.log(value);
-    let sel;
-    switch (this.props.mode) {
-    case 'time':
-      sel = `${value[0]} 点 ${value[1]} 分`;
-      break;
-    case 'date':
-    case 'datetime':
-      sel = `${value[0]} 年 ${value[1]} 月 ${value[2]} 日`;
-      if (this.props.mode === 'datetime') {
-        sel += `${value[3]} 点 ${value[4]} 分`;
-      }
-      break;
-    default:
-    }
-    this.setState({sel});
+    this.setState({sel: info.formatDate});
   },
   setVisibleState(visible) {
     this.setState({

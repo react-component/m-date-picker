@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Picker from 'rmc-picker';
 import GregorianCalendar from 'gregorian-calendar';
-// import GregorianCalendarFormat from 'gregorian-calendar-format';
+import GregorianCalendarFormat from 'gregorian-calendar-format';
 // import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
 import zhCN from './locale/zh_CN';
 import { getMaxDay } from './util';
@@ -47,9 +47,34 @@ const MDatePicker = React.createClass({
   },
   onValueChange(index, selectNameValue) {
     // console.log(index, selectNameValue);
-    this.value[index] = selectNameValue.value;
+    function formatDate(date, format) {
+      const df = new GregorianCalendarFormat(format);
+      return df.format(date);
+    }
+    const props = this.props;
+    const newVal = [...this.value];
+    newVal[index] = selectNameValue.value;
+    let returnVal;
+    const dFormat = `yyyy'${props.locale.year}'MM'${props.locale.month}'dd'${props.locale.day}'`;
+    const tFormat = `HH'${props.locale.hour}'mm'${props.locale.minute}'`;
+    const info = {changeIndex: index};
+    if (props.mode === mode.datetime || props.mode === mode.date) {
+      newVal[1] -= 1; // month decrease 1
+      returnVal = this.newGregorianCalendar(new Date(...newVal));
+      let format = dFormat;
+      if (props.mode === mode.datetime) {
+        format += ' ' + tFormat;
+      }
+      info.formatDate = formatDate(returnVal, format);
+    } else {
+      this.defaultDate.setHourOfDay(newVal[0]);
+      this.defaultDate.setMinutes(newVal[1]);
+      returnVal = this.defaultDate;
+      info.formatDate = formatDate(this.defaultDate, tFormat);
+    }
+
     if (this.props.onDateChange) {
-      this.props.onDateChange(selectNameValue.value, index);
+      this.props.onDateChange(returnVal.time, info);
     }
   },
   getDateData(selYear, selMonth) {
@@ -152,6 +177,7 @@ const MDatePicker = React.createClass({
   render() {
     const props = this.props;
     const defaultDate = this.newGregorianCalendar(props.date);
+    this.defaultDate = defaultDate;
     let maxDate = this.newGregorianCalendar(props.maxDate);
     const minDate = this.newGregorianCalendar(props.minDate);
     this.validDate(defaultDate, minDate, maxDate);
@@ -194,7 +220,7 @@ const MDatePicker = React.createClass({
 
     // make value array lenth equal with data array length
     dataSource.forEach((item, i) => {
-      newVal[i] = newVal[i] || '';
+      newVal[i] = newVal[i] === undefined ? '' : newVal[i];
     });
 
     this.value = newVal;

@@ -53,6 +53,6 @@
   "dependencies": {
     "classnames": "~2.2.1",
     "gregorian-calendar": "~4.0.4",
-    "rmc-picker": "0.3.x"
+    "rmc-picker": "0.4.x"
   }
 }
