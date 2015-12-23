@@ -1,7 +1,7 @@
 import enUs from 'gregorian-calendar/lib/locale/en_US';
 
 export default {
-  format: enUs,
+  calendar: enUs,
   year: '',
   month: '',
   day: '',

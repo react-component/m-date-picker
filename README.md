@@ -10,9 +10,6 @@ React MDatePicker Component
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
-[![Sauce Test Status](https://saucelabs.com/buildstatus/rmc-date-picker)](https://saucelabs.com/u/rmc-date-picker)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/rmc-date-picker.svg)](https://saucelabs.com/u/rmc-date-picker)
 
 [npm-image]: http://img.shields.io/npm/v/rmc-date-picker.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rmc-date-picker
@@ -59,14 +56,14 @@ see example
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
 |className | additional css class of root dom node | String | '' |
-|prefixCls | prefix class | String | '' |
-|date | The currently selected date. | String | new Date() |
-|onDateChange | Date change handler. | Function | '' |
+|prefixCls | prefix class | String | 'rmc-date-picker' |
+|pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
+|date | The currently selected date. | GregorianCalendar | now |
+|onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
-|minDate | min date | String/Date | new Date('2000') |
-|maxDate | max date | String/Date | new Date('2030') |
+|minDate | min date | GregorianCalendar | 2000-1-1 |
+|maxDate | max date | GregorianCalendar | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/zh_CN' |
-|timeZoneOffset | Timezone offset in minutes. | number | 480 (same as locale setting) |
 
 
 ## Test Case

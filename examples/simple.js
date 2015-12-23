@@ -1,14 +1,22 @@
-// use jsx to render html, do not modify simple.html
+/* eslint no-console:0 */
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
 import 'rmc-modal/assets/index.css';
 import 'rmc-modal/assets/simple.css';
-import MDatePicker from 'rmc-date-picker';
+import DatePicker from 'rmc-date-picker';
 import Modal from 'rmc-modal';
-
+import GregorianCalendarFormat from 'gregorian-calendar-format';
+import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+const formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
+  GregorianCalendarFormat.Style.FULL, zhCn);
+
+function format(v) {
+  return formatter.format(v);
+}
 
 const Demo = React.createClass({
   propTypes: {
@@ -20,12 +28,11 @@ const Demo = React.createClass({
       modalPrefixCls: 'rmc-modal',
       mode: 'datetime',
       locale: require('../src/locale/zh_CN'),
-      // timeZoneOffset: -480, // better not to set. because locale object include it.
     };
   },
   getInitialState() {
     return {
-      sel: '',
+      date: null,
       modalVisible: false,
     };
   },
@@ -35,9 +42,9 @@ const Demo = React.createClass({
   onOk() {
     this.setVisibleState(false);
   },
-  onDateChange(value, info) {
-    console.log(value);
-    this.setState({sel: info.formatDate});
+  onDateChange(date) {
+    console.log('onDateChange', date);
+    this.setState({date});
   },
   setVisibleState(visible) {
     this.setState({
@@ -46,12 +53,11 @@ const Demo = React.createClass({
   },
   render() {
     const props = this.props;
+    const {date} = this.state;
 
     const inlinePickers = (<div>
-      <MDatePicker className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
-        mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}
-        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')}>
-      </MDatePicker>
+      <DatePicker date={date} className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
+                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange} />
     </div>);
 
     const popPicker = (<Modal visible={this.state.modalVisible} onDismiss={this.onDismiss}>
@@ -60,14 +66,12 @@ const Demo = React.createClass({
         <div className={props.modalPrefixCls + '-item'}></div>
         <div className={props.modalPrefixCls + '-item'} onClick={this.onOk}>完成</div>
       </div>
-      <MDatePicker className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
-        mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}
-        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')}>
-      </MDatePicker>
+      <DatePicker date={date} className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
+                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange} />
     </Modal>);
 
     return (<div style={{margin: '10px 30px'}}>
-      <p>您选择的日期是：{this.state.sel}</p>
+      <p>您选择的日期是：{date && format(date)}</p>
       <div>{inlinePickers}</div>
       <div>
         {popPicker}

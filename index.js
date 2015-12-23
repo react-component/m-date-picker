@@ -1,3 +1,3 @@
 // export this package's api
-import MDatePicker from './src/';
-export default MDatePicker;
+import DatePicker from './src/DatePicker';
+export default DatePicker;
