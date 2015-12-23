@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-date-picker@0.3.2 - m-date-picker ui component for react</title>
+  <title>rmc-date-picker@1.0.0 - m-date-picker ui component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-date-picker@0.3.2</h1>
+  <h1>rmc-date-picker@1.0.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -759,9 +759,7 @@
 <a href="https://coveralls.io/r/react-component/m-date-picker?branch=master" title="null"><img src="https://img.shields.io/coveralls/react-component/m-date-picker.svg?style=flat-square" alt="Test coverage"></a>
 <a href="https://gemnasium.com/react-component/m-date-picker" title="null"><img src="http://img.shields.io/gemnasium/react-component/m-date-picker.svg?style=flat-square" alt="gemnasium deps"></a>
 <a href="http://nodejs.org/download/" title="null"><img src="https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square" alt="node version"></a>
-<a href="https://npmjs.org/package/rmc-date-picker" title="null"><img src="https://img.shields.io/npm/dm/rmc-date-picker.svg?style=flat-square" alt="npm download"></a>
-<a href="https://saucelabs.com/u/rmc-date-picker" title="null"><img src="https://saucelabs.com/buildstatus/rmc-date-picker" alt="Sauce Test Status"></a></p>
-<p><a href="https://saucelabs.com/u/rmc-date-picker" title="null"><img src="https://saucelabs.com/browser-matrix/rmc-date-picker.svg" alt="Sauce Test Status"></a></p>
+<a href="https://npmjs.org/package/rmc-date-picker" title="null"><img src="https://img.shields.io/npm/dm/rmc-date-picker.svg?style=flat-square" alt="npm download"></a></p>
 <h2>Screenshots<a id="user-content-screenshots" name="screenshots" class="anchor" aria-hidden="true" href="#screenshots"><span class="octicon octicon-link"></span></a></h2><p><img src="https://os.alipayobjects.com/rmsportal/lpMABkgrgVnlnTd.png" width="288"/></p>
 <h2>Development<a id="user-content-development" name="development" class="anchor" aria-hidden="true" href="#development"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm install
 npm start</code></pre></div><h2>Example<a id="user-content-example" name="example" class="anchor" aria-hidden="true" href="#example"><span class="octicon octicon-link"></span></a></h2><p><a href="http://localhost:8000/examples/" title="null">http://localhost:8000/examples/</a></p>
@@ -788,18 +786,24 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>prefixCls</td>
 <td>prefix class</td>
 <td>String</td>
-<td>&#39;&#39;</td>
+<td>&#39;rmc-date-picker&#39;</td>
+</tr>
+<tr>
+<td>pickerPrefixCls</td>
+<td>picker prefix class</td>
+<td>String</td>
+<td>&#39;rmc-picker&#39;</td>
 </tr>
 <tr>
 <td>date</td>
 <td>The currently selected date.</td>
-<td>String</td>
-<td>new Date()</td>
+<td>GregorianCalendar</td>
+<td>now</td>
 </tr>
 <tr>
 <td>onDateChange</td>
 <td>Date change handler.</td>
-<td>Function</td>
+<td>Function(date: GregorianCalendar)</td>
 <td>&#39;&#39;</td>
 </tr>
 <tr>
@@ -811,26 +815,20 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <tr>
 <td>minDate</td>
 <td>min date</td>
-<td>String/Date</td>
-<td>new Date(&#39;2000&#39;)</td>
+<td>GregorianCalendar</td>
+<td>2000-1-1</td>
 </tr>
 <tr>
 <td>maxDate</td>
 <td>max date</td>
-<td>String/Date</td>
-<td>new Date(&#39;2030&#39;)</td>
+<td>GregorianCalendar</td>
+<td>2030-1-1</td>
 </tr>
 <tr>
 <td>locale</td>
 <td>the locale of area</td>
 <td>Object</td>
 <td>import from &#39;rmc-date-picker/lib/locale/zh_CN&#39;</td>
-</tr>
-<tr>
-<td>timeZoneOffset</td>
-<td>Timezone offset in minutes.</td>
-<td>number</td>
-<td>480 (same as locale setting)</td>
 </tr>
 </tbody>
 </table>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-date-picker@0.3.2</title>
+  <title>simple.js - example - rmc-date-picker@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,24 +257,32 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-date-picker@0.3.2</h1>
+    <h1>rmc-date-picker@1.0.0</h1>
 
     <p>m-date-picker ui component for react</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="simple.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-comment">// use jsx to render html, do not modify simple.html</span>
+  <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0 */</span>
 
 import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 import <span class="hljs-string">'rmc-date-picker/assets/index.css'</span>;
 import <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
 import <span class="hljs-string">'rmc-modal/assets/simple.css'</span>;
-import MDatePicker from <span class="hljs-string">'rmc-date-picker'</span>;
+import DatePicker from <span class="hljs-string">'rmc-date-picker'</span>;
 import Modal from <span class="hljs-string">'rmc-modal'</span>;
-
+import GregorianCalendarFormat from <span class="hljs-string">'gregorian-calendar-format'</span>;
+import zhCn from <span class="hljs-string">'gregorian-calendar-format/lib/locale/zh_CN'</span>;
 import React from <span class="hljs-string">'react'</span>;
 import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+
+<span class="hljs-keyword">const</span> formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
+  GregorianCalendarFormat.Style.FULL, zhCn);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">format</span><span class="hljs-params">(v)</span> </span>{
+  <span class="hljs-keyword">return</span> formatter.format(v);
+}
 
 <span class="hljs-keyword">const</span> Demo = React.createClass({
   propTypes: {
@@ -286,13 +294,11 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
       modalPrefixCls: <span class="hljs-string">'rmc-modal'</span>,
       mode: <span class="hljs-string">'datetime'</span>,
       locale: <span class="hljs-built_in">require</span>(<span class="hljs-string">'../src/locale/zh_CN'</span>),
-      <span class="hljs-comment">// timeZoneOffset: -480, // better not to set. because locale object include it.</span>
     };
   },
   getInitialState() {
     <span class="hljs-keyword">return</span> {
-      date: <span class="hljs-built_in">Date</span>.now(),
-      sel: <span class="hljs-string">''</span>,
+      date: <span class="hljs-literal">null</span>,
       modalVisible: <span class="hljs-literal">false</span>,
     };
   },
@@ -302,12 +308,9 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
   onOk() {
     <span class="hljs-keyword">this</span>.setVisibleState(<span class="hljs-literal">false</span>);
   },
-  onDateChange(value, info) {
-    <span class="hljs-built_in">console</span>.log(value);
-    <span class="hljs-keyword">this</span>.setState({
-      date: value,
-      sel: info.formatDate,
-    });
+  onDateChange(date) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDateChange'</span>, date);
+    <span class="hljs-keyword">this</span>.setState({date});
   },
   setVisibleState(visible) {
     <span class="hljs-keyword">this</span>.setState({
@@ -316,11 +319,11 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
   },
   render() {
     <span class="hljs-keyword">const</span> props = <span class="hljs-keyword">this</span>.props;
+    <span class="hljs-keyword">const</span> {date} = <span class="hljs-keyword">this</span>.state;
 
     <span class="hljs-keyword">const</span> inlinePickers = (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">MDatePicker</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-content</span>'} <span class="hljs-attribute">prefixCls</span>=<span class="hljs-value">{props.prefixCls}</span>
-        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{this.state.date}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
-        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2015-10-5</span> <span class="hljs-attribute">18:20</span>')} <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2016-3-3</span>')} /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">DatePicker</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{date}</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-content</span>'} <span class="hljs-attribute">prefixCls</span>=<span class="hljs-value">{props.prefixCls}</span>
+                  <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
 
     const popPicker = (<span class="hljs-tag">&lt;<span class="hljs-title">Modal</span> <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.modalVisible}</span> <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>&gt;</span>
@@ -329,13 +332,12 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-item</span>'}&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-item</span>'} <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOk}</span>&gt;</span>完成<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">MDatePicker</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-content</span>'} <span class="hljs-attribute">prefixCls</span>=<span class="hljs-value">{props.prefixCls}</span>
-        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{this.state.date}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
-        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2015-10-5</span> <span class="hljs-attribute">18:20</span>')} <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2016-3-3</span>')} /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">DatePicker</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{date}</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-content</span>'} <span class="hljs-attribute">prefixCls</span>=<span class="hljs-value">{props.prefixCls}</span>
+                  <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">Modal</span>&gt;</span>);
 
     return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>您选择的日期是：{this.state.sel}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>您选择的日期是：{date &amp;&amp; format(date)}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>{inlinePickers}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         {popPicker}
