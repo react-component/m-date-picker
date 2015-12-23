@@ -27,7 +27,7 @@ webpackJsonp([0,1],[
 	
 	var _rmcDatePicker2 = _interopRequireDefault(_rmcDatePicker);
 	
-	var _rmcModal = __webpack_require__(181);
+	var _rmcModal = __webpack_require__(182);
 	
 	var _rmcModal2 = _interopRequireDefault(_rmcModal);
 	
@@ -50,12 +50,13 @@ webpackJsonp([0,1],[
 	      prefixCls: 'rmc-modal',
 	      modalPrefixCls: 'rmc-modal',
 	      mode: 'datetime',
-	      locale: __webpack_require__(178)
+	      locale: __webpack_require__(179)
 	    };
 	  },
 	  // timeZoneOffset: -480, // better not to set. because locale object include it.
 	  getInitialState: function getInitialState() {
 	    return {
+	      date: Date.now(),
 	      sel: '',
 	      modalVisible: false
 	    };
@@ -68,7 +69,10 @@ webpackJsonp([0,1],[
 	  },
 	  onDateChange: function onDateChange(value, info) {
 	    console.log(value);
-	    this.setState({ sel: info.formatDate });
+	    this.setState({
+	      date: value,
+	      sel: info.formatDate
+	    });
 	  },
 	  setVisibleState: function setVisibleState(visible) {
 	    this.setState({
@@ -82,7 +86,7 @@ webpackJsonp([0,1],[
 	      'div',
 	      null,
 	      _react2['default'].createElement(_rmcDatePicker2['default'], { className: props.modalPrefixCls + '-content', prefixCls: props.prefixCls,
-	        mode: props.mode, locale: props.locale, onDateChange: this.onDateChange,
+	        mode: props.mode, locale: props.locale, date: this.state.date, onDateChange: this.onDateChange,
 	        minDate: new Date('2015-10-5 18:20'), maxDate: new Date('2016-3-3') })
 	    );
 	
@@ -105,7 +109,7 @@ webpackJsonp([0,1],[
 	        )
 	      ),
 	      _react2['default'].createElement(_rmcDatePicker2['default'], { className: props.modalPrefixCls + '-content', prefixCls: props.prefixCls,
-	        mode: props.mode, locale: props.locale, onDateChange: this.onDateChange,
+	        mode: props.mode, locale: props.locale, date: this.state.date, onDateChange: this.onDateChange,
 	        minDate: new Date('2015-10-5 18:20'), maxDate: new Date('2016-3-3') })
 	    );
 	
@@ -232,21 +236,21 @@ webpackJsonp([0,1],[
 	
 	var _rmcPicker2 = _interopRequireDefault(_rmcPicker);
 	
-	var _gregorianCalendar = __webpack_require__(171);
+	var _gregorianCalendar = __webpack_require__(172);
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _gregorianCalendarFormat = __webpack_require__(175);
+	var _gregorianCalendarFormat = __webpack_require__(176);
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
 	// import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
 	
-	var _localeZh_CN = __webpack_require__(178);
+	var _localeZh_CN = __webpack_require__(179);
 	
 	var _localeZh_CN2 = _interopRequireDefault(_localeZh_CN);
 	
-	var _util = __webpack_require__(180);
+	var _util = __webpack_require__(181);
 	
 	var mode = {
 	  datetime: 'datetime',
@@ -444,7 +448,7 @@ webpackJsonp([0,1],[
 	    this.minDateMinute = minDate.getMinutes();
 	    this.maxDateMinute = maxDate.getMinutes();
 	
-	    var newVal = this.value ? [].concat(_toConsumableArray(this.value)) : [defaultDate.getYear(), defaultDate.getMonth() + 1, defaultDate.getDayOfMonth(), defaultDate.getHourOfDay(), defaultDate.getMinutes()];
+	    var newVal = [defaultDate.getYear(), defaultDate.getMonth() + 1, defaultDate.getDayOfMonth(), defaultDate.getHourOfDay(), defaultDate.getMinutes()];
 	    var dataSource = [];
 	    if (props.mode === mode.datetime || props.mode === mode.date) {
 	      dataSource = [].concat(_toConsumableArray(this.getDateData(newVal[0], newVal[1])));
@@ -452,7 +456,7 @@ webpackJsonp([0,1],[
 	        dataSource = dataSource.concat(this.getTimeData(mode.datetime, newVal));
 	      }
 	    } else {
-	      newVal = this.value ? [].concat(_toConsumableArray(this.value)) : [defaultDate.getHourOfDay(), defaultDate.getMinutes()];
+	      newVal = [defaultDate.getHourOfDay(), defaultDate.getMinutes()];
 	      dataSource = this.getTimeData(mode.time, newVal);
 	    }
 	
@@ -470,7 +474,13 @@ webpackJsonp([0,1],[
 	        return _react2['default'].createElement(
 	          'div',
 	          { key: i, className: props.prefixCls + '-item' },
-	          _react2['default'].createElement(_rmcPicker2['default'], { data: item, selectedValue: newVal[i], onValueChange: _this.onValueChange.bind(_this, i) })
+	          _react2['default'].createElement(
+	            _rmcPicker2['default'],
+	            { selectedValue: newVal[i], onValueChange: _this.onValueChange.bind(_this, i) },
+	            item.map(function (it, ii) {
+	              return _react2['default'].createElement(_rmcPicker.PickerItem, { key: ii, value: it.value, name: it.name });
+	            })
+	          )
 	        );
 	      })
 	    );
@@ -20129,6 +20139,11 @@ webpackJsonp([0,1],[
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
+	var _PickerItem = __webpack_require__(171);
+	
+	var _PickerItem2 = _interopRequireDefault(_PickerItem);
+	
+	_Picker2['default'].PickerItem = _PickerItem2['default'];
 	exports['default'] = _Picker2['default'];
 	module.exports = exports['default'];
 
@@ -20162,28 +20177,15 @@ webpackJsonp([0,1],[
 	
 	var _iscroll2 = _interopRequireDefault(_iscroll);
 	
-	// compare two object,  props.data with nextProps.data
-	// data: [{value: '1', name: '1x'}, {value: '2', name: '2x'}...]
-	function isEqual(preData, data) {
-	  if (preData.length !== data.length) {
-	    return false;
-	  }
-	  var equal = data.every(function (item, index) {
-	    return item.value === preData[index].value && item.name === preData[index].name;
-	  });
-	  if (!equal) {
-	    return false;
-	  }
-	  return true;
-	}
-	// console.log(isEqual([{value: '1', name: '1x'}, {value: '2', name: '2x'}], [{value: '1', name: '1x'}]));
+	var _PickerItem = __webpack_require__(171);
+	
+	var _PickerItem2 = _interopRequireDefault(_PickerItem);
 	
 	var Picker = _react2['default'].createClass({
 	  displayName: 'Picker',
 	
 	  propTypes: {
 	    prefixCls: _react2['default'].PropTypes.string,
-	    data: _react2['default'].PropTypes.array,
 	    onValueChange: _react2['default'].PropTypes.func,
 	    selectedValue: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
 	    heightOfItem: _react2['default'].PropTypes.number
@@ -20197,12 +20199,6 @@ webpackJsonp([0,1],[
 	  // scroller's list item's height, should be a constant value
 	  componentDidMount: function componentDidMount() {
 	    this.componentDidUpdate();
-	  },
-	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	    if (isEqual(this.props.data, nextProps.data) && this.iscroll) {
-	      return false;
-	    }
-	    return true;
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    var _this = this;
@@ -20240,7 +20236,7 @@ webpackJsonp([0,1],[
 	      });
 	    }
 	    if (this.props.onValueChange && index !== undefined) {
-	      this.props.onValueChange(this.data[index]);
+	      this.props.onValueChange(this.userData[index]);
 	    }
 	  },
 	  initScroller: function initScroller() {
@@ -20258,19 +20254,24 @@ webpackJsonp([0,1],[
 	    var props = this.props;
 	    var prefixCls = props.prefixCls;
 	
-	    var data = [].concat(_toConsumableArray(props.data));
-	    this.data = data;
 	    // 前后补三个空元素，页面展示需要
 	    var temp = [0, 1, 2].map(function () {
 	      return { value: '', name: '' };
 	    });
 	    var len = temp.length;
-	    data = [].concat(_toConsumableArray(temp), _toConsumableArray(data), _toConsumableArray(temp));
+	
+	    this.userData = [];
+	    _react2['default'].Children.forEach(props.children, function (child) {
+	      if (child.type === _PickerItem2['default']) {
+	        _this3.userData.push({ value: child.props.value, name: child.props.name });
+	      }
+	    });
+	    var compositeData = [].concat(_toConsumableArray(temp), _toConsumableArray(this.userData), _toConsumableArray(temp));
 	
 	    // get default scroll position
 	    this.defaultScrollPosition = 0;
 	    if (props.selectedValue) {
-	      data.forEach(function (item, index) {
+	      compositeData.forEach(function (item, index) {
 	        if (item.value === props.selectedValue) {
 	          _this3.defaultScrollPosition = index - len;
 	        }
@@ -20286,7 +20287,7 @@ webpackJsonp([0,1],[
 	      _react2['default'].createElement(
 	        'div',
 	        { ref: 'iscroll_scroller', className: prefixCls + '-scroller' },
-	        data.map(function (item, index) {
+	        compositeData.map(function (item, index) {
 	          return _react2['default'].createElement(
 	            'div',
 	            { key: index, className: prefixCls + '-scroller-item',
@@ -22333,6 +22334,31 @@ webpackJsonp([0,1],[
 /* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(9);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var PickerItem = _react2['default'].createClass({
+	  displayName: 'PickerItem',
+	
+	  render: function render() {}
+	});
+	
+	exports['default'] = PickerItem;
+	module.exports = exports['default'];
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	 * GregorianCalendar class
 	 * @ignore
@@ -22341,9 +22367,9 @@ webpackJsonp([0,1],[
 	'use strict';
 	
 	var toInt = parseInt;
-	var Utils = __webpack_require__(172);
-	var defaultLocale = __webpack_require__(174);
-	var Const = __webpack_require__(173);
+	var Utils = __webpack_require__(173);
+	var defaultLocale = __webpack_require__(175);
+	var Const = __webpack_require__(174);
 	
 	/*
 	 * GregorianCalendar class.
@@ -23662,7 +23688,7 @@ webpackJsonp([0,1],[
 	 */
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -23673,7 +23699,7 @@ webpackJsonp([0,1],[
 	
 	'use strict';
 	
-	var Const = __webpack_require__(173);
+	var Const = __webpack_require__(174);
 	var floor = Math.floor;
 	var ACCUMULATED_DAYS_IN_MONTH
 	//   1/1 2/1 3/1 4/1 5/1 6/1 7/1 8/1 9/1 10/1 11/1 12/1
@@ -23798,7 +23824,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports) {
 
 	/*
@@ -23927,7 +23953,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports) {
 
 	/*
@@ -23945,7 +23971,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23957,10 +23983,10 @@ webpackJsonp([0,1],[
 	
 	'use strict';
 	
-	var GregorianCalendar = __webpack_require__(171);
-	var enUsLocale = __webpack_require__(176);
+	var GregorianCalendar = __webpack_require__(172);
+	var enUsLocale = __webpack_require__(177);
 	var MAX_VALUE = Number.MAX_VALUE;
-	var warning = __webpack_require__(177);
+	var warning = __webpack_require__(178);
 	
 	/**
 	 * date or time style enum
@@ -24775,7 +24801,7 @@ webpackJsonp([0,1],[
 	// gc_format@163.com
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24794,7 +24820,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24861,7 +24887,7 @@ webpackJsonp([0,1],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24872,7 +24898,7 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(179);
+	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(180);
 	
 	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
 	
@@ -24887,7 +24913,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/*
@@ -24905,7 +24931,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24929,26 +24955,6 @@ webpackJsonp([0,1],[
 	}
 
 /***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// export this package's api
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _web = __webpack_require__(182);
-	
-	var _web2 = _interopRequireDefault(_web);
-	
-	exports['default'] = _web2['default'];
-	module.exports = exports['default'];
-
-/***/ },
 /* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24961,7 +24967,27 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _Modal = __webpack_require__(183);
+	var _web = __webpack_require__(183);
+	
+	var _web2 = _interopRequireDefault(_web);
+	
+	exports['default'] = _web2['default'];
+	module.exports = exports['default'];
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// export this package's api
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _Modal = __webpack_require__(184);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
 	
@@ -24969,7 +24995,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

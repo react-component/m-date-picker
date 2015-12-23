@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-date-picker@0.3.1</title>
+  <title>simple.js - example - rmc-date-picker@0.3.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-date-picker@0.3.1</h1>
+    <h1>rmc-date-picker@0.3.2</h1>
 
     <p>m-date-picker ui component for react</p>
   </div>
@@ -291,6 +291,7 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
   },
   getInitialState() {
     <span class="hljs-keyword">return</span> {
+      date: <span class="hljs-built_in">Date</span>.now(),
       sel: <span class="hljs-string">''</span>,
       modalVisible: <span class="hljs-literal">false</span>,
     };
@@ -303,7 +304,10 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
   },
   onDateChange(value, info) {
     <span class="hljs-built_in">console</span>.log(value);
-    <span class="hljs-keyword">this</span>.setState({sel: info.formatDate});
+    <span class="hljs-keyword">this</span>.setState({
+      date: value,
+      sel: info.formatDate,
+    });
   },
   setVisibleState(visible) {
     <span class="hljs-keyword">this</span>.setState({
@@ -315,9 +319,8 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
 
     <span class="hljs-keyword">const</span> inlinePickers = (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">MDatePicker</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-content</span>'} <span class="hljs-attribute">prefixCls</span>=<span class="hljs-value">{props.prefixCls}</span>
-        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
-        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2015-10-5</span> <span class="hljs-attribute">18:20</span>')} <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2016-3-3</span>')}&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">MDatePicker</span>&gt;</span>
+        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{this.state.date}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
+        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2015-10-5</span> <span class="hljs-attribute">18:20</span>')} <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2016-3-3</span>')} /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
 
     const popPicker = (<span class="hljs-tag">&lt;<span class="hljs-title">Modal</span> <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.modalVisible}</span> <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>&gt;</span>
@@ -327,9 +330,8 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-item</span>'} <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onOk}</span>&gt;</span>完成<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">MDatePicker</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">{props.modalPrefixCls</span> + '<span class="hljs-attribute">-content</span>'} <span class="hljs-attribute">prefixCls</span>=<span class="hljs-value">{props.prefixCls}</span>
-        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
-        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2015-10-5</span> <span class="hljs-attribute">18:20</span>')} <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2016-3-3</span>')}&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">MDatePicker</span>&gt;</span>
+        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{this.state.date}</span> <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
+        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2015-10-5</span> <span class="hljs-attribute">18:20</span>')} <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{new</span> <span class="hljs-attribute">Date</span>('<span class="hljs-attribute">2016-3-3</span>')} /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">Modal</span>&gt;</span>);
 
     return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
