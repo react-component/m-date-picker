@@ -25,6 +25,7 @@ const Demo = React.createClass({
   },
   getInitialState() {
     return {
+      date: Date.now(),
       sel: '',
       modalVisible: false,
     };
@@ -37,7 +38,10 @@ const Demo = React.createClass({
   },
   onDateChange(value, info) {
     console.log(value);
-    this.setState({sel: info.formatDate});
+    this.setState({
+      date: value,
+      sel: info.formatDate,
+    });
   },
   setVisibleState(visible) {
     this.setState({
@@ -49,9 +53,8 @@ const Demo = React.createClass({
 
     const inlinePickers = (<div>
       <MDatePicker className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
-        mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}
-        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')}>
-      </MDatePicker>
+        mode={props.mode} locale={props.locale} date={this.state.date} onDateChange={this.onDateChange}
+        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')} />
     </div>);
 
     const popPicker = (<Modal visible={this.state.modalVisible} onDismiss={this.onDismiss}>
@@ -61,9 +64,8 @@ const Demo = React.createClass({
         <div className={props.modalPrefixCls + '-item'} onClick={this.onOk}>完成</div>
       </div>
       <MDatePicker className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
-        mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}
-        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')}>
-      </MDatePicker>
+        mode={props.mode} locale={props.locale} date={this.state.date} onDateChange={this.onDateChange}
+        minDate={new Date('2015-10-5 18:20')} maxDate={new Date('2016-3-3')} />
     </Modal>);
 
     return (<div style={{margin: '10px 30px'}}>

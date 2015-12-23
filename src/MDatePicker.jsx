@@ -1,7 +1,7 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import Picker from 'rmc-picker';
+import Picker, { PickerItem } from 'rmc-picker';
 import GregorianCalendar from 'gregorian-calendar';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
 // import GregorianCalendarFormatCn from 'gregorian-calendar/lib/locale/zh_CN';
@@ -156,7 +156,7 @@ const MDatePicker = React.createClass({
     return [hours, minutes];
   },
   newGregorianCalendar(d) {
-    let date = new GregorianCalendar(this.props.locale.format);
+    const date = new GregorianCalendar(this.props.locale.format);
     // date.setTime(invalidDate(+new Date(d)));
     date.setTime(invalidDate(new Date(d).getTime())); // e.g +new Date('2003-23') is invalid Date
     if (('timeZoneOffset' in this.props) && typeof this.props.timeZoneOffset === 'number') {
@@ -200,7 +200,7 @@ const MDatePicker = React.createClass({
     this.minDateMinute = minDate.getMinutes();
     this.maxDateMinute = maxDate.getMinutes();
 
-    let newVal = this.value ? [...this.value] : [
+    let newVal = [
       defaultDate.getYear(),
       defaultDate.getMonth() + 1,
       defaultDate.getDayOfMonth(),
@@ -214,7 +214,7 @@ const MDatePicker = React.createClass({
         dataSource = dataSource.concat(this.getTimeData(mode.datetime, newVal));
       }
     } else {
-      newVal = this.value ? [...this.value] : [defaultDate.getHourOfDay(), defaultDate.getMinutes()];
+      newVal = [defaultDate.getHourOfDay(), defaultDate.getMinutes()];
       dataSource = this.getTimeData(mode.time, newVal);
     }
 
@@ -228,7 +228,11 @@ const MDatePicker = React.createClass({
     return (<div className={classNames(props.className)}>
       {dataSource.map((item, i) => {
         return (<div key={i} className={`${props.prefixCls}-item`}>
-          <Picker data={item} selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)} />
+          <Picker selectedValue={newVal[i]} onValueChange={this.onValueChange.bind(this, i)}>
+            {item.map((it, ii) => {
+              return <PickerItem key={ii} value={it.value} name={it.name} />;
+            })}
+          </Picker>
         </div>);
       })}
     </div>);
