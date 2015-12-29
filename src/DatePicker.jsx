@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Picker, {Item as PickerItem} from 'rmc-picker';
+import Picker from 'rmc-picker';
 import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
 import classnames from 'classnames';
@@ -167,7 +167,7 @@ const DatePicker = React.createClass({
     for (let i = minDateYear; i <= maxDateYear; i++) {
       years.push({
         value: i,
-        name: i + locale.year,
+        label: i + locale.year,
       });
     }
 
@@ -181,7 +181,7 @@ const DatePicker = React.createClass({
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      months.push({value: i, name: i + locale.month});
+      months.push({value: i, label: i + locale.month});
     }
 
     const days = [];
@@ -197,7 +197,7 @@ const DatePicker = React.createClass({
     for (let i = minDay; i <= maxDay; i++) {
       days.push({
         value: i,
-        name: i + locale.day,
+        label: i + locale.day,
       });
     }
     return [years, months, days];
@@ -255,7 +255,7 @@ const DatePicker = React.createClass({
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i,
-        name: i + locale.hour,
+        label: i + locale.hour,
       });
     }
 
@@ -263,18 +263,13 @@ const DatePicker = React.createClass({
     for (let i = minMinute; i <= maxMinute; i++) {
       minutes.push({
         value: i,
-        name: i + locale.minute,
+        label: i + locale.minute,
       });
     }
     return [hours, minutes];
   },
   getGregorianCalendar() {
     return new GregorianCalendar(this.props.locale.calendar);
-  },
-  getPickerItems(items) {
-    return items.map((i)=> {
-      return <PickerItem key={i.value} label={i.name} value={i.value}/>;
-    });
   },
   render() {
     const props = this.props;
@@ -295,9 +290,10 @@ const DatePicker = React.createClass({
     const inner = dataSource.map((items, i) => {
       return (<div key={i} className={`${prefixCls}-item`}>
         <Picker prefixCls={pickerPrefixCls}
+                pure={false}
                 selectedValue={value[i]}
                 onValueChange={this.onValueChange.bind(this, i)}>
-          {this.getPickerItems(items)}
+          {items}
         </Picker>
       </div>);
     });

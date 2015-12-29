@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "m-date-picker ui component for react",
   "keywords": [
     "react",
@@ -54,6 +54,6 @@
   "dependencies": {
     "classnames": "^2.2.1",
     "gregorian-calendar": "4.x",
-    "rmc-picker": "1.x"
+    "rmc-picker": "^2.0.0"
   }
 }

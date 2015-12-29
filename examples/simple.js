@@ -57,18 +57,18 @@ const Demo = React.createClass({
 
     const inlinePickers = (<div>
       <DatePicker date={date} className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
-                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange} />
+                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}/>
     </div>);
 
-    const popPicker = (<Modal visible={this.state.modalVisible} onDismiss={this.onDismiss}>
+    const popPicker = this.state.modalVisible ? (<Modal visible onDismiss={this.onDismiss}>
       <div className={props.modalPrefixCls + '-header'}>
         <div className={props.modalPrefixCls + '-item'} onClick={this.setVisibleState.bind(this, false)}>取消</div>
         <div className={props.modalPrefixCls + '-item'}></div>
         <div className={props.modalPrefixCls + '-item'} onClick={this.onOk}>完成</div>
       </div>
       <DatePicker date={date} className={props.modalPrefixCls + '-content'} prefixCls={props.prefixCls}
-                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange} />
-    </Modal>);
+                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}/>
+    </Modal>) : null;
 
     return (<div style={{margin: '10px 30px'}}>
       <p>您选择的日期是：{date && format(date)}</p>

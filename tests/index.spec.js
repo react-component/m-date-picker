@@ -44,13 +44,13 @@ describe('m-date-picker', ()=> {
   });
 
   it('render works', () => {
-    const wrappers = rootDom.find('.rmc-picker-scroller-wrapper');
+    const wrappers = rootDom.find('.rmc-picker');
     expect(wrappers.length).to.be(5);
     const indicators = map$(wrappers, (n) => {
-      return n.find('.rmc-picker-scroller-indicator')[0];
+      return n.find('.rmc-picker-indicator')[0];
     });
     const scrollItems = map$(wrappers, (m) => {
-      return m.find('.rmc-picker-scroller-item');
+      return m.find('.rmc-picker-item');
     });
 
     const yearEl = scrollItems[0].filter(function filter() {
