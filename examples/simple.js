@@ -27,7 +27,7 @@ webpackJsonp([0,1],[
 	
 	var _rmcDatePicker2 = _interopRequireDefault(_rmcDatePicker);
 	
-	var _rmcModal = __webpack_require__(176);
+	var _rmcModal = __webpack_require__(175);
 	
 	var _rmcModal2 = _interopRequireDefault(_rmcModal);
 	
@@ -43,7 +43,7 @@ webpackJsonp([0,1],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(167);
+	var _reactDom = __webpack_require__(178);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -99,9 +99,9 @@ webpackJsonp([0,1],[
 	        mode: props.mode, locale: props.locale, onDateChange: this.onDateChange })
 	    );
 	
-	    var popPicker = _react2['default'].createElement(
+	    var popPicker = this.state.modalVisible ? _react2['default'].createElement(
 	      _rmcModal2['default'],
-	      { visible: this.state.modalVisible, onDismiss: this.onDismiss },
+	      { visible: true, onDismiss: this.onDismiss },
 	      _react2['default'].createElement(
 	        'div',
 	        { className: props.modalPrefixCls + '-header' },
@@ -119,7 +119,7 @@ webpackJsonp([0,1],[
 	      ),
 	      _react2['default'].createElement(_rmcDatePicker2['default'], { date: date, className: props.modalPrefixCls + '-content', prefixCls: props.prefixCls,
 	        mode: props.mode, locale: props.locale, onDateChange: this.onDateChange })
-	    );
+	    ) : null;
 	
 	    return _react2['default'].createElement(
 	      'div',
@@ -217,15 +217,15 @@ webpackJsonp([0,1],[
 	
 	var _rmcPicker2 = _interopRequireDefault(_rmcPicker);
 	
-	var _gregorianCalendar = __webpack_require__(171);
+	var _gregorianCalendar = __webpack_require__(170);
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _localeEn_US = __webpack_require__(175);
+	var _localeEn_US = __webpack_require__(174);
 	
 	var _localeEn_US2 = _interopRequireDefault(_localeEn_US);
 	
-	var _classnames = __webpack_require__(168);
+	var _classnames = __webpack_require__(167);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -20146,7 +20146,7 @@ webpackJsonp([0,1],[
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
-	var _PickerItem = __webpack_require__(170);
+	var _PickerItem = __webpack_require__(169);
 	
 	var _PickerItem2 = _interopRequireDefault(_PickerItem);
 	
@@ -20172,15 +20172,11 @@ webpackJsonp([0,1],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(167);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _classnames = __webpack_require__(168);
+	var _classnames = __webpack_require__(167);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _iscroll = __webpack_require__(169);
+	var _iscroll = __webpack_require__(168);
 	
 	var _iscroll2 = _interopRequireDefault(_iscroll);
 	
@@ -20209,6 +20205,7 @@ webpackJsonp([0,1],[
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      onValueChange: function onValueChange() {},
+	      children: [],
 	      prefixCls: 'rmc-picker'
 	    };
 	  },
@@ -20216,20 +20213,35 @@ webpackJsonp([0,1],[
 	    this.initScroller();
 	    this.positionScroll();
 	  },
-	  shouldComponentUpdate: function shouldComponentUpdate() {
-	    var thisDom = _reactDom2['default'].findDOMNode(this);
-	    // when parent element display none
-	    if (thisDom.offsetHeight <= 0 || thisDom.offsetWidth <= 0) {
-	      return false;
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	    var nextChildren = nextProps.children;
+	    var _props = this.props;
+	    var children = _props.children;
+	    var selectedValue = _props.selectedValue;
+	
+	    if (nextChildren.length !== children.length) {
+	      return true;
 	    }
-	    return true;
+	    for (var i = 0; i < nextChildren.length; i++) {
+	      var nextChild = nextChildren[i];
+	      var child = children[i];
+	      if (nextChild.value !== child.value || nextChild.label !== child.label) {
+	        return true;
+	      }
+	    }
+	    if (nextProps.selectedValue !== selectedValue) {
+	      this.positionScroll(nextProps);
+	    }
+	    return false;
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    this.iscroll.refresh();
 	    this.positionScroll();
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    this.iscroll.destroy();
+	    if (this.iscroll) {
+	      this.iscroll.destroy();
+	    }
 	    this.iscroll = null;
 	  },
 	  onScrollEnd: function onScrollEnd() {
@@ -20250,8 +20262,7 @@ webpackJsonp([0,1],[
 	  getValueByIndex: function getValueByIndex(index) {
 	    return this.props.children[index].props.value;
 	  },
-	  getScrollPosition: function getScrollPosition() {
-	    var props = this.props;
+	  getScrollPosition: function getScrollPosition(props) {
 	    if (!props.selectedValue) {
 	      return 0;
 	    }
@@ -20269,9 +20280,11 @@ webpackJsonp([0,1],[
 	    });
 	    this.iscroll.on('scrollEnd', this.onScrollEnd);
 	  },
-	  positionScroll: function positionScroll() {
+	  positionScroll: function positionScroll(props) {
+	    // pages[0] is ok!
+	    // console.log(this.props.children[0],this.iscroll.pages[0] && this.iscroll.pages[0].length)
 	    if (this.iscroll.pages[0]) {
-	      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition()].y);
+	      this.iscroll.scrollTo(0, this.iscroll.pages[0][this.getScrollPosition(props || this.props)].y);
 	    }
 	  },
 	  render: function render() {
@@ -20305,15 +20318,6 @@ webpackJsonp([0,1],[
 
 /***/ },
 /* 167 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(10);
-
-
-/***/ },
-/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -20367,7 +20371,7 @@ webpackJsonp([0,1],[
 
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports) {
 
 	/*! iScroll v5.1.3 ~ (c) 2008-2014 Matteo Spinelli ~ http://cubiq.org/license */
@@ -22383,7 +22387,7 @@ webpackJsonp([0,1],[
 	})(window, document, Math);
 
 /***/ },
-/* 170 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22408,7 +22412,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 171 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -22419,9 +22423,9 @@ webpackJsonp([0,1],[
 	'use strict';
 	
 	var toInt = parseInt;
-	var Utils = __webpack_require__(172);
-	var defaultLocale = __webpack_require__(174);
-	var Const = __webpack_require__(173);
+	var Utils = __webpack_require__(171);
+	var defaultLocale = __webpack_require__(173);
+	var Const = __webpack_require__(172);
 	
 	/*
 	 * GregorianCalendar class.
@@ -23756,7 +23760,7 @@ webpackJsonp([0,1],[
 	 */
 
 /***/ },
-/* 172 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -23767,7 +23771,7 @@ webpackJsonp([0,1],[
 	
 	'use strict';
 	
-	var Const = __webpack_require__(173);
+	var Const = __webpack_require__(172);
 	var floor = Math.floor;
 	var ACCUMULATED_DAYS_IN_MONTH
 	//   1/1 2/1 3/1 4/1 5/1 6/1 7/1 8/1 9/1 10/1 11/1 12/1
@@ -23892,7 +23896,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports) {
 
 	/*
@@ -24021,7 +24025,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 174 */
+/* 173 */
 /***/ function(module, exports) {
 
 	/*
@@ -24039,7 +24043,7 @@ webpackJsonp([0,1],[
 	};
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24050,7 +24054,7 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _gregorianCalendarLibLocaleEn_US = __webpack_require__(174);
+	var _gregorianCalendarLibLocaleEn_US = __webpack_require__(173);
 	
 	var _gregorianCalendarLibLocaleEn_US2 = _interopRequireDefault(_gregorianCalendarLibLocaleEn_US);
 	
@@ -24062,6 +24066,26 @@ webpackJsonp([0,1],[
 	  hour: '',
 	  minute: ''
 	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// export this package's api
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _web = __webpack_require__(176);
+	
+	var _web2 = _interopRequireDefault(_web);
+	
+	exports['default'] = _web2['default'];
 	module.exports = exports['default'];
 
 /***/ },
@@ -24077,27 +24101,7 @@ webpackJsonp([0,1],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _web = __webpack_require__(177);
-	
-	var _web2 = _interopRequireDefault(_web);
-	
-	exports['default'] = _web2['default'];
-	module.exports = exports['default'];
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// export this package's api
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _Modal = __webpack_require__(178);
+	var _Modal = __webpack_require__(177);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
 	
@@ -24105,7 +24109,7 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24122,11 +24126,11 @@ webpackJsonp([0,1],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(167);
+	var _reactDom = __webpack_require__(178);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _classnames = __webpack_require__(168);
+	var _classnames = __webpack_require__(167);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -24195,6 +24199,15 @@ webpackJsonp([0,1],[
 	module.exports = exports['default'];
 
 /***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(10);
+
+
+/***/ },
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24207,7 +24220,7 @@ webpackJsonp([0,1],[
 	
 	'use strict';
 	
-	var GregorianCalendar = __webpack_require__(171);
+	var GregorianCalendar = __webpack_require__(170);
 	var enUsLocale = __webpack_require__(180);
 	var MAX_VALUE = Number.MAX_VALUE;
 	var warning = __webpack_require__(181);
