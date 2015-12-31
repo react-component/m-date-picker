@@ -1,7 +1,7 @@
 # rmc-date-picker
 ---
 
-React MDatePicker Component
+React Mobile DatePicker Component
 
 
 [![NPM version][npm-image]][npm-url]
