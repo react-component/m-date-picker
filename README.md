@@ -58,7 +58,8 @@ see example
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | 'rmc-date-picker' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
-|date | The currently selected date. | GregorianCalendar | now |
+|defaultDate | default selected date. | GregorianCalendar | now |
+|date | The currently selected date. | GregorianCalendar |  |
 |onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | GregorianCalendar | 2000-1-1 |

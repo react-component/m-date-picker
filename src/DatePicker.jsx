@@ -19,6 +19,7 @@ const TIME = 'time';
 const DatePicker = React.createClass({
   propTypes: {
     date: PropTypes.object,
+    defaultDate: PropTypes.object,
     minDate: PropTypes.object,
     maxDate: PropTypes.object,
     mode: PropTypes.string,
@@ -43,7 +44,17 @@ const DatePicker = React.createClass({
     this.defaultMaxDate.set(2030, 1, 1, 0, 0, 0);
     this.now = this.getGregorianCalendar();
     this.now.setTime(Date.now());
-    return {};
+    return {
+      date: this.props.date || this.props.defaultDate,
+    };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if ('date' in nextProps) {
+      this.setState({
+        date: nextProps.date,
+      });
+    }
   },
 
   onValueChange(index, value) {
@@ -81,6 +92,11 @@ const DatePicker = React.createClass({
         break;
       }
     }
+    if (!('date' in this.props)) {
+      this.setState({
+        date: newValue,
+      });
+    }
     props.onDateChange(newValue);
   },
 
@@ -109,7 +125,7 @@ const DatePicker = React.createClass({
   },
 
   getDate() {
-    return this.props.date || this.getNow();
+    return this.state.date || this.getNow();
   },
 
   getMinYear() {

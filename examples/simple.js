@@ -7,7 +7,9 @@ import 'rmc-modal/assets/index.css';
 import DatePicker from 'rmc-date-picker';
 import Modal from 'rmc-modal';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
+import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
+import zhCnCalendar from 'gregorian-calendar/lib/locale/zh_CN';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -17,6 +19,9 @@ const formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarF
 function format(v) {
   return formatter.format(v);
 }
+
+const now = new GregorianCalendar(zhCnCalendar);
+now.setTime(Date.now());
 
 const Demo = React.createClass({
   propTypes: {
@@ -35,8 +40,15 @@ const Demo = React.createClass({
     };
   },
   onDateChange(date) {
-    console.log('onDateChange', date);
-    this.setState({date});
+    this.pickerDate = date;
+  },
+  onOk() {
+    const date = this.pickerDate || this.state.value || now;
+    this.setState({
+      date,
+    });
+    console.log('select', date);
+    this.hide();
   },
   setVisibleState(visible) {
     this.setState({
@@ -47,16 +59,12 @@ const Demo = React.createClass({
     this.setVisibleState(true);
   },
   hide() {
+    this.pickerDate = null;
     this.setVisibleState(false);
   },
   render() {
     const props = this.props;
     const {date} = this.state;
-
-    const inlinePickers = (<div>
-      <DatePicker date={date}
-                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}/>
-    </div>);
 
     const popPicker = this.state.modalVisible ? (<Modal
       style={{left: 0, bottom: 0}}
@@ -64,18 +72,19 @@ const Demo = React.createClass({
       <div className={'pop-picker-header'}>
         <div className={'pop-picker-item'} onClick={this.hide}>取消</div>
         <div className={'pop-picker-item'}></div>
-        <div className={'pop-picker-item'} onClick={this.hide}>完成</div>
+        <div className={'pop-picker-item'} onClick={this.onOk}>完成</div>
       </div>
-      <DatePicker date={date}
-                  mode={props.mode} locale={props.locale} onDateChange={this.onDateChange}/>
+      <DatePicker defaultDate={date || now}
+                  mode={props.mode}
+                  locale={props.locale}
+                  onDateChange={this.onDateChange}/>
     </Modal>) : null;
 
     return (<div style={{margin: '10px 30px'}}>
-      <p>您选择的日期是：{date && format(date)}</p>
-      <div>{inlinePickers}</div>
+      <h2>date picker</h2>
       <div>
         {popPicker}
-        <button onClick={this.show}>open picker</button>
+        <button onClick={this.show}>{date && format(date) || 'open'}</button>
       </div>
     </div>);
   },
