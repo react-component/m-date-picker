@@ -51,7 +51,7 @@ see example
 
 ## API
 
-### props
+### DatePicker props
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
@@ -62,9 +62,28 @@ see example
 |date | The currently selected date. | GregorianCalendar |  |
 |onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
-|minDate | min date | GregorianCalendar | 2000-1-1 |
+|minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
 |maxDate | max date | GregorianCalendar | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/zh_CN' |
+
+### PopPicker props
+
+| name     | description    | type     | default      |
+|----------|----------------|----------|--------------|
+|className | additional css class of root dom node | String | '' |
+|prefixCls | prefix class | String | 'rmc-date-picker' |
+|pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
+|date | The currently selected date. | GregorianCalendar |  |
+|onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
+|mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
+|minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
+|maxDate | max date | GregorianCalendar | 2030-1-1 |
+|locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/zh_CN' |
+|style | additional style | object | {} |
+|onOk | exec on ok | function |  |
+|onDismiss | exec on dismiss | function |  |
+|okText | ok button text | String | 'Ok' |
+|dismissText | dismiss button text | String | 'Dismiss' |
 
 
 ## Test Case

@@ -2,6 +2,8 @@
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.css';
+import 'rmc-date-picker/assets/PopPicker.css';
+import 'rmc-modal/assets/index.css';
 import DatePicker from 'rmc-date-picker';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
 import GregorianCalendar from 'gregorian-calendar';
@@ -9,6 +11,8 @@ import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
 import zhCnCalendar from 'gregorian-calendar/lib/locale/zh_CN';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+const PopPicker = DatePicker.PopPicker;
 
 const formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
   GregorianCalendarFormat.Style.FULL, zhCn);
@@ -35,23 +39,40 @@ const Demo = React.createClass({
       date: null,
     };
   },
-  onDateChange(date) {
+  onOk(date) {
     this.setState({
-      date,
+      date: date || now,
     });
+  },
+  show() {
+    console.log('my click');
+  },
+  onDismiss() {
+    console.log('onDismiss');
   },
   render() {
     const props = this.props;
     const {date} = this.state;
 
+    const getGregorianCalendar = () => new GregorianCalendar(this.props.locale.calendar);
+    const minDate = getGregorianCalendar();
+    minDate.set(2015, 1, 1, 0, 0, 0);
+    const maxDate = getGregorianCalendar();
+    maxDate.set(2018, 1, 1, 0, 0, 0);
+
     return (<div style={{margin: '10px 30px'}}>
       <h2>date picker</h2>
       <div>
-        <span>{date && format(date) || format(now)}</span>
-        <DatePicker defaultDate={date || now}
+        <PopPicker date={date || now} minDate={minDate} maxDate={maxDate}
             mode={props.mode}
             locale={props.locale}
-            onDateChange={this.onDateChange}/>
+            onDateChange={this.onDateChange}
+            onDismiss={this.onDismiss}
+            onOk={this.onOk}
+            style={{left: 0, bottom: 0}}
+            >
+            <button onClick={this.show}>{date && format(date) || 'open'}</button>
+        </PopPicker>
       </div>
     </div>);
   },
