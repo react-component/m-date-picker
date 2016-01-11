@@ -1,14 +1,12 @@
-webpackJsonp([1],{
-
-/***/ 0:
+webpackJsonp([0],[
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(205);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
-
-/***/ 205:
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint no-console:0 */
@@ -20,6 +18,10 @@ webpackJsonp([1],{
 	__webpack_require__(2);
 	
 	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"rmc-date-picker/assets/index.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	__webpack_require__(3);
+	
+	__webpack_require__(4);
 	
 	var _rmcDatePicker = __webpack_require__(5);
 	
@@ -49,6 +51,8 @@ webpackJsonp([1],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var PopPicker = _rmcDatePicker2['default'].PopPicker;
+	
 	var formatter = _gregorianCalendarFormat2['default'].getDateTimeInstance(_gregorianCalendarFormat2['default'].Style.FULL, _gregorianCalendarFormat2['default'].Style.FULL, _gregorianCalendarFormatLibLocaleZh_CN2['default']);
 	
 	function format(v) {
@@ -75,14 +79,30 @@ webpackJsonp([1],{
 	      date: null
 	    };
 	  },
-	  onDateChange: function onDateChange(date) {
+	  onOk: function onOk(date) {
 	    this.setState({
-	      date: date
+	      date: date || now
 	    });
 	  },
+	  show: function show() {
+	    console.log('my click');
+	  },
+	  onDismiss: function onDismiss() {
+	    console.log('onDismiss');
+	  },
 	  render: function render() {
+	    var _this = this;
+	
 	    var props = this.props;
 	    var date = this.state.date;
+	
+	    var getGregorianCalendar = function getGregorianCalendar() {
+	      return new _gregorianCalendar2['default'](_this.props.locale.calendar);
+	    };
+	    var minDate = getGregorianCalendar();
+	    minDate.set(2015, 1, 1, 0, 0, 0);
+	    var maxDate = getGregorianCalendar();
+	    maxDate.set(2018, 1, 1, 0, 0, 0);
 	
 	    return _react2['default'].createElement(
 	      'div',
@@ -96,14 +116,21 @@ webpackJsonp([1],{
 	        'div',
 	        null,
 	        _react2['default'].createElement(
-	          'span',
-	          null,
-	          date && format(date) || format(now)
-	        ),
-	        _react2['default'].createElement(_rmcDatePicker2['default'], { defaultDate: date || now,
-	          mode: props.mode,
-	          locale: props.locale,
-	          onDateChange: this.onDateChange })
+	          PopPicker,
+	          { date: date || now, minDate: minDate, maxDate: maxDate,
+	            mode: props.mode,
+	            locale: props.locale,
+	            onDateChange: this.onDateChange,
+	            onDismiss: this.onDismiss,
+	            onOk: this.onOk,
+	            style: { left: 0, bottom: 0 }
+	          },
+	          _react2['default'].createElement(
+	            'button',
+	            { onClick: this.show },
+	            date && format(date) || 'open'
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -111,7 +138,19 @@ webpackJsonp([1],{
 	
 	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
 
-/***/ }
+/***/ },
+/* 2 */,
+/* 3 */
+/***/ function(module, exports) {
 
-});
-//# sourceMappingURL=simple.js.map
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }
+]);
+//# sourceMappingURL=pop.js.map

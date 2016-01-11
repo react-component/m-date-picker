@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-date-picker@1.4.0</title>
+  <title>pop.js - example - rmc-date-picker@1.4.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -251,7 +251,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="pop.css" /><link rel="stylesheet" href="common.css" />
 </head>
 
 <body>
@@ -263,11 +263,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
-  <script src="simple.js?nowrap"></script>
+  <script src="pop.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0 */</span>
 
 import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 import <span class="hljs-string">'rmc-date-picker/assets/index.css'</span>;
+import <span class="hljs-string">'rmc-date-picker/assets/PopPicker.css'</span>;
+import <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
 import DatePicker from <span class="hljs-string">'rmc-date-picker'</span>;
 import GregorianCalendarFormat from <span class="hljs-string">'gregorian-calendar-format'</span>;
 import GregorianCalendar from <span class="hljs-string">'gregorian-calendar'</span>;
@@ -275,6 +277,8 @@ import zhCn from <span class="hljs-string">'gregorian-calendar-format/lib/locale
 import zhCnCalendar from <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
 import React from <span class="hljs-string">'react'</span>;
 import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+
+<span class="hljs-keyword">const</span> PopPicker = DatePicker.PopPicker;
 
 <span class="hljs-keyword">const</span> formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
   GregorianCalendarFormat.Style.FULL, zhCn);
@@ -301,23 +305,40 @@ now.setTime(<span class="hljs-built_in">Date</span>.now());
       date: <span class="hljs-literal">null</span>,
     };
   },
-  onDateChange(date) {
+  onOk(date) {
     <span class="hljs-keyword">this</span>.setState({
-      date,
+      date: date || now,
     });
+  },
+  show() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'my click'</span>);
+  },
+  onDismiss() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
   },
   render() {
     <span class="hljs-keyword">const</span> props = <span class="hljs-keyword">this</span>.props;
     <span class="hljs-keyword">const</span> {date} = <span class="hljs-keyword">this</span>.state;
 
+    <span class="hljs-keyword">const</span> getGregorianCalendar = () =&gt; <span class="hljs-keyword">new</span> GregorianCalendar(<span class="hljs-keyword">this</span>.props.locale.calendar);
+    <span class="hljs-keyword">const</span> minDate = getGregorianCalendar();
+    minDate.set(<span class="hljs-number">2015</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">const</span> maxDate = getGregorianCalendar();
+    maxDate.set(<span class="hljs-number">2018</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>'}}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>date picker<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{date &amp;&amp; format(date) || format(now)}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">DatePicker</span> <span class="hljs-attribute">defaultDate</span>=<span class="hljs-value">{date</span> || <span class="hljs-attribute">now</span>}
+        <span class="hljs-tag">&lt;<span class="hljs-title">PopPicker</span> <span class="hljs-attribute">date</span>=<span class="hljs-value">{date</span> || <span class="hljs-attribute">now</span>} <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{minDate}</span> <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{maxDate}</span>
             <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span>
             <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
-            <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>/&gt;</span>
+            <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
+            <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
+            <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span>
+            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}}
+            &gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.show}</span>&gt;</span>{date &amp;&amp; format(date) || 'open'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">PopPicker</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
   },
