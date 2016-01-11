@@ -1,8 +1,8 @@
 /* eslint no-console:0 */
 
 import 'rmc-picker/assets/index.css';
-import 'rmc-date-picker/assets/index.css';
-import 'rmc-date-picker/assets/PopPicker.css';
+import 'rmc-date-picker/assets/index.less';
+import 'rmc-date-picker/assets/PopPicker.less';
 import 'rmc-modal/assets/index.css';
 import DatePicker from 'rmc-date-picker';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
