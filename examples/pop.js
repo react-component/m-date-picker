@@ -17,37 +17,37 @@ webpackJsonp([0],[
 	
 	__webpack_require__(2);
 	
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"rmc-date-picker/assets/index.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"rmc-date-picker/assets/PopPicker.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	
 	__webpack_require__(3);
 	
-	var _rmcDatePicker = __webpack_require__(4);
+	__webpack_require__(4);
+	
+	__webpack_require__(5);
+	
+	var _rmcDatePicker = __webpack_require__(6);
 	
 	var _rmcDatePicker2 = _interopRequireDefault(_rmcDatePicker);
 	
-	var _gregorianCalendarFormat = __webpack_require__(198);
+	var _gregorianCalendarFormat = __webpack_require__(200);
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
-	var _gregorianCalendar = __webpack_require__(166);
+	var _gregorianCalendar = __webpack_require__(168);
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(201);
+	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(203);
 	
 	var _gregorianCalendarFormatLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleZh_CN);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(202);
+	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(204);
 	
 	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
 	
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(8);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(173);
+	var _reactDom = __webpack_require__(175);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -71,7 +71,7 @@ webpackJsonp([0],[
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      mode: 'datetime',
-	      locale: __webpack_require__(203)
+	      locale: __webpack_require__(205)
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -140,7 +140,14 @@ webpackJsonp([0],[
 
 /***/ },
 /* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
