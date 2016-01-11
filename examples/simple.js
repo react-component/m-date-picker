@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(206);
+	module.exports = __webpack_require__(183);
 
 
 /***/ },
 
-/***/ 206:
+/***/ 183:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint no-console:0 */
@@ -21,31 +21,31 @@ webpackJsonp([1],{
 	
 	__webpack_require__(3);
 	
-	var _rmcDatePicker = __webpack_require__(6);
+	var _rmcDatePicker = __webpack_require__(184);
 	
 	var _rmcDatePicker2 = _interopRequireDefault(_rmcDatePicker);
 	
-	var _gregorianCalendarFormat = __webpack_require__(200);
+	var _gregorianCalendarFormat = __webpack_require__(6);
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
-	var _gregorianCalendar = __webpack_require__(168);
+	var _gregorianCalendar = __webpack_require__(7);
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(203);
+	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(14);
 	
 	var _gregorianCalendarFormatLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleZh_CN);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(204);
+	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(16);
 	
 	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
 	
-	var _react = __webpack_require__(8);
+	var _react = __webpack_require__(17);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(175);
+	var _reactDom = __webpack_require__(173);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -67,7 +67,7 @@ webpackJsonp([1],{
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      mode: 'datetime',
-	      locale: __webpack_require__(205)
+	      locale: __webpack_require__(15)
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -110,6 +110,27 @@ webpackJsonp([1],{
 	});
 	
 	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
+
+/***/ },
+
+/***/ 184:
+/***/ function(module, exports, __webpack_require__) {
+
+	// export this package's api
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _srcDatePicker = __webpack_require__(175);
+	
+	var _srcDatePicker2 = _interopRequireDefault(_srcDatePicker);
+
+	exports['default'] = _srcDatePicker2['default'];
+	module.exports = exports['default'];
 
 /***/ }
 

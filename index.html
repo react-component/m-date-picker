@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-date-picker@1.4.0 - m-date-picker ui component for react</title>
+  <title>rmc-date-picker@1.5.0 - m-date-picker ui component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,14 +737,14 @@
 
 <body>
 <div class="header">
-  <h1>rmc-date-picker@1.4.0</h1>
+  <h1>rmc-date-picker@1.5.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
   <div class="examples-body">
     <ul>
       
-      <li><a href="examples/pop.html">pop</a></li>
+      <li><a href="examples/popup.html">popup</a></li>
       
       <li><a href="examples/simple.html">simple</a></li>
       
@@ -836,11 +836,11 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>locale</td>
 <td>the locale of area</td>
 <td>Object</td>
-<td>import from &#39;rmc-date-picker/lib/locale/zh_CN&#39;</td>
+<td>import from &#39;rmc-date-picker/lib/locale/en_US&#39;</td>
 </tr>
 </tbody>
 </table>
-<h3>PopPicker props<a id="user-content-poppicker-props" name="poppicker-props" class="anchor" aria-hidden="true" href="#poppicker-props"><span class="octicon octicon-link"></span></a></h3><table>
+<h3>rmc-date-picker/lib/Popup props<a id="user-content-rmc-date-picker/lib/popup-props" name="rmc-date-picker/lib/popup-props" class="anchor" aria-hidden="true" href="#rmc-date-picker/lib/popup-props"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
 <tr>
 <th>name</th>
@@ -852,7 +852,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <tbody>
 <tr>
 <td>className</td>
-<td>additional css class of root dom node</td>
+<td>additional css class of modal node</td>
 <td>String</td>
 <td>&#39;&#39;</td>
 </tr>
@@ -861,6 +861,12 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>prefix class</td>
 <td>String</td>
 <td>&#39;rmc-date-picker&#39;</td>
+</tr>
+<tr>
+<td>modalPrefixCls</td>
+<td>prefix class</td>
+<td>String</td>
+<td>&#39;rmc-modal&#39;</td>
 </tr>
 <tr>
 <td>pickerPrefixCls</td>
@@ -902,7 +908,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>locale</td>
 <td>the locale of area</td>
 <td>Object</td>
-<td>import from &#39;rmc-date-picker/lib/locale/zh_CN&#39;</td>
+<td>import from &#39;rmc-date-picker/lib/locale/en_US&#39;</td>
 </tr>
 <tr>
 <td>style</td>
@@ -913,7 +919,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <tr>
 <td>onOk</td>
 <td>exec on ok</td>
-<td>function</td>
+<td>Function(date: GregorianCalendar)</td>
 <td></td>
 </tr>
 <tr>
@@ -933,6 +939,17 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>dismiss button text</td>
 <td>String</td>
 <td>&#39;Dismiss&#39;</td>
+</tr>
+<tr>
+<td>visible</td>
+<td>whether pop picker is visible</td>
+<td>Boolean</td>
+<td></td>
+</tr>
+<tr>
+<td>onVisibleChange</td>
+<td>called when pop picker visible change</td>
+<td>Function</td>
 </tr>
 </tbody>
 </table>
