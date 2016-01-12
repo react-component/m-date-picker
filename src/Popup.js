@@ -119,18 +119,15 @@ const PopupPicker = React.createClass({
     if (props.prefixCls) {
       dpProps.prefixCls = props.prefixCls;
     }
-    if (props.maxDate) {
-      dpProps.maxDate = props.maxDate;
-    }
     return (<ModalClass className={props.className}
                         modalPrefix={props.modalPrefix}
                         visible
                         style={props.style}
                         onDismiss={this.onDismiss}>
-      <div className={`${props.prefixCls}-pop-picker-header`}>
-        <div className={`${props.prefixCls}-pop-picker-item`} onClick={this.onDismiss}>{props.dismissText}</div>
-        <div className={`${props.prefixCls}-pop-picker-item`}></div>
-        <div className={`${props.prefixCls}-pop-picker-item`} onClick={this.onOk}>{props.okText}</div>
+      <div className={`${props.prefixCls}-popup-header`}>
+        <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
+        <div className={`${props.prefixCls}-popup-item`}></div>
+        <div className={`${props.prefixCls}-popup-item`} onClick={this.onOk}>{props.okText}</div>
       </div>
       <DatePicker date={this.state.pickerDate || props.date}
                   mode={props.mode}
