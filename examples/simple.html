@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-date-picker@1.5.0</title>
+  <title>simple.js - example - rmc-date-picker@1.5.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-date-picker@1.5.0</h1>
+    <h1>rmc-date-picker@1.5.1</h1>
 
     <p>m-date-picker ui component for react</p>
   </div>
@@ -266,20 +266,20 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="simple.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint no-console:0 */</span>
 
-import <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
-import <span class="hljs-string">'rmc-date-picker/assets/index.css'</span>;
-import DatePicker from <span class="hljs-string">'rmc-date-picker'</span>;
-import GregorianCalendarFormat from <span class="hljs-string">'gregorian-calendar-format'</span>;
-import GregorianCalendar from <span class="hljs-string">'gregorian-calendar'</span>;
-import zhCn from <span class="hljs-string">'gregorian-calendar-format/lib/locale/zh_CN'</span>;
-import zhCnCalendar from <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-date-picker/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> DatePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-date-picker'</span>;
+<span class="hljs-keyword">import</span> GregorianCalendarFormat <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar-format'</span>;
+<span class="hljs-keyword">import</span> GregorianCalendar <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar'</span>;
+<span class="hljs-keyword">import</span> zhCn <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar-format/lib/locale/zh_CN'</span>;
+<span class="hljs-keyword">import</span> zhCnCalendar <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar/lib/locale/zh_CN'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-keyword">const</span> formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
   GregorianCalendarFormat.Style.FULL, zhCn);
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">format</span><span class="hljs-params">(v)</span> </span>{
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">format</span>(<span class="hljs-params">v</span>) </span>{
   <span class="hljs-keyword">return</span> formatter.format(v);
 }
 
@@ -319,11 +319,11 @@ now.setTime(<span class="hljs-built_in">Date</span>.now());
             <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
             <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>/&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   },
 });
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/m-date-picker">
