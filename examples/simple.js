@@ -37,10 +37,6 @@ webpackJsonp([1],{
 	
 	var _gregorianCalendarFormatLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleZh_CN);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(16);
-	
-	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
-	
 	var _react = __webpack_require__(17);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -49,13 +45,25 @@ webpackJsonp([1],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _srcLocaleZh_CN = __webpack_require__(15);
+	
+	var _srcLocaleZh_CN2 = _interopRequireDefault(_srcLocaleZh_CN);
+	
 	var formatter = _gregorianCalendarFormat2['default'].getDateTimeInstance(_gregorianCalendarFormat2['default'].Style.FULL, _gregorianCalendarFormat2['default'].Style.FULL, _gregorianCalendarFormatLibLocaleZh_CN2['default']);
+	
+	var getGregorianCalendar = function getGregorianCalendar() {
+	  return new _gregorianCalendar2['default'](_srcLocaleZh_CN2['default'].calendar);
+	};
+	var minDate = getGregorianCalendar();
+	minDate.set(2015, 8, 1, 0, 0, 0);
+	var maxDate = getGregorianCalendar();
+	maxDate.set(2018, 1, 1, 0, 0, 0);
 	
 	function format(v) {
 	  return formatter.format(v);
 	}
 	
-	var now = new _gregorianCalendar2['default'](_gregorianCalendarLibLocaleZh_CN2['default']);
+	var now = new _gregorianCalendar2['default'](_srcLocaleZh_CN2['default'].calendar);
 	now.setTime(Date.now());
 	
 	var Demo = _react2['default'].createClass({
@@ -67,7 +75,7 @@ webpackJsonp([1],{
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      mode: 'datetime',
-	      locale: __webpack_require__(15)
+	      locale: _srcLocaleZh_CN2['default']
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -103,6 +111,8 @@ webpackJsonp([1],{
 	        _react2['default'].createElement(_rmcDatePicker2['default'], { defaultDate: date || now,
 	          mode: props.mode,
 	          locale: props.locale,
+	          maxDate: maxDate,
+	          minDate: minDate,
 	          onDateChange: this.onDateChange })
 	      )
 	    );

@@ -68,9 +68,9 @@ webpackJsonp([0],{
 	  return new _gregorianCalendar2['default'](_rmcDatePickerSrcLocaleZh_CN2['default'].calendar);
 	};
 	var minDate = getGregorianCalendar();
-	minDate.set(2015, 1, 1, 0, 0, 0);
+	minDate.set(2015, 8, 1, 0, 0, 0);
 	var maxDate = getGregorianCalendar();
-	maxDate.set(2018, 1, 1, 0, 0, 0);
+	maxDate.set(2018, 0, 1, 0, 0, 0);
 	
 	var Demo = _react2['default'].createClass({
 	  displayName: 'Demo',
@@ -203,6 +203,7 @@ webpackJsonp([0],{
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
+	    visible: _react.PropTypes.bool,
 	    mode: _react.PropTypes.string,
 	    onDateChange: _react.PropTypes.func,
 	    onOk: _react.PropTypes.func,
@@ -231,7 +232,8 @@ webpackJsonp([0],{
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      visible: false
+	      pickerDate: null,
+	      visible: this.props.visible || false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -240,16 +242,13 @@ webpackJsonp([0],{
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if ('visible' in nextProps) {
-	      this.setState({
-	        visible: nextProps.visible
-	      });
+	      this.setVisibleState(nextProps.visible);
 	    }
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    if (this.state.visible) {
 	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
 	    } else {
-	      this.pickerDate = null;
 	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
@@ -257,21 +256,22 @@ webpackJsonp([0],{
 	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
-	  onDateChange: function onDateChange(date) {
-	    this.pickerDate = date;
-	    this.props.onDateChange(date);
+	  onDateChange: function onDateChange(pickerDate) {
+	    this.setState({
+	      pickerDate: pickerDate
+	    });
+	    this.props.onDateChange(pickerDate);
 	  },
 	  onOk: function onOk() {
-	    var pickerDate = this.getPickerValue();
-	    this.setVisibleState(false);
-	    this.props.onOk(pickerDate);
+	    this.fireVisibleChange(false);
+	    this.props.onOk(this.state.pickerDate);
 	  },
 	  onDismiss: function onDismiss() {
-	    this.setVisibleState(false);
+	    this.fireVisibleChange(false);
 	    this.props.onDismiss();
 	  },
 	  onTriggerClick: function onTriggerClick() {
-	    this.setVisibleState(!this.state.visible);
+	    this.fireVisibleChange(!this.state.visible);
 	    var child = _react2['default'].Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
@@ -279,27 +279,26 @@ webpackJsonp([0],{
 	    }
 	  },
 	  setVisibleState: function setVisibleState(visible) {
-	    if (!('visible' in this.props)) {
+	    this.setState({
+	      visible: visible
+	    });
+	    if (!visible) {
 	      this.setState({
-	        visible: visible
+	        pickerDate: null
 	      });
 	    }
-	    this.props.onVisibleChange(visible);
 	  },
-	  getPickerValue: function getPickerValue() {
-	    var date = this.pickerDate || this.props.date;
-	    if (!date) {
-	      date = this.getGregorianCalendar();
-	      date.setTime(Date.now());
-	    }
+	  getNow: function getNow(props) {
+	    var date = this.getGregorianCalendar(props);
+	    date.setTime(Date.now());
 	    return date;
 	  },
-	  getGregorianCalendar: function getGregorianCalendar() {
-	    return new _gregorianCalendar2['default'](this.props.locale.calendar);
+	  getGregorianCalendar: function getGregorianCalendar(props) {
+	    return new _gregorianCalendar2['default']((props || this.props).locale.calendar);
 	  },
 	  getModal: function getModal() {
 	    var props = this.props;
-	    var ModalClass = this.props.Modal;
+	    var ModalClass = props.Modal;
 	
 	    var dpProps = {};
 	    if (props.minDate) {
@@ -314,6 +313,9 @@ webpackJsonp([0],{
 	    if (props.prefixCls) {
 	      dpProps.prefixCls = props.prefixCls;
 	    }
+	    if (props.maxDate) {
+	      dpProps.maxDate = props.maxDate;
+	    }
 	    return _react2['default'].createElement(
 	      ModalClass,
 	      { className: props.className,
@@ -323,25 +325,31 @@ webpackJsonp([0],{
 	        onDismiss: this.onDismiss },
 	      _react2['default'].createElement(
 	        'div',
-	        { className: props.prefixCls + '-pop-header' },
+	        { className: props.prefixCls + '-pop-picker-header' },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-pop-item', onClick: this.onDismiss },
+	          { className: props.prefixCls + '-pop-picker-item', onClick: this.onDismiss },
 	          props.dismissText
 	        ),
-	        _react2['default'].createElement('div', { className: props.prefixCls + '-pop-item' }),
+	        _react2['default'].createElement('div', { className: props.prefixCls + '-pop-picker-item' }),
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-pop-item', onClick: this.onOk },
+	          { className: props.prefixCls + '-pop-picker-item', onClick: this.onOk },
 	          props.okText
 	        )
 	      ),
-	      _react2['default'].createElement(_DatePicker2['default'], _extends({ date: this.getPickerValue(),
+	      _react2['default'].createElement(_DatePicker2['default'], _extends({ date: this.state.pickerDate || props.date,
 	        mode: props.mode,
 	        locale: props.locale,
 	        onDateChange: this.onDateChange
 	      }, dpProps))
 	    );
+	  },
+	  fireVisibleChange: function fireVisibleChange(visible) {
+	    if (!('visible' in this.props)) {
+	      this.setVisibleState(visible);
+	    }
+	    this.props.onVisibleChange(visible);
 	  },
 	  render: function render() {
 	    var props = this.props;

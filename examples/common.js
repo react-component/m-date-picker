@@ -3732,7 +3732,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	function invariant(condition, format, a, b, c, d, e, f) {
+	var invariant = function (condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -3746,16 +3746,15 @@
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
+	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
-	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	}
+	};
 	
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
@@ -13182,8 +13181,8 @@
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: MUST_USE_ATTRIBUTE,
-	    autoCorrect: MUST_USE_ATTRIBUTE,
+	    autoCapitalize: null,
+	    autoCorrect: null,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -13214,7 +13213,9 @@
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
+	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
+	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -16293,7 +16294,7 @@
 	    var value = LinkedValueUtils.getValue(props);
 	
 	    if (value != null) {
-	      updateOptions(this, Boolean(props.multiple), value);
+	      updateOptions(this, props, value);
 	    }
 	  }
 	}
@@ -19328,14 +19329,11 @@
 	 * @typechecks
 	 */
 	
-	/* eslint-disable fb-www/typeof-undefined */
-	
 	/**
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document or document body is not
-	 * yet defined.
+	 * The activeElement will be null only if the document or document body is not yet defined.
 	 */
 	'use strict';
 	
@@ -19343,6 +19341,7 @@
 	  if (typeof document === 'undefined') {
 	    return null;
 	  }
+	
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -21082,9 +21081,7 @@
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'setValueForStyles': 'update styles',
-	  'replaceNodeWithMarkup': 'replace',
-	  'updateTextContent': 'set textContent'
+	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
 	};
 	
 	function getTotalTime(measurements) {
@@ -21276,23 +21273,18 @@
 	'use strict';
 	
 	var performance = __webpack_require__(160);
-	
-	var performanceNow;
+	var curPerformance = performance;
 	
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (performance.now) {
-	  performanceNow = function () {
-	    return performance.now();
-	  };
-	} else {
-	  performanceNow = function () {
-	    return Date.now();
-	  };
+	if (!curPerformance || !curPerformance.now) {
+	  curPerformance = Date;
 	}
+	
+	var performanceNow = curPerformance.now.bind(curPerformance);
 	
 	module.exports = performanceNow;
 
@@ -21341,7 +21333,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.6';
+	module.exports = '0.14.3';
 
 /***/ },
 /* 162 */
@@ -22371,6 +22363,7 @@
 	    locale: _react.PropTypes.object,
 	    onDateChange: _react.PropTypes.func
 	  },
+	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      locale: _localeEn_US2['default'],
@@ -22386,8 +22379,6 @@
 	    this.defaultMinDate.set(2000, 1, 1, 0, 0, 0);
 	    this.defaultMaxDate = this.getGregorianCalendar();
 	    this.defaultMaxDate.set(2030, 1, 1, 0, 0, 0);
-	    this.now = this.getGregorianCalendar();
-	    this.now.setTime(Date.now());
 	    return {
 	      date: this.props.date || this.props.defaultDate
 	    };
@@ -22410,7 +22401,7 @@
 	          newValue.setYear(value);
 	          break;
 	        case 1:
-	          newValue.rollSetMonth(value - 1);
+	          newValue.rollSetMonth(value);
 	          break;
 	        case 2:
 	          newValue.rollSetDayOfMonth(value);
@@ -22436,6 +22427,7 @@
 	          break;
 	      }
 	    }
+	    newValue = this.clipDate(newValue);
 	    if (!('date' in this.props)) {
 	      this.setState({
 	        date: newValue
@@ -22473,43 +22465,51 @@
 	  },
 	
 	  getMinYear: function getMinYear() {
-	    return (this.props.minDate || this.getDefaultMinDate()).getYear();
+	    return this.getMinDate().getYear();
 	  },
 	
 	  getMaxYear: function getMaxYear() {
-	    return (this.props.maxDate || this.getDefaultMaxDate()).getYear();
+	    return this.getMaxDate().getYear();
 	  },
 	
 	  getMinMonth: function getMinMonth() {
-	    return (this.props.minDate || this.getDefaultMinDate()).getMonth();
+	    return this.getMinDate().getMonth();
 	  },
 	
 	  getMaxMonth: function getMaxMonth() {
-	    return (this.props.maxDate || this.getDefaultMaxDate()).getMonth();
+	    return this.getMaxDate().getMonth();
 	  },
 	
 	  getMinDay: function getMinDay() {
-	    return (this.props.minDate || this.getDefaultMinDate()).getDayOfMonth();
+	    return this.getMinDate().getDayOfMonth();
 	  },
 	
 	  getMaxDay: function getMaxDay() {
-	    return (this.props.maxDate || this.getDefaultMaxDate()).getDayOfMonth();
+	    return this.getMaxDate().getDayOfMonth();
 	  },
 	
 	  getMinHour: function getMinHour() {
-	    return (this.props.minDate || this.getDefaultMinDate()).getHourOfDay();
+	    return this.getMinDate().getHourOfDay();
 	  },
 	
 	  getMaxHour: function getMaxHour() {
-	    return (this.props.maxDate || this.getDefaultMaxDate()).getHourOfDay();
+	    return this.getMaxDate().getHourOfDay();
 	  },
 	
 	  getMinMinute: function getMinMinute() {
-	    return (this.props.minDate || this.getDefaultMinDate()).getMinutes();
+	    return this.getMinDate().getMinutes();
 	  },
 	
 	  getMaxMinute: function getMaxMinute() {
-	    return (this.props.maxDate || this.getDefaultMaxDate()).getMinutes();
+	    return this.getMaxDate().getMinutes();
+	  },
+	
+	  getMinDate: function getMinDate() {
+	    return this.props.minDate || this.getDefaultMinDate();
+	  },
+	
+	  getMaxDate: function getMaxDate() {
+	    return this.props.maxDate || this.getDefaultMaxDate();
 	  },
 	
 	  getDateData: function getDateData() {
@@ -22532,8 +22532,8 @@
 	    }
 	
 	    var months = [];
-	    var minMonth = 1;
-	    var maxMonth = 12;
+	    var minMonth = 0;
+	    var maxMonth = 11;
 	    if (minDateYear === selYear) {
 	      minMonth = minDateMonth;
 	    }
@@ -22541,7 +22541,7 @@
 	      maxMonth = maxDateMonth;
 	    }
 	    for (var i = minMonth; i <= maxMonth; i++) {
-	      months.push({ value: i, label: i + locale.month });
+	      months.push({ value: i, label: i + 1 + locale.month });
 	    }
 	
 	    var days = [];
@@ -22634,6 +22634,15 @@
 	  getGregorianCalendar: function getGregorianCalendar() {
 	    return new _gregorianCalendar2['default'](this.props.locale.calendar);
 	  },
+	  clipDate: function clipDate(date) {
+	    if (date.getTime() < this.getMinDate().getTime()) {
+	      return this.getMinDate().clone();
+	    }
+	    if (date.getTime() > this.getMaxDate().getTime()) {
+	      return this.getMaxDate().clone();
+	    }
+	    return date;
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -22648,7 +22657,7 @@
 	    var value = [];
 	    if (mode === DATETIME || mode === DATE) {
 	      dataSource = [].concat(_toConsumableArray(this.getDateData()));
-	      value = [date.getYear(), date.getMonth() + 1, date.getDayOfMonth()];
+	      value = [date.getYear(), date.getMonth(), date.getDayOfMonth()];
 	    }
 	
 	    if (mode === DATETIME || mode === TIME) {
@@ -22943,14 +22952,9 @@
 	    this.publish(top, 250);
 	  },
 	
-	  fireValueChange: function fireValueChange(selectedValue) {
-	    if (selectedValue !== this.state.selectedValue) {
-	      if (!('selectedValue' in this.props)) {
-	        this.setState({
-	          selectedValue: selectedValue
-	        });
-	      }
-	      this.props.onValueChange(selectedValue);
+	  fireValueChange: function fireValueChange(itemValue) {
+	    if (itemValue !== this.state.selectedValue) {
+	      this.props.onValueChange(itemValue);
 	    }
 	  },
 	
@@ -23466,7 +23470,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
+	  Copyright (c) 2015 Jed Watson.
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
@@ -23478,7 +23482,7 @@
 		var hasOwn = {}.hasOwnProperty;
 	
 		function classNames () {
-			var classes = [];
+			var classes = '';
 	
 			for (var i = 0; i < arguments.length; i++) {
 				var arg = arguments[i];
@@ -23487,19 +23491,19 @@
 				var argType = typeof arg;
 	
 				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
+					classes += ' ' + arg;
 				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
+					classes += ' ' + classNames.apply(null, arg);
 				} else if (argType === 'object') {
 					for (var key in arg) {
 						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
+							classes += ' ' + key;
 						}
 					}
 				}
 			}
 	
-			return classes.join(' ');
+			return classes.substr(1);
 		}
 	
 		if (typeof module !== 'undefined' && module.exports) {
