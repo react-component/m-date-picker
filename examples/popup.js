@@ -313,9 +313,6 @@ webpackJsonp([0],{
 	    if (props.prefixCls) {
 	      dpProps.prefixCls = props.prefixCls;
 	    }
-	    if (props.maxDate) {
-	      dpProps.maxDate = props.maxDate;
-	    }
 	    return _react2['default'].createElement(
 	      ModalClass,
 	      { className: props.className,
@@ -325,16 +322,16 @@ webpackJsonp([0],{
 	        onDismiss: this.onDismiss },
 	      _react2['default'].createElement(
 	        'div',
-	        { className: props.prefixCls + '-pop-picker-header' },
+	        { className: props.prefixCls + '-popup-header' },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-pop-picker-item', onClick: this.onDismiss },
+	          { className: props.prefixCls + '-popup-item', onClick: this.onDismiss },
 	          props.dismissText
 	        ),
-	        _react2['default'].createElement('div', { className: props.prefixCls + '-pop-picker-item' }),
+	        _react2['default'].createElement('div', { className: props.prefixCls + '-popup-item' }),
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-pop-picker-item', onClick: this.onOk },
+	          { className: props.prefixCls + '-popup-item', onClick: this.onOk },
 	          props.okText
 	        )
 	      ),
