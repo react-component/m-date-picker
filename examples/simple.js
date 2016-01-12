@@ -6,18 +6,24 @@ import DatePicker from 'rmc-date-picker';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
 import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
-import zhCnCalendar from 'gregorian-calendar/lib/locale/zh_CN';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import zhCnPicker from '../src/locale/zh_CN';
 
 const formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
   GregorianCalendarFormat.Style.FULL, zhCn);
+
+const getGregorianCalendar = () => new GregorianCalendar(zhCnPicker.calendar);
+const minDate = getGregorianCalendar();
+minDate.set(2015, 8, 1, 0, 0, 0);
+const maxDate = getGregorianCalendar();
+maxDate.set(2018, 1, 1, 0, 0, 0);
 
 function format(v) {
   return formatter.format(v);
 }
 
-const now = new GregorianCalendar(zhCnCalendar);
+const now = new GregorianCalendar(zhCnPicker.calendar);
 now.setTime(Date.now());
 
 const Demo = React.createClass({
@@ -27,7 +33,7 @@ const Demo = React.createClass({
   getDefaultProps() {
     return {
       mode: 'datetime',
-      locale: require('../src/locale/zh_CN'),
+      locale: zhCnPicker,
     };
   },
   getInitialState() {
@@ -49,9 +55,11 @@ const Demo = React.createClass({
       <div>
         <span>{date && format(date) || format(now)}</span>
         <DatePicker defaultDate={date || now}
-            mode={props.mode}
-            locale={props.locale}
-            onDateChange={this.onDateChange}/>
+                    mode={props.mode}
+                    locale={props.locale}
+                    maxDate={maxDate}
+                    minDate={minDate}
+                    onDateChange={this.onDateChange}/>
       </div>
     </div>);
   },

@@ -27,10 +27,9 @@ now.setTime(Date.now());
 
 const getGregorianCalendar = () => new GregorianCalendar(zhCnPicker.calendar);
 const minDate = getGregorianCalendar();
-minDate.set(2015, 1, 1, 0, 0, 0);
+minDate.set(2015, 8, 1, 0, 0, 0);
 const maxDate = getGregorianCalendar();
-maxDate.set(2018, 1, 1, 0, 0, 0);
-
+maxDate.set(2018, 0, 1, 0, 0, 0);
 
 const Demo = React.createClass({
   propTypes: {

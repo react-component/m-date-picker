@@ -10,6 +10,7 @@ function noop() {
 
 const PopupPicker = React.createClass({
   propTypes: {
+    visible: PropTypes.bool,
     mode: PropTypes.string,
     onDateChange: PropTypes.func,
     onOk: PropTypes.func,
@@ -38,7 +39,8 @@ const PopupPicker = React.createClass({
   },
   getInitialState() {
     return {
-      visible: false,
+      pickerDate: null,
+      visible: this.props.visible || false,
     };
   },
   componentDidMount() {
@@ -47,16 +49,13 @@ const PopupPicker = React.createClass({
   },
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
-      this.setState({
-        visible: nextProps.visible,
-      });
+      this.setVisibleState(nextProps.visible);
     }
   },
   componentDidUpdate() {
     if (this.state.visible) {
       ReactDOM.render(this.getModal(), this.popupContainer);
     } else {
-      this.pickerDate = null;
       ReactDOM.unmountComponentAtNode(this.popupContainer);
     }
   },
@@ -64,21 +63,22 @@ const PopupPicker = React.createClass({
     ReactDOM.unmountComponentAtNode(this.popupContainer);
     document.body.removeChild(this.popupContainer);
   },
-  onDateChange(date) {
-    this.pickerDate = date;
-    this.props.onDateChange(date);
+  onDateChange(pickerDate) {
+    this.setState({
+      pickerDate,
+    });
+    this.props.onDateChange(pickerDate);
   },
   onOk() {
-    const pickerDate = this.getPickerValue();
-    this.setVisibleState(false);
-    this.props.onOk(pickerDate);
+    this.fireVisibleChange(false);
+    this.props.onOk(this.state.pickerDate);
   },
   onDismiss() {
-    this.setVisibleState(false);
+    this.fireVisibleChange(false);
     this.props.onDismiss();
   },
   onTriggerClick() {
-    this.setVisibleState(!this.state.visible);
+    this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onClick) {
@@ -86,27 +86,26 @@ const PopupPicker = React.createClass({
     }
   },
   setVisibleState(visible) {
-    if (!('visible' in this.props)) {
+    this.setState({
+      visible,
+    });
+    if (!visible) {
       this.setState({
-        visible,
+        pickerDate: null,
       });
     }
-    this.props.onVisibleChange(visible);
   },
-  getPickerValue() {
-    let date = this.pickerDate || this.props.date;
-    if (!date) {
-      date = this.getGregorianCalendar();
-      date.setTime(Date.now());
-    }
+  getNow(props) {
+    const date = this.getGregorianCalendar(props);
+    date.setTime(Date.now());
     return date;
   },
-  getGregorianCalendar() {
-    return new GregorianCalendar(this.props.locale.calendar);
+  getGregorianCalendar(props) {
+    return new GregorianCalendar((props || this.props).locale.calendar);
   },
   getModal() {
     const props = this.props;
-    const {Modal: ModalClass} = this.props;
+    const {Modal: ModalClass} = props;
     const dpProps = {};
     if (props.minDate) {
       dpProps.minDate = props.minDate;
@@ -124,21 +123,27 @@ const PopupPicker = React.createClass({
       dpProps.maxDate = props.maxDate;
     }
     return (<ModalClass className={props.className}
-                   modalPrefix={props.modalPrefix}
-                   visible
-                   style={props.style}
-                   onDismiss={this.onDismiss}>
+                        modalPrefix={props.modalPrefix}
+                        visible
+                        style={props.style}
+                        onDismiss={this.onDismiss}>
       <div className={`${props.prefixCls}-pop-picker-header`}>
         <div className={`${props.prefixCls}-pop-picker-item`} onClick={this.onDismiss}>{props.dismissText}</div>
         <div className={`${props.prefixCls}-pop-picker-item`}></div>
         <div className={`${props.prefixCls}-pop-picker-item`} onClick={this.onOk}>{props.okText}</div>
       </div>
-      <DatePicker date={this.getPickerValue()}
+      <DatePicker date={this.state.pickerDate || props.date}
                   mode={props.mode}
                   locale={props.locale}
                   onDateChange={this.onDateChange}
         {...dpProps} />
     </ModalClass>);
+  },
+  fireVisibleChange(visible) {
+    if (!('visible' in this.props)) {
+      this.setVisibleState(visible);
+    }
+    this.props.onVisibleChange(visible);
   },
   render() {
     const props = this.props;

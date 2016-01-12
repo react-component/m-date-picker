@@ -26,6 +26,7 @@ const DatePicker = React.createClass({
     locale: PropTypes.object,
     onDateChange: PropTypes.func,
   },
+
   getDefaultProps() {
     return {
       locale: defaultLocale,
@@ -42,8 +43,6 @@ const DatePicker = React.createClass({
     this.defaultMinDate.set(2000, 1, 1, 0, 0, 0);
     this.defaultMaxDate = this.getGregorianCalendar();
     this.defaultMaxDate.set(2030, 1, 1, 0, 0, 0);
-    this.now = this.getGregorianCalendar();
-    this.now.setTime(Date.now());
     return {
       date: this.props.date || this.props.defaultDate,
     };
@@ -59,14 +58,14 @@ const DatePicker = React.createClass({
 
   onValueChange(index, value) {
     const props = this.props;
-    const newValue = this.getDate().clone();
+    let newValue = this.getDate().clone();
     if (props.mode === DATETIME || props.mode === DATE) {
       switch (index) {
       case 0:
         newValue.setYear(value);
         break;
       case 1:
-        newValue.rollSetMonth(value - 1);
+        newValue.rollSetMonth(value);
         break;
       case 2:
         newValue.rollSetDayOfMonth(value);
@@ -92,6 +91,7 @@ const DatePicker = React.createClass({
         break;
       }
     }
+    newValue = this.clipDate(newValue);
     if (!('date' in this.props)) {
       this.setState({
         date: newValue,
@@ -129,43 +129,51 @@ const DatePicker = React.createClass({
   },
 
   getMinYear() {
-    return (this.props.minDate || this.getDefaultMinDate()).getYear();
+    return this.getMinDate().getYear();
   },
 
   getMaxYear() {
-    return (this.props.maxDate || this.getDefaultMaxDate()).getYear();
+    return this.getMaxDate().getYear();
   },
 
   getMinMonth() {
-    return (this.props.minDate || this.getDefaultMinDate()).getMonth();
+    return this.getMinDate().getMonth();
   },
 
   getMaxMonth() {
-    return (this.props.maxDate || this.getDefaultMaxDate()).getMonth();
+    return this.getMaxDate().getMonth();
   },
 
   getMinDay() {
-    return (this.props.minDate || this.getDefaultMinDate()).getDayOfMonth();
+    return this.getMinDate().getDayOfMonth();
   },
 
   getMaxDay() {
-    return (this.props.maxDate || this.getDefaultMaxDate()).getDayOfMonth();
+    return this.getMaxDate().getDayOfMonth();
   },
 
   getMinHour() {
-    return (this.props.minDate || this.getDefaultMinDate()).getHourOfDay();
+    return this.getMinDate().getHourOfDay();
   },
 
   getMaxHour() {
-    return (this.props.maxDate || this.getDefaultMaxDate()).getHourOfDay();
+    return this.getMaxDate().getHourOfDay();
   },
 
   getMinMinute() {
-    return (this.props.minDate || this.getDefaultMinDate()).getMinutes();
+    return this.getMinDate().getMinutes();
   },
 
   getMaxMinute() {
-    return (this.props.maxDate || this.getDefaultMaxDate()).getMinutes();
+    return this.getMaxDate().getMinutes();
+  },
+
+  getMinDate() {
+    return this.props.minDate || this.getDefaultMinDate();
+  },
+
+  getMaxDate() {
+    return this.props.maxDate || this.getDefaultMaxDate();
   },
 
   getDateData() {
@@ -188,8 +196,8 @@ const DatePicker = React.createClass({
     }
 
     const months = [];
-    let minMonth = 1;
-    let maxMonth = 12;
+    let minMonth = 0;
+    let maxMonth = 11;
     if (minDateYear === selYear) {
       minMonth = minDateMonth;
     }
@@ -197,7 +205,7 @@ const DatePicker = React.createClass({
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      months.push({value: i, label: i + locale.month});
+      months.push({value: i, label: (i + 1) + locale.month});
     }
 
     const days = [];
@@ -287,6 +295,15 @@ const DatePicker = React.createClass({
   getGregorianCalendar() {
     return new GregorianCalendar(this.props.locale.calendar);
   },
+  clipDate(date) {
+    if (date.getTime() < this.getMinDate().getTime()) {
+      return this.getMinDate().clone();
+    }
+    if (date.getTime() > this.getMaxDate().getTime()) {
+      return this.getMaxDate().clone();
+    }
+    return date;
+  },
   render() {
     const props = this.props;
     const {mode, prefixCls, pickerPrefixCls, className} = props;
@@ -295,7 +312,7 @@ const DatePicker = React.createClass({
     let value = [];
     if (mode === DATETIME || mode === DATE) {
       dataSource = [...this.getDateData()];
-      value = [date.getYear(), date.getMonth() + 1, date.getDayOfMonth()];
+      value = [date.getYear(), date.getMonth(), date.getDayOfMonth()];
     }
 
     if (mode === DATETIME || mode === TIME) {
