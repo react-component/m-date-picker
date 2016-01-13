@@ -90,8 +90,8 @@ webpackJsonp([0],{
 	      date: null
 	    };
 	  },
-	  onOk: function onOk(date) {
-	    console.log('onOk', format(date));
+	  onChange: function onChange(date) {
+	    console.log('onChange', format(date));
 	    this.setState({
 	      date: date
 	    });
@@ -99,8 +99,8 @@ webpackJsonp([0],{
 	  onDismiss: function onDismiss() {
 	    console.log('onDismiss');
 	  },
-	  onDateChange: function onDateChange(date) {
-	    console.log('onDateChange', format(date));
+	  onPickerChange: function onPickerChange(date) {
+	    console.log('onPickerChange', format(date));
 	  },
 	  show: function show() {
 	    console.log('my click');
@@ -127,9 +127,9 @@ webpackJsonp([0],{
 	            maxDate: maxDate,
 	            mode: props.mode,
 	            locale: props.locale,
-	            onDateChange: this.onDateChange,
+	            onPickerChange: this.onPickerChange,
 	            onDismiss: this.onDismiss,
-	            onOk: this.onOk,
+	            onChange: this.onChange,
 	            style: { left: 0, bottom: 0 } },
 	          _react2['default'].createElement(
 	            'button',
@@ -205,8 +205,8 @@ webpackJsonp([0],{
 	  propTypes: {
 	    visible: _react.PropTypes.bool,
 	    mode: _react.PropTypes.string,
-	    onDateChange: _react.PropTypes.func,
-	    onOk: _react.PropTypes.func,
+	    onPickerChange: _react.PropTypes.func,
+	    onChange: _react.PropTypes.func,
 	    onVisibleChange: _react.PropTypes.func,
 	    locale: _react.PropTypes.object,
 	    date: _react.PropTypes.object,
@@ -225,9 +225,9 @@ webpackJsonp([0],{
 	      okText: 'Ok',
 	      dismissText: 'Dismiss',
 	      style: {},
-	      onOk: noop,
+	      onChange: noop,
 	      onDismiss: noop,
-	      onDateChange: noop
+	      onPickerChange: noop
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -256,15 +256,15 @@ webpackJsonp([0],{
 	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
-	  onDateChange: function onDateChange(pickerDate) {
+	  onPickerChange: function onPickerChange(pickerDate) {
 	    this.setState({
 	      pickerDate: pickerDate
 	    });
-	    this.props.onDateChange(pickerDate);
+	    this.props.onPickerChange(pickerDate);
 	  },
-	  onOk: function onOk() {
+	  onChange: function onChange() {
 	    this.fireVisibleChange(false);
-	    this.props.onOk(this.state.pickerDate);
+	    this.props.onChange(this.state.pickerDate);
 	  },
 	  onDismiss: function onDismiss() {
 	    this.fireVisibleChange(false);
@@ -331,14 +331,14 @@ webpackJsonp([0],{
 	        _react2['default'].createElement('div', { className: props.prefixCls + '-popup-item' }),
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-popup-item', onClick: this.onOk },
+	          { className: props.prefixCls + '-popup-item', onClick: this.onChange },
 	          props.okText
 	        )
 	      ),
 	      _react2['default'].createElement(_DatePicker2['default'], _extends({ date: this.state.pickerDate || props.date,
 	        mode: props.mode,
 	        locale: props.locale,
-	        onDateChange: this.onDateChange
+	        onDateChange: this.onPickerChange
 	      }, dpProps))
 	    );
 	  },

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-date-picker@1.6.0</title>
+  <title>popup.js - example - rmc-date-picker@1.7.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-date-picker@1.6.0</h1>
+    <h1>rmc-date-picker@1.7.0</h1>
 
     <p>m-date-picker ui component for react</p>
   </div>
@@ -313,8 +313,8 @@ maxDate.set(<span class="hljs-number">2018</span>, <span class="hljs-number">0</
       date: <span class="hljs-literal">null</span>,
     };
   },
-  onOk(date) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onOk'</span>, format(date));
+  onChange(date) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onChange'</span>, format(date));
     <span class="hljs-keyword">this</span>.setState({
       date: date,
     });
@@ -322,8 +322,8 @@ maxDate.set(<span class="hljs-number">2018</span>, <span class="hljs-number">0</
   onDismiss() {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
   },
-  onDateChange(date) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDateChange'</span>, format(date));
+  onPickerChange(date) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onPickerChange'</span>, format(date));
   },
   show() {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'my click'</span>);
@@ -339,9 +339,9 @@ maxDate.set(<span class="hljs-number">2018</span>, <span class="hljs-number">0</
                    <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{maxDate}</span>
                    <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span>
                    <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
-                   <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
+                   <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
                    <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
-                   <span class="hljs-attribute">onOk</span>=<span class="hljs-value">{this.onOk}</span>
+                   <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
                    <span class="hljs-attribute">style</span>=<span class="hljs-value">{{left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span>}}&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.show}</span>&gt;</span>{date &amp;&amp; format(date) || 'open'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">PopPicker</span>&gt;</span>
