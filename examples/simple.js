@@ -57,7 +57,7 @@ webpackJsonp([1],{
 	var minDate = getGregorianCalendar();
 	minDate.set(2015, 8, 1, 0, 0, 0);
 	var maxDate = getGregorianCalendar();
-	maxDate.set(2018, 1, 1, 0, 0, 0);
+	maxDate.set(2018, 1, 1, 22, 0, 0);
 	
 	function format(v) {
 	  return formatter.format(v);

@@ -22572,21 +22572,21 @@
 	    var locale = _props.locale;
 	
 	    var date = this.getDate();
-	    var minDateYear = this.getMinYear();
-	    var maxDateYear = this.getMaxYear();
-	    var minDateMonth = this.getMinMonth();
-	    var maxDateMonth = this.getMaxMonth();
-	    var minDateDay = this.getMinDay();
-	    var maxDateDay = this.getMaxDay();
 	    var minDateMinute = this.getMinMinute();
 	    var maxDateMinute = this.getMaxMinute();
 	    var minDateHour = this.getMinHour();
 	    var maxDateHour = this.getMaxHour();
-	    var year = date.getYear();
-	    var month = date.getMonth();
-	    var day = date.getDayOfMonth();
 	    var hour = date.getHourOfDay();
 	    if (mode === DATETIME) {
+	      var year = date.getYear();
+	      var month = date.getMonth();
+	      var day = date.getDayOfMonth();
+	      var minDateYear = this.getMinYear();
+	      var maxDateYear = this.getMaxYear();
+	      var minDateMonth = this.getMinMonth();
+	      var maxDateMonth = this.getMaxMonth();
+	      var minDateDay = this.getMinDay();
+	      var maxDateDay = this.getMaxDay();
 	      if (minDateYear === year && minDateMonth === month && minDateDay === day) {
 	        minHour = minDateHour;
 	        if (minDateHour === hour) {
@@ -22600,17 +22600,13 @@
 	        }
 	      }
 	    } else {
+	      minHour = minDateHour;
 	      if (minDateHour === hour) {
-	        minHour = minDateHour;
-	        if (minDateHour === hour) {
-	          minMinute = minDateMinute;
-	        }
+	        minMinute = minDateMinute;
 	      }
+	      maxHour = maxDateHour;
 	      if (maxDateHour === hour) {
-	        maxHour = maxDateHour;
-	        if (maxDateHour === hour) {
-	          maxMinute = maxDateMinute;
-	        }
+	        maxMinute = maxDateMinute;
 	      }
 	    }
 	
