@@ -292,11 +292,36 @@ const DatePicker = React.createClass({
     return new GregorianCalendar(this.props.locale.calendar);
   },
   clipDate(date) {
-    if (date.getTime() < this.getMinDate().getTime()) {
-      return this.getMinDate().clone();
-    }
-    if (date.getTime() > this.getMaxDate().getTime()) {
-      return this.getMaxDate().clone();
+    const {mode} = this.props;
+    const minDate = this.getMinDate();
+    const maxDate = this.getMaxDate();
+    if (mode === DATETIME) {
+      if (date.getTime() < minDate.getTime()) {
+        return minDate.clone();
+      }
+      if (date.getTime() > maxDate.getTime()) {
+        return maxDate.clone();
+      }
+    } else if (mode === DATE) {
+      if (date.compareToDay(minDate) < 0) {
+        return minDate.clone();
+      }
+      if (date.compareToDay(maxDate) > 0) {
+        return maxDate.clone();
+      }
+    } else {
+      const maxHour = maxDate.getHourOfDay();
+      const maxMinutes = maxDate.getMinutes();
+      const minHour = minDate.getHourOfDay();
+      const minMinutes = minDate.getMinutes();
+      const hour = date.getHourOfDay();
+      const minutes = date.getMinutes();
+      if (hour < minHour || hour === minHour && minutes < minMinutes) {
+        return minDate.clone();
+      }
+      if (hour > maxHour || hour === maxHour && minutes > maxMinutes) {
+        return maxDate.clone();
+      }
     }
     return date;
   },
