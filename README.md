@@ -75,13 +75,13 @@ see example
 |modalPrefixCls | prefix class | String | 'rmc-modal' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
 |date | The currently selected date. | GregorianCalendar |  |
-|onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
+|onPickerChange | Date inside picker change handler. | Function(date: GregorianCalendar) | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
 |maxDate | max date | GregorianCalendar | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
 |style | additional style | object | {} |
-|onOk | exec on ok | Function(date: GregorianCalendar) |  |
+|onChange | exec on ok | Function(date: GregorianCalendar) |  |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |
 |dismissText | dismiss button text | String | 'Dismiss' |

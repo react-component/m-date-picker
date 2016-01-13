@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "m-date-picker ui component for react",
   "keywords": [
     "react",
@@ -24,7 +24,7 @@
   "licenses": "MIT",
   "main": "./lib/DatePicker",
   "config": {
-    "port": 8000
+    "port": 8007
   },
   "scripts": {
     "build": "rc-tools run build",

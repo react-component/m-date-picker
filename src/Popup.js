@@ -12,8 +12,8 @@ const PopupPicker = React.createClass({
   propTypes: {
     visible: PropTypes.bool,
     mode: PropTypes.string,
-    onDateChange: PropTypes.func,
-    onOk: PropTypes.func,
+    onPickerChange: PropTypes.func,
+    onChange: PropTypes.func,
     onVisibleChange: PropTypes.func,
     locale: PropTypes.object,
     date: PropTypes.object,
@@ -32,9 +32,9 @@ const PopupPicker = React.createClass({
       okText: 'Ok',
       dismissText: 'Dismiss',
       style: {},
-      onOk: noop,
+      onChange: noop,
       onDismiss: noop,
-      onDateChange: noop,
+      onPickerChange: noop,
     };
   },
   getInitialState() {
@@ -63,15 +63,15 @@ const PopupPicker = React.createClass({
     ReactDOM.unmountComponentAtNode(this.popupContainer);
     document.body.removeChild(this.popupContainer);
   },
-  onDateChange(pickerDate) {
+  onPickerChange(pickerDate) {
     this.setState({
       pickerDate,
     });
-    this.props.onDateChange(pickerDate);
+    this.props.onPickerChange(pickerDate);
   },
-  onOk() {
+  onChange() {
     this.fireVisibleChange(false);
-    this.props.onOk(this.state.pickerDate);
+    this.props.onChange(this.state.pickerDate);
   },
   onDismiss() {
     this.fireVisibleChange(false);
@@ -127,12 +127,12 @@ const PopupPicker = React.createClass({
       <div className={`${props.prefixCls}-popup-header`}>
         <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
         <div className={`${props.prefixCls}-popup-item`}></div>
-        <div className={`${props.prefixCls}-popup-item`} onClick={this.onOk}>{props.okText}</div>
+        <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
       </div>
       <DatePicker date={this.state.pickerDate || props.date}
                   mode={props.mode}
                   locale={props.locale}
-                  onDateChange={this.onDateChange}
+                  onDateChange={this.onPickerChange}
         {...dpProps} />
     </ModalClass>);
   },

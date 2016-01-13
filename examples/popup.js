@@ -47,8 +47,8 @@ const Demo = React.createClass({
       date: null,
     };
   },
-  onOk(date) {
-    console.log('onOk', format(date));
+  onChange(date) {
+    console.log('onChange', format(date));
     this.setState({
       date: date,
     });
@@ -56,8 +56,8 @@ const Demo = React.createClass({
   onDismiss() {
     console.log('onDismiss');
   },
-  onDateChange(date) {
-    console.log('onDateChange', format(date));
+  onPickerChange(date) {
+    console.log('onPickerChange', format(date));
   },
   show() {
     console.log('my click');
@@ -73,9 +73,9 @@ const Demo = React.createClass({
                    maxDate={maxDate}
                    mode={props.mode}
                    locale={props.locale}
-                   onDateChange={this.onDateChange}
+                   onPickerChange={this.onPickerChange}
                    onDismiss={this.onDismiss}
-                   onOk={this.onOk}
+                   onChange={this.onChange}
                    style={{left: 0, bottom: 0}}>
           <button onClick={this.show}>{date && format(date) || 'open'}</button>
         </PopPicker>
