@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		2:0
+/******/ 		3:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"popup","1":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"popup","1":"simple","2":"time"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -22631,11 +22631,37 @@
 	    return new _gregorianCalendar2['default'](this.props.locale.calendar);
 	  },
 	  clipDate: function clipDate(date) {
-	    if (date.getTime() < this.getMinDate().getTime()) {
-	      return this.getMinDate().clone();
-	    }
-	    if (date.getTime() > this.getMaxDate().getTime()) {
-	      return this.getMaxDate().clone();
+	    var mode = this.props.mode;
+	
+	    var minDate = this.getMinDate();
+	    var maxDate = this.getMaxDate();
+	    if (mode === DATETIME) {
+	      if (date.getTime() < minDate.getTime()) {
+	        return minDate.clone();
+	      }
+	      if (date.getTime() > maxDate.getTime()) {
+	        return maxDate.clone();
+	      }
+	    } else if (mode === DATE) {
+	      if (date.compareToDay(minDate) < 0) {
+	        return minDate.clone();
+	      }
+	      if (date.compareToDay(maxDate) > 0) {
+	        return maxDate.clone();
+	      }
+	    } else {
+	      var maxHour = maxDate.getHourOfDay();
+	      var maxMinutes = maxDate.getMinutes();
+	      var minHour = minDate.getHourOfDay();
+	      var minMinutes = minDate.getMinutes();
+	      var hour = date.getHourOfDay();
+	      var minutes = date.getMinutes();
+	      if (hour < minHour || hour === minHour && minutes < minMinutes) {
+	        return minDate.clone();
+	      }
+	      if (hour > maxHour || hour === maxHour && minutes > maxMinutes) {
+	        return maxDate.clone();
+	      }
 	    }
 	    return date;
 	  },
