@@ -233,21 +233,21 @@ const DatePicker = React.createClass({
     let maxMinute = 59;
     const {mode, locale} = this.props;
     const date = this.getDate();
-    const minDateYear = this.getMinYear();
-    const maxDateYear = this.getMaxYear();
-    const minDateMonth = this.getMinMonth();
-    const maxDateMonth = this.getMaxMonth();
-    const minDateDay = this.getMinDay();
-    const maxDateDay = this.getMaxDay();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
     const minDateHour = this.getMinHour();
     const maxDateHour = this.getMaxHour();
-    const year = date.getYear();
-    const month = date.getMonth();
-    const day = date.getDayOfMonth();
     const hour = date.getHourOfDay();
     if (mode === DATETIME) {
+      const year = date.getYear();
+      const month = date.getMonth();
+      const day = date.getDayOfMonth();
+      const minDateYear = this.getMinYear();
+      const maxDateYear = this.getMaxYear();
+      const minDateMonth = this.getMinMonth();
+      const maxDateMonth = this.getMaxMonth();
+      const minDateDay = this.getMinDay();
+      const maxDateDay = this.getMaxDay();
       if (minDateYear === year && minDateMonth === month && minDateDay === day) {
         minHour = minDateHour;
         if (minDateHour === hour) {
@@ -261,17 +261,13 @@ const DatePicker = React.createClass({
         }
       }
     } else {
+      minHour = minDateHour;
       if (minDateHour === hour) {
-        minHour = minDateHour;
-        if (minDateHour === hour) {
-          minMinute = minDateMinute;
-        }
+        minMinute = minDateMinute;
       }
+      maxHour = maxDateHour;
       if (maxDateHour === hour) {
-        maxHour = maxDateHour;
-        if (maxDateHour === hour) {
-          maxMinute = maxDateMinute;
-        }
+        maxMinute = maxDateMinute;
       }
     }
 
