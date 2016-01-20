@@ -39,10 +39,6 @@ const DatePicker = React.createClass({
   },
 
   getInitialState() {
-    this.defaultMinDate = this.getGregorianCalendar();
-    this.defaultMinDate.set(2000, 1, 1, 0, 0, 0);
-    this.defaultMaxDate = this.getGregorianCalendar();
-    this.defaultMaxDate.set(2030, 1, 1, 0, 0, 0);
     return {
       date: this.props.date || this.props.defaultDate,
     };
@@ -111,7 +107,8 @@ const DatePicker = React.createClass({
   getDefaultMaxDate() {
     if (!this.defaultMaxDate) {
       this.defaultMaxDate = this.getGregorianCalendar();
-      this.defaultMaxDate.set(2030, 1, 1, 0, 0, 0);
+      // also for time mode
+      this.defaultMaxDate.set(2030, 1, 1, 23, 59, 59);
     }
     return this.defaultMaxDate;
   },
