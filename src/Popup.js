@@ -71,7 +71,7 @@ const PopupPicker = React.createClass({
   },
   onChange() {
     this.fireVisibleChange(false);
-    this.props.onChange(this.state.pickerDate);
+    this.props.onChange(this.state.pickerDate || this.props.date);
   },
   onDismiss() {
     this.fireVisibleChange(false);
