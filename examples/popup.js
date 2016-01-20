@@ -264,7 +264,7 @@ webpackJsonp([0],{
 	  },
 	  onChange: function onChange() {
 	    this.fireVisibleChange(false);
-	    this.props.onChange(this.state.pickerDate);
+	    this.props.onChange(this.state.pickerDate || this.props.date);
 	  },
 	  onDismiss: function onDismiss() {
 	    this.fireVisibleChange(false);
