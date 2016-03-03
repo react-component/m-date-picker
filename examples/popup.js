@@ -197,6 +197,31 @@ webpackJsonp([0],{
 	
 	var _localeEn_US2 = _interopRequireDefault(_localeEn_US);
 	
+	function addEventListener(target, eventType, cb) {
+	  /* eslint camelcase: 2 */
+	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
+	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
+	  } : cb;
+	  target.addEventListener(eventType, callback, false);
+	  return {
+	    remove: function remove() {
+	      target.removeEventListener(eventType, callback, false);
+	    }
+	  };
+	}
+	
+	function contains(root, n) {
+	  var node = n;
+	  while (node) {
+	    if (node === root) {
+	      return true;
+	    }
+	    node = node.parentNode;
+	  }
+	
+	  return false;
+	}
+	
 	function noop() {}
 	
 	var PopupPicker = _react2['default'].createClass({
@@ -247,8 +272,15 @@ webpackJsonp([0],{
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    if (this.state.visible) {
+	      if (!this.onDocumentClickListener) {
+	        this.onDocumentClickListener = addEventListener(document, 'click', this.onDocumentClick);
+	      }
 	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
 	    } else {
+	      if (this.onDocumentClickListener) {
+	        this.onDocumentClickListener.remove();
+	        this.onDocumentClickListener = null;
+	      }
 	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
@@ -276,6 +308,11 @@ webpackJsonp([0],{
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
 	      childProps.onClick();
+	    }
+	  },
+	  onDocumentClick: function onDocumentClick(e) {
+	    if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
+	      this.fireVisibleChange(false);
 	    }
 	  },
 	  setVisibleState: function setVisibleState(visible) {
@@ -322,31 +359,40 @@ webpackJsonp([0],{
 	        onDismiss: this.onDismiss },
 	      _react2['default'].createElement(
 	        'div',
-	        { className: props.prefixCls + '-popup-header' },
+	        { ref: this.saveModalContent },
 	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-popup-item', onClick: this.onDismiss },
-	          props.dismissText
+	          { className: props.prefixCls + '-popup-header' },
+	          _react2['default'].createElement(
+	            'div',
+	            { className: props.prefixCls + '-popup-item', onClick: this.onDismiss },
+	            props.dismissText
+	          ),
+	          _react2['default'].createElement('div', { className: props.prefixCls + '-popup-item' }),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: props.prefixCls + '-popup-item', onClick: this.onChange },
+	            props.okText
+	          )
 	        ),
-	        _react2['default'].createElement('div', { className: props.prefixCls + '-popup-item' }),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: props.prefixCls + '-popup-item', onClick: this.onChange },
-	          props.okText
-	        )
-	      ),
-	      _react2['default'].createElement(_DatePicker2['default'], _extends({ date: this.state.pickerDate || props.date,
-	        mode: props.mode,
-	        locale: props.locale,
-	        onDateChange: this.onPickerChange
-	      }, dpProps))
+	        _react2['default'].createElement(_DatePicker2['default'], _extends({ date: this.state.pickerDate || props.date,
+	          mode: props.mode,
+	          locale: props.locale,
+	          onDateChange: this.onPickerChange
+	        }, dpProps))
+	      )
 	    );
 	  },
+	  saveModalContent: function saveModalContent(content) {
+	    this.modalContent = content;
+	  },
 	  fireVisibleChange: function fireVisibleChange(visible) {
-	    if (!('visible' in this.props)) {
-	      this.setVisibleState(visible);
+	    if (this.state.visible !== visible) {
+	      if (!('visible' in this.props)) {
+	        this.setVisibleState(visible);
+	      }
+	      this.props.onVisibleChange(visible);
 	    }
-	    this.props.onVisibleChange(visible);
 	  },
 	  render: function render() {
 	    var props = this.props;
