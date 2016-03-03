@@ -5,6 +5,32 @@ import Modal from 'rmc-modal';
 import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
 
+function addEventListener(target, eventType, cb) {
+  /* eslint camelcase: 2 */
+  const callback = ReactDOM.unstable_batchedUpdates ? function run(e) {
+    ReactDOM.unstable_batchedUpdates(cb, e);
+  } : cb;
+  target.addEventListener(eventType, callback, false);
+  return {
+    remove() {
+      target.removeEventListener(eventType, callback, false);
+    },
+  };
+}
+
+function contains(root, n) {
+  let node = n;
+  while (node) {
+    if (node === root) {
+      return true;
+    }
+    node = node.parentNode;
+  }
+
+  return false;
+}
+
+
 function noop() {
 }
 
@@ -54,8 +80,15 @@ const PopupPicker = React.createClass({
   },
   componentDidUpdate() {
     if (this.state.visible) {
+      if (!this.onDocumentClickListener) {
+        this.onDocumentClickListener = addEventListener(document, 'click', this.onDocumentClick);
+      }
       ReactDOM.render(this.getModal(), this.popupContainer);
     } else {
+      if (this.onDocumentClickListener) {
+        this.onDocumentClickListener.remove();
+        this.onDocumentClickListener = null;
+      }
       ReactDOM.unmountComponentAtNode(this.popupContainer);
     }
   },
@@ -83,6 +116,11 @@ const PopupPicker = React.createClass({
     const childProps = child.props || {};
     if (childProps.onClick) {
       childProps.onClick();
+    }
+  },
+  onDocumentClick(e) {
+    if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
+      this.fireVisibleChange(false);
     }
   },
   setVisibleState(visible) {
@@ -124,23 +162,30 @@ const PopupPicker = React.createClass({
                         visible
                         style={props.style}
                         onDismiss={this.onDismiss}>
-      <div className={`${props.prefixCls}-popup-header`}>
-        <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
-        <div className={`${props.prefixCls}-popup-item`}></div>
-        <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
+      <div ref={this.saveModalContent}>
+        <div className={`${props.prefixCls}-popup-header`}>
+          <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
+          <div className={`${props.prefixCls}-popup-item`}></div>
+          <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
+        </div>
+        <DatePicker date={this.state.pickerDate || props.date}
+                    mode={props.mode}
+                    locale={props.locale}
+                    onDateChange={this.onPickerChange}
+          {...dpProps} />
       </div>
-      <DatePicker date={this.state.pickerDate || props.date}
-                  mode={props.mode}
-                  locale={props.locale}
-                  onDateChange={this.onPickerChange}
-        {...dpProps} />
     </ModalClass>);
   },
+  saveModalContent(content) {
+    this.modalContent = content;
+  },
   fireVisibleChange(visible) {
-    if (!('visible' in this.props)) {
-      this.setVisibleState(visible);
+    if (this.state.visible !== visible) {
+      if (!('visible' in this.props)) {
+        this.setVisibleState(visible);
+      }
+      this.props.onVisibleChange(visible);
     }
-    this.props.onVisibleChange(visible);
   },
   render() {
     const props = this.props;
