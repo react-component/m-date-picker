@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import DatePicker from './DatePicker';
 import Modal from 'rmc-modal';
@@ -50,7 +50,7 @@ const PopupPicker = React.createClass({
   getDefaultProps() {
     return {
       prefixCls: 'rmc-date-picker',
-      Modal: Modal,
+      Modal,
       modalPrefix: 'rmc-modal',
       onVisibleChange: noop,
       mode: 'datetime',
@@ -143,7 +143,7 @@ const PopupPicker = React.createClass({
   },
   getModal() {
     const props = this.props;
-    const {Modal: ModalClass} = props;
+    const { Modal: ModalClass } = props;
     const dpProps = {};
     if (props.minDate) {
       dpProps.minDate = props.minDate;
@@ -157,22 +157,30 @@ const PopupPicker = React.createClass({
     if (props.prefixCls) {
       dpProps.prefixCls = props.prefixCls;
     }
-    return (<ModalClass className={props.className}
-                        modalPrefix={props.modalPrefix}
-                        visible
-                        style={props.style}
-                        onDismiss={this.onDismiss}>
+    return (<ModalClass
+      className={props.className}
+      modalPrefix={props.modalPrefix}
+      visible
+      style={props.style}
+      onDismiss={this.onDismiss}
+    >
       <div ref={this.saveModalContent}>
         <div className={`${props.prefixCls}-popup-header`}>
-          <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>{props.dismissText}</div>
+          <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>
+            {props.dismissText}
+          </div>
           <div className={`${props.prefixCls}-popup-item`}></div>
-          <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>{props.okText}</div>
+          <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>
+            {props.okText}
+          </div>
         </div>
-        <DatePicker date={this.state.pickerDate || props.date}
-                    mode={props.mode}
-                    locale={props.locale}
-                    onDateChange={this.onPickerChange}
-          {...dpProps} />
+        <DatePicker
+          date={this.state.pickerDate || props.date}
+          mode={props.mode}
+          locale={props.locale}
+          onDateChange={this.onPickerChange}
+          {...dpProps}
+        />
       </div>
     </ModalClass>);
   },

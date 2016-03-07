@@ -1,4 +1,4 @@
-import 'rmc-picker/assets/index.less';
+import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
 import expect from 'expect.js';
 import React from 'react';
@@ -28,17 +28,18 @@ function map$(node, fn) {
 const date = new GregorianCalendar(zhCn);
 date.set(2014, 10, 16, 17, 30, 0);
 
-describe('m-date-picker', ()=> {
+describe('m-date-picker', () => {
   let div;
   let component;
   let rootDom;
-  beforeEach(()=> {
+  beforeEach(() => {
     div = document.createElement('div');
     document.body.appendChild(div);
-    component = ReactDOM.render(<DatePicker locale={datePickerLocale} date={date} mode="datetime"/>, div);
+    component = ReactDOM.render(
+      <DatePicker locale={datePickerLocale} date={date} mode="datetime"/>, div);
     rootDom = $(ReactDOM.findDOMNode(component));
   });
-  afterEach(()=> {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(div);
     document.body.removeChild(div);
   });

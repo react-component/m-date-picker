@@ -50,7 +50,7 @@ const Demo = React.createClass({
   onChange(date) {
     console.log('onChange', format(date));
     this.setState({
-      date: date,
+      date,
     });
   },
   onDismiss() {
@@ -64,19 +64,21 @@ const Demo = React.createClass({
   },
   render() {
     const props = this.props;
-    const {date} = this.state;
-    return (<div style={{margin: '10px 30px'}}>
+    const { date } = this.state;
+    return (<div style={{ margin: '10px 30px' }}>
       <h2>popup date picker</h2>
       <div>
-        <PopPicker date={date || now}
-                   minDate={minDate}
-                   maxDate={maxDate}
-                   mode={props.mode}
-                   locale={props.locale}
-                   onPickerChange={this.onPickerChange}
-                   onDismiss={this.onDismiss}
-                   onChange={this.onChange}
-                   style={{left: 0, bottom: 0}}>
+        <PopPicker
+          date={date || now}
+          minDate={minDate}
+          maxDate={maxDate}
+          mode={props.mode}
+          locale={props.locale}
+          onPickerChange={this.onPickerChange}
+          onDismiss={this.onDismiss}
+          onChange={this.onChange}
+          style={{ left: 0, bottom: 0 }}
+        >
           <button onClick={this.show}>{date && format(date) || 'open'}</button>
         </PopPicker>
       </div>

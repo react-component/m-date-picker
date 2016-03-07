@@ -48,18 +48,20 @@ const Demo = React.createClass({
   },
   render() {
     const props = this.props;
-    const {date} = this.state;
+    const { date } = this.state;
 
-    return (<div style={{margin: '10px 30px'}}>
+    return (<div style={{ margin: '10px 30px' }}>
       <h2>date picker</h2>
       <div>
         <span>{date && format(date) || format(now)}</span>
-        <DatePicker defaultDate={date || now}
-                    mode={props.mode}
-                    locale={props.locale}
-                    maxDate={maxDate}
-                    minDate={minDate}
-                    onDateChange={this.onDateChange}/>
+        <DatePicker
+          defaultDate={date || now}
+          mode={props.mode}
+          locale={props.locale}
+          maxDate={maxDate}
+          minDate={minDate}
+          onDateChange={this.onDateChange}
+        />
       </div>
     </div>);
   },

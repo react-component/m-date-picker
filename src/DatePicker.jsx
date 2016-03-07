@@ -20,6 +20,9 @@ const DatePicker = React.createClass({
   propTypes: {
     date: PropTypes.object,
     defaultDate: PropTypes.object,
+    prefixCls: PropTypes.string,
+    pickerPrefixCls: PropTypes.string,
+    className: PropTypes.string,
     minDate: PropTypes.object,
     maxDate: PropTypes.object,
     mode: PropTypes.string,
@@ -57,34 +60,34 @@ const DatePicker = React.createClass({
     let newValue = this.getDate().clone();
     if (props.mode === DATETIME || props.mode === DATE) {
       switch (index) {
-      case 0:
-        newValue.setYear(value);
-        break;
-      case 1:
-        newValue.rollSetMonth(value);
-        break;
-      case 2:
-        newValue.rollSetDayOfMonth(value);
-        break;
-      case 3:
-        newValue.setHourOfDay(value);
-        break;
-      case 4:
-        newValue.setMinutes(value);
-        break;
-      default:
-        break;
+        case 0:
+          newValue.setYear(value);
+          break;
+        case 1:
+          newValue.rollSetMonth(value);
+          break;
+        case 2:
+          newValue.rollSetDayOfMonth(value);
+          break;
+        case 3:
+          newValue.setHourOfDay(value);
+          break;
+        case 4:
+          newValue.setMinutes(value);
+          break;
+        default:
+          break;
       }
     } else {
       switch (index) {
-      case 0:
-        newValue.setHourOfDay(value);
-        break;
-      case 1:
-        newValue.setMinutes(value);
-        break;
-      default:
-        break;
+        case 0:
+          newValue.setHourOfDay(value);
+          break;
+        case 1:
+          newValue.setMinutes(value);
+          break;
+        default:
+          break;
       }
     }
     newValue = this.clipDate(newValue);
@@ -202,7 +205,10 @@ const DatePicker = React.createClass({
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      months.push({value: i, label: (i + 1) + locale.month});
+      months.push({
+        value: i,
+        label: (i + 1) + locale.month,
+      });
     }
 
     const days = [];
@@ -228,7 +234,7 @@ const DatePicker = React.createClass({
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
-    const {mode, locale} = this.props;
+    const { mode, locale } = this.props;
     const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
@@ -289,7 +295,7 @@ const DatePicker = React.createClass({
     return new GregorianCalendar(this.props.locale.calendar);
   },
   clipDate(date) {
-    const {mode} = this.props;
+    const { mode } = this.props;
     const minDate = this.getMinDate();
     const maxDate = this.getMaxDate();
     if (mode === DATETIME) {
@@ -324,7 +330,7 @@ const DatePicker = React.createClass({
   },
   render() {
     const props = this.props;
-    const {mode, prefixCls, pickerPrefixCls, className} = props;
+    const { mode, prefixCls, pickerPrefixCls, className } = props;
     const date = this.getDate();
     let dataSource = [];
     let value = [];
@@ -340,10 +346,12 @@ const DatePicker = React.createClass({
 
     const inner = dataSource.map((items, i) => {
       return (<div key={i} className={`${prefixCls}-item`}>
-        <Picker prefixCls={pickerPrefixCls}
-                pure={false}
-                selectedValue={value[i]}
-                onValueChange={this.onValueChange.bind(this, i)}>
+        <Picker
+          prefixCls={pickerPrefixCls}
+          pure={false}
+          selectedValue={value[i]}
+          onValueChange={this.onValueChange.bind(this, i)}
+        >
           {items}
         </Picker>
       </div>);
