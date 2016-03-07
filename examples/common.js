@@ -2242,6 +2242,12 @@
 	    }
 	    this.time = undefined;
 	    this.fieldsComputed = false;
+	  },
+	
+	  toString: function toString() {
+	    // for debug
+	    var v = this;
+	    return '[GregorianCalendar]: ' + v.getYear() + '/' + v.getMonth() + '/' + v.getDayOfMonth() + ' ' + v.getHourOfDay() + ':' + v.getMinutes() + ':' + v.getSeconds();
 	  }
 	};
 	
@@ -2776,18 +2782,18 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _zh_CN = __webpack_require__(16);
 	
-	var _gregorianCalendarLibLocaleZh_CN = __webpack_require__(16);
+	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _gregorianCalendarLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarLibLocaleZh_CN);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports['default'] = {
-	  calendar: _gregorianCalendarLibLocaleZh_CN2['default'],
+	exports.default = {
+	  calendar: _zh_CN2.default,
 	  year: '年',
 	  month: '月',
 	  day: '日',
@@ -3732,7 +3738,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -3746,15 +3752,16 @@
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	      error = new Error(format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
+	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	};
+	}
 	
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
@@ -11973,6 +11980,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -12006,8 +12014,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -12018,7 +12024,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 	
@@ -13181,8 +13191,8 @@
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: null,
-	    autoCorrect: null,
+	    autoCapitalize: MUST_USE_ATTRIBUTE,
+	    autoCorrect: MUST_USE_ATTRIBUTE,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -13213,9 +13223,7 @@
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
-	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
-	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -15869,7 +15877,10 @@
 	      }
 	    });
 	
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+	
 	    return nativeProps;
 	  }
 	
@@ -16294,7 +16305,7 @@
 	    var value = LinkedValueUtils.getValue(props);
 	
 	    if (value != null) {
-	      updateOptions(this, props, value);
+	      updateOptions(this, Boolean(props.multiple), value);
 	    }
 	  }
 	}
@@ -19329,11 +19340,14 @@
 	 * @typechecks
 	 */
 	
+	/* eslint-disable fb-www/typeof-undefined */
+	
 	/**
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document or document body is not yet defined.
+	 * The activeElement will be null only if the document or document body is not
+	 * yet defined.
 	 */
 	'use strict';
 	
@@ -19341,7 +19355,6 @@
 	  if (typeof document === 'undefined') {
 	    return null;
 	  }
-	
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -21081,7 +21094,9 @@
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+	  'setValueForStyles': 'update styles',
+	  'replaceNodeWithMarkup': 'replace',
+	  'updateTextContent': 'set textContent'
 	};
 	
 	function getTotalTime(measurements) {
@@ -21273,18 +21288,23 @@
 	'use strict';
 	
 	var performance = __webpack_require__(160);
-	var curPerformance = performance;
+	
+	var performanceNow;
 	
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (!curPerformance || !curPerformance.now) {
-	  curPerformance = Date;
+	if (performance.now) {
+	  performanceNow = function () {
+	    return performance.now();
+	  };
+	} else {
+	  performanceNow = function () {
+	    return Date.now();
+	  };
 	}
-	
-	var performanceNow = curPerformance.now.bind(curPerformance);
 	
 	module.exports = performanceNow;
 
@@ -21333,7 +21353,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.3';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 162 */
@@ -22311,13 +22331,9 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 	
 	var _react = __webpack_require__(17);
 	
@@ -22331,13 +22347,17 @@
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _localeEn_US = __webpack_require__(179);
+	var _en_US = __webpack_require__(179);
 	
-	var _localeEn_US2 = _interopRequireDefault(_localeEn_US);
+	var _en_US2 = _interopRequireDefault(_en_US);
 	
 	var _classnames = __webpack_require__(180);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	function getDaysInMonth(now, selYear, selMonth) {
 	  var date = now.clone();
@@ -22351,12 +22371,15 @@
 	var DATE = 'date';
 	var TIME = 'time';
 	
-	var DatePicker = _react2['default'].createClass({
+	var DatePicker = _react2.default.createClass({
 	  displayName: 'DatePicker',
 	
 	  propTypes: {
 	    date: _react.PropTypes.object,
 	    defaultDate: _react.PropTypes.object,
+	    prefixCls: _react.PropTypes.string,
+	    pickerPrefixCls: _react.PropTypes.string,
+	    className: _react.PropTypes.string,
 	    minDate: _react.PropTypes.object,
 	    maxDate: _react.PropTypes.object,
 	    mode: _react.PropTypes.string,
@@ -22366,20 +22389,18 @@
 	
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      locale: _localeEn_US2['default'],
+	      locale: _en_US2.default,
 	      prefixCls: 'rmc-date-picker',
 	      pickerPrefixCls: 'rmc-picker',
 	      mode: DATE,
 	      onDateChange: function onDateChange() {}
 	    };
 	  },
-	
 	  getInitialState: function getInitialState() {
 	    return {
 	      date: this.props.date || this.props.defaultDate
 	    };
 	  },
-	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if ('date' in nextProps) {
 	      this.setState({
@@ -22387,7 +22408,6 @@
 	      });
 	    }
 	  },
-	
 	  onValueChange: function onValueChange(index, value) {
 	    var props = this.props;
 	    var newValue = this.getDate().clone();
@@ -22431,7 +22451,6 @@
 	    }
 	    props.onDateChange(newValue);
 	  },
-	
 	  getDefaultMinDate: function getDefaultMinDate() {
 	    if (!this.defaultMinDate) {
 	      this.defaultMinDate = this.getGregorianCalendar();
@@ -22439,7 +22458,6 @@
 	    }
 	    return this.defaultMinDate;
 	  },
-	
 	  getDefaultMaxDate: function getDefaultMaxDate() {
 	    if (!this.defaultMaxDate) {
 	      this.defaultMaxDate = this.getGregorianCalendar();
@@ -22448,7 +22466,6 @@
 	    }
 	    return this.defaultMaxDate;
 	  },
-	
 	  getNow: function getNow() {
 	    if (!this.now) {
 	      this.now = this.getGregorianCalendar();
@@ -22456,59 +22473,45 @@
 	    }
 	    return this.now;
 	  },
-	
 	  getDate: function getDate() {
 	    return this.state.date || this.getNow();
 	  },
-	
 	  getMinYear: function getMinYear() {
 	    return this.getMinDate().getYear();
 	  },
-	
 	  getMaxYear: function getMaxYear() {
 	    return this.getMaxDate().getYear();
 	  },
-	
 	  getMinMonth: function getMinMonth() {
 	    return this.getMinDate().getMonth();
 	  },
-	
 	  getMaxMonth: function getMaxMonth() {
 	    return this.getMaxDate().getMonth();
 	  },
-	
 	  getMinDay: function getMinDay() {
 	    return this.getMinDate().getDayOfMonth();
 	  },
-	
 	  getMaxDay: function getMaxDay() {
 	    return this.getMaxDate().getDayOfMonth();
 	  },
-	
 	  getMinHour: function getMinHour() {
 	    return this.getMinDate().getHourOfDay();
 	  },
-	
 	  getMaxHour: function getMaxHour() {
 	    return this.getMaxDate().getHourOfDay();
 	  },
-	
 	  getMinMinute: function getMinMinute() {
 	    return this.getMinDate().getMinutes();
 	  },
-	
 	  getMaxMinute: function getMaxMinute() {
 	    return this.getMaxDate().getMinutes();
 	  },
-	
 	  getMinDate: function getMinDate() {
 	    return this.props.minDate || this.getDefaultMinDate();
 	  },
-	
 	  getMaxDate: function getMaxDate() {
 	    return this.props.maxDate || this.getDefaultMaxDate();
 	  },
-	
 	  getDateData: function getDateData() {
 	    var locale = this.props.locale;
 	    var date = this.getDate();
@@ -22537,8 +22540,11 @@
 	    if (maxDateYear === selYear) {
 	      maxMonth = maxDateMonth;
 	    }
-	    for (var i = minMonth; i <= maxMonth; i++) {
-	      months.push({ value: i, label: i + 1 + locale.month });
+	    for (var _i = minMonth; _i <= maxMonth; _i++) {
+	      months.push({
+	        value: _i,
+	        label: _i + 1 + locale.month
+	      });
 	    }
 	
 	    var days = [];
@@ -22551,10 +22557,10 @@
 	    if (maxDateYear === selYear && maxDateMonth === selMonth) {
 	      maxDay = maxDateDay;
 	    }
-	    for (var i = minDay; i <= maxDay; i++) {
+	    for (var _i2 = minDay; _i2 <= maxDay; _i2++) {
 	      days.push({
-	        value: i,
-	        label: i + locale.day
+	        value: _i2,
+	        label: _i2 + locale.day
 	      });
 	    }
 	    return [years, months, days];
@@ -22616,16 +22622,16 @@
 	    }
 	
 	    var minutes = [];
-	    for (var i = minMinute; i <= maxMinute; i++) {
+	    for (var _i3 = minMinute; _i3 <= maxMinute; _i3++) {
 	      minutes.push({
-	        value: i,
-	        label: i + locale.minute
+	        value: _i3,
+	        label: _i3 + locale.minute
 	      });
 	    }
 	    return [hours, minutes];
 	  },
 	  getGregorianCalendar: function getGregorianCalendar() {
-	    return new _gregorianCalendar2['default'](this.props.locale.calendar);
+	    return new _gregorianCalendar2.default(this.props.locale.calendar);
 	  },
 	  clipDate: function clipDate(date) {
 	    var mode = this.props.mode;
@@ -22685,29 +22691,31 @@
 	    }
 	
 	    var inner = dataSource.map(function (items, i) {
-	      return _react2['default'].createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { key: i, className: prefixCls + '-item' },
-	        _react2['default'].createElement(
-	          _rmcPicker2['default'],
-	          { prefixCls: pickerPrefixCls,
+	        _react2.default.createElement(
+	          _rmcPicker2.default,
+	          {
+	            prefixCls: pickerPrefixCls,
 	            pure: false,
 	            selectedValue: value[i],
-	            onValueChange: _this.onValueChange.bind(_this, i) },
+	            onValueChange: _this.onValueChange.bind(_this, i)
+	          },
 	          items
 	        )
 	      );
 	    });
 	
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
-	      { className: (0, _classnames2['default'])(className, prefixCls) },
+	      { className: (0, _classnames2.default)(className, prefixCls) },
 	      inner
 	    );
 	  }
 	});
 	
-	exports['default'] = DatePicker;
+	exports.default = DatePicker;
 	module.exports = exports['default'];
 
 /***/ },
@@ -23411,18 +23419,18 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _en_US = __webpack_require__(10);
 	
-	var _gregorianCalendarLibLocaleEn_US = __webpack_require__(10);
+	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	var _gregorianCalendarLibLocaleEn_US2 = _interopRequireDefault(_gregorianCalendarLibLocaleEn_US);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports['default'] = {
-	  calendar: _gregorianCalendarLibLocaleEn_US2['default'],
+	exports.default = {
+	  calendar: _en_US2.default,
 	  year: '',
 	  month: '',
 	  day: '',
@@ -23436,7 +23444,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
+	  Copyright (c) 2016 Jed Watson.
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
@@ -23448,7 +23456,7 @@
 		var hasOwn = {}.hasOwnProperty;
 	
 		function classNames () {
-			var classes = '';
+			var classes = [];
 	
 			for (var i = 0; i < arguments.length; i++) {
 				var arg = arguments[i];
@@ -23457,19 +23465,19 @@
 				var argType = typeof arg;
 	
 				if (argType === 'string' || argType === 'number') {
-					classes += ' ' + arg;
+					classes.push(arg);
 				} else if (Array.isArray(arg)) {
-					classes += ' ' + classNames.apply(null, arg);
+					classes.push(classNames.apply(null, arg));
 				} else if (argType === 'object') {
 					for (var key in arg) {
 						if (hasOwn.call(arg, key) && arg[key]) {
-							classes += ' ' + key;
+							classes.push(key);
 						}
 					}
 				}
 			}
 	
-			return classes.substr(1);
+			return classes.join(' ');
 		}
 	
 		if (typeof module !== 'undefined' && module.exports) {

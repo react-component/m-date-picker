@@ -11,11 +11,7 @@ webpackJsonp([0],{
 /***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint no-console:0 */
-	
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	__webpack_require__(2);
 	
@@ -33,15 +29,13 @@ webpackJsonp([0],{
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _gregorianCalendarFormatLibLocaleZh_CN = __webpack_require__(14);
+	var _zh_CN = __webpack_require__(14);
 	
-	var _gregorianCalendarFormatLibLocaleZh_CN2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleZh_CN);
+	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _rmcDatePickerSrcLocaleZh_CN = __webpack_require__(15);
+	var _zh_CN3 = __webpack_require__(15);
 	
-	var _rmcDatePickerSrcLocaleZh_CN2 = _interopRequireDefault(_rmcDatePickerSrcLocaleZh_CN);
-	
-	// const zhCnCalendar = null;
+	var _zh_CN4 = _interopRequireDefault(_zh_CN3);
 	
 	var _react = __webpack_require__(17);
 	
@@ -51,37 +45,42 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _rmcDatePickerSrcPopup = __webpack_require__(174);
+	var _Popup = __webpack_require__(174);
 	
-	var _rmcDatePickerSrcPopup2 = _interopRequireDefault(_rmcDatePickerSrcPopup);
+	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var formatter = _gregorianCalendarFormat2['default'].getDateTimeInstance(_gregorianCalendarFormat2['default'].Style.FULL, _gregorianCalendarFormat2['default'].Style.FULL, _gregorianCalendarFormatLibLocaleZh_CN2['default']);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var formatter = _gregorianCalendarFormat2.default.getDateTimeInstance(_gregorianCalendarFormat2.default.Style.FULL, _gregorianCalendarFormat2.default.Style.FULL, _zh_CN2.default);
+	
+	// const zhCnCalendar = null;
+	/* eslint no-console:0 */
 	
 	function format(v) {
 	  return formatter.format(v);
 	}
 	
-	var now = new _gregorianCalendar2['default'](_rmcDatePickerSrcLocaleZh_CN2['default'].calendar);
+	var now = new _gregorianCalendar2.default(_zh_CN4.default.calendar);
 	now.setTime(Date.now());
 	
 	var getGregorianCalendar = function getGregorianCalendar() {
-	  return new _gregorianCalendar2['default'](_rmcDatePickerSrcLocaleZh_CN2['default'].calendar);
+	  return new _gregorianCalendar2.default(_zh_CN4.default.calendar);
 	};
 	var minDate = getGregorianCalendar();
 	minDate.set(2015, 8, 1, 0, 0, 0);
 	var maxDate = getGregorianCalendar();
 	maxDate.set(2018, 0, 1, 0, 0, 0);
 	
-	var Demo = _react2['default'].createClass({
+	var Demo = _react2.default.createClass({
 	  displayName: 'Demo',
 	
 	  propTypes: {
-	    mode: _react2['default'].PropTypes.string
+	    mode: _react2.default.PropTypes.string
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      mode: 'datetime',
-	      locale: _rmcDatePickerSrcLocaleZh_CN2['default']
+	      locale: _zh_CN4.default
 	    };
 	  },
 	  // locale: require('../src/locale/zh_CN'),
@@ -109,20 +108,21 @@ webpackJsonp([0],{
 	    var props = this.props;
 	    var date = this.state.date;
 	
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      { style: { margin: '10px 30px' } },
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'h2',
 	        null,
 	        'popup date picker'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(
-	          _rmcDatePickerSrcPopup2['default'],
-	          { date: date || now,
+	        _react2.default.createElement(
+	          _Popup2.default,
+	          {
+	            date: date || now,
 	            minDate: minDate,
 	            maxDate: maxDate,
 	            mode: props.mode,
@@ -130,8 +130,9 @@ webpackJsonp([0],{
 	            onPickerChange: this.onPickerChange,
 	            onDismiss: this.onDismiss,
 	            onChange: this.onChange,
-	            style: { left: 0, bottom: 0 } },
-	          _react2['default'].createElement(
+	            style: { left: 0, bottom: 0 }
+	          },
+	          _react2.default.createElement(
 	            'button',
 	            { onClick: this.show },
 	            date && format(date) || 'open'
@@ -142,7 +143,7 @@ webpackJsonp([0],{
 	  }
 	});
 	
-	_reactDom2['default'].render(_react2['default'].createElement(Demo, null), document.getElementById('__react-content'));
+	_reactDom2.default.render(_react2.default.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ },
 
@@ -165,13 +166,11 @@ webpackJsonp([0],{
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(17);
 	
@@ -193,14 +192,16 @@ webpackJsonp([0],{
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _localeEn_US = __webpack_require__(179);
+	var _en_US = __webpack_require__(179);
 	
-	var _localeEn_US2 = _interopRequireDefault(_localeEn_US);
+	var _en_US2 = _interopRequireDefault(_en_US);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function addEventListener(target, eventType, cb) {
 	  /* eslint camelcase: 2 */
-	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
-	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
+	  var callback = _reactDom2.default.unstable_batchedUpdates ? function run(e) {
+	    _reactDom2.default.unstable_batchedUpdates(cb, e);
 	  } : cb;
 	  target.addEventListener(eventType, callback, false);
 	  return {
@@ -224,7 +225,7 @@ webpackJsonp([0],{
 	
 	function noop() {}
 	
-	var PopupPicker = _react2['default'].createClass({
+	var PopupPicker = _react2.default.createClass({
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
@@ -242,11 +243,11 @@ webpackJsonp([0],{
 	  getDefaultProps: function getDefaultProps() {
 	    return {
 	      prefixCls: 'rmc-date-picker',
-	      Modal: _rmcModal2['default'],
+	      Modal: _rmcModal2.default,
 	      modalPrefix: 'rmc-modal',
 	      onVisibleChange: noop,
 	      mode: 'datetime',
-	      locale: _localeEn_US2['default'],
+	      locale: _en_US2.default,
 	      okText: 'Ok',
 	      dismissText: 'Dismiss',
 	      style: {},
@@ -275,17 +276,17 @@ webpackJsonp([0],{
 	      if (!this.onDocumentClickListener) {
 	        this.onDocumentClickListener = addEventListener(document, 'click', this.onDocumentClick);
 	      }
-	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
+	      _reactDom2.default.render(this.getModal(), this.popupContainer);
 	    } else {
 	      if (this.onDocumentClickListener) {
 	        this.onDocumentClickListener.remove();
 	        this.onDocumentClickListener = null;
 	      }
-	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	      _reactDom2.default.unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	    _reactDom2.default.unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
 	  onPickerChange: function onPickerChange(pickerDate) {
@@ -304,7 +305,7 @@ webpackJsonp([0],{
 	  },
 	  onTriggerClick: function onTriggerClick() {
 	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2['default'].Children.only(this.props.children);
+	    var child = _react2.default.Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
 	      childProps.onClick();
@@ -331,7 +332,7 @@ webpackJsonp([0],{
 	    return date;
 	  },
 	  getGregorianCalendar: function getGregorianCalendar(props) {
-	    return new _gregorianCalendar2['default']((props || this.props).locale.calendar);
+	    return new _gregorianCalendar2.default((props || this.props).locale.calendar);
 	  },
 	  getModal: function getModal() {
 	    var props = this.props;
@@ -350,32 +351,35 @@ webpackJsonp([0],{
 	    if (props.prefixCls) {
 	      dpProps.prefixCls = props.prefixCls;
 	    }
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      ModalClass,
-	      { className: props.className,
+	      {
+	        className: props.className,
 	        modalPrefix: props.modalPrefix,
 	        visible: true,
 	        style: props.style,
-	        onDismiss: this.onDismiss },
-	      _react2['default'].createElement(
+	        onDismiss: this.onDismiss
+	      },
+	      _react2.default.createElement(
 	        'div',
 	        { ref: this.saveModalContent },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: props.prefixCls + '-popup-header' },
-	          _react2['default'].createElement(
+	          _react2.default.createElement(
 	            'div',
 	            { className: props.prefixCls + '-popup-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
-	          _react2['default'].createElement('div', { className: props.prefixCls + '-popup-item' }),
-	          _react2['default'].createElement(
+	          _react2.default.createElement('div', { className: props.prefixCls + '-popup-item' }),
+	          _react2.default.createElement(
 	            'div',
 	            { className: props.prefixCls + '-popup-item', onClick: this.onChange },
 	            props.okText
 	          )
 	        ),
-	        _react2['default'].createElement(_DatePicker2['default'], _extends({ date: this.state.pickerDate || props.date,
+	        _react2.default.createElement(_DatePicker2.default, _extends({
+	          date: this.state.pickerDate || props.date,
 	          mode: props.mode,
 	          locale: props.locale,
 	          onDateChange: this.onPickerChange
@@ -397,15 +401,15 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var children = props.children;
-	    var child = _react2['default'].Children.only(children);
+	    var child = _react2.default.Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
 	    };
-	    return _react2['default'].cloneElement(child, newChildProps);
+	    return _react2.default.cloneElement(child, newChildProps);
 	  }
 	});
 	
-	exports['default'] = PopupPicker;
+	exports.default = PopupPicker;
 	module.exports = exports['default'];
 
 /***/ },
