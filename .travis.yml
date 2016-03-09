@@ -4,7 +4,7 @@ sudo: false
 
 notifications:
   email:
-  - hualei5280@gmail.com
+  - yiminghe@gmail.com
 
 node_js:
 - 4.0.0
@@ -16,6 +16,7 @@ before_install:
       echo "Only docs were updated, stopping build process."
       exit
     fi
+    npm install npm@3.x -g
     phantomjs --version
 script:
 - |
@@ -27,8 +28,8 @@ script:
 env:
   matrix:
   - TEST_TYPE=lint
-  - TEST_TYPE=browser-test
-  - TEST_TYPE=browser-test-cover
+  - TEST_TYPE=test
+  - TEST_TYPE=coverage
 
 
 matrix:
