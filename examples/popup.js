@@ -2,7 +2,7 @@
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
-import 'rmc-date-picker/assets/popup.less';
+import 'rmc-picker/assets/popup.css';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
 import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';

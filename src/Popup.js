@@ -1,32 +1,31 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import DatePicker from './DatePicker';
-import Modal from 'rc-dialog';
 import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
-import { addEventListener, contains, noop } from './util';
+import { noop, pick } from './utils';
+import PopupPicker from 'rmc-picker/lib/Popup';
 
-const PopupPicker = React.createClass({
+const PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className'];
+
+const PopupDatePicker = React.createClass({
   propTypes: {
     visible: PropTypes.bool,
     mode: PropTypes.string,
     onPickerChange: PropTypes.func,
     onChange: PropTypes.func,
+    popupPrefixCls: PropTypes.string,
+    prefixCls: PropTypes.string,
+    pickerPrefixCls: PropTypes.string,
     onVisibleChange: PropTypes.func,
     locale: PropTypes.object,
     date: PropTypes.object,
-    children: PropTypes.element,
-    onDismiss: PropTypes.func,
   },
   getDefaultProps() {
     return {
-      prefixCls: 'rmc-date-picker',
       onVisibleChange: noop,
+      popupPrefixCls: 'rmc-picker-popup',
       mode: 'datetime',
       locale: defaultLocale,
-      okText: 'Ok',
-      dismissText: 'Dismiss',
-      style: {},
       onChange: noop,
       onDismiss: noop,
       onPickerChange: noop,
@@ -38,32 +37,10 @@ const PopupPicker = React.createClass({
       visible: this.props.visible || false,
     };
   },
-  componentDidMount() {
-    this.popupContainer = document.createElement('div');
-    document.body.appendChild(this.popupContainer);
-  },
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
-  },
-  componentDidUpdate() {
-    if (this.state.visible) {
-      if (!this.onDocumentClickListener) {
-        this.onDocumentClickListener = addEventListener(document, 'click', this.onDocumentClick);
-      }
-      ReactDOM.render(this.getModal(), this.popupContainer);
-    } else {
-      if (this.onDocumentClickListener) {
-        this.onDocumentClickListener.remove();
-        this.onDocumentClickListener = null;
-      }
-      ReactDOM.unmountComponentAtNode(this.popupContainer);
-    }
-  },
-  componentWillUnmount() {
-    ReactDOM.unmountComponentAtNode(this.popupContainer);
-    document.body.removeChild(this.popupContainer);
   },
   onPickerChange(pickerDate) {
     this.setState({
@@ -71,26 +48,8 @@ const PopupPicker = React.createClass({
     });
     this.props.onPickerChange(pickerDate);
   },
-  onChange() {
-    this.fireVisibleChange(false);
+  onOk() {
     this.props.onChange(this.state.pickerDate || this.props.date);
-  },
-  onDismiss() {
-    this.fireVisibleChange(false);
-    this.props.onDismiss();
-  },
-  onTriggerClick(e) {
-    this.fireVisibleChange(!this.state.visible);
-    const child = React.Children.only(this.props.children);
-    const childProps = child.props || {};
-    if (childProps.onClick) {
-      childProps.onClick(e);
-    }
-  },
-  onDocumentClick(e) {
-    if (e.target !== this.modalContent && !contains(this.modalContent, e.target)) {
-      this.fireVisibleChange(false);
-    }
   },
   setVisibleState(visible) {
     this.setState({
@@ -125,34 +84,15 @@ const PopupPicker = React.createClass({
     if (props.prefixCls) {
       dpProps.prefixCls = props.prefixCls;
     }
-    return (<Modal
-      prefixCls={`${props.prefixCls}-popup`}
-      visible
-      closable={false}
-      style={props.style}
-    >
-      <div ref={this.saveModalContent}>
-        <div className={`${props.prefixCls}-popup-header`}>
-          <div className={`${props.prefixCls}-popup-item`} onClick={this.onDismiss}>
-            {props.dismissText}
-          </div>
-          <div className={`${props.prefixCls}-popup-item`}></div>
-          <div className={`${props.prefixCls}-popup-item`} onClick={this.onChange}>
-            {props.okText}
-          </div>
-        </div>
-        <DatePicker
-          date={this.state.pickerDate || props.date}
-          mode={props.mode}
-          locale={props.locale}
-          onDateChange={this.onPickerChange}
-          {...dpProps}
-        />
-      </div>
-    </Modal>);
-  },
-  saveModalContent(content) {
-    this.modalContent = content;
+    return (
+      <DatePicker
+        date={this.state.pickerDate || props.date}
+        mode={props.mode}
+        locale={props.locale}
+        onDateChange={this.onPickerChange}
+        {...dpProps}
+      />
+    );
   },
   fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
@@ -163,14 +103,16 @@ const PopupPicker = React.createClass({
     }
   },
   render() {
-    const props = this.props;
-    const children = props.children;
-    const child = React.Children.only(children);
-    const newChildProps = {
-      onClick: this.onTriggerClick,
-    };
-    return React.cloneElement(child, newChildProps);
+    const props = pick(this.props, PROPS);
+    return (<PopupPicker
+      {...props}
+      onVisibleChange={this.fireVisibleChange}
+      onOk={this.onOk}
+      content={this.getModal()}
+      prefixCls={this.props.popupPrefixCls}
+      visible={this.state.visible}
+    />);
   },
 });
 
-export default PopupPicker;
+export default PopupDatePicker;
