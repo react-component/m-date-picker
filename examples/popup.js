@@ -245,17 +245,9 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(173);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
 	var _DatePicker = __webpack_require__(175);
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
-	
-	var _rcDialog = __webpack_require__(181);
-	
-	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
 	var _gregorianCalendar = __webpack_require__(6);
 	
@@ -265,36 +257,40 @@ webpackJsonp([0],{
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	var _util = __webpack_require__(194);
+	var _utils = __webpack_require__(181);
+	
+	var _Popup = __webpack_require__(182);
+	
+	var _Popup2 = _interopRequireDefault(_Popup);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var PopupPicker = _react2.default.createClass({
-	  displayName: 'PopupPicker',
+	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className'];
+	
+	var PopupDatePicker = _react2.default.createClass({
+	  displayName: 'PopupDatePicker',
 	
 	  propTypes: {
 	    visible: _react.PropTypes.bool,
 	    mode: _react.PropTypes.string,
 	    onPickerChange: _react.PropTypes.func,
 	    onChange: _react.PropTypes.func,
+	    popupPrefixCls: _react.PropTypes.string,
+	    prefixCls: _react.PropTypes.string,
+	    pickerPrefixCls: _react.PropTypes.string,
 	    onVisibleChange: _react.PropTypes.func,
 	    locale: _react.PropTypes.object,
-	    date: _react.PropTypes.object,
-	    children: _react.PropTypes.element,
-	    onDismiss: _react.PropTypes.func
+	    date: _react.PropTypes.object
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      prefixCls: 'rmc-date-picker',
-	      onVisibleChange: _util.noop,
+	      onVisibleChange: _utils.noop,
+	      popupPrefixCls: 'rmc-picker-popup',
 	      mode: 'datetime',
 	      locale: _en_US2.default,
-	      okText: 'Ok',
-	      dismissText: 'Dismiss',
-	      style: {},
-	      onChange: _util.noop,
-	      onDismiss: _util.noop,
-	      onPickerChange: _util.noop
+	      onChange: _utils.noop,
+	      onDismiss: _utils.noop,
+	      onPickerChange: _utils.noop
 	    };
 	  },
 	  getInitialState: function getInitialState() {
@@ -303,32 +299,10 @@ webpackJsonp([0],{
 	      visible: this.props.visible || false
 	    };
 	  },
-	  componentDidMount: function componentDidMount() {
-	    this.popupContainer = document.createElement('div');
-	    document.body.appendChild(this.popupContainer);
-	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if ('visible' in nextProps) {
 	      this.setVisibleState(nextProps.visible);
 	    }
-	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    if (this.state.visible) {
-	      if (!this.onDocumentClickListener) {
-	        this.onDocumentClickListener = (0, _util.addEventListener)(document, 'click', this.onDocumentClick);
-	      }
-	      _reactDom2.default.render(this.getModal(), this.popupContainer);
-	    } else {
-	      if (this.onDocumentClickListener) {
-	        this.onDocumentClickListener.remove();
-	        this.onDocumentClickListener = null;
-	      }
-	      _reactDom2.default.unmountComponentAtNode(this.popupContainer);
-	    }
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2.default.unmountComponentAtNode(this.popupContainer);
-	    document.body.removeChild(this.popupContainer);
 	  },
 	  onPickerChange: function onPickerChange(pickerDate) {
 	    this.setState({
@@ -336,26 +310,8 @@ webpackJsonp([0],{
 	    });
 	    this.props.onPickerChange(pickerDate);
 	  },
-	  onChange: function onChange() {
-	    this.fireVisibleChange(false);
+	  onOk: function onOk() {
 	    this.props.onChange(this.state.pickerDate || this.props.date);
-	  },
-	  onDismiss: function onDismiss() {
-	    this.fireVisibleChange(false);
-	    this.props.onDismiss();
-	  },
-	  onTriggerClick: function onTriggerClick(e) {
-	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2.default.Children.only(this.props.children);
-	    var childProps = child.props || {};
-	    if (childProps.onClick) {
-	      childProps.onClick(e);
-	    }
-	  },
-	  onDocumentClick: function onDocumentClick(e) {
-	    if (e.target !== this.modalContent && !(0, _util.contains)(this.modalContent, e.target)) {
-	      this.fireVisibleChange(false);
-	    }
 	  },
 	  setVisibleState: function setVisibleState(visible) {
 	    this.setState({
@@ -390,38 +346,196 @@ webpackJsonp([0],{
 	    if (props.prefixCls) {
 	      dpProps.prefixCls = props.prefixCls;
 	    }
-	    return _react2.default.createElement(
-	      _rcDialog2.default,
+	    return _react2.default.createElement(_DatePicker2.default, _extends({
+	      date: this.state.pickerDate || props.date,
+	      mode: props.mode,
+	      locale: props.locale,
+	      onDateChange: this.onPickerChange
+	    }, dpProps));
+	  },
+	  fireVisibleChange: function fireVisibleChange(visible) {
+	    if (this.state.visible !== visible) {
+	      if (!('visible' in this.props)) {
+	        this.setVisibleState(visible);
+	      }
+	      this.props.onVisibleChange(visible);
+	    }
+	  },
+	  render: function render() {
+	    var props = (0, _utils.pick)(this.props, PROPS);
+	    return _react2.default.createElement(_Popup2.default, _extends({}, props, {
+	      onVisibleChange: this.fireVisibleChange,
+	      onOk: this.onOk,
+	      content: this.getModal(),
+	      prefixCls: this.props.popupPrefixCls,
+	      visible: this.state.visible
+	    }));
+	  }
+	});
+	
+	exports.default = PopupDatePicker;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 181:
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.pick = pick;
+	exports.noop = noop;
+	function pick(props, wl) {
+	  var ret = {};
+	  wl.forEach(function (w) {
+	    if (w in props) {
+	      ret[w] = props[w];
+	    }
+	  });
+	  return ret;
+	}
+	
+	function noop() {}
+
+/***/ },
+
+/***/ 182:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _react = __webpack_require__(17);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(173);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _rcDialog = __webpack_require__(183);
+	
+	var _rcDialog2 = _interopRequireDefault(_rcDialog);
+	
+	var _utils = __webpack_require__(196);
+	
+	var PopupPicker = _react2['default'].createClass({
+	  displayName: 'PopupPicker',
+	
+	  propTypes: {
+	    visible: _react.PropTypes.bool,
+	    onOk: _react.PropTypes.func,
+	    onVisibleChange: _react.PropTypes.func,
+	    children: _react.PropTypes.element,
+	    content: _react.PropTypes.any,
+	    onDismiss: _react.PropTypes.func
+	  },
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      prefixCls: 'rmc-picker-popup',
+	      onVisibleChange: _utils.noop,
+	      okText: 'Ok',
+	      dismissText: 'Dismiss',
+	      style: {},
+	      onOk: _utils.noop,
+	      onDismiss: _utils.noop
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      visible: this.props.visible || false
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.popupContainer = document.createElement('div');
+	    document.body.appendChild(this.popupContainer);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if ('visible' in nextProps) {
+	      this.setVisibleState(nextProps.visible);
+	    }
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    if (this.state.visible) {
+	      if (!this.onDocumentClickListener) {
+	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
+	      }
+	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
+	    } else {
+	      if (this.onDocumentClickListener) {
+	        this.onDocumentClickListener.remove();
+	        this.onDocumentClickListener = null;
+	      }
+	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	    }
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	    document.body.removeChild(this.popupContainer);
+	  },
+	  onOk: function onOk() {
+	    this.fireVisibleChange(false);
+	    this.props.onOk();
+	  },
+	  onDismiss: function onDismiss() {
+	    this.fireVisibleChange(false);
+	    this.props.onDismiss();
+	  },
+	  onTriggerClick: function onTriggerClick(e) {
+	    this.fireVisibleChange(!this.state.visible);
+	    var child = _react2['default'].Children.only(this.props.children);
+	    var childProps = child.props || {};
+	    if (childProps.onClick) {
+	      childProps.onClick(e);
+	    }
+	  },
+	  onDocumentClick: function onDocumentClick(e) {
+	    if (e.target !== this.modalContent && !(0, _utils.contains)(this.modalContent, e.target)) {
+	      this.fireVisibleChange(false);
+	    }
+	  },
+	  setVisibleState: function setVisibleState(visible) {
+	    this.setState({
+	      visible: visible
+	    });
+	  },
+	  getModal: function getModal() {
+	    var props = this.props;
+	    return _react2['default'].createElement(
+	      _rcDialog2['default'],
 	      {
-	        prefixCls: props.prefixCls + '-popup',
+	        prefixCls: '' + props.prefixCls,
 	        visible: true,
 	        closable: false,
 	        style: props.style
 	      },
-	      _react2.default.createElement(
+	      _react2['default'].createElement(
 	        'div',
 	        { ref: this.saveModalContent },
-	        _react2.default.createElement(
+	        _react2['default'].createElement(
 	          'div',
-	          { className: props.prefixCls + '-popup-header' },
-	          _react2.default.createElement(
+	          { className: props.prefixCls + '-header' },
+	          _react2['default'].createElement(
 	            'div',
-	            { className: props.prefixCls + '-popup-item', onClick: this.onDismiss },
+	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
-	          _react2.default.createElement('div', { className: props.prefixCls + '-popup-item' }),
-	          _react2.default.createElement(
+	          _react2['default'].createElement('div', { className: props.prefixCls + '-item' }),
+	          _react2['default'].createElement(
 	            'div',
-	            { className: props.prefixCls + '-popup-item', onClick: this.onChange },
+	            { className: props.prefixCls + '-item', onClick: this.onOk },
 	            props.okText
 	          )
 	        ),
-	        _react2.default.createElement(_DatePicker2.default, _extends({
-	          date: this.state.pickerDate || props.date,
-	          mode: props.mode,
-	          locale: props.locale,
-	          onDateChange: this.onPickerChange
-	        }, dpProps))
+	        this.props.content
 	      )
 	    );
 	  },
@@ -439,29 +553,29 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var children = props.children;
-	    var child = _react2.default.Children.only(children);
+	    var child = _react2['default'].Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
 	    };
-	    return _react2.default.cloneElement(child, newChildProps);
+	    return _react2['default'].cloneElement(child, newChildProps);
 	  }
 	});
 	
-	exports.default = PopupPicker;
+	exports['default'] = PopupPicker;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 181:
+/***/ 183:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(182);
+	module.exports = __webpack_require__(184);
 
 /***/ },
 
-/***/ 182:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -482,7 +596,7 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(183);
+	var _Dialog = __webpack_require__(185);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -642,7 +756,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 183:
+/***/ 185:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -661,15 +775,15 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(184);
+	var _KeyCode = __webpack_require__(186);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(185);
+	var _rcAnimate = __webpack_require__(187);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(193);
+	var _LazyRenderBox = __webpack_require__(195);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -1003,7 +1117,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 184:
+/***/ 186:
 /***/ function(module, exports) {
 
 	/**
@@ -1529,17 +1643,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 185:
+/***/ 187:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(186);
+	module.exports = __webpack_require__(188);
 
 /***/ },
 
-/***/ 186:
+/***/ 188:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1556,13 +1670,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(187);
+	var _ChildrenUtils = __webpack_require__(189);
 	
-	var _AnimateChild = __webpack_require__(188);
+	var _AnimateChild = __webpack_require__(190);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(192);
+	var _util = __webpack_require__(194);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1870,7 +1984,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 187:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1989,7 +2103,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 188:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2008,11 +2122,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(189);
+	var _cssAnimation = __webpack_require__(191);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(192);
+	var _util = __webpack_require__(194);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -2093,13 +2207,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 189:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Event = __webpack_require__(190);
-	var Css = __webpack_require__(191);
+	var Event = __webpack_require__(192);
+	var Css = __webpack_require__(193);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 	
 	function getDuration(node, name) {
@@ -2252,7 +2366,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 190:
+/***/ 192:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2341,7 +2455,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 191:
+/***/ 193:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2373,7 +2487,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 192:
+/***/ 194:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2407,7 +2521,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 193:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2449,28 +2563,28 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 194:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	exports.addEventListener = addEventListener;
 	exports.contains = contains;
 	exports.noop = noop;
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
 	var _reactDom = __webpack_require__(173);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	function addEventListener(target, eventType, cb) {
 	  /* eslint camelcase: 2 */
-	  var callback = _reactDom2.default.unstable_batchedUpdates ? function run(e) {
-	    _reactDom2.default.unstable_batchedUpdates(cb, e);
+	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
+	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
 	  } : cb;
 	  target.addEventListener(eventType, callback, false);
 	  return {
