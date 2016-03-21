@@ -1,38 +1,10 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import DatePicker from './DatePicker';
-import Modal from 'rmc-modal';
+import Modal from 'rc-dialog';
 import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
-
-function addEventListener(target, eventType, cb) {
-  /* eslint camelcase: 2 */
-  const callback = ReactDOM.unstable_batchedUpdates ? function run(e) {
-    ReactDOM.unstable_batchedUpdates(cb, e);
-  } : cb;
-  target.addEventListener(eventType, callback, false);
-  return {
-    remove() {
-      target.removeEventListener(eventType, callback, false);
-    },
-  };
-}
-
-function contains(root, n) {
-  let node = n;
-  while (node) {
-    if (node === root) {
-      return true;
-    }
-    node = node.parentNode;
-  }
-
-  return false;
-}
-
-
-function noop() {
-}
+import { addEventListener, contains, noop } from './util';
 
 const PopupPicker = React.createClass({
   propTypes: {
@@ -43,15 +15,12 @@ const PopupPicker = React.createClass({
     onVisibleChange: PropTypes.func,
     locale: PropTypes.object,
     date: PropTypes.object,
-    Modal: PropTypes.func,
     children: PropTypes.element,
     onDismiss: PropTypes.func,
   },
   getDefaultProps() {
     return {
       prefixCls: 'rmc-date-picker',
-      Modal,
-      modalPrefix: 'rmc-modal',
       onVisibleChange: noop,
       mode: 'datetime',
       locale: defaultLocale,
@@ -110,12 +79,12 @@ const PopupPicker = React.createClass({
     this.fireVisibleChange(false);
     this.props.onDismiss();
   },
-  onTriggerClick() {
+  onTriggerClick(e) {
     this.fireVisibleChange(!this.state.visible);
     const child = React.Children.only(this.props.children);
     const childProps = child.props || {};
     if (childProps.onClick) {
-      childProps.onClick();
+      childProps.onClick(e);
     }
   },
   onDocumentClick(e) {
@@ -143,7 +112,6 @@ const PopupPicker = React.createClass({
   },
   getModal() {
     const props = this.props;
-    const { Modal: ModalClass } = props;
     const dpProps = {};
     if (props.minDate) {
       dpProps.minDate = props.minDate;
@@ -157,12 +125,11 @@ const PopupPicker = React.createClass({
     if (props.prefixCls) {
       dpProps.prefixCls = props.prefixCls;
     }
-    return (<ModalClass
-      className={props.className}
-      modalPrefix={props.modalPrefix}
+    return (<Modal
+      prefixCls={`${props.prefixCls}-popup`}
       visible
+      closable={false}
       style={props.style}
-      onDismiss={this.onDismiss}
     >
       <div ref={this.saveModalContent}>
         <div className={`${props.prefixCls}-popup-header`}>
@@ -182,7 +149,7 @@ const PopupPicker = React.createClass({
           {...dpProps}
         />
       </div>
-    </ModalClass>);
+    </Modal>);
   },
   saveModalContent(content) {
     this.modalContent = content;

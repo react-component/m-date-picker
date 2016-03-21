@@ -1,6 +1,10 @@
 # History
 ----
 
+## 2.0.0 / 2016-03-21
+
+- use rc-dialog
+
 ## 1.7.0 / 2016-01-13
 
 - change onDateChange -> onPickerChange, onOk -> onChange in Popup

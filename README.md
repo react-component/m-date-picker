@@ -72,7 +72,6 @@ see example
 |----------|----------------|----------|--------------|
 |className | additional css class of modal node | String | '' |
 |prefixCls | prefix class | String | 'rmc-date-picker' |
-|modalPrefixCls | prefix class | String | 'rmc-modal' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
 |date | The currently selected date. | GregorianCalendar |  |
 |onPickerChange | Date inside picker change handler. | Function(date: GregorianCalendar) | '' |
@@ -80,7 +79,7 @@ see example
 |minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
 |maxDate | max date | GregorianCalendar | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
-|style | additional style | object | {} |
+|style | additional modal style | object | {} |
 |onChange | exec on ok | Function(date: GregorianCalendar) |  |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |

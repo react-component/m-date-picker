@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "1.8.1",
+  "version": "2.0.0",
   "description": "m-date-picker ui component for react",
   "keywords": [
     "react",
@@ -42,6 +42,7 @@
     "expect.js": "0.3.x",
     "gregorian-calendar-format": "~4.0.4",
     "jquery": "^2.1.4",
+    "load-script": "^1.0.0",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
     "react": "0.14.x",
@@ -52,9 +53,9 @@
     "lint"
   ],
   "dependencies": {
-    "classnames": "^2.2.1",
+    "classnames": "2.x",
     "gregorian-calendar": "4.x",
-    "rmc-modal": "^0.4.0",
-    "rmc-picker": "^2.2.0"
+    "rc-dialog": "6.x",
+    "rmc-picker": "2.x"
   }
 }
