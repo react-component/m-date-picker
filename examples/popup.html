@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-date-picker@1.8.1</title>
+  <title>popup.js - example - rmc-date-picker@2.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rmc-date-picker@1.8.1</h1>
+    <h1>rmc-date-picker@2.0.0</h1>
 
     <p>m-date-picker ui component for react</p>
   </div>
@@ -269,12 +269,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-date-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-date-picker/assets/popup.css'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-modal/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> GregorianCalendarFormat <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar-format'</span>;
 <span class="hljs-keyword">import</span> GregorianCalendar <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar'</span>;
 <span class="hljs-keyword">import</span> zhCn <span class="hljs-keyword">from</span> <span class="hljs-string">'gregorian-calendar-format/lib/locale/zh_CN'</span>;
 <span class="hljs-keyword">import</span> zhCnPicker <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-date-picker/lib/locale/zh_CN'</span>;
-
+<span class="hljs-keyword">import</span> loadScript <span class="hljs-keyword">from</span> <span class="hljs-string">'load-script'</span>;
 <span class="hljs-comment">// const zhCnCalendar = null;</span>
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
@@ -343,7 +342,6 @@ maxDate.set(<span class="hljs-number">2018</span>, <span class="hljs-number">0</
           <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
           <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
           <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
-          <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">left:</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">bottom:</span> <span class="hljs-attribute">0</span> }}
         &gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.show}</span>&gt;</span>{date &amp;&amp; format(date) || 'open'}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">PopPicker</span>&gt;</span>
@@ -353,6 +351,10 @@ maxDate.set(<span class="hljs-number">2018</span>, <span class="hljs-number">0</
 });
 
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+
+loadScript('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', () =&gt; {
+  window.FastClick.attach(document.body);
+});
 </span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/m-date-picker">
