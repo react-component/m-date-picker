@@ -7,7 +7,6 @@ import GregorianCalendarFormat from 'gregorian-calendar-format';
 import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
 import zhCnPicker from 'rmc-date-picker/src/locale/zh_CN';
-import loadScript from 'load-script';
 // const zhCnCalendar = null;
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -85,7 +84,3 @@ const Demo = React.createClass({
 });
 
 ReactDOM.render(<Demo />, document.getElementById('__react-content'));
-
-loadScript('//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js', () => {
-  window.FastClick.attach(document.body);
-});
