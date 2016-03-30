@@ -86,6 +86,9 @@ see example
 |dismissText | dismiss button text | String | 'Dismiss' |
 |visible | whether pop picker is visible | Boolean | |
 |onVisibleChange | called when pop picker visible change | Function | |
+|popupPrefixCls |  | String | |
+|popupTransitionName |  | String | |
+|maskTransitionName |  | String | |
 
 ## Test Case
 
