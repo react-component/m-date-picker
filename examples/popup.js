@@ -121,6 +121,8 @@ webpackJsonp([0],{
 	        _react2["default"].createElement(
 	          _Popup2["default"],
 	          {
+	            popupTransitionName: 'rmc-picker-popup-slide-fade',
+	            maskTransitionName: 'rmc-picker-popup-fade',
 	            date: date || now,
 	            minDate: minDate,
 	            maxDate: maxDate,
@@ -187,7 +189,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className'];
+	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className', 'popupTransitionName', 'maskTransitionName'];
 	
 	var PopupDatePicker = _react2["default"].createClass({
 	  displayName: 'PopupDatePicker',
@@ -329,11 +331,9 @@ webpackJsonp([0],{
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(16);
 	
@@ -349,7 +349,9 @@ webpackJsonp([0],{
 	
 	var _utils = __webpack_require__(195);
 	
-	var PopupPicker = _react2['default'].createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var PopupPicker = _react2["default"].createClass({
 	  displayName: 'PopupPicker',
 	
 	  propTypes: {
@@ -358,7 +360,9 @@ webpackJsonp([0],{
 	    onVisibleChange: _react.PropTypes.func,
 	    children: _react.PropTypes.element,
 	    content: _react.PropTypes.any,
-	    onDismiss: _react.PropTypes.func
+	    onDismiss: _react.PropTypes.func,
+	    popupTransitionName: _react.PropTypes.string,
+	    maskTransitionName: _react.PropTypes.string
 	  },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
@@ -390,17 +394,17 @@ webpackJsonp([0],{
 	      if (!this.onDocumentClickListener) {
 	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
 	      }
-	      _reactDom2['default'].render(this.getModal(), this.popupContainer);
+	      _reactDom2["default"].render(this.getModal(), this.popupContainer);
 	    } else {
 	      if (this.onDocumentClickListener) {
 	        this.onDocumentClickListener.remove();
 	        this.onDocumentClickListener = null;
 	      }
-	      _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	      _reactDom2["default"].unmountComponentAtNode(this.popupContainer);
 	    }
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2['default'].unmountComponentAtNode(this.popupContainer);
+	    _reactDom2["default"].unmountComponentAtNode(this.popupContainer);
 	    document.body.removeChild(this.popupContainer);
 	  },
 	  onOk: function onOk() {
@@ -413,7 +417,7 @@ webpackJsonp([0],{
 	  },
 	  onTriggerClick: function onTriggerClick(e) {
 	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2['default'].Children.only(this.props.children);
+	    var child = _react2["default"].Children.only(this.props.children);
 	    var childProps = child.props || {};
 	    if (childProps.onClick) {
 	      childProps.onClick(e);
@@ -431,27 +435,29 @@ webpackJsonp([0],{
 	  },
 	  getModal: function getModal() {
 	    var props = this.props;
-	    return _react2['default'].createElement(
-	      _rcDialog2['default'],
+	    return _react2["default"].createElement(
+	      _rcDialog2["default"],
 	      {
 	        prefixCls: '' + props.prefixCls,
 	        visible: true,
+	        transitionName: props.popupTransitionName,
+	        maskTransitionName: props.maskTransitionName,
 	        closable: false,
 	        style: props.style
 	      },
-	      _react2['default'].createElement(
+	      _react2["default"].createElement(
 	        'div',
 	        { ref: this.saveModalContent },
-	        _react2['default'].createElement(
+	        _react2["default"].createElement(
 	          'div',
 	          { className: props.prefixCls + '-header' },
-	          _react2['default'].createElement(
+	          _react2["default"].createElement(
 	            'div',
 	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
-	          _react2['default'].createElement('div', { className: props.prefixCls + '-item' }),
-	          _react2['default'].createElement(
+	          _react2["default"].createElement('div', { className: props.prefixCls + '-item' }),
+	          _react2["default"].createElement(
 	            'div',
 	            { className: props.prefixCls + '-item', onClick: this.onOk },
 	            props.okText
@@ -475,15 +481,18 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var children = props.children;
-	    var child = _react2['default'].Children.only(children);
+	    if (!children) {
+	      return null;
+	    }
+	    var child = _react2["default"].Children.only(children);
 	    var newChildProps = {
 	      onClick: this.onTriggerClick
 	    };
-	    return _react2['default'].cloneElement(child, newChildProps);
+	    return _react2["default"].cloneElement(child, newChildProps);
 	  }
 	});
 	
-	exports['default'] = PopupPicker;
+	exports["default"] = PopupPicker;
 	module.exports = exports['default'];
 
 /***/ },
@@ -2490,23 +2499,23 @@ webpackJsonp([0],{
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.addEventListener = addEventListener;
 	exports.contains = contains;
 	exports.noop = noop;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
 	var _reactDom = __webpack_require__(172);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
 	function addEventListener(target, eventType, cb) {
 	  /* eslint camelcase: 2 */
-	  var callback = _reactDom2['default'].unstable_batchedUpdates ? function run(e) {
-	    _reactDom2['default'].unstable_batchedUpdates(cb, e);
+	  var callback = _reactDom2["default"].unstable_batchedUpdates ? function run(e) {
+	    _reactDom2["default"].unstable_batchedUpdates(cb, e);
 	  } : cb;
 	  target.addEventListener(eventType, callback, false);
 	  return {
