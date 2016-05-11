@@ -6,7 +6,7 @@ import { noop, pick } from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
 
 const PROPS = ['onDismiss', 'children', 'style',
-  'okText', 'dismissText', 'className',
+  'okText', 'dismissText', 'title', 'className',
   'popupTransitionName', 'maskTransitionName'];
 
 const PopupDatePicker = React.createClass({

@@ -60,35 +60,37 @@ see example
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
 |defaultDate | default selected date. | GregorianCalendar | now |
 |date | The currently selected date. | GregorianCalendar |  |
-|onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
 |maxDate | max date | GregorianCalendar | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
+|onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
 
 ### rmc-date-picker/lib/Popup props
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
 |className | additional css class of modal node | String | '' |
+|style | additional modal style | object | {} |
+|popupTransitionName |  | String | |
+|maskTransitionName |  | String | |
 |prefixCls | prefix class | String | 'rmc-date-picker' |
 |pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
+|popupPrefixCls | popup's prefix class | String | 'rmc-picker-popup' |
 |date | The currently selected date. | GregorianCalendar |  |
-|onPickerChange | Date inside picker change handler. | Function(date: GregorianCalendar) | '' |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
 |maxDate | max date | GregorianCalendar | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
-|style | additional modal style | object | {} |
+|visible | whether pop picker is visible | Boolean | false |
 |onChange | exec on ok | Function(date: GregorianCalendar) |  |
+|onPickerChange | Date inside picker change handler. | Function(date: GregorianCalendar) | '' |
+|onVisibleChange | called when pop picker visible change | Function | |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |
 |dismissText | dismiss button text | String | 'Dismiss' |
-|visible | whether pop picker is visible | Boolean | |
-|onVisibleChange | called when pop picker visible change | Function | |
-|popupPrefixCls |  | String | |
-|popupTransitionName |  | String | |
-|maskTransitionName |  | String | |
+|title | Popup title | String | '' |
+
 
 ## Test Case
 

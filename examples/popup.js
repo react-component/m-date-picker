@@ -69,6 +69,7 @@ const Demo = React.createClass({
         <PopPicker
           popupTransitionName="rmc-picker-popup-slide-fade"
           maskTransitionName="rmc-picker-popup-fade"
+          title="Date picker"
           date={date || now}
           minDate={minDate}
           maxDate={maxDate}
