@@ -123,6 +123,7 @@ webpackJsonp([0],{
 	          {
 	            popupTransitionName: 'rmc-picker-popup-slide-fade',
 	            maskTransitionName: 'rmc-picker-popup-fade',
+	            title: 'Date picker',
 	            date: date || now,
 	            minDate: minDate,
 	            maxDate: maxDate,
@@ -189,7 +190,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'className', 'popupTransitionName', 'maskTransitionName'];
+	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'title', 'className', 'popupTransitionName', 'maskTransitionName'];
 	
 	var PopupDatePicker = _react2["default"].createClass({
 	  displayName: 'PopupDatePicker',
@@ -347,7 +348,7 @@ webpackJsonp([0],{
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _utils = __webpack_require__(195);
+	var _utils = __webpack_require__(196);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -370,6 +371,7 @@ webpackJsonp([0],{
 	      onVisibleChange: _utils.noop,
 	      okText: 'Ok',
 	      dismissText: 'Dismiss',
+	      title: '',
 	      style: {},
 	      onOk: _utils.noop,
 	      onDismiss: _utils.noop
@@ -456,7 +458,11 @@ webpackJsonp([0],{
 	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
 	            props.dismissText
 	          ),
-	          _react2["default"].createElement('div', { className: props.prefixCls + '-item' }),
+	          _react2["default"].createElement(
+	            'div',
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
+	            props.title
+	          ),
 	          _react2["default"].createElement(
 	            'div',
 	            { className: props.prefixCls + '-item', onClick: this.onOk },
@@ -627,7 +633,7 @@ webpackJsonp([0],{
 	    key: 'getDialogElement',
 	    value: function getDialogElement(extra) {
 	      var props = this.props;
-	      var dialogProps = copy(props, ['className', 'closable', 'maskClosable', 'title', 'footer', 'mask', 'keyboard', 'animation', 'transitionName', 'maskAnimation', 'maskTransitionName', 'mousePosition', 'prefixCls', 'style', 'width', 'height', 'zIndex', 'bodyStyle']);
+	      var dialogProps = copy(props, ['className', 'closable', 'maskClosable', 'title', 'footer', 'mask', 'keyboard', 'animation', 'transitionName', 'maskAnimation', 'maskTransitionName', 'mousePosition', 'prefixCls', 'style', 'width', 'wrapStyle', 'height', 'zIndex', 'bodyStyle', 'wrapClassName']);
 	      dialogProps = _extends({}, dialogProps, {
 	        onClose: this.onClose,
 	        visible: this.state.visible
@@ -674,6 +680,8 @@ webpackJsonp([0],{
 	DialogWrap.propTypes = {
 	  className: _react.PropTypes.string,
 	  keyboard: _react.PropTypes.bool,
+	  wrapStyle: _react.PropTypes.object,
+	  style: _react.PropTypes.object,
 	  mask: _react.PropTypes.bool,
 	  closable: _react.PropTypes.bool,
 	  maskClosable: _react.PropTypes.bool,
@@ -714,7 +722,7 @@ webpackJsonp([0],{
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(194);
+	var _LazyRenderBox = __webpack_require__(195);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -768,7 +776,9 @@ webpackJsonp([0],{
 	    closable: _react.PropTypes.bool,
 	    maskClosable: _react.PropTypes.bool,
 	    visible: _react.PropTypes.bool,
-	    mousePosition: _react.PropTypes.object
+	    mousePosition: _react.PropTypes.object,
+	    wrapStyle: _react.PropTypes.object,
+	    wrapClassName: _react.PropTypes.string
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
@@ -941,6 +951,9 @@ webpackJsonp([0],{
 	    }
 	    return style;
 	  },
+	  getWrapStyle: function getWrapStyle() {
+	    return _extends({}, this.getZIndexStyle(), this.props.wrapStyle);
+	  },
 	  getMaskElement: function getMaskElement() {
 	    var props = this.props;
 	    var maskElement = void 0;
@@ -1015,7 +1028,7 @@ webpackJsonp([0],{
 	  render: function render() {
 	    var props = this.props;
 	    var prefixCls = props.prefixCls;
-	    var style = this.getZIndexStyle();
+	    var style = this.getWrapStyle();
 	    // clear hide display
 	    // and only set display after async anim, not here for hide
 	    if (props.visible) {
@@ -1030,7 +1043,7 @@ webpackJsonp([0],{
 	        {
 	          tabIndex: '-1',
 	          onKeyDown: this.onKeyDown,
-	          className: prefixCls + '-wrap',
+	          className: prefixCls + '-wrap ' + (props.wrapClassName || ''),
 	          ref: 'wrap',
 	          onClick: this.onMaskClick,
 	          role: 'dialog',
@@ -1607,7 +1620,7 @@ webpackJsonp([0],{
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(193);
+	var _util = __webpack_require__(194);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -2057,7 +2070,7 @@ webpackJsonp([0],{
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(193);
+	var _util = __webpack_require__(194);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -2143,13 +2156,31 @@ webpackJsonp([0],{
 
 	'use strict';
 	
-	var Event = __webpack_require__(191);
-	var Css = __webpack_require__(192);
-	var isCssAnimationSupported = Event.endEvents.length !== 0;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _Event = __webpack_require__(191);
+	
+	var _Event2 = _interopRequireDefault(_Event);
+	
+	var _componentClasses = __webpack_require__(192);
+	
+	var _componentClasses2 = _interopRequireDefault(_componentClasses);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var isCssAnimationSupported = _Event2["default"].endEvents.length !== 0;
+	
+	
+	var capitalPrefixes = ['Webkit', 'Moz', 'O',
+	// ms is special .... !
+	'ms'];
+	var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 	
 	function getDuration(node, name) {
 	  var style = window.getComputedStyle(node);
-	  var prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
+	
 	  var ret = '';
 	  for (var i = 0; i < prefixes.length; i++) {
 	    ret = style.getPropertyValue(prefixes[i] + name);
@@ -2182,9 +2213,19 @@ webpackJsonp([0],{
 	  }
 	}
 	
-	var cssAnimation = function cssAnimation(node, transitionName, callback) {
+	var cssAnimation = function cssAnimation(node, transitionName, endCallback) {
 	  var className = transitionName;
 	  var activeClassName = className + '-active';
+	  var end = endCallback;
+	  var start = void 0;
+	  var active = void 0;
+	  var nodeClasses = (0, _componentClasses2["default"])(node);
+	
+	  if (endCallback && Object.prototype.toString.call(endCallback) === '[object Object]') {
+	    end = endCallback.end;
+	    start = endCallback.start;
+	    active = endCallback.active;
+	  }
 	
 	  if (node.rcEndListener) {
 	    node.rcEndListener();
@@ -2202,28 +2243,35 @@ webpackJsonp([0],{
 	
 	    clearBrowserBugTimeout(node);
 	
-	    Css.removeClass(node, className);
-	    Css.removeClass(node, activeClassName);
+	    nodeClasses.remove(className);
+	    nodeClasses.remove(activeClassName);
 	
-	    Event.removeEndEventListener(node, node.rcEndListener);
+	    _Event2["default"].removeEndEventListener(node, node.rcEndListener);
 	    node.rcEndListener = null;
 	
-	    // Usually this optional callback is used for informing an owner of
+	    // Usually this optional end is used for informing an owner of
 	    // a leave animation and telling it to remove the child.
-	    if (callback) {
-	      callback();
+	    if (end) {
+	      end();
 	    }
 	  };
 	
-	  Event.addEndEventListener(node, node.rcEndListener);
+	  _Event2["default"].addEndEventListener(node, node.rcEndListener);
 	
-	  Css.addClass(node, className);
+	  if (start) {
+	    start();
+	  }
+	  nodeClasses.add(className);
 	
 	  node.rcAnimTimeout = setTimeout(function () {
 	    node.rcAnimTimeout = null;
-	    Css.addClass(node, activeClassName);
+	    nodeClasses.add(activeClassName);
+	    if (active) {
+	      setTimeout(active, 0);
+	    }
 	    fixBrowserByTimeout(node);
-	  }, 0);
+	    // 30ms for firefox
+	  }, 30);
 	
 	  return {
 	    stop: function stop() {
@@ -2251,7 +2299,7 @@ webpackJsonp([0],{
 	
 	    clearBrowserBugTimeout(node);
 	
-	    Event.removeEndEventListener(node, node.rcEndListener);
+	    _Event2["default"].removeEndEventListener(node, node.rcEndListener);
 	    node.rcEndListener = null;
 	
 	    // Usually this optional callback is used for informing an owner of
@@ -2261,7 +2309,7 @@ webpackJsonp([0],{
 	    }
 	  };
 	
-	  Event.addEndEventListener(node, node.rcEndListener);
+	  _Event2["default"].addEndEventListener(node, node.rcEndListener);
 	
 	  node.rcAnimTimeout = setTimeout(function () {
 	    for (var s in style) {
@@ -2282,18 +2330,15 @@ webpackJsonp([0],{
 	    property = '';
 	  }
 	  property = property || '';
-	  ['Webkit', 'Moz', 'O',
-	  // ms is special .... !
-	  'ms'].forEach(function (prefix) {
+	  capitalPrefixes.forEach(function (prefix) {
 	    node.style[prefix + 'Transition' + property] = v;
 	  });
 	};
 	
-	cssAnimation.addClass = Css.addClass;
-	cssAnimation.removeClass = Css.removeClass;
 	cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 	
-	module.exports = cssAnimation;
+	exports["default"] = cssAnimation;
+	module.exports = exports['default'];
 
 /***/ },
 
@@ -2302,6 +2347,9 @@ webpackJsonp([0],{
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var EVENT_NAME_MAP = {
 	  transitionend: {
 	    transition: 'transitionend',
@@ -2347,7 +2395,7 @@ webpackJsonp([0],{
 	  }
 	}
 	
-	if (typeof window !== 'undefined') {
+	if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 	  detectEvents();
 	}
 	
@@ -2370,6 +2418,7 @@ webpackJsonp([0],{
 	    });
 	  },
 	
+	
 	  endEvents: endEvents,
 	
 	  removeEndEventListener: function removeEndEventListener(node, eventListener) {
@@ -2382,43 +2431,223 @@ webpackJsonp([0],{
 	  }
 	};
 	
-	module.exports = TransitionEvents;
+	exports["default"] = TransitionEvents;
+	module.exports = exports['default'];
 
 /***/ },
 
 /***/ 192:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/**
+	 * Module dependencies.
+	 */
 	
-	var SPACE = ' ';
-	var RE_CLASS = /[\n\t\r]/g;
-	
-	function norm(elemClass) {
-	  return (SPACE + elemClass + SPACE).replace(RE_CLASS, SPACE);
+	try {
+	  var index = __webpack_require__(193);
+	} catch (err) {
+	  var index = __webpack_require__(193);
 	}
 	
-	module.exports = {
-	  addClass: function addClass(elem, className) {
-	    elem.className += ' ' + className;
-	  },
+	/**
+	 * Whitespace regexp.
+	 */
 	
-	  removeClass: function removeClass(elem, n) {
-	    var elemClass = elem.className.trim();
-	    var className = norm(elemClass);
-	    var needle = n.trim();
-	    needle = SPACE + needle + SPACE;
-	    // 一个 cls 有可能多次出现：'link link2 link link3 link'
-	    while (className.indexOf(needle) >= 0) {
-	      className = className.replace(needle, SPACE);
-	    }
-	    elem.className = className.trim();
-	  }
+	var re = /\s+/;
+	
+	/**
+	 * toString reference.
+	 */
+	
+	var toString = Object.prototype.toString;
+	
+	/**
+	 * Wrap `el` in a `ClassList`.
+	 *
+	 * @param {Element} el
+	 * @return {ClassList}
+	 * @api public
+	 */
+	
+	module.exports = function(el){
+	  return new ClassList(el);
 	};
+	
+	/**
+	 * Initialize a new ClassList for `el`.
+	 *
+	 * @param {Element} el
+	 * @api private
+	 */
+	
+	function ClassList(el) {
+	  if (!el || !el.nodeType) {
+	    throw new Error('A DOM element reference is required');
+	  }
+	  this.el = el;
+	  this.list = el.classList;
+	}
+	
+	/**
+	 * Add class `name` if not already present.
+	 *
+	 * @param {String} name
+	 * @return {ClassList}
+	 * @api public
+	 */
+	
+	ClassList.prototype.add = function(name){
+	  // classList
+	  if (this.list) {
+	    this.list.add(name);
+	    return this;
+	  }
+	
+	  // fallback
+	  var arr = this.array();
+	  var i = index(arr, name);
+	  if (!~i) arr.push(name);
+	  this.el.className = arr.join(' ');
+	  return this;
+	};
+	
+	/**
+	 * Remove class `name` when present, or
+	 * pass a regular expression to remove
+	 * any which match.
+	 *
+	 * @param {String|RegExp} name
+	 * @return {ClassList}
+	 * @api public
+	 */
+	
+	ClassList.prototype.remove = function(name){
+	  if ('[object RegExp]' == toString.call(name)) {
+	    return this.removeMatching(name);
+	  }
+	
+	  // classList
+	  if (this.list) {
+	    this.list.remove(name);
+	    return this;
+	  }
+	
+	  // fallback
+	  var arr = this.array();
+	  var i = index(arr, name);
+	  if (~i) arr.splice(i, 1);
+	  this.el.className = arr.join(' ');
+	  return this;
+	};
+	
+	/**
+	 * Remove all classes matching `re`.
+	 *
+	 * @param {RegExp} re
+	 * @return {ClassList}
+	 * @api private
+	 */
+	
+	ClassList.prototype.removeMatching = function(re){
+	  var arr = this.array();
+	  for (var i = 0; i < arr.length; i++) {
+	    if (re.test(arr[i])) {
+	      this.remove(arr[i]);
+	    }
+	  }
+	  return this;
+	};
+	
+	/**
+	 * Toggle class `name`, can force state via `force`.
+	 *
+	 * For browsers that support classList, but do not support `force` yet,
+	 * the mistake will be detected and corrected.
+	 *
+	 * @param {String} name
+	 * @param {Boolean} force
+	 * @return {ClassList}
+	 * @api public
+	 */
+	
+	ClassList.prototype.toggle = function(name, force){
+	  // classList
+	  if (this.list) {
+	    if ("undefined" !== typeof force) {
+	      if (force !== this.list.toggle(name, force)) {
+	        this.list.toggle(name); // toggle again to correct
+	      }
+	    } else {
+	      this.list.toggle(name);
+	    }
+	    return this;
+	  }
+	
+	  // fallback
+	  if ("undefined" !== typeof force) {
+	    if (!force) {
+	      this.remove(name);
+	    } else {
+	      this.add(name);
+	    }
+	  } else {
+	    if (this.has(name)) {
+	      this.remove(name);
+	    } else {
+	      this.add(name);
+	    }
+	  }
+	
+	  return this;
+	};
+	
+	/**
+	 * Return an array of classes.
+	 *
+	 * @return {Array}
+	 * @api public
+	 */
+	
+	ClassList.prototype.array = function(){
+	  var className = this.el.getAttribute('class') || '';
+	  var str = className.replace(/^\s+|\s+$/g, '');
+	  var arr = str.split(re);
+	  if ('' === arr[0]) arr.shift();
+	  return arr;
+	};
+	
+	/**
+	 * Check if class `name` is present.
+	 *
+	 * @param {String} name
+	 * @return {ClassList}
+	 * @api public
+	 */
+	
+	ClassList.prototype.has =
+	ClassList.prototype.contains = function(name){
+	  return this.list
+	    ? this.list.contains(name)
+	    : !! ~index(this.array(), name);
+	};
+
 
 /***/ },
 
 /***/ 193:
+/***/ function(module, exports) {
+
+	module.exports = function(arr, obj){
+	  if (arr.indexOf) return arr.indexOf(obj);
+	  for (var i = 0; i < arr.length; ++i) {
+	    if (arr[i] === obj) return i;
+	  }
+	  return -1;
+	};
+
+/***/ },
+
+/***/ 194:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2452,7 +2681,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 194:
+/***/ 195:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2494,7 +2723,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 195:
+/***/ 196:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

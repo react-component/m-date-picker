@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-date-picker@2.2.0 - m-date-picker ui component for react</title>
+  <title>rmc-date-picker@2.3.0 - m-date-picker ui component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-date-picker@2.2.0</h1>
+  <h1>rmc-date-picker@2.3.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -811,12 +811,6 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td></td>
 </tr>
 <tr>
-<td>onDateChange</td>
-<td>Date change handler.</td>
-<td>Function(date: GregorianCalendar)</td>
-<td>&#39;&#39;</td>
-</tr>
-<tr>
 <td>mode</td>
 <td>The date picker mode.</td>
 <td>String</td>
@@ -839,6 +833,12 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>the locale of area</td>
 <td>Object</td>
 <td>import from &#39;rmc-date-picker/lib/locale/en_US&#39;</td>
+</tr>
+<tr>
+<td>onDateChange</td>
+<td>Date change handler.</td>
+<td>Function(date: GregorianCalendar)</td>
+<td>&#39;&#39;</td>
 </tr>
 </tbody>
 </table>
@@ -859,6 +859,24 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>&#39;&#39;</td>
 </tr>
 <tr>
+<td>style</td>
+<td>additional modal style</td>
+<td>object</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>popupTransitionName</td>
+<td></td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>maskTransitionName</td>
+<td></td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
 <td>prefixCls</td>
 <td>prefix class</td>
 <td>String</td>
@@ -871,16 +889,16 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>&#39;rmc-picker&#39;</td>
 </tr>
 <tr>
+<td>popupPrefixCls</td>
+<td>popup&#39;s prefix class</td>
+<td>String</td>
+<td>&#39;rmc-picker-popup&#39;</td>
+</tr>
+<tr>
 <td>date</td>
 <td>The currently selected date.</td>
 <td>GregorianCalendar</td>
 <td></td>
-</tr>
-<tr>
-<td>onPickerChange</td>
-<td>Date inside picker change handler.</td>
-<td>Function(date: GregorianCalendar)</td>
-<td>&#39;&#39;</td>
 </tr>
 <tr>
 <td>mode</td>
@@ -907,15 +925,27 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>import from &#39;rmc-date-picker/lib/locale/en_US&#39;</td>
 </tr>
 <tr>
-<td>style</td>
-<td>additional modal style</td>
-<td>object</td>
-<td>{}</td>
+<td>visible</td>
+<td>whether pop picker is visible</td>
+<td>Boolean</td>
+<td>false</td>
 </tr>
 <tr>
 <td>onChange</td>
 <td>exec on ok</td>
 <td>Function(date: GregorianCalendar)</td>
+<td></td>
+</tr>
+<tr>
+<td>onPickerChange</td>
+<td>Date inside picker change handler.</td>
+<td>Function(date: GregorianCalendar)</td>
+<td>&#39;&#39;</td>
+</tr>
+<tr>
+<td>onVisibleChange</td>
+<td>called when pop picker visible change</td>
+<td>Function</td>
 <td></td>
 </tr>
 <tr>
@@ -937,33 +967,10 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>&#39;Dismiss&#39;</td>
 </tr>
 <tr>
-<td>visible</td>
-<td>whether pop picker is visible</td>
-<td>Boolean</td>
-<td></td>
-</tr>
-<tr>
-<td>onVisibleChange</td>
-<td>called when pop picker visible change</td>
-<td>Function</td>
-<td></td>
-</tr>
-<tr>
-<td>popupPrefixCls</td>
-<td></td>
+<td>title</td>
+<td>Popup title</td>
 <td>String</td>
-<td></td>
-</tr>
-<tr>
-<td>popupTransitionName</td>
-<td></td>
-<td>String</td>
-<td></td>
-</tr>
-<tr>
-<td>maskTransitionName</td>
-<td></td>
-<td>String</td>
+<td>&#39;&#39;</td>
 </tr>
 </tbody>
 </table>

@@ -58,7 +58,10 @@
       -ms-flex: 1;
           flex: 1;
   text-align: center;
-    -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+.rmc-picker-popup-title {
+  color: #666;
 }
 .rmc-picker-popup-fade-enter,
 .rmc-picker-popup-fade-appear {
