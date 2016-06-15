@@ -37,140 +37,130 @@ webpackJsonp([0],{
 	
 	var _react = __webpack_require__(16);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(172);
+	var _reactDom = __webpack_require__(52);
 	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _Popup = __webpack_require__(173);
+	var _Popup = __webpack_require__(182);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	/* eslint no-console:0 */
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var formatter = _gregorianCalendarFormat2["default"].getDateTimeInstance(_gregorianCalendarFormat2["default"].Style.FULL, _gregorianCalendarFormat2["default"].Style.FULL, _zh_CN2["default"]);
-	// const zhCnCalendar = null;
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } /* eslint no-console:0 */
 	
 	
+	var formatter = _gregorianCalendarFormat2.default.getDateTimeInstance(_gregorianCalendarFormat2.default.Style.FULL, _gregorianCalendarFormat2.default.Style.FULL, _zh_CN2.default);
 	function format(v) {
-	  return formatter.format(v);
+	    return formatter.format(v);
 	}
-	
-	var now = new _gregorianCalendar2["default"](_zh_CN4["default"].calendar);
+	var now = new _gregorianCalendar2.default(_zh_CN4.default.calendar);
 	now.setTime(Date.now());
-	
 	var getGregorianCalendar = function getGregorianCalendar() {
-	  return new _gregorianCalendar2["default"](_zh_CN4["default"].calendar);
+	    return new _gregorianCalendar2.default(_zh_CN4.default.calendar);
 	};
 	var minDate = getGregorianCalendar();
 	minDate.set(2015, 8, 1, 0, 0, 0);
 	var maxDate = getGregorianCalendar();
 	maxDate.set(2018, 0, 1, 0, 0, 0);
 	
-	var Demo = _react2["default"].createClass({
-	  displayName: 'Demo',
+	var Demo = function (_React$Component) {
+	    _inherits(Demo, _React$Component);
 	
-	  propTypes: {
-	    mode: _react2["default"].PropTypes.string
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      mode: 'datetime',
-	      locale: _zh_CN4["default"]
+	    function Demo(props) {
+	        _classCallCheck(this, Demo);
+	
+	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+	
+	        _this.onChange = function (date) {
+	            console.log('onChange', format(date));
+	            _this.setState({
+	                date: date
+	            });
+	        };
+	        _this.onDismiss = function () {
+	            console.log('onDismiss');
+	        };
+	        _this.onPickerChange = function (date) {
+	            console.log('onPickerChange', format(date));
+	        };
+	        _this.show = function () {
+	            console.log('my click');
+	        };
+	        _this.state = {
+	            date: null
+	        };
+	        return _this;
+	    }
+	
+	    Demo.prototype.render = function render() {
+	        var props = this.props;
+	        var date = this.state.date;
+	
+	        return React.createElement(
+	            'div',
+	            { style: { margin: '10px 30px' } },
+	            React.createElement(
+	                'h2',
+	                null,
+	                'popup date picker'
+	            ),
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    _Popup2.default,
+	                    { popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', title: 'Date picker', date: date || now, minDate: minDate, maxDate: maxDate, mode: props.mode, locale: props.locale, onPickerChange: this.onPickerChange, onDismiss: this.onDismiss, onChange: this.onChange },
+	                    React.createElement(
+	                        'button',
+	                        { onClick: this.show },
+	                        date && format(date) || 'open'
+	                    )
+	                )
+	            )
+	        );
 	    };
-	  },
-	  // locale: require('../src/locale/zh_CN'),
-	  getInitialState: function getInitialState() {
-	    return {
-	      date: null
-	    };
-	  },
-	  onChange: function onChange(date) {
-	    console.log('onChange', format(date));
-	    this.setState({
-	      date: date
-	    });
-	  },
-	  onDismiss: function onDismiss() {
-	    console.log('onDismiss');
-	  },
-	  onPickerChange: function onPickerChange(date) {
-	    console.log('onPickerChange', format(date));
-	  },
-	  show: function show() {
-	    console.log('my click');
-	  },
-	  render: function render() {
-	    var props = this.props;
-	    var date = this.state.date;
 	
-	    return _react2["default"].createElement(
-	      'div',
-	      { style: { margin: '10px 30px' } },
-	      _react2["default"].createElement(
-	        'h2',
-	        null,
-	        'popup date picker'
-	      ),
-	      _react2["default"].createElement(
-	        'div',
-	        null,
-	        _react2["default"].createElement(
-	          _Popup2["default"],
-	          {
-	            popupTransitionName: 'rmc-picker-popup-slide-fade',
-	            maskTransitionName: 'rmc-picker-popup-fade',
-	            title: 'Date picker',
-	            date: date || now,
-	            minDate: minDate,
-	            maxDate: maxDate,
-	            mode: props.mode,
-	            locale: props.locale,
-	            onPickerChange: this.onPickerChange,
-	            onDismiss: this.onDismiss,
-	            onChange: this.onChange
-	          },
-	          _react2["default"].createElement(
-	            'button',
-	            { onClick: this.show },
-	            date && format(date) || 'open'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
+	    return Demo;
+	}(React.Component);
 	
-	_reactDom2["default"].render(_react2["default"].createElement(Demo, null), document.getElementById('__react-content'));
+	Demo.defaultProps = {
+	    mode: 'datetime',
+	    locale: _zh_CN4.default
+	};
+	ReactDOM.render(React.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ },
 
 /***/ 4:
-/***/ function(module, exports) {
+2,
 
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 173:
+/***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(16);
+	var _React = __webpack_require__(183);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var React = _interopRequireWildcard(_React);
 	
-	var _DatePicker = __webpack_require__(174);
+	var _DatePicker = __webpack_require__(184);
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
@@ -178,156 +168,132 @@ webpackJsonp([0],{
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _en_US = __webpack_require__(178);
+	var _en_US = __webpack_require__(197);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	var _utils = __webpack_require__(180);
+	var _utils = __webpack_require__(198);
 	
-	var _Popup = __webpack_require__(181);
+	var _Popup = __webpack_require__(199);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var PROPS = ['onDismiss', 'children', 'style', 'okText', 'dismissText', 'title', 'className', 'popupTransitionName', 'maskTransitionName'];
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	var PopupDatePicker = _react2["default"].createClass({
-	  displayName: 'PopupDatePicker',
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 	
-	  propTypes: {
-	    visible: _react.PropTypes.bool,
-	    mode: _react.PropTypes.string,
-	    onPickerChange: _react.PropTypes.func,
-	    onChange: _react.PropTypes.func,
-	    popupPrefixCls: _react.PropTypes.string,
-	    prefixCls: _react.PropTypes.string,
-	    pickerPrefixCls: _react.PropTypes.string,
-	    onVisibleChange: _react.PropTypes.func,
-	    locale: _react.PropTypes.object,
-	    date: _react.PropTypes.object
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      onVisibleChange: _utils.noop,
-	      popupPrefixCls: 'rmc-picker-popup',
-	      mode: 'datetime',
-	      locale: _en_US2["default"],
-	      onChange: _utils.noop,
-	      onDismiss: _utils.noop,
-	      onPickerChange: _utils.noop
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+	
+	var PROPS = ['onDismiss', 'children', 'style', 'styles', 'okText', 'dismissText', 'title', 'className', 'popupTransitionName', 'maskTransitionName'];
+	
+	var PopupDatePicker = function (_Component) {
+	    _inherits(PopupDatePicker, _Component);
+	
+	    function PopupDatePicker(props) {
+	        _classCallCheck(this, PopupDatePicker);
+	
+	        var _this = _possibleConstructorReturn(this, _Component.call(this, props));
+	
+	        _this.onPickerChange = function (pickerDate) {
+	            _this.setState({
+	                pickerDate: pickerDate
+	            });
+	            _this.props.onPickerChange(pickerDate);
+	        };
+	        _this.onOk = function () {
+	            _this.props.onChange(_this.state.pickerDate || _this.props.date);
+	        };
+	        _this.fireVisibleChange = function (visible) {
+	            if (_this.state.visible !== visible) {
+	                if (!('visible' in _this.props)) {
+	                    _this.setVisibleState(visible);
+	                }
+	                _this.props.onVisibleChange(visible);
+	            }
+	        };
+	        _this.state = {
+	            pickerDate: null,
+	            visible: _this.props.visible || false
+	        };
+	        return _this;
+	    }
+	
+	    PopupDatePicker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        if ('visible' in nextProps) {
+	            this.setVisibleState(nextProps.visible);
+	        }
 	    };
-	  },
-	  getInitialState: function getInitialState() {
-	    return {
-	      pickerDate: null,
-	      visible: this.props.visible || false
-	    };
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if ('visible' in nextProps) {
-	      this.setVisibleState(nextProps.visible);
-	    }
-	  },
-	  onPickerChange: function onPickerChange(pickerDate) {
-	    this.setState({
-	      pickerDate: pickerDate
-	    });
-	    this.props.onPickerChange(pickerDate);
-	  },
-	  onOk: function onOk() {
-	    this.props.onChange(this.state.pickerDate || this.props.date);
-	  },
-	  setVisibleState: function setVisibleState(visible) {
-	    this.setState({
-	      visible: visible
-	    });
-	    if (!visible) {
-	      this.setState({
-	        pickerDate: null
-	      });
-	    }
-	  },
-	  getNow: function getNow(props) {
-	    var date = this.getGregorianCalendar(props);
-	    date.setTime(Date.now());
-	    return date;
-	  },
-	  getGregorianCalendar: function getGregorianCalendar(props) {
-	    return new _gregorianCalendar2["default"]((props || this.props).locale.calendar);
-	  },
-	  getModal: function getModal() {
-	    var props = this.props;
-	    var dpProps = {};
-	    if (props.minDate) {
-	      dpProps.minDate = props.minDate;
-	    }
-	    if (props.maxDate) {
-	      dpProps.maxDate = props.maxDate;
-	    }
-	    if (props.pickerPrefixCls) {
-	      dpProps.pickerPrefixCls = props.pickerPrefixCls;
-	    }
-	    if (props.prefixCls) {
-	      dpProps.prefixCls = props.prefixCls;
-	    }
-	    return _react2["default"].createElement(_DatePicker2["default"], _extends({
-	      date: this.state.pickerDate || props.date,
-	      mode: props.mode,
-	      locale: props.locale,
-	      onDateChange: this.onPickerChange
-	    }, dpProps));
-	  },
-	  fireVisibleChange: function fireVisibleChange(visible) {
-	    if (this.state.visible !== visible) {
-	      if (!('visible' in this.props)) {
-	        this.setVisibleState(visible);
-	      }
-	      this.props.onVisibleChange(visible);
-	    }
-	  },
-	  render: function render() {
-	    var props = (0, _utils.pick)(this.props, PROPS);
-	    return _react2["default"].createElement(_Popup2["default"], _extends({}, props, {
-	      onVisibleChange: this.fireVisibleChange,
-	      onOk: this.onOk,
-	      content: this.getModal(),
-	      prefixCls: this.props.popupPrefixCls,
-	      visible: this.state.visible
-	    }));
-	  }
-	});
 	
-	exports["default"] = PopupDatePicker;
+	    PopupDatePicker.prototype.setVisibleState = function setVisibleState(visible) {
+	        this.setState({
+	            visible: visible
+	        });
+	        if (!visible) {
+	            this.setState({
+	                pickerDate: null
+	            });
+	        }
+	    };
+	
+	    PopupDatePicker.prototype.getNow = function getNow(props) {
+	        var date = this.getGregorianCalendar(props);
+	        date.setTime(Date.now());
+	        return date;
+	    };
+	
+	    PopupDatePicker.prototype.getGregorianCalendar = function getGregorianCalendar(props) {
+	        return new _gregorianCalendar2.default((props || this.props).locale.calendar);
+	    };
+	
+	    PopupDatePicker.prototype.getModal = function getModal() {
+	        var props = this.props;
+	        var dpProps = {};
+	        if (props.minDate) {
+	            dpProps.minDate = props.minDate;
+	        }
+	        if (props.maxDate) {
+	            dpProps.maxDate = props.maxDate;
+	        }
+	        if (props.pickerPrefixCls) {
+	            dpProps.pickerPrefixCls = props.pickerPrefixCls;
+	        }
+	        if (props.prefixCls) {
+	            dpProps.prefixCls = props.prefixCls;
+	        }
+	        return React.createElement(_DatePicker2.default, _extends({ date: this.state.pickerDate || props.date, mode: props.mode, locale: props.locale, onDateChange: this.onPickerChange }, dpProps));
+	    };
+	
+	    PopupDatePicker.prototype.render = function render() {
+	        var props = (0, _utils.pick)(this.props, PROPS);
+	        props.prefixCls = this.props.popupPrefixCls;
+	        return React.createElement(_Popup2.default, _extends({}, props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: this.getModal(), visible: this.state.visible }));
+	    };
+	
+	    return PopupDatePicker;
+	}(_React.Component);
+	
+	exports.default = PopupDatePicker;
+	
+	PopupDatePicker.defaultProps = {
+	    onVisibleChange: _utils.noop,
+	    popupPrefixCls: 'rmc-picker-popup',
+	    mode: 'datetime',
+	    locale: _en_US2.default,
+	    onChange: _utils.noop,
+	    onDismiss: _utils.noop,
+	    onPickerChange: _utils.noop
+	};
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 180:
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.pick = pick;
-	exports.noop = noop;
-	function pick(props, wl) {
-	  var ret = {};
-	  wl.forEach(function (w) {
-	    if (w in props) {
-	      ret[w] = props[w];
-	    }
-	  });
-	  return ret;
-	}
-	
-	function noop() {}
-
-/***/ },
-
-/***/ 181:
+/***/ 183:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -338,181 +304,210 @@ webpackJsonp([0],{
 	
 	var _react = __webpack_require__(16);
 	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(172);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _rcDialog = __webpack_require__(182);
-	
-	var _rcDialog2 = _interopRequireDefault(_rcDialog);
-	
-	var _utils = __webpack_require__(196);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	var PopupPicker = _react2["default"].createClass({
-	  displayName: 'PopupPicker',
-	
-	  propTypes: {
-	    visible: _react.PropTypes.bool,
-	    onOk: _react.PropTypes.func,
-	    onVisibleChange: _react.PropTypes.func,
-	    children: _react.PropTypes.element,
-	    content: _react.PropTypes.any,
-	    onDismiss: _react.PropTypes.func,
-	    popupTransitionName: _react.PropTypes.string,
-	    maskTransitionName: _react.PropTypes.string
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      prefixCls: 'rmc-picker-popup',
-	      onVisibleChange: _utils.noop,
-	      okText: 'Ok',
-	      dismissText: 'Dismiss',
-	      title: '',
-	      style: {},
-	      onOk: _utils.noop,
-	      onDismiss: _utils.noop
-	    };
-	  },
-	  getInitialState: function getInitialState() {
-	    return {
-	      visible: this.props.visible || false
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    this.popupContainer = document.createElement('div');
-	    document.body.appendChild(this.popupContainer);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if ('visible' in nextProps) {
-	      this.setVisibleState(nextProps.visible);
-	    }
-	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    if (this.state.visible) {
-	      if (!this.onDocumentClickListener) {
-	        this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
-	      }
-	      _reactDom2["default"].render(this.getModal(), this.popupContainer);
-	    } else {
-	      if (this.onDocumentClickListener) {
-	        this.onDocumentClickListener.remove();
-	        this.onDocumentClickListener = null;
-	      }
-	      _reactDom2["default"].unmountComponentAtNode(this.popupContainer);
-	    }
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    _reactDom2["default"].unmountComponentAtNode(this.popupContainer);
-	    document.body.removeChild(this.popupContainer);
-	  },
-	  onOk: function onOk() {
-	    this.fireVisibleChange(false);
-	    this.props.onOk();
-	  },
-	  onDismiss: function onDismiss() {
-	    this.fireVisibleChange(false);
-	    this.props.onDismiss();
-	  },
-	  onTriggerClick: function onTriggerClick(e) {
-	    this.fireVisibleChange(!this.state.visible);
-	    var child = _react2["default"].Children.only(this.props.children);
-	    var childProps = child.props || {};
-	    if (childProps.onClick) {
-	      childProps.onClick(e);
-	    }
-	  },
-	  onDocumentClick: function onDocumentClick(e) {
-	    if (e.target !== this.modalContent && !(0, _utils.contains)(this.modalContent, e.target)) {
-	      this.fireVisibleChange(false);
-	    }
-	  },
-	  setVisibleState: function setVisibleState(visible) {
-	    this.setState({
-	      visible: visible
-	    });
-	  },
-	  getModal: function getModal() {
-	    var props = this.props;
-	    return _react2["default"].createElement(
-	      _rcDialog2["default"],
-	      {
-	        prefixCls: '' + props.prefixCls,
-	        visible: true,
-	        transitionName: props.popupTransitionName,
-	        maskTransitionName: props.maskTransitionName,
-	        closable: false,
-	        style: props.style
-	      },
-	      _react2["default"].createElement(
-	        'div',
-	        { ref: this.saveModalContent },
-	        _react2["default"].createElement(
-	          'div',
-	          { className: props.prefixCls + '-header' },
-	          _react2["default"].createElement(
-	            'div',
-	            { className: props.prefixCls + '-item', onClick: this.onDismiss },
-	            props.dismissText
-	          ),
-	          _react2["default"].createElement(
-	            'div',
-	            { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
-	            props.title
-	          ),
-	          _react2["default"].createElement(
-	            'div',
-	            { className: props.prefixCls + '-item', onClick: this.onOk },
-	            props.okText
-	          )
-	        ),
-	        this.props.content
-	      )
-	    );
-	  },
-	  saveModalContent: function saveModalContent(content) {
-	    this.modalContent = content;
-	  },
-	  fireVisibleChange: function fireVisibleChange(visible) {
-	    if (this.state.visible !== visible) {
-	      if (!('visible' in this.props)) {
-	        this.setVisibleState(visible);
-	      }
-	      this.props.onVisibleChange(visible);
-	    }
-	  },
-	  render: function render() {
-	    var props = this.props;
-	    var children = props.children;
-	    if (!children) {
-	      return null;
-	    }
-	    var child = _react2["default"].Children.only(children);
-	    var newChildProps = {
-	      onClick: this.onTriggerClick
-	    };
-	    return _react2["default"].cloneElement(child, newChildProps);
+	Object.defineProperty(exports, 'createElement', {
+	  enumerable: true,
+	  get: function get() {
+	    return _react.createElement;
 	  }
 	});
-	
-	exports["default"] = PopupPicker;
-	module.exports = exports['default'];
+	Object.defineProperty(exports, 'Component', {
+	  enumerable: true,
+	  get: function get() {
+	    return _react.Component;
+	  }
+	});
 
 /***/ },
 
-/***/ 182:
+/***/ 198:
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.pick = pick;
+	exports.noop = noop;
+	function pick(props, wl) {
+	    var ret = {};
+	    wl.forEach(function (w) {
+	        if (w in props) {
+	            ret[w] = props[w];
+	        }
+	    });
+	    return ret;
+	}
+	function noop() {}
+
+/***/ },
+
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(183);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(16);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	var _reactDom = __webpack_require__(52);
+	
+	var ReactDOM = _interopRequireWildcard(_reactDom);
+	
+	var _rcDialog = __webpack_require__(200);
+	
+	var _rcDialog2 = _interopRequireDefault(_rcDialog);
+	
+	var _utils = __webpack_require__(191);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
+	
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+	
+	var PopupPicker = function (_React$Component) {
+	    _inherits(PopupPicker, _React$Component);
+	
+	    function PopupPicker(props) {
+	        _classCallCheck(this, PopupPicker);
+	
+	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+	
+	        _this.onOk = function () {
+	            _this.fireVisibleChange(false);
+	            _this.props.onOk();
+	        };
+	        _this.onDismiss = function () {
+	            _this.fireVisibleChange(false);
+	            _this.props.onDismiss();
+	        };
+	        _this.onTriggerClick = function (e) {
+	            _this.fireVisibleChange(!_this.state.visible);
+	            var child = React.Children.only(_this.props.children);
+	            var childProps = child.props || {};
+	            if (childProps.onClick) {
+	                childProps.onClick(e);
+	            }
+	        };
+	        _this.onDocumentClick = function (e) {
+	            if (e.target !== _this.modalContent && !(0, _utils.contains)(_this.modalContent, e.target)) {
+	                _this.fireVisibleChange(false);
+	            }
+	        };
+	        _this.saveModalContent = function (content) {
+	            _this.modalContent = content;
+	        };
+	        _this.state = {
+	            visible: props.visible || false
+	        };
+	        return _this;
+	    }
+	
+	    PopupPicker.prototype.componentDidMount = function componentDidMount() {
+	        this.popupContainer = document.createElement('div');
+	        document.body.appendChild(this.popupContainer);
+	    };
+	
+	    PopupPicker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        if ('visible' in nextProps) {
+	            this.setVisibleState(nextProps.visible);
+	        }
+	    };
+	
+	    PopupPicker.prototype.componentDidUpdate = function componentDidUpdate() {
+	        if (this.state.visible) {
+	            if (!this.onDocumentClickListener) {
+	                this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
+	            }
+	            ReactDOM.render(this.getModal(), this.popupContainer);
+	        } else {
+	            if (this.onDocumentClickListener) {
+	                this.onDocumentClickListener.remove();
+	                this.onDocumentClickListener = null;
+	            }
+	            ReactDOM.unmountComponentAtNode(this.popupContainer);
+	        }
+	    };
+	
+	    PopupPicker.prototype.componentWillUnmount = function componentWillUnmount() {
+	        ReactDOM.unmountComponentAtNode(this.popupContainer);
+	        document.body.removeChild(this.popupContainer);
+	    };
+	
+	    PopupPicker.prototype.setVisibleState = function setVisibleState(visible) {
+	        this.setState({
+	            visible: visible
+	        });
+	    };
+	
+	    PopupPicker.prototype.getModal = function getModal() {
+	        var props = this.props;
+	        return React.createElement(_rcDialog2["default"], { prefixCls: '' + props.prefixCls, visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, closable: false, style: props.style }, React.createElement("div", { ref: this.saveModalContent }, React.createElement("div", { className: props.prefixCls + '-header' }, React.createElement("div", { className: props.prefixCls + '-item', onClick: this.onDismiss }, props.dismissText), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-title' }, props.title), React.createElement("div", { className: props.prefixCls + '-item', onClick: this.onOk }, props.okText)), this.props.content));
+	    };
+	
+	    PopupPicker.prototype.fireVisibleChange = function fireVisibleChange(visible) {
+	        if (this.state.visible !== visible) {
+	            if (!('visible' in this.props)) {
+	                this.setVisibleState(visible);
+	            }
+	            this.props.onVisibleChange(visible);
+	        }
+	    };
+	
+	    PopupPicker.prototype.render = function render() {
+	        var props = this.props;
+	        var children = props.children;
+	        if (!children) {
+	            return null;
+	        }
+	        var child = React.Children.only(children);
+	        var newChildProps = {
+	            onClick: this.onTriggerClick
+	        };
+	        return React.cloneElement(child, newChildProps);
+	    };
+	
+	    return PopupPicker;
+	}(React.Component);
+	
+	exports["default"] = PopupPicker;
+	
+	PopupPicker.defaultProps = {
+	    prefixCls: 'rmc-picker-popup',
+	    onVisibleChange: _utils.noop,
+	    okText: 'Ok',
+	    dismissText: 'Dismiss',
+	    title: '',
+	    style: {},
+	    onOk: _utils.noop,
+	    onDismiss: _utils.noop
+	};
+	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 183:
+/***/ 200:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(201);
+
+/***/ },
+
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -529,11 +524,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(172);
+	var _reactDom = __webpack_require__(52);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(184);
+	var _Dialog = __webpack_require__(202);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -652,9 +647,11 @@ webpackJsonp([0],{
 	  }, {
 	    key: 'cleanDialogContainer',
 	    value: function cleanDialogContainer() {
-	      _reactDom2["default"].unmountComponentAtNode(this.getDialogContainer());
-	      document.body.removeChild(this.dialogContainer);
-	      this.dialogContainer = null;
+	      if (this.dialogContainer) {
+	        _reactDom2["default"].unmountComponentAtNode(this.dialogContainer);
+	        document.body.removeChild(this.dialogContainer);
+	        this.dialogContainer = null;
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -695,7 +692,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 184:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -710,19 +707,19 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(172);
+	var _reactDom = __webpack_require__(52);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(185);
+	var _KeyCode = __webpack_require__(203);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(186);
+	var _rcAnimate = __webpack_require__(204);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(195);
+	var _LazyRenderBox = __webpack_require__(213);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -730,6 +727,17 @@ webpackJsonp([0],{
 	
 	var uuid = 0;
 	var openCount = 0;
+	
+	// Measure scrollbar width for padding body during modal show/hide
+	var scrollbarMeasure = {
+	  position: 'absolute',
+	  top: '-9999px',
+	  width: '50px',
+	  height: '50px',
+	  overflow: 'scroll'
+	};
+	
+	/* eslint react/no-is-mounted:0 */
 	
 	function noop() {}
 	
@@ -778,6 +786,7 @@ webpackJsonp([0],{
 	    visible: _react.PropTypes.bool,
 	    mousePosition: _react.PropTypes.object,
 	    wrapStyle: _react.PropTypes.object,
+	    prefixCls: _react.PropTypes.string,
 	    wrapClassName: _react.PropTypes.string
 	  },
 	
@@ -800,7 +809,7 @@ webpackJsonp([0],{
 	      // first show
 	      if (!prevProps.visible) {
 	        this.lastOutSideFocusNode = document.activeElement;
-	        this.addScrollingClass();
+	        this.addScrollingEffect();
 	        this.refs.wrap.focus();
 	        var dialogNode = _reactDom2["default"].findDOMNode(this.refs.dialog);
 	        if (mousePosition) {
@@ -818,12 +827,16 @@ webpackJsonp([0],{
 	          this.lastOutSideFocusNode = null;
 	        }
 	        this.lastOutSideFocusNode = null;
-	        this.removeScrollingClass();
 	      }
 	    }
 	  },
 	  onAnimateLeave: function onAnimateLeave() {
-	    this.refs.wrap.style.display = 'none';
+	    // need demo?
+	    // https://github.com/react-component/dialog/pull/28
+	    if (this.refs.wrap) {
+	      this.refs.wrap.style.display = 'none';
+	    }
+	    this.removeScrollingEffect();
 	    this.props.onAfterClose();
 	  },
 	  onMaskClick: function onMaskClick(e) {
@@ -1003,27 +1016,75 @@ webpackJsonp([0],{
 	  getElement: function getElement(part) {
 	    return this.refs[part];
 	  },
-	  addScrollingClass: function addScrollingClass() {
+	  setScrollbar: function setScrollbar() {
+	    if (this.bodyIsOverflowing && this.scrollbarWidth) {
+	      document.body.style.paddingRight = this.scrollbarWidth + 'px';
+	    }
+	  },
+	  addScrollingEffect: function addScrollingEffect() {
 	    openCount++;
 	    if (openCount !== 1) {
 	      return;
 	    }
-	    var props = this.props;
-	    var scrollingClassName = props.prefixCls + '-open';
-	    document.body.className += ' ' + scrollingClassName;
+	    this.checkScrollbar();
+	    this.setScrollbar();
+	    document.body.style.overflow = 'hidden';
+	    // this.adjustDialog();
 	  },
-	  removeScrollingClass: function removeScrollingClass() {
+	  removeScrollingEffect: function removeScrollingEffect() {
 	    openCount--;
 	    if (openCount !== 0) {
 	      return;
 	    }
-	    var props = this.props;
-	    var scrollingClassName = props.prefixCls + '-open';
-	    var body = document.body;
-	    body.className = body.className.replace(scrollingClassName, '');
+	    document.body.style.overflow = '';
+	    this.resetScrollbar();
+	    // this.resetAdjustments();
 	  },
 	  close: function close(e) {
 	    this.props.onClose(e);
+	  },
+	  checkScrollbar: function checkScrollbar() {
+	    var fullWindowWidth = window.innerWidth;
+	    if (!fullWindowWidth) {
+	      // workaround for missing window.innerWidth in IE8
+	      var documentElementRect = document.documentElement.getBoundingClientRect();
+	      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
+	    }
+	    this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth;
+	    if (this.bodyIsOverflowing) {
+	      this.scrollbarWidth = this.measureScrollbar();
+	    }
+	  },
+	  resetScrollbar: function resetScrollbar() {
+	    document.body.style.paddingRight = '';
+	  },
+	  measureScrollbar: function measureScrollbar() {
+	    if (this.scrollbarWidth !== undefined) {
+	      return this.scrollbarWidth;
+	    }
+	    var scrollDiv = document.createElement('div');
+	    for (var scrollProp in scrollbarMeasure) {
+	      if (scrollbarMeasure.hasOwnProperty(scrollProp)) {
+	        scrollDiv.style[scrollProp] = scrollbarMeasure[scrollProp];
+	      }
+	    }
+	    document.body.appendChild(scrollDiv);
+	    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+	    document.body.removeChild(scrollDiv);
+	    this.scrollbarWidth = scrollbarWidth;
+	    return scrollbarWidth;
+	  },
+	  adjustDialog: function adjustDialog() {
+	    if (this.refs.wrap && this.scrollbarWidth) {
+	      var modalIsOverflowing = this.refs.wrap.scrollHeight > document.documentElement.clientHeight;
+	      this.refs.wrap.style.paddingLeft = (!this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '') + 'px';
+	      this.refs.wrap.style.paddingRight = (this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : '') + 'px';
+	    }
+	  },
+	  resetAdjustments: function resetAdjustments() {
+	    if (this.refs.wrap) {
+	      this.refs.wrap.style.paddingLeft = this.refs.wrap.style.paddingLeft = '';
+	    }
 	  },
 	  render: function render() {
 	    var props = this.props;
@@ -1061,7 +1122,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 185:
+/***/ 203:
 /***/ function(module, exports) {
 
 	/**
@@ -1587,17 +1648,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 186:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(187);
+	module.exports = __webpack_require__(205);
 
 /***/ },
 
-/***/ 187:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1614,13 +1675,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(188);
+	var _ChildrenUtils = __webpack_require__(206);
 	
-	var _AnimateChild = __webpack_require__(189);
+	var _AnimateChild = __webpack_require__(207);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(194);
+	var _util = __webpack_require__(212);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1856,14 +1917,14 @@ webpackJsonp([0],{
 	    if (this.isValidChildByKey(currentChildren, key)) {
 	      this.performEnter(key);
 	    } else {
-	      if (_util2['default'].allowLeaveCallback(props)) {
-	        props.onLeave(key);
-	        props.onEnd(key, false);
-	      }
 	      if (this.isMounted() && !(0, _ChildrenUtils.isSameChildren)(this.state.children, currentChildren, props.showProp)) {
 	        this.setState({
 	          children: currentChildren
 	        });
+	      }
+	      if (_util2['default'].allowLeaveCallback(props)) {
+	        props.onLeave(key);
+	        props.onEnd(key, false);
 	      }
 	    }
 	  },
@@ -1928,7 +1989,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 188:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2047,7 +2108,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 189:
+/***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2062,15 +2123,15 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(172);
+	var _reactDom = __webpack_require__(52);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(190);
+	var _cssAnimation = __webpack_require__(208);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(194);
+	var _util = __webpack_require__(212);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -2151,7 +2212,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 190:
+/***/ 208:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2160,11 +2221,11 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(191);
+	var _Event = __webpack_require__(209);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(192);
+	var _componentClasses = __webpack_require__(210);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -2342,7 +2403,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 191:
+/***/ 209:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2436,7 +2497,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 192:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2444,9 +2505,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(193);
+	  var index = __webpack_require__(211);
 	} catch (err) {
-	  var index = __webpack_require__(193);
+	  var index = __webpack_require__(211);
 	}
 	
 	/**
@@ -2634,7 +2695,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 193:
+/***/ 211:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2647,7 +2708,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 194:
+/***/ 212:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2681,7 +2742,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 195:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2720,53 +2781,6 @@ webpackJsonp([0],{
 	
 	exports["default"] = LazyRenderBox;
 	module.exports = exports['default'];
-
-/***/ },
-
-/***/ 196:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.addEventListener = addEventListener;
-	exports.contains = contains;
-	exports.noop = noop;
-	
-	var _reactDom = __webpack_require__(172);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function addEventListener(target, eventType, cb) {
-	  /* eslint camelcase: 2 */
-	  var callback = _reactDom2["default"].unstable_batchedUpdates ? function run(e) {
-	    _reactDom2["default"].unstable_batchedUpdates(cb, e);
-	  } : cb;
-	  target.addEventListener(eventType, callback, false);
-	  return {
-	    remove: function remove() {
-	      target.removeEventListener(eventType, callback, false);
-	    }
-	  };
-	}
-	
-	function contains(root, n) {
-	  var node = n;
-	  while (node) {
-	    if (node === root) {
-	      return true;
-	    }
-	    node = node.parentNode;
-	  }
-	
-	  return false;
-	}
-	
-	function noop() {}
 
 /***/ }
 
