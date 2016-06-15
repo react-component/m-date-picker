@@ -1,7 +1,7 @@
 {
   "name": "rmc-date-picker",
-  "version": "2.3.0",
-  "description": "m-date-picker ui component for react",
+  "version": "3.0.0",
+  "description": "React Mobile DatePicker Component for web and react-native",
   "keywords": [
     "react",
     "react-component",
@@ -9,7 +9,10 @@
     "m-date-picker"
   ],
   "homepage": "https://github.com/react-component/m-date-picker",
-  "author": "hualei5280@gmail.com",
+  "maitainers": [
+    "yiminghe@gmail.com",
+    "hualei5280@gmail.com"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/react-component/m-date-picker.git"
@@ -22,21 +25,23 @@
     "assets/*.css"
   ],
   "licenses": "MIT",
-  "main": "./lib/DatePicker",
+  "main": "./lib/index.web",
   "config": {
     "port": 8007
   },
   "scripts": {
+    "watch-tsc": "rc-tools run watch-tsc",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
     "pub": "rc-tools run pub",
-    "lint": "rc-tools run lint",
+    "lint": "rc-tools run lint --no-js-lint",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage"
+    "coverage": "rc-tools run coverage",
+    "rn-start": "rnpackager start"
   },
   "devDependencies": {
     "expect.js": "0.3.x",
@@ -45,16 +50,20 @@
     "jquery": "^2.1.4",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
-    "react": "0.14.x",
-    "react-addons-test-utils": "0.14.x",
-    "react-dom": "0.14.x"
+    "rn-core": "~0.3.0",
+    "rn-packager": "~0.3.0",
+    "react": "15.x",
+    "react-addons-test-utils": "15.x",
+    "react-dom": "15.x"
   },
+  "typings": "./lib/index.web.d.ts",
   "pre-commit": [
     "lint"
   ],
   "dependencies": {
     "classnames": "2.x",
     "gregorian-calendar": "4.x",
-    "rmc-picker": "2.x"
+    "react-mixin": "~3.0.5",
+    "rmc-picker": "3.x"
   }
 }

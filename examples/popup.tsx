@@ -8,8 +8,8 @@ import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
 import zhCnPicker from 'rmc-date-picker/src/locale/zh_CN';
 // const zhCnCalendar = null;
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import PopPicker from 'rmc-date-picker/src/Popup';
 
@@ -29,40 +29,39 @@ minDate.set(2015, 8, 1, 0, 0, 0);
 const maxDate = getGregorianCalendar();
 maxDate.set(2018, 0, 1, 0, 0, 0);
 
-const Demo = React.createClass({
-  propTypes: {
-    mode: React.PropTypes.string,
-  },
-  getDefaultProps() {
-    return {
-      mode: 'datetime',
-      locale: zhCnPicker,
-      // locale: require('../src/locale/zh_CN'),
-    };
-  },
-  getInitialState() {
-    return {
+class Demo extends React.Component<any, any> {
+  static defaultProps = {
+    mode: 'datetime',
+    locale: zhCnPicker,
+    // locale: require('../src/locale/zh_CN'),
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
       date: null,
     };
-  },
-  onChange(date) {
+  }
+
+  onChange = (date) => {
     console.log('onChange', format(date));
     this.setState({
       date,
     });
-  },
-  onDismiss() {
+  };
+  onDismiss = () => {
     console.log('onDismiss');
-  },
-  onPickerChange(date) {
+  };
+  onPickerChange = (date) => {
     console.log('onPickerChange', format(date));
-  },
-  show() {
+  };
+  show = () => {
     console.log('my click');
-  },
+  };
+
   render() {
     const props = this.props;
-    const { date } = this.state;
+    const {date} = this.state;
     return (<div style={{ margin: '10px 30px' }}>
       <h2>popup date picker</h2>
       <div>
@@ -83,7 +82,7 @@ const Demo = React.createClass({
         </PopPicker>
       </div>
     </div>);
-  },
-});
+  }
+}
 
 ReactDOM.render(<Demo />, document.getElementById('__react-content'));

@@ -1,7 +1,7 @@
 # rmc-date-picker
 ---
 
-React Mobile DatePicker Component
+React Mobile DatePicker Component (web and react-native)
 
 
 [![NPM version][npm-image]][npm-url]
@@ -26,14 +26,26 @@ React Mobile DatePicker Component
 
 ## Screenshots
 
-<img src="https://os.alipayobjects.com/rmsportal/lpMABkgrgVnlnTd.png" width="288"/>
+### web
 
+<img src="https://img.alicdn.com/tps/TB1nH_4KpXXXXaCXFXXXXXXXXXX-404-607.png" width="288"/>
+
+### ios
+
+<img src="https://img.alicdn.com/tps/TB1saD1KpXXXXb_XFXXXXXXXXXX-420-729.png" width="288"/>
+
+### android
+
+<img src="https://img.alicdn.com/tps/TB1APgXKpXXXXXZXpXXXXXXXXXX-1920-1080.png" width="400"/>
 
 ## Development
 
 ```
-npm install
+npm i
+npm i typings -g
+typings install
 npm start
+npm run watch-tsc
 ```
 
 ## Example
@@ -41,6 +53,19 @@ npm start
 http://localhost:8000/examples/
 
 online example: http://react-component.github.io/m-date-picker/
+
+## react-native
+
+```
+npm run rn-start
+```
+
+load
+
+http://localhost:8081/examples/react-native/picker.bundle?platform=ios
+http://localhost:8081/examples/react-native/popup.bundle?platform=ios
+
+in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 ## install
 
@@ -55,9 +80,9 @@ see example
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of root dom node | String | '' |
-|prefixCls | prefix class | String | 'rmc-date-picker' |
-|pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
+|className(web) | additional css class of root dom node | String | '' |
+|prefixCls(web) | prefix class | String | 'rmc-date-picker' |
+|pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
 |defaultDate | default selected date. | GregorianCalendar | now |
 |date | The currently selected date. | GregorianCalendar |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
@@ -70,13 +95,14 @@ see example
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of modal node | String | '' |
-|style | additional modal style | object | {} |
-|popupTransitionName |  | String | |
-|maskTransitionName |  | String | |
-|prefixCls | prefix class | String | 'rmc-date-picker' |
-|pickerPrefixCls | picker prefix class | String | 'rmc-picker' |
-|popupPrefixCls | popup's prefix class | String | 'rmc-picker-popup' |
+|className(web) | additional css class of modal node | String | '' |
+|style(web) | additional modal style | object | {} |
+|popupTransitionName(web) |  | String | |
+|maskTransitionName(web) |  | String | |
+|prefixCls(web) | prefix class | String | 'rmc-date-picker' |
+|pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
+|popupPrefixCls(web) | popup's prefix class | String | 'rmc-picker-popup' |
+|styles(react-native) | PopupPicker's styles | StyleSheet.create |  |
 |date | The currently selected date. | GregorianCalendar |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
 |minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |

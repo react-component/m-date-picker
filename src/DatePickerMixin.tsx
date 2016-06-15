@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import Picker from 'rmc-picker';
+import * as React from 'react';
 import GregorianCalendar from 'gregorian-calendar';
+
+
 import defaultLocale from './locale/en_US';
-import classnames from 'classnames';
 
 function getDaysInMonth(now, selYear, selMonth) {
   const date = now.clone();
@@ -16,25 +16,10 @@ const DATETIME = 'datetime';
 const DATE = 'date';
 const TIME = 'time';
 
-const DatePicker = React.createClass({
-  propTypes: {
-    date: PropTypes.object,
-    defaultDate: PropTypes.object,
-    prefixCls: PropTypes.string,
-    pickerPrefixCls: PropTypes.string,
-    className: PropTypes.string,
-    minDate: PropTypes.object,
-    maxDate: PropTypes.object,
-    mode: PropTypes.string,
-    locale: PropTypes.object,
-    onDateChange: PropTypes.func,
-  },
-
+export default {
   getDefaultProps() {
     return {
       locale: defaultLocale,
-      prefixCls: 'rmc-date-picker',
-      pickerPrefixCls: 'rmc-picker',
       mode: DATE,
       onDateChange() {
       },
@@ -159,7 +144,7 @@ const DatePicker = React.createClass({
   getMaxHour() {
     return this.getMaxDate().getHourOfDay();
   },
-
+  
   getMinMinute() {
     return this.getMinDate().getMinutes();
   },
@@ -229,6 +214,7 @@ const DatePicker = React.createClass({
     }
     return [years, months, days];
   },
+  
   getTimeData() {
     let minHour = 0;
     let maxHour = 23;
@@ -291,9 +277,11 @@ const DatePicker = React.createClass({
     }
     return [hours, minutes];
   },
+  
   getGregorianCalendar() {
     return new GregorianCalendar(this.props.locale.calendar);
   },
+  
   clipDate(date) {
     const { mode } = this.props;
     const minDate = this.getMinDate();
@@ -328,9 +316,9 @@ const DatePicker = React.createClass({
     }
     return date;
   },
-  render() {
-    const props = this.props;
-    const { mode, prefixCls, pickerPrefixCls, className } = props;
+  
+  getValueDataSource() {
+    const { mode } = this.props;
     const date = this.getDate();
     let dataSource = [];
     let value = [];
@@ -343,24 +331,9 @@ const DatePicker = React.createClass({
       dataSource = dataSource.concat(this.getTimeData());
       value = value.concat([date.getHourOfDay(), date.getMinutes()]);
     }
-
-    const inner = dataSource.map((items, i) => {
-      return (<div key={i} className={`${prefixCls}-item`}>
-        <Picker
-          prefixCls={pickerPrefixCls}
-          pure={false}
-          selectedValue={value[i]}
-          onValueChange={this.onValueChange.bind(this, i)}
-        >
-          {items}
-        </Picker>
-      </div>);
-    });
-
-    return (<div className={classnames(className, prefixCls)}>
-      {inner}
-    </div>);
+    return {
+      value,
+      dataSource,
+    };
   },
-});
-
-export default DatePicker;
+};

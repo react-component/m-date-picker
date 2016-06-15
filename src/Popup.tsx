@@ -1,58 +1,72 @@
-import React, { PropTypes } from 'react';
+import {Component} from './React';
+import * as React from './React';
 import DatePicker from './DatePicker';
 import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
-import { noop, pick } from './utils';
+import {noop, pick} from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
+import construct = Reflect.construct;
+import {PopupPickerPropsWeb} from 'rmc-picker/lib/PopupPickerTypes';
 
-const PROPS = ['onDismiss', 'children', 'style',
+const PROPS = ['onDismiss', 'children', 'style', 'styles',
   'okText', 'dismissText', 'title', 'className',
   'popupTransitionName', 'maskTransitionName'];
 
-const PopupDatePicker = React.createClass({
-  propTypes: {
-    visible: PropTypes.bool,
-    mode: PropTypes.string,
-    onPickerChange: PropTypes.func,
-    onChange: PropTypes.func,
-    popupPrefixCls: PropTypes.string,
-    prefixCls: PropTypes.string,
-    pickerPrefixCls: PropTypes.string,
-    onVisibleChange: PropTypes.func,
-    locale: PropTypes.object,
-    date: PropTypes.object,
-  },
-  getDefaultProps() {
-    return {
-      onVisibleChange: noop,
-      popupPrefixCls: 'rmc-picker-popup',
-      mode: 'datetime',
-      locale: defaultLocale,
-      onChange: noop,
-      onDismiss: noop,
-      onPickerChange: noop,
-    };
-  },
-  getInitialState() {
-    return {
+export interface PopupDatePickerProps extends PopupPickerPropsWeb {
+  popupPrefixCls?:string;
+  pickerPrefixCls?:string;
+  minDate?:any;
+  maxDate?:any;
+  styles?:any;
+  mode?:string;
+  onPickerChange?:(date) => void;
+  onChange?:(date) => void;
+  locale?:any;
+  date?:any;
+}
+
+export interface PopupDatePickerState {
+  visible?:boolean;
+  pickerDate?:any;
+}
+
+export default class PopupDatePicker extends Component<PopupDatePickerProps, PopupDatePickerState> {
+
+  static defaultProps = {
+    onVisibleChange: noop,
+    popupPrefixCls: 'rmc-picker-popup',
+    mode: 'datetime',
+    locale: defaultLocale,
+    onChange: noop,
+    onDismiss: noop,
+    onPickerChange: noop,
+  };
+
+  constructor(props:PopupDatePickerProps) {
+    super(props);
+    this.state = {
       pickerDate: null,
       visible: this.props.visible || false,
     };
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
-  },
-  onPickerChange(pickerDate) {
+  }
+
+  onPickerChange = (pickerDate) => {
     this.setState({
       pickerDate,
     });
     this.props.onPickerChange(pickerDate);
-  },
-  onOk() {
+  };
+
+  onOk = () => {
     this.props.onChange(this.state.pickerDate || this.props.date);
-  },
+  };
+
   setVisibleState(visible) {
     this.setState({
       visible,
@@ -62,18 +76,21 @@ const PopupDatePicker = React.createClass({
         pickerDate: null,
       });
     }
-  },
+  }
+
   getNow(props) {
     const date = this.getGregorianCalendar(props);
     date.setTime(Date.now());
     return date;
-  },
+  }
+
   getGregorianCalendar(props) {
     return new GregorianCalendar((props || this.props).locale.calendar);
-  },
+  }
+
   getModal() {
     const props = this.props;
-    const dpProps = {};
+    const dpProps:PopupDatePickerProps = {};
     if (props.minDate) {
       dpProps.minDate = props.minDate;
     }
@@ -95,26 +112,26 @@ const PopupDatePicker = React.createClass({
         {...dpProps}
       />
     );
-  },
-  fireVisibleChange(visible) {
+  }
+
+  fireVisibleChange = (visible) => {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
         this.setVisibleState(visible);
       }
       this.props.onVisibleChange(visible);
     }
-  },
+  };
+
   render() {
-    const props = pick(this.props, PROPS);
+    const props:PopupDatePickerProps = pick(this.props, PROPS);
+    props.prefixCls = this.props.popupPrefixCls;
     return (<PopupPicker
       {...props}
       onVisibleChange={this.fireVisibleChange}
       onOk={this.onOk}
       content={this.getModal()}
-      prefixCls={this.props.popupPrefixCls}
       visible={this.state.visible}
     />);
-  },
-});
-
-export default PopupDatePicker;
+  }
+}
