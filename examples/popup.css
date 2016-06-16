@@ -34,11 +34,9 @@
 .rmc-picker-popup-header {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          -webkit-align-items: center;
           align-items: center;
   background-image: -webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent);
   background-image: linear-gradient(to bottom, #e7e7e7, #e7e7e7, transparent, transparent);
@@ -55,7 +53,6 @@
   box-sizing: border-box;
   -webkit-box-flex: 1;
       -ms-flex: 1;
-          -webkit-flex: 1;
           flex: 1;
   text-align: center;
   -webkit-tap-highlight-color: transparent;

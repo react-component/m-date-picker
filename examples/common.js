@@ -2706,12 +2706,40 @@
 	// shim for using process in browser
 	
 	var process = module.exports = {};
+	
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+	
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+	
+	(function () {
+	  try {
+	    cachedSetTimeout = setTimeout;
+	  } catch (e) {
+	    cachedSetTimeout = function () {
+	      throw new Error('setTimeout is not defined');
+	    }
+	  }
+	  try {
+	    cachedClearTimeout = clearTimeout;
+	  } catch (e) {
+	    cachedClearTimeout = function () {
+	      throw new Error('clearTimeout is not defined');
+	    }
+	  }
+	} ())
 	var queue = [];
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
 	
 	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -2727,7 +2755,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = setTimeout(cleanUpNextTick);
+	    var timeout = cachedSetTimeout(cleanUpNextTick);
 	    draining = true;
 	
 	    var len = queue.length;
@@ -2744,7 +2772,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    clearTimeout(timeout);
+	    cachedClearTimeout(timeout);
 	}
 	
 	process.nextTick = function (fun) {
@@ -2756,7 +2784,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
+	        cachedSetTimeout(drainQueue, 0);
 	    }
 	};
 	
@@ -23047,15 +23075,15 @@
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _classnames = __webpack_require__(193);
+	var _classnames = __webpack_require__(192);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _reactMixin = __webpack_require__(194);
+	var _reactMixin = __webpack_require__(193);
 	
 	var _reactMixin2 = _interopRequireDefault(_reactMixin);
 	
-	var _DatePickerMixin = __webpack_require__(196);
+	var _DatePickerMixin = __webpack_require__(195);
 	
 	var _DatePickerMixin2 = _interopRequireDefault(_DatePickerMixin);
 	
@@ -23167,13 +23195,13 @@
 	
 	var _reactHammerjs2 = _interopRequireDefault(_reactHammerjs);
 	
-	var _objectAssign = __webpack_require__(190);
+	var _objectAssign = __webpack_require__(18);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _utils = __webpack_require__(191);
+	var _utils = __webpack_require__(190);
 	
-	var _isChildrenEqual = __webpack_require__(192);
+	var _isChildrenEqual = __webpack_require__(191);
 	
 	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
 	
@@ -26509,51 +26537,6 @@
 
 /***/ },
 /* 190 */
-/***/ function(module, exports) {
-
-	/* eslint-disable no-unused-vars */
-	'use strict';
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-	
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-	
-		return Object(val);
-	}
-	
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var to = toObject(target);
-		var symbols;
-	
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments[s]);
-	
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
-	
-			if (Object.getOwnPropertySymbols) {
-				symbols = Object.getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
-	
-		return to;
-	};
-
-
-/***/ },
-/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26601,7 +26584,7 @@
 	}
 
 /***/ },
-/* 192 */
+/* 191 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26634,7 +26617,7 @@
 	}
 
 /***/ },
-/* 193 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26688,11 +26671,11 @@
 
 
 /***/ },
-/* 194 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mixin = __webpack_require__(195);
-	var assign = __webpack_require__(190);
+	var mixin = __webpack_require__(194);
+	var assign = __webpack_require__(18);
 	
 	var mixinProto = mixin({
 	  // lifecycle stuff is as you'd expect
@@ -26847,7 +26830,7 @@
 
 
 /***/ },
-/* 195 */
+/* 194 */
 /***/ function(module, exports) {
 
 	function objToStr(x){ return Object.prototype.toString.call(x); };
@@ -27024,7 +27007,7 @@
 
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27037,7 +27020,7 @@
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _en_US = __webpack_require__(197);
+	var _en_US = __webpack_require__(196);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
@@ -27353,7 +27336,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
