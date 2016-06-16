@@ -1,6 +1,10 @@
 # History
 ----
 
+## 3.0.0 / 2016-6-15
+
+- support react-native and typescript
+
 ## 2.0.0 / 2016-03-21
 
 - use rc-dialog
