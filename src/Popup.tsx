@@ -9,7 +9,7 @@ import construct = Reflect.construct;
 import {PopupPickerPropsWeb} from 'rmc-picker/lib/PopupPickerTypes';
 
 const PROPS = ['onDismiss', 'children', 'style', 'styles',
-  'okText', 'dismissText', 'title', 'className',
+  'okText', 'dismissText', 'title', 'className', 'WrapComponent',
   'popupTransitionName', 'maskTransitionName'];
 
 export interface PopupDatePickerProps extends PopupPickerPropsWeb {
