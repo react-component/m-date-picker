@@ -61,7 +61,7 @@ webpackJsonp([2],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(52);
+	var _reactDom = __webpack_require__(47);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	

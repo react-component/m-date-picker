@@ -39,7 +39,7 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(52);
+	var _reactDom = __webpack_require__(47);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
@@ -190,7 +190,7 @@ webpackJsonp([0],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var PROPS = ['onDismiss', 'children', 'style', 'styles', 'okText', 'dismissText', 'title', 'className', 'popupTransitionName', 'maskTransitionName'];
+	var PROPS = ['onDismiss', 'children', 'style', 'styles', 'okText', 'dismissText', 'title', 'className', 'WrapComponent', 'popupTransitionName', 'maskTransitionName'];
 	
 	var PopupDatePicker = function (_Component) {
 	    _inherits(PopupDatePicker, _Component);
@@ -355,7 +355,7 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(52);
+	var _reactDom = __webpack_require__(47);
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
@@ -524,7 +524,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(52);
+	var _reactDom = __webpack_require__(47);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -707,7 +707,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(52);
+	var _reactDom = __webpack_require__(47);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -2123,7 +2123,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(52);
+	var _reactDom = __webpack_require__(47);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
