@@ -19,7 +19,7 @@ class DatePickerWeb extends React.Component<DatePickerPropsWeb, DatePickerState>
 
   getValueDataSource:() => any;
 
-  onValueChange:(i) => any;
+  onValueChange:(i, v) => any;
 
   render() {
     const props = this.props;
@@ -32,7 +32,7 @@ class DatePickerWeb extends React.Component<DatePickerPropsWeb, DatePickerState>
           prefixCls={pickerPrefixCls}
           pure={false}
           selectedValue={value[i]}
-          onValueChange={() => {this.onValueChange(i);}}
+          onValueChange={(v) => {this.onValueChange(i, v);}}
         >
           {items}
         </Picker>
