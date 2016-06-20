@@ -22945,8 +22945,8 @@
 	                { key: i, className: prefixCls + '-item' },
 	                React.createElement(
 	                    _index2.default,
-	                    { prefixCls: pickerPrefixCls, pure: false, selectedValue: value[i], onValueChange: function onValueChange() {
-	                            _this2.onValueChange(i);
+	                    { prefixCls: pickerPrefixCls, pure: false, selectedValue: value[i], onValueChange: function onValueChange(v) {
+	                            _this2.onValueChange(i, v);
 	                        } },
 	                    items
 	                )
