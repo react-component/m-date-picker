@@ -5,6 +5,8 @@ React Mobile DatePicker Component (web and react-native)
 
 
 [![NPM version][npm-image]][npm-url]
+![react-native](https://img.shields.io/badge/react--native-%3E%3D_0.28.0-green.svg)
+![react](https://img.shields.io/badge/react-%3E%3D_15.2.0-green.svg)
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![gemnasium deps][gemnasium-image]][gemnasium-url]

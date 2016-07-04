@@ -4,7 +4,8 @@ import DatePicker from '../../src/DatePicker';
 import GregorianCalendarFormat from 'gregorian-calendar-format';
 import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
-import React, {Component, View, Text, AppRegistry} from 'react-native';
+import {View, Text, AppRegistry} from 'react-native';
+import * as React from 'react';
 import zhCnPicker from '../../src/locale/zh_CN';
 
 const formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
@@ -23,7 +24,7 @@ function format(v) {
 const now = new GregorianCalendar(zhCnPicker.calendar);
 now.setTime(Date.now());
 
-class Demo extends Component<any, any> {
+class Demo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'datetime',
     locale: zhCnPicker,

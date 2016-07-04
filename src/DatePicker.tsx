@@ -1,4 +1,5 @@
-import React, {Component, View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import * as React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
 import {DatePickerProps, DatePickerState} from './DatePickerTypes';
 import reactMixin from 'react-mixin';
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class DatePicker extends Component<DatePickerProps, DatePickerState> {
+export default class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
   getValueDataSource:() => any;
 
   onValueChange:(i, v) => any;

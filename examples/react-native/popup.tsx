@@ -5,8 +5,8 @@ import GregorianCalendar from 'gregorian-calendar';
 import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
 import zhCnPicker from 'rmc-date-picker/src/locale/zh_CN';
 // const zhCnCalendar = null;
-import React, {AppRegistry, View, Text, Component, StyleSheet, TouchableHighlight} from 'react-native';
-
+import {AppRegistry, View, Text, StyleSheet, TouchableHighlight} from 'react-native';
+import * as React from 'react';
 import PopPicker from '../../src/Popup';
 import PopupStyles from '../../src/PopupStyles';
 
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class Demo extends Component<any, any> {
+class Demo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'datetime',
     locale: zhCnPicker,

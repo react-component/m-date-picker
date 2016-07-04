@@ -1,5 +1,4 @@
-import {Component} from './React';
-import * as React from './React';
+import * as React from 'react';
 import DatePicker from './DatePicker';
 import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
@@ -30,7 +29,7 @@ export interface PopupDatePickerState {
   pickerDate?:any;
 }
 
-export default class PopupDatePicker extends Component<PopupDatePickerProps, PopupDatePickerState> {
+export default class PopupDatePicker extends React.Component<PopupDatePickerProps, PopupDatePickerState> {
 
   static defaultProps = {
     onVisibleChange: noop,
