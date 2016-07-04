@@ -5,6 +5,9 @@
   width: 100%;
   background-color: #fff;
 }
+.rmc-picker-popup-close {
+  display: none;
+}
 .rmc-picker-popup-wrap {
   position: fixed;
   overflow: auto;
@@ -32,17 +35,22 @@
   display: none;
 }
 .rmc-picker-popup-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background-image: -webkit-linear-gradient(top, #e7e7e7, #e7e7e7, transparent, transparent);
   background-image: linear-gradient(to bottom, #e7e7e7, #e7e7e7, transparent, transparent);
   background-position: bottom;
   background-size: 100% 1px;
   background-repeat: no-repeat;
+  position: relative;
+}
+.rmc-picker-popup-header-left {
+  position: absolute;
+  left: 16px;
+  top: 0;
+}
+.rmc-picker-popup-header-right {
+  position: absolute;
+  right: 16px;
+  top: 0;
 }
 .rmc-picker-popup-item {
   color: #0ae;
@@ -51,14 +59,12 @@
   line-height: 44px;
   cursor: pointer;
   box-sizing: border-box;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   text-align: center;
   -webkit-tap-highlight-color: transparent;
 }
 .rmc-picker-popup-title {
   color: #666;
+  cursor: default;
 }
 .rmc-picker-popup-fade-enter,
 .rmc-picker-popup-fade-appear {

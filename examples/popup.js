@@ -43,7 +43,7 @@ webpackJsonp([0],{
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _Popup = __webpack_require__(182);
+	var _Popup = __webpack_require__(184);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
@@ -145,7 +145,7 @@ webpackJsonp([0],{
 /***/ 4:
 2,
 
-/***/ 182:
+/***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -156,11 +156,11 @@ webpackJsonp([0],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _React = __webpack_require__(183);
+	var _react = __webpack_require__(16);
 	
-	var React = _interopRequireWildcard(_React);
+	var React = _interopRequireWildcard(_react);
 	
-	var _DatePicker = __webpack_require__(184);
+	var _DatePicker = __webpack_require__(185);
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
@@ -168,13 +168,13 @@ webpackJsonp([0],{
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _en_US = __webpack_require__(196);
+	var _en_US = __webpack_require__(197);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	var _utils = __webpack_require__(197);
+	var _utils = __webpack_require__(198);
 	
-	var _Popup = __webpack_require__(198);
+	var _Popup = __webpack_require__(199);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
@@ -192,13 +192,13 @@ webpackJsonp([0],{
 	
 	var PROPS = ['onDismiss', 'children', 'style', 'styles', 'okText', 'dismissText', 'title', 'className', 'WrapComponent', 'popupTransitionName', 'maskTransitionName'];
 	
-	var PopupDatePicker = function (_Component) {
-	    _inherits(PopupDatePicker, _Component);
+	var PopupDatePicker = function (_React$Component) {
+	    _inherits(PopupDatePicker, _React$Component);
 	
 	    function PopupDatePicker(props) {
 	        _classCallCheck(this, PopupDatePicker);
 	
-	        var _this = _possibleConstructorReturn(this, _Component.call(this, props));
+	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
 	
 	        _this.onPickerChange = function (pickerDate) {
 	            _this.setState({
@@ -276,7 +276,7 @@ webpackJsonp([0],{
 	    };
 	
 	    return PopupDatePicker;
-	}(_React.Component);
+	}(React.Component);
 	
 	exports.default = PopupDatePicker;
 	
@@ -293,33 +293,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 183:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(16);
-	
-	Object.defineProperty(exports, 'createElement', {
-	  enumerable: true,
-	  get: function get() {
-	    return _react.createElement;
-	  }
-	});
-	Object.defineProperty(exports, 'Component', {
-	  enumerable: true,
-	  get: function get() {
-	    return _react.Component;
-	  }
-	});
-
-/***/ },
-
-/***/ 197:
+/***/ 198:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -342,28 +316,30 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 198:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(16);
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _reactDom = __webpack_require__(47);
-	
-	var ReactDOM = _interopRequireWildcard(_reactDom);
-	
-	var _rcDialog = __webpack_require__(199);
+	var _rcDialog = __webpack_require__(200);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _utils = __webpack_require__(190);
+	var _reactMixin = __webpack_require__(194);
+	
+	var _reactMixin2 = _interopRequireDefault(_reactMixin);
+	
+	var _PopupMixin = __webpack_require__(214);
+	
+	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -378,136 +354,75 @@ webpackJsonp([0],{
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
 	var PopupPicker = function (_React$Component) {
-	    _inherits(PopupPicker, _React$Component);
+	  _inherits(PopupPicker, _React$Component);
 	
-	    function PopupPicker(props) {
-	        _classCallCheck(this, PopupPicker);
+	  function PopupPicker() {
+	    _classCallCheck(this, PopupPicker);
 	
-	        var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+	    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	  }
 	
-	        _this.onOk = function () {
-	            _this.fireVisibleChange(false);
-	            _this.props.onOk();
-	        };
-	        _this.onDismiss = function () {
-	            _this.fireVisibleChange(false);
-	            _this.props.onDismiss();
-	        };
-	        _this.onTriggerClick = function (e) {
-	            _this.fireVisibleChange(!_this.state.visible);
-	            var child = React.Children.only(_this.props.children);
-	            var childProps = child.props || {};
-	            if (childProps.onClick) {
-	                childProps.onClick(e);
-	            }
-	        };
-	        _this.onDocumentClick = function (e) {
-	            if (e.target !== _this.modalContent && !(0, _utils.contains)(_this.modalContent, e.target)) {
-	                _this.fireVisibleChange(false);
-	            }
-	        };
-	        _this.saveModalContent = function (content) {
-	            _this.modalContent = content;
-	        };
-	        _this.state = {
-	            visible: props.visible || false
-	        };
-	        return _this;
+	  PopupPicker.prototype.getModal = function getModal() {
+	    var props = this.props;
+	    if (!this.state.visible) {
+	      return null;
 	    }
+	    return React.createElement(
+	      _rcDialog2["default"],
+	      { prefixCls: '' + props.prefixCls, visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.modalStyle },
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { className: props.prefixCls + '-header' },
+	          React.createElement(
+	            'div',
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss },
+	            props.dismissText
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
+	            props.title
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk },
+	            props.okText
+	          )
+	        ),
+	        this.props.content
+	      )
+	    );
+	  };
 	
-	    PopupPicker.prototype.componentDidMount = function componentDidMount() {
-	        this.popupContainer = document.createElement('div');
-	        document.body.appendChild(this.popupContainer);
-	    };
-	
-	    PopupPicker.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	        if ('visible' in nextProps) {
-	            this.setVisibleState(nextProps.visible);
-	        }
-	    };
-	
-	    PopupPicker.prototype.componentDidUpdate = function componentDidUpdate() {
-	        if (this.state.visible) {
-	            if (!this.onDocumentClickListener) {
-	                this.onDocumentClickListener = (0, _utils.addEventListener)(document, 'click', this.onDocumentClick);
-	            }
-	            ReactDOM.render(this.getModal(), this.popupContainer);
-	        } else {
-	            if (this.onDocumentClickListener) {
-	                this.onDocumentClickListener.remove();
-	                this.onDocumentClickListener = null;
-	            }
-	            ReactDOM.unmountComponentAtNode(this.popupContainer);
-	        }
-	    };
-	
-	    PopupPicker.prototype.componentWillUnmount = function componentWillUnmount() {
-	        ReactDOM.unmountComponentAtNode(this.popupContainer);
-	        document.body.removeChild(this.popupContainer);
-	    };
-	
-	    PopupPicker.prototype.setVisibleState = function setVisibleState(visible) {
-	        this.setState({
-	            visible: visible
-	        });
-	    };
-	
-	    PopupPicker.prototype.getModal = function getModal() {
-	        var props = this.props;
-	        return React.createElement(_rcDialog2["default"], { prefixCls: '' + props.prefixCls, visible: true, transitionName: props.popupTransitionName, maskTransitionName: props.maskTransitionName, closable: false, style: props.style }, React.createElement("div", { ref: this.saveModalContent }, React.createElement("div", { className: props.prefixCls + '-header' }, React.createElement("div", { className: props.prefixCls + '-item', onClick: this.onDismiss }, props.dismissText), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-title' }, props.title), React.createElement("div", { className: props.prefixCls + '-item', onClick: this.onOk }, props.okText)), this.props.content));
-	    };
-	
-	    PopupPicker.prototype.fireVisibleChange = function fireVisibleChange(visible) {
-	        if (this.state.visible !== visible) {
-	            if (!('visible' in this.props)) {
-	                this.setVisibleState(visible);
-	            }
-	            this.props.onVisibleChange(visible);
-	        }
-	    };
-	
-	    PopupPicker.prototype.render = function render() {
-	        var props = this.props;
-	        var children = props.children;
-	        if (!children) {
-	            return null;
-	        }
-	        var child = React.Children.only(children);
-	        var newChildProps = {
-	            onClick: this.onTriggerClick
-	        };
-	        return React.cloneElement(child, newChildProps);
-	    };
-	
-	    return PopupPicker;
+	  return PopupPicker;
 	}(React.Component);
 	
 	exports["default"] = PopupPicker;
 	
 	PopupPicker.defaultProps = {
-	    prefixCls: 'rmc-picker-popup',
-	    onVisibleChange: _utils.noop,
-	    okText: 'Ok',
-	    dismissText: 'Dismiss',
-	    title: '',
-	    style: {},
-	    onOk: _utils.noop,
-	    onDismiss: _utils.noop
+	  prefixCls: 'rmc-picker-popup',
+	  modalStyle: {},
+	  triggerType: 'onClick',
+	  WrapComponent: 'span'
 	};
+	_reactMixin2["default"].onClass(PopupPicker, _PopupMixin2["default"]);
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 199:
+/***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(200);
+	module.exports = __webpack_require__(201);
 
 /***/ },
 
-/***/ 200:
+/***/ 201:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -528,7 +443,7 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Dialog = __webpack_require__(201);
+	var _Dialog = __webpack_require__(202);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
@@ -692,7 +607,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 201:
+/***/ 202:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -711,15 +626,15 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(202);
+	var _KeyCode = __webpack_require__(203);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(203);
+	var _rcAnimate = __webpack_require__(204);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(212);
+	var _LazyRenderBox = __webpack_require__(213);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -1122,7 +1037,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 202:
+/***/ 203:
 /***/ function(module, exports) {
 
 	/**
@@ -1648,50 +1563,51 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 203:
-/***/ function(module, exports, __webpack_require__) {
-
-	// export this package's api
-	'use strict';
-	
-	module.exports = __webpack_require__(204);
-
-/***/ },
-
 /***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	// export this package's api
+	module.exports = __webpack_require__(205);
+
+/***/ },
+
+/***/ 205:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	var _react = __webpack_require__(16);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(205);
+	var _ChildrenUtils = __webpack_require__(206);
 	
-	var _AnimateChild = __webpack_require__(206);
+	var _AnimateChild = __webpack_require__(207);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(211);
+	var _util = __webpack_require__(212);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var defaultKey = 'rc_animate_' + Date.now();
+	
 	
 	function getChildrenFromProps(props) {
 	  var children = props.children;
-	  if (_react2['default'].isValidElement(children)) {
+	  if (_react2["default"].isValidElement(children)) {
 	    if (!children.key) {
-	      return _react2['default'].cloneElement(children, {
+	      return _react2["default"].cloneElement(children, {
 	        key: defaultKey
 	      });
 	    }
@@ -1701,22 +1617,22 @@ webpackJsonp([0],{
 	
 	function noop() {}
 	
-	var Animate = _react2['default'].createClass({
+	var Animate = _react2["default"].createClass({
 	  displayName: 'Animate',
 	
 	  propTypes: {
-	    component: _react2['default'].PropTypes.any,
-	    animation: _react2['default'].PropTypes.object,
-	    transitionName: _react2['default'].PropTypes.string,
-	    transitionEnter: _react2['default'].PropTypes.bool,
-	    transitionAppear: _react2['default'].PropTypes.bool,
-	    exclusive: _react2['default'].PropTypes.bool,
-	    transitionLeave: _react2['default'].PropTypes.bool,
-	    onEnd: _react2['default'].PropTypes.func,
-	    onEnter: _react2['default'].PropTypes.func,
-	    onLeave: _react2['default'].PropTypes.func,
-	    onAppear: _react2['default'].PropTypes.func,
-	    showProp: _react2['default'].PropTypes.string
+	    component: _react2["default"].PropTypes.any,
+	    animation: _react2["default"].PropTypes.object,
+	    transitionName: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.string, _react2["default"].PropTypes.object]),
+	    transitionEnter: _react2["default"].PropTypes.bool,
+	    transitionAppear: _react2["default"].PropTypes.bool,
+	    exclusive: _react2["default"].PropTypes.bool,
+	    transitionLeave: _react2["default"].PropTypes.bool,
+	    onEnd: _react2["default"].PropTypes.func,
+	    onEnter: _react2["default"].PropTypes.func,
+	    onLeave: _react2["default"].PropTypes.func,
+	    onAppear: _react2["default"].PropTypes.func,
+	    showProp: _react2["default"].PropTypes.string
 	  },
 	
 	  getDefaultProps: function getDefaultProps() {
@@ -1732,7 +1648,6 @@ webpackJsonp([0],{
 	      onAppear: noop
 	    };
 	  },
-	
 	  getInitialState: function getInitialState() {
 	    this.currentlyAnimatingKeys = {};
 	    this.keysToEnter = [];
@@ -1741,7 +1656,6 @@ webpackJsonp([0],{
 	      children: (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(this.props))
 	    };
 	  },
-	
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
@@ -1756,7 +1670,6 @@ webpackJsonp([0],{
 	      _this.performAppear(child.key);
 	    });
 	  },
-	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var _this2 = this;
 	
@@ -1778,9 +1691,9 @@ webpackJsonp([0],{
 	    if (showProp) {
 	      currentChildren.forEach(function (currentChild) {
 	        var nextChild = (0, _ChildrenUtils.findChildInChildrenByKey)(nextChildren, currentChild.key);
-	        var newChild = undefined;
+	        var newChild = void 0;
 	        if ((!nextChild || !nextChild.props[showProp]) && currentChild.props[showProp]) {
-	          newChild = _react2['default'].cloneElement(nextChild || currentChild, _defineProperty({}, showProp, true));
+	          newChild = _react2["default"].cloneElement(nextChild || currentChild, _defineProperty({}, showProp, true));
 	        } else {
 	          newChild = nextChild;
 	        }
@@ -1844,18 +1757,14 @@ webpackJsonp([0],{
 	      }
 	    });
 	  },
-	
 	  componentDidUpdate: function componentDidUpdate() {
-	    if (this.isMounted()) {
-	      var keysToEnter = this.keysToEnter;
-	      this.keysToEnter = [];
-	      keysToEnter.forEach(this.performEnter);
-	      var keysToLeave = this.keysToLeave;
-	      this.keysToLeave = [];
-	      keysToLeave.forEach(this.performLeave);
-	    }
+	    var keysToEnter = this.keysToEnter;
+	    this.keysToEnter = [];
+	    keysToEnter.forEach(this.performEnter);
+	    var keysToLeave = this.keysToLeave;
+	    this.keysToLeave = [];
+	    keysToLeave.forEach(this.performLeave);
 	  },
-	
 	  performEnter: function performEnter(key) {
 	    // may already remove by exclusive
 	    if (this.refs[key]) {
@@ -1863,14 +1772,12 @@ webpackJsonp([0],{
 	      this.refs[key].componentWillEnter(this.handleDoneAdding.bind(this, key, 'enter'));
 	    }
 	  },
-	
 	  performAppear: function performAppear(key) {
 	    if (this.refs[key]) {
 	      this.currentlyAnimatingKeys[key] = true;
 	      this.refs[key].componentWillAppear(this.handleDoneAdding.bind(this, key, 'appear'));
 	    }
 	  },
-	
 	  handleDoneAdding: function handleDoneAdding(key, type) {
 	    var props = this.props;
 	    delete this.currentlyAnimatingKeys[key];
@@ -1884,19 +1791,18 @@ webpackJsonp([0],{
 	      this.performLeave(key);
 	    } else {
 	      if (type === 'appear') {
-	        if (_util2['default'].allowAppearCallback(props)) {
+	        if (_util2["default"].allowAppearCallback(props)) {
 	          props.onAppear(key);
 	          props.onEnd(key, true);
 	        }
 	      } else {
-	        if (_util2['default'].allowEnterCallback(props)) {
+	        if (_util2["default"].allowEnterCallback(props)) {
 	          props.onEnter(key);
 	          props.onEnd(key, true);
 	        }
 	      }
 	    }
 	  },
-	
 	  performLeave: function performLeave(key) {
 	    // may already remove by exclusive
 	    if (this.refs[key]) {
@@ -1904,7 +1810,6 @@ webpackJsonp([0],{
 	      this.refs[key].componentWillLeave(this.handleDoneLeaving.bind(this, key));
 	    }
 	  },
-	
 	  handleDoneLeaving: function handleDoneLeaving(key) {
 	    var props = this.props;
 	    delete this.currentlyAnimatingKeys[key];
@@ -1917,18 +1822,18 @@ webpackJsonp([0],{
 	    if (this.isValidChildByKey(currentChildren, key)) {
 	      this.performEnter(key);
 	    } else {
+	      /* eslint react/no-is-mounted:0 */
 	      if (this.isMounted() && !(0, _ChildrenUtils.isSameChildren)(this.state.children, currentChildren, props.showProp)) {
 	        this.setState({
 	          children: currentChildren
 	        });
 	      }
-	      if (_util2['default'].allowLeaveCallback(props)) {
+	      if (_util2["default"].allowLeaveCallback(props)) {
 	        props.onLeave(key);
 	        props.onEnd(key, false);
 	      }
 	    }
 	  },
-	
 	  isValidChildByKey: function isValidChildByKey(currentChildren, key) {
 	    var showProp = this.props.showProp;
 	    if (showProp) {
@@ -1936,7 +1841,6 @@ webpackJsonp([0],{
 	    }
 	    return (0, _ChildrenUtils.findChildInChildrenByKey)(currentChildren, key);
 	  },
-	
 	  stop: function stop(key) {
 	    delete this.currentlyAnimatingKeys[key];
 	    var component = this.refs[key];
@@ -1944,7 +1848,6 @@ webpackJsonp([0],{
 	      component.stop();
 	    }
 	  },
-	
 	  render: function render() {
 	    var props = this.props;
 	    this.nextProps = props;
@@ -1958,8 +1861,8 @@ webpackJsonp([0],{
 	        if (!child.key) {
 	          throw new Error('must set key for <rc-animate> children');
 	        }
-	        return _react2['default'].createElement(
-	          _AnimateChild2['default'],
+	        return _react2["default"].createElement(
+	          _AnimateChild2["default"],
 	          {
 	            key: child.key,
 	            ref: child.key,
@@ -1967,14 +1870,15 @@ webpackJsonp([0],{
 	            transitionName: props.transitionName,
 	            transitionEnter: props.transitionEnter,
 	            transitionAppear: props.transitionAppear,
-	            transitionLeave: props.transitionLeave },
+	            transitionLeave: props.transitionLeave
+	          },
 	          child
 	        );
 	      });
 	    }
 	    var Component = props.component;
 	    if (Component) {
-	      return _react2['default'].createElement(
+	      return _react2["default"].createElement(
 	        Component,
 	        this.props,
 	        children
@@ -1984,17 +1888,17 @@ webpackJsonp([0],{
 	  }
 	});
 	
-	exports['default'] = Animate;
+	exports["default"] = Animate;
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 205:
+/***/ 206:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.toArrayChildren = toArrayChildren;
@@ -2004,15 +1908,15 @@ webpackJsonp([0],{
 	exports.isSameChildren = isSameChildren;
 	exports.mergeChildren = mergeChildren;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
 	var _react = __webpack_require__(16);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
 	function toArrayChildren(children) {
 	  var ret = [];
-	  _react2['default'].Children.forEach(children, function (child) {
+	  _react2["default"].Children.forEach(children, function (child) {
 	    ret.push(child);
 	  });
 	  return ret;
@@ -2108,110 +2012,6 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 206:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(16);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(47);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _cssAnimation = __webpack_require__(207);
-	
-	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
-	
-	var _util = __webpack_require__(211);
-	
-	var _util2 = _interopRequireDefault(_util);
-	
-	var transitionMap = {
-	  enter: 'transitionEnter',
-	  appear: 'transitionAppear',
-	  leave: 'transitionLeave'
-	};
-	
-	var AnimateChild = _react2['default'].createClass({
-	  displayName: 'AnimateChild',
-	
-	  propTypes: {
-	    children: _react2['default'].PropTypes.any
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    this.stop();
-	  },
-	
-	  componentWillEnter: function componentWillEnter(done) {
-	    if (_util2['default'].isEnterSupported(this.props)) {
-	      this.transition('enter', done);
-	    } else {
-	      done();
-	    }
-	  },
-	
-	  componentWillAppear: function componentWillAppear(done) {
-	    if (_util2['default'].isAppearSupported(this.props)) {
-	      this.transition('appear', done);
-	    } else {
-	      done();
-	    }
-	  },
-	
-	  componentWillLeave: function componentWillLeave(done) {
-	    if (_util2['default'].isLeaveSupported(this.props)) {
-	      this.transition('leave', done);
-	    } else {
-	      done();
-	    }
-	  },
-	
-	  transition: function transition(animationType, finishCallback) {
-	    var _this = this;
-	
-	    var node = _reactDom2['default'].findDOMNode(this);
-	    var props = this.props;
-	    var transitionName = props.transitionName;
-	    this.stop();
-	    var end = function end() {
-	      _this.stopper = null;
-	      finishCallback();
-	    };
-	    if ((_cssAnimation.isCssAnimationSupported || !props.animation[animationType]) && transitionName && props[transitionMap[animationType]]) {
-	      this.stopper = (0, _cssAnimation2['default'])(node, transitionName + '-' + animationType, end);
-	    } else {
-	      this.stopper = props.animation[animationType](node, end);
-	    }
-	  },
-	
-	  stop: function stop() {
-	    var stopper = this.stopper;
-	    if (stopper) {
-	      this.stopper = null;
-	      stopper.stop();
-	    }
-	  },
-	
-	  render: function render() {
-	    return this.props.children;
-	  }
-	});
-	
-	exports['default'] = AnimateChild;
-	module.exports = exports['default'];
-
-/***/ },
-
 /***/ 207:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2221,11 +2021,116 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(208);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	var _react = __webpack_require__(16);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(47);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _cssAnimation = __webpack_require__(208);
+	
+	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
+	
+	var _util = __webpack_require__(212);
+	
+	var _util2 = _interopRequireDefault(_util);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var transitionMap = {
+	  enter: 'transitionEnter',
+	  appear: 'transitionAppear',
+	  leave: 'transitionLeave'
+	};
+	
+	var AnimateChild = _react2["default"].createClass({
+	  displayName: 'AnimateChild',
+	
+	  propTypes: {
+	    children: _react2["default"].PropTypes.any
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.stop();
+	  },
+	  componentWillEnter: function componentWillEnter(done) {
+	    if (_util2["default"].isEnterSupported(this.props)) {
+	      this.transition('enter', done);
+	    } else {
+	      setTimeout(done, 0);
+	    }
+	  },
+	  componentWillAppear: function componentWillAppear(done) {
+	    if (_util2["default"].isAppearSupported(this.props)) {
+	      this.transition('appear', done);
+	    } else {
+	      setTimeout(done, 0);
+	    }
+	  },
+	  componentWillLeave: function componentWillLeave(done) {
+	    if (_util2["default"].isLeaveSupported(this.props)) {
+	      this.transition('leave', done);
+	    } else {
+	      // always sync, do not interupt with react component life cycle
+	      // update hidden -> animate hidden ->
+	      // didUpdate -> animate leave -> unmount (if animate is none)
+	      setTimeout(done, 0);
+	    }
+	  },
+	  transition: function transition(animationType, finishCallback) {
+	    var _this = this;
+	
+	    var node = _reactDom2["default"].findDOMNode(this);
+	    var props = this.props;
+	    var transitionName = props.transitionName;
+	    var nameIsObj = (typeof transitionName === 'undefined' ? 'undefined' : _typeof(transitionName)) === 'object';
+	    this.stop();
+	    var end = function end() {
+	      _this.stopper = null;
+	      finishCallback();
+	    };
+	    if ((_cssAnimation.isCssAnimationSupported || !props.animation[animationType]) && transitionName && props[transitionMap[animationType]]) {
+	      var name = nameIsObj ? transitionName[animationType] : transitionName + '-' + animationType;
+	      this.stopper = (0, _cssAnimation2["default"])(node, name, end);
+	    } else {
+	      this.stopper = props.animation[animationType](node, end);
+	    }
+	  },
+	  stop: function stop() {
+	    var stopper = this.stopper;
+	    if (stopper) {
+	      this.stopper = null;
+	      stopper.stop();
+	    }
+	  },
+	  render: function render() {
+	    return this.props.children;
+	  }
+	});
+	
+	exports["default"] = AnimateChild;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 208:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _Event = __webpack_require__(209);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(209);
+	var _componentClasses = __webpack_require__(210);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -2403,7 +2308,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 208:
+/***/ 209:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2497,7 +2402,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 209:
+/***/ 210:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2505,9 +2410,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(210);
+	  var index = __webpack_require__(211);
 	} catch (err) {
-	  var index = __webpack_require__(210);
+	  var index = __webpack_require__(211);
 	}
 	
 	/**
@@ -2695,7 +2600,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 210:
+/***/ 211:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2708,7 +2613,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 211:
+/***/ 212:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2726,7 +2631,6 @@ webpackJsonp([0],{
 	  isLeaveSupported: function isLeaveSupported(props) {
 	    return props.transitionName && props.transitionLeave || props.animation.leave;
 	  },
-	
 	  allowAppearCallback: function allowAppearCallback(props) {
 	    return props.transitionAppear || props.animation.appear;
 	  },
@@ -2738,11 +2642,11 @@ webpackJsonp([0],{
 	  }
 	};
 	exports["default"] = util;
-	module.exports = exports["default"];
+	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 212:
+/***/ 213:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2780,6 +2684,108 @@ webpackJsonp([0],{
 	});
 	
 	exports["default"] = LazyRenderBox;
+	module.exports = exports['default'];
+
+/***/ },
+
+/***/ 214:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(16);
+	
+	var React = _interopRequireWildcard(_react);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function noop() {}
+	var binds = {
+	    onTriggerClick: function onTriggerClick(e) {
+	        var child = this.props.children;
+	        var childProps = child.props || {};
+	        if (childProps[this.props.triggerType]) {
+	            childProps[this.props.triggerType](e);
+	        }
+	        this.fireVisibleChange(!this.state.visible);
+	    },
+	    onOk: function onOk() {
+	        this.props.onOk();
+	        this.fireVisibleChange(false);
+	    },
+	    onDismiss: function onDismiss() {
+	        this.props.onDismiss();
+	        this.fireVisibleChange(false);
+	    },
+	    hide: function hide() {
+	        this.fireVisibleChange(false);
+	    }
+	};
+	exports["default"] = {
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            onVisibleChange: noop,
+	            okText: 'Ok',
+	            dismissText: 'Dismiss',
+	            title: '',
+	            onOk: noop,
+	            onDismiss: noop
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            visible: this.props.visible || false
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if ('visible' in nextProps) {
+	            this.setVisibleState(nextProps.visible);
+	        }
+	    },
+	    componentWillMount: function componentWillMount() {
+	        var _this = this;
+	
+	        Object.keys(binds).forEach(function (k) {
+	            _this[k] = binds[k].bind(_this);
+	        });
+	    },
+	    setVisibleState: function setVisibleState(visible) {
+	        this.setState({
+	            visible: visible
+	        });
+	    },
+	    fireVisibleChange: function fireVisibleChange(visible) {
+	        if (this.state.visible !== visible) {
+	            if (!('visible' in this.props)) {
+	                this.setVisibleState(visible);
+	            }
+	            this.props.onVisibleChange(visible);
+	        }
+	    },
+	    render: function render() {
+	        var props = this.props;
+	        var children = props.children;
+	        if (!children) {
+	            return this.getModal();
+	        }
+	        var WrapComponent = this.props.WrapComponent;
+	
+	        var child = children;
+	        var newChildProps = _defineProperty({}, props.triggerType, this.onTriggerClick);
+	        return React.createElement(
+	            WrapComponent,
+	            { style: props.style },
+	            React.cloneElement(child, newChildProps),
+	            this.getModal()
+	        );
+	    }
+	};
 	module.exports = exports['default'];
 
 /***/ }
