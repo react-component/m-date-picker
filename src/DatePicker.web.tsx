@@ -2,25 +2,18 @@ import * as React from 'react';
 import Picker from 'rmc-picker/lib/index.web';
 import classnames from 'classnames';
 import {DatePickerProps, DatePickerState} from './DatePickerTypes';
-import reactMixin from 'react-mixin';
 import DatePickerMixin from './DatePickerMixin';
 
-export interface DatePickerPropsWeb extends DatePickerProps {
-  prefixCls?:string;
-  pickerPrefixCls?:string;
-  className?:string;
-}
-
-class DatePickerWeb extends React.Component<DatePickerPropsWeb, DatePickerState> {
-  static defaultProps = {
-    prefixCls: 'rmc-date-picker',
-    pickerPrefixCls: 'rmc-picker',
-  };
-
-  getValueDataSource:() => any;
-
-  onValueChange:(i, v) => any;
-
+const DatePickerWeb = React.createClass<DatePickerProps, DatePickerState> ({
+  mixins: [DatePickerMixin],
+  
+  getDefaultProps() {
+    return {
+      prefixCls: 'rmc-date-picker',
+        pickerPrefixCls: 'rmc-picker',
+    };  
+  },
+  
   render() {
     const props = this.props;
     const {prefixCls, pickerPrefixCls, className} = props;
@@ -42,9 +35,7 @@ class DatePickerWeb extends React.Component<DatePickerPropsWeb, DatePickerState>
     return (<div className={classnames(className, prefixCls)}>
       {inner}
     </div>);
-  }
-}
-
-reactMixin.onClass(DatePickerWeb, DatePickerMixin);
+  },
+});
 
 export default DatePickerWeb;

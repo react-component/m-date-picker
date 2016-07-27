@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "React Mobile DatePicker Component for web and react-native",
   "keywords": [
     "react",
@@ -31,6 +31,7 @@
   },
   "scripts": {
     "watch-tsc": "rc-tools run watch-tsc",
+    "compile": "rc-tools run compile",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
     "start": "rc-tools run server",
@@ -50,7 +51,7 @@
     "jquery": "^2.1.4",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
-    "react-native": "0.28.0",
+    "react-native": "0.30.0",
     "react": "15.x",
     "react-addons-test-utils": "15.x",
     "react-dom": "15.x"
@@ -62,7 +63,6 @@
   "dependencies": {
     "classnames": "2.x",
     "gregorian-calendar": "4.x",
-    "react-mixin": "~3.0.5",
     "rmc-picker": "3.x"
   }
 }

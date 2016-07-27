@@ -5,13 +5,13 @@ import defaultLocale from './locale/en_US';
 import {noop, pick} from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import construct = Reflect.construct;
-import {PopupPickerPropsWeb} from 'rmc-picker/lib/PopupPickerTypes';
+import {PopupPickerProps} from 'rmc-picker/lib/PopupPickerTypes';
 
 const PROPS = ['onDismiss', 'children', 'style', 'styles',
   'okText', 'dismissText', 'title', 'className', 'WrapComponent',
   'popupTransitionName', 'maskTransitionName'];
 
-export interface PopupDatePickerProps extends PopupPickerPropsWeb {
+export interface PopupDatePickerProps extends PopupPickerProps {
   popupPrefixCls?:string;
   pickerPrefixCls?:string;
   minDate?:any;

@@ -2,26 +2,26 @@ import {View, StyleSheet} from 'react-native';
 import * as React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
 import {DatePickerProps, DatePickerState} from './DatePickerTypes';
-import reactMixin from 'react-mixin';
 import DatePickerMixin from './DatePickerMixin';
+import FlexAlignType = __React.FlexAlignType;
+
+type FlexDirection = 'row' | 'column';
 
 const styles = StyleSheet.create({
   item: {
     flex: 1,
   },
   root: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'row' as FlexDirection,
+    alignItems: 'center' as FlexAlignType,
     paddingTop: 10,
     paddingBottom: 10,
   }
 });
 
-export default class DatePicker extends React.Component<DatePickerProps, DatePickerState> {
-  getValueDataSource:() => any;
-
-  onValueChange:(i, v) => any;
-
+const DatePicker = React.createClass<DatePickerProps, DatePickerState>({
+  mixins: [DatePickerMixin],
+  
   render() {
     const {value, dataSource} = this.getValueDataSource();
 
@@ -40,7 +40,7 @@ export default class DatePicker extends React.Component<DatePickerProps, DatePic
     return (<View style={styles.root}>
       {inner}
     </View>);
-  }
-}
+  },
+});
 
-reactMixin.onClass(DatePicker, DatePickerMixin);
+export default DatePicker;
