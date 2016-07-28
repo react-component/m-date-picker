@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-date-picker@3.1.1 - React Mobile DatePicker Component for web and react-native</title>
+  <title>rmc-date-picker@4.0.0 - React Mobile DatePicker Component for web and react-native</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-date-picker@3.1.1</h1>
+  <h1>rmc-date-picker@4.0.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -812,13 +812,13 @@ npm run watch-tsc</code></pre></div><h2>Example<a id="user-content-example" name
 <tr>
 <td>defaultDate</td>
 <td>default selected date.</td>
-<td>GregorianCalendar</td>
+<td>moment</td>
 <td>now</td>
 </tr>
 <tr>
 <td>date</td>
 <td>The currently selected date.</td>
-<td>GregorianCalendar</td>
+<td>moment</td>
 <td></td>
 </tr>
 <tr>
@@ -830,13 +830,13 @@ npm run watch-tsc</code></pre></div><h2>Example<a id="user-content-example" name
 <tr>
 <td>minDate</td>
 <td>min date</td>
-<td><a href="https://github.com/yiminghe/gregorian-calendar" title="null">GregorianCalendar</a></td>
+<td>moment</td>
 <td>2000-1-1</td>
 </tr>
 <tr>
 <td>maxDate</td>
 <td>max date</td>
-<td>GregorianCalendar</td>
+<td>moment</td>
 <td>2030-1-1</td>
 </tr>
 <tr>
@@ -848,7 +848,7 @@ npm run watch-tsc</code></pre></div><h2>Example<a id="user-content-example" name
 <tr>
 <td>onDateChange</td>
 <td>Date change handler.</td>
-<td>Function(date: GregorianCalendar)</td>
+<td>Function(date: moment)</td>
 <td>&#39;&#39;</td>
 </tr>
 </tbody>
@@ -914,7 +914,7 @@ npm run watch-tsc</code></pre></div><h2>Example<a id="user-content-example" name
 <tr>
 <td>date</td>
 <td>The currently selected date.</td>
-<td>GregorianCalendar</td>
+<td>moment</td>
 <td></td>
 </tr>
 <tr>
@@ -926,13 +926,13 @@ npm run watch-tsc</code></pre></div><h2>Example<a id="user-content-example" name
 <tr>
 <td>minDate</td>
 <td>min date</td>
-<td><a href="https://github.com/yiminghe/gregorian-calendar" title="null">GregorianCalendar</a></td>
+<td>moment</td>
 <td>2000-1-1</td>
 </tr>
 <tr>
 <td>maxDate</td>
 <td>max date</td>
-<td>GregorianCalendar</td>
+<td>moment</td>
 <td>2030-1-1</td>
 </tr>
 <tr>
@@ -950,13 +950,13 @@ npm run watch-tsc</code></pre></div><h2>Example<a id="user-content-example" name
 <tr>
 <td>onChange</td>
 <td>exec on ok</td>
-<td>Function(date: GregorianCalendar)</td>
+<td>Function(date: moment)</td>
 <td></td>
 </tr>
 <tr>
 <td>onPickerChange</td>
 <td>Date inside picker change handler.</td>
-<td>Function(date: GregorianCalendar)</td>
+<td>Function(date: moment)</td>
 <td>&#39;&#39;</td>
 </tr>
 <tr>
