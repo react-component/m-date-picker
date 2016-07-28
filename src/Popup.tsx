@@ -1,6 +1,5 @@
 import * as React from 'react';
 import DatePicker from './DatePicker';
-import GregorianCalendar from 'gregorian-calendar';
 import defaultLocale from './locale/en_US';
 import {noop, pick} from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
@@ -75,16 +74,6 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
         pickerDate: null,
       });
     }
-  }
-
-  getNow(props) {
-    const date = this.getGregorianCalendar(props);
-    date.setTime(Date.now());
-    return date;
-  }
-
-  getGregorianCalendar(props) {
-    return new GregorianCalendar((props || this.props).locale.calendar);
   }
 
   getModal() {

@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "React Mobile DatePicker Component for web and react-native",
   "keywords": [
     "react",
@@ -62,7 +62,7 @@
   ],
   "dependencies": {
     "classnames": "2.x",
-    "gregorian-calendar": "4.x",
+    "moment": "2.x",
     "rmc-picker": "3.x"
   }
 }

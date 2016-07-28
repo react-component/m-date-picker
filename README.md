@@ -85,13 +85,13 @@ see example
 |className(web) | additional css class of root dom node | String | '' |
 |prefixCls(web) | prefix class | String | 'rmc-date-picker' |
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
-|defaultDate | default selected date. | GregorianCalendar | now |
-|date | The currently selected date. | GregorianCalendar |  |
+|defaultDate | default selected date. | moment | now |
+|date | The currently selected date. | moment |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
-|minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
-|maxDate | max date | GregorianCalendar | 2030-1-1 |
+|minDate | min date | moment | 2000-1-1 |
+|maxDate | max date | moment | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
-|onDateChange | Date change handler. | Function(date: GregorianCalendar) | '' |
+|onDateChange | Date change handler. | Function(date: moment) | '' |
 
 ### rmc-date-picker/lib/Popup props
 
@@ -105,14 +105,14 @@ see example
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
 |popupPrefixCls(web) | popup's prefix class | String | 'rmc-picker-popup' |
 |styles(react-native) | PopupPicker's styles | StyleSheet.create |  |
-|date | The currently selected date. | GregorianCalendar |  |
+|date | The currently selected date. | moment |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
-|minDate | min date | [GregorianCalendar](https://github.com/yiminghe/gregorian-calendar) | 2000-1-1 |
-|maxDate | max date | GregorianCalendar | 2030-1-1 |
+|minDate | min date | moment | 2000-1-1 |
+|maxDate | max date | moment | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
 |visible | whether pop picker is visible | Boolean | false |
-|onChange | exec on ok | Function(date: GregorianCalendar) |  |
-|onPickerChange | Date inside picker change handler. | Function(date: GregorianCalendar) | '' |
+|onChange | exec on ok | Function(date: moment) |  |
+|onPickerChange | Date inside picker change handler. | Function(date: moment) | '' |
 |onVisibleChange | called when pop picker visible change | Function | |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |

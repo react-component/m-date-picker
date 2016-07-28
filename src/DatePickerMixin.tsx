@@ -1,15 +1,9 @@
 import * as React from 'react';
-import GregorianCalendar from 'gregorian-calendar';
-
-
+import moment from 'moment';
 import defaultLocale from './locale/en_US';
 
 function getDaysInMonth(now, selYear, selMonth) {
-  const date = now.clone();
-  date.set(selYear, selMonth, 1);
-  date.rollMonth(1);
-  date.addDayOfMonth(-1);
-  return date.getDayOfMonth();
+  return now.clone().year(selYear).month(selMonth).endOf('month').date();
 }
 
 const DATETIME = 'datetime';
@@ -46,19 +40,19 @@ export default {
     if (props.mode === DATETIME || props.mode === DATE) {
       switch (index) {
         case 0:
-          newValue.setYear(value);
+          newValue.year(value);
           break;
         case 1:
-          newValue.rollSetMonth(value);
+          newValue.month(value);
           break;
         case 2:
-          newValue.rollSetDayOfMonth(value);
+          newValue.date(value);
           break;
         case 3:
-          newValue.setHourOfDay(value);
+          newValue.hour(value);
           break;
         case 4:
-          newValue.setMinutes(value);
+          newValue.minute(value);
           break;
         default:
           break;
@@ -66,10 +60,10 @@ export default {
     } else {
       switch (index) {
         case 0:
-          newValue.setHourOfDay(value);
+          newValue.hour(value);
           break;
         case 1:
-          newValue.setMinutes(value);
+          newValue.minute(value);
           break;
         default:
           break;
@@ -86,71 +80,60 @@ export default {
 
   getDefaultMinDate() {
     if (!this.defaultMinDate) {
-      this.defaultMinDate = this.getGregorianCalendar();
-      this.defaultMinDate.set(2000, 1, 1, 0, 0, 0);
+      this.defaultMinDate = this.getGregorianCalendar([2000, 1, 1, 0, 0, 0]);
     }
     return this.defaultMinDate;
   },
 
   getDefaultMaxDate() {
     if (!this.defaultMaxDate) {
-      this.defaultMaxDate = this.getGregorianCalendar();
-      // also for time mode
-      this.defaultMaxDate.set(2030, 1, 1, 23, 59, 59);
+      this.defaultMaxDate = this.getGregorianCalendar([2030, 1, 1, 23, 59, 59]);
     }
     return this.defaultMaxDate;
   },
 
-  getNow() {
-    if (!this.now) {
-      this.now = this.getGregorianCalendar();
-      this.now.setTime(Date.now());
-    }
-    return this.now;
-  },
-
   getDate() {
-    return this.state.date || this.getNow();
+    return this.state.date || this.getDefaultMinDate();
   },
 
   getMinYear() {
-    return this.getMinDate().getYear();
+    return this.getMinDate().year();
   },
 
   getMaxYear() {
-    return this.getMaxDate().getYear();
+    return this.getMaxDate().year();
   },
 
   getMinMonth() {
-    return this.getMinDate().getMonth();
+    return this.getMinDate().month();
   },
 
   getMaxMonth() {
-    return this.getMaxDate().getMonth();
+    return this.getMaxDate().month();
   },
 
   getMinDay() {
-    return this.getMinDate().getDayOfMonth();
+    return this.getMinDate().date();
   },
 
   getMaxDay() {
-    return this.getMaxDate().getDayOfMonth();
+    return this.getMaxDate().date();
   },
 
   getMinHour() {
-    return this.getMinDate().getHourOfDay();
+    return this.getMinDate().hour();
   },
 
   getMaxHour() {
-    return this.getMaxDate().getHourOfDay();
+    return this.getMaxDate().hour();
   },
-  
+
   getMinMinute() {
-    return this.getMinDate().getMinutes();
+    return this.getMinDate().minute();
   },
 
   getMaxMinute() {
-    return this.getMaxDate().getMinutes();
+    return this.getMaxDate().minute();
   },
 
   getMinDate() {
@@ -164,8 +147,8 @@ export default {
   getDateData() {
     const locale = this.props.locale;
     const date = this.getDate();
-    const selYear = date.getYear();
-    const selMonth = date.getMonth();
+    const selYear = date.year();
+    const selMonth = date.month();
     const minDateYear = this.getMinYear();
     const maxDateYear = this.getMaxYear();
     const minDateMonth = this.getMinMonth();
@@ -214,23 +197,23 @@ export default {
     }
     return [years, months, days];
   },
-  
+
   getTimeData() {
     let minHour = 0;
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
-    const { mode, locale } = this.props;
+    const {mode, locale} = this.props;
     const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
     const minDateHour = this.getMinHour();
     const maxDateHour = this.getMaxHour();
-    const hour = date.getHourOfDay();
+    const hour = date.hour();
     if (mode === DATETIME) {
-      const year = date.getYear();
-      const month = date.getMonth();
-      const day = date.getDayOfMonth();
+      const year = date.year();
+      const month = date.month();
+      const day = date.date();
       const minDateYear = this.getMinYear();
       const maxDateYear = this.getMaxYear();
       const minDateMonth = this.getMinMonth();
@@ -277,36 +260,36 @@ export default {
     }
     return [hours, minutes];
   },
-  
-  getGregorianCalendar() {
-    return new GregorianCalendar(this.props.locale.calendar);
+
+  getGregorianCalendar(arg) {
+    return moment(arg);
   },
-  
+
   clipDate(date) {
-    const { mode } = this.props;
+    const {mode} = this.props;
     const minDate = this.getMinDate();
     const maxDate = this.getMaxDate();
     if (mode === DATETIME) {
-      if (date.getTime() < minDate.getTime()) {
+      if (date.isBefore(minDate)) {
         return minDate.clone();
       }
-      if (date.getTime() > maxDate.getTime()) {
+      if (date.isAfter(maxDate)) {
         return maxDate.clone();
       }
     } else if (mode === DATE) {
-      if (date.compareToDay(minDate) < 0) {
+      if (date.isBefore(minDate, 'day') < 0) {
         return minDate.clone();
       }
-      if (date.compareToDay(maxDate) > 0) {
+      if (date.isAfter(maxDate, 'day') > 0) {
         return maxDate.clone();
       }
     } else {
-      const maxHour = maxDate.getHourOfDay();
-      const maxMinutes = maxDate.getMinutes();
-      const minHour = minDate.getHourOfDay();
-      const minMinutes = minDate.getMinutes();
-      const hour = date.getHourOfDay();
-      const minutes = date.getMinutes();
+      const maxHour = maxDate.hour();
+      const maxMinutes = maxDate.minute();
+      const minHour = minDate.hour();
+      const minMinutes = minDate.minute();
+      const hour = date.hour();
+      const minutes = date.minute();
       if (hour < minHour || hour === minHour && minutes < minMinutes) {
         return minDate.clone();
       }
@@ -316,20 +299,20 @@ export default {
     }
     return date;
   },
-  
+
   getValueDataSource() {
-    const { mode } = this.props;
+    const {mode} = this.props;
     const date = this.getDate();
     let dataSource = [];
     let value = [];
     if (mode === DATETIME || mode === DATE) {
       dataSource = [...this.getDateData()];
-      value = [date.getYear(), date.getMonth(), date.getDayOfMonth()];
+      value = [date.year(), date.month(), date.date()];
     }
 
     if (mode === DATETIME || mode === TIME) {
       dataSource = dataSource.concat(this.getTimeData());
-      value = value.concat([date.getHourOfDay(), date.getMinutes()]);
+      value = value.concat([date.hour(), date.minute()]);
     }
     return {
       value,

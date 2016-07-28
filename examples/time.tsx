@@ -3,34 +3,43 @@
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
 import DatePicker from '../src/index.web';
-import GregorianCalendarFormat from 'gregorian-calendar-format';
-import GregorianCalendar from 'gregorian-calendar';
-import zhCn from 'gregorian-calendar-format/lib/locale/zh_CN';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import zhCnPicker from '../src/locale/zh_CN';
 
-const formatter = GregorianCalendarFormat.getDateTimeInstance(GregorianCalendarFormat.Style.FULL,
-  GregorianCalendarFormat.Style.FULL, zhCn);
+import moment from 'moment';
+import zhCn from '../src/locale/zh_CN';
+import enUs from '../src/locale/en_US';
+import 'moment/locale/zh-cn';
+import 'moment/locale/en-gb';
 
-const getGregorianCalendar = () => new GregorianCalendar(zhCnPicker.calendar);
-const minDate = getGregorianCalendar();
-minDate.set(2015, 8, 1, 2, 20, 0);
-const maxDate = getGregorianCalendar();
-maxDate.set(2018, 1, 1, 22, 0, 0);
+const cn = location.search.indexOf('cn') !== -1;
 
-function format(v) {
-  return formatter.format(v);
+const minDate = moment();
+const maxDate = moment();
+const now = moment();
+
+if (cn) {
+  minDate.locale('zh-cn').utcOffset(8);
+  maxDate.locale('zh-cn').utcOffset(8);
+  now.locale('zh-cn').utcOffset(8);
+} else {
+  minDate.locale('en-gb').utcOffset(0);
+  maxDate.locale('en-gb').utcOffset(0);
+  now.locale('en-gb').utcOffset(0);
 }
 
-const now = new GregorianCalendar(zhCnPicker.calendar);
-now.setTime(Date.now());
+minDate.hour(10).minute(30);
+maxDate.hour(22).minute(49);
+now.hour(15).minute(49);
+
+function format(date) {
+  return date.format('YYYY-MM-DD HH:mm');
+}
 
 class Demo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'time',
-    locale: zhCnPicker,
-    // locale: require('../src/locale/zh_CN'),
+    locale: cn ? zhCn : enUs,
   };
 
   constructor(props) {

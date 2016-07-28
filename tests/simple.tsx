@@ -1,11 +1,10 @@
+import '../assets/index.less';
 import 'rmc-picker/assets/index.css';
-import 'rmc-date-picker/assets/index.less';
 import expect from 'expect.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import zhCn from 'gregorian-calendar/lib/locale/zh_CN';
 import $ from 'jquery';
-import GregorianCalendar from 'gregorian-calendar';
+import moment from 'moment';
 import DatePicker from 'rmc-date-picker';
 import datePickerLocale from 'rmc-date-picker/src/locale/zh_CN';
 
@@ -25,8 +24,7 @@ function map$(node, fn) {
   return ret;
 }
 
-const date = new GregorianCalendar(zhCn);
-date.set(2014, 10, 16, 17, 30, 0);
+const date = moment([2014, 10, 16, 17, 30, 0]);
 
 describe('m-date-picker', () => {
   let div;
@@ -55,23 +53,23 @@ describe('m-date-picker', () => {
     });
 
     const yearEl = scrollItems[0].filter(function filter() {
-      return parseInt(this.innerHTML.slice(0, -1), 10) === date.getYear();
+      return parseInt(this.innerHTML.slice(0, -1), 10) === date.year();
     });
 
     const monthEl = scrollItems[1].filter(function filter() {
-      return parseInt(this.innerHTML.slice(0, -1), 10) === date.getMonth() + 1;
+      return parseInt(this.innerHTML.slice(0, -1), 10) === date.month() + 1;
     });
 
     const dayEl = scrollItems[2].filter(function filter() {
-      return parseInt(this.innerHTML.slice(0, -1), 10) === date.getDayOfMonth();
+      return parseInt(this.innerHTML.slice(0, -1), 10) === date.date();
     });
 
     const hourEl = scrollItems[3].filter(function filter() {
-      return parseInt(this.innerHTML.slice(0, -1), 10) === date.getHourOfDay();
+      return parseInt(this.innerHTML.slice(0, -1), 10) === date.hour();
     });
 
     const minuteEl = scrollItems[4].filter(function filter() {
-      return parseInt(this.innerHTML.slice(0, -1), 10) === date.getMinutes();
+      return parseInt(this.innerHTML.slice(0, -1), 10) === date.minute();
     });
 
     expect(isEqTop(yearEl[0], indicators[0])).to.be(true);

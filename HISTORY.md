@@ -1,6 +1,10 @@
 # History
 ----
 
+## 4.0.0 / 2016-07-28
+
+- use moment.js
+
 ## 3.0.0 / 2016-6-15
 
 - support react-native and typescript
