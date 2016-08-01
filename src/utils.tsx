@@ -1,8 +1,8 @@
-export function pick(props, wl) {
+export function exclude(props, bl) {
   const ret = {};
-  wl.forEach((w) => {
-    if (w in props) {
-      ret[w] = props[w];
+  Object.keys(props).forEach((k) => {
+    if (!bl[k]) {
+      ret[k] = props[k];
     }
   });
   return ret;

@@ -38,6 +38,11 @@ declare module "classnames" {
   export default Ret;
 }
 
+declare module "moment" {
+  var Ret: any;
+  export default Ret;
+}
+
 declare module "gregorian-calendar" {
   var Ret: any;
   export default Ret;

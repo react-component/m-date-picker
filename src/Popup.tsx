@@ -1,14 +1,22 @@
 import * as React from 'react';
 import DatePicker from './DatePicker';
 import defaultLocale from './locale/en_US';
-import {noop, pick} from './utils';
+import {noop, exclude} from './utils';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import construct = Reflect.construct;
 import {PopupPickerProps} from 'rmc-picker/lib/PopupPickerTypes';
 
-const PROPS = ['onDismiss', 'children', 'style', 'styles',
-  'okText', 'dismissText', 'title', 'className', 'WrapComponent',
-  'popupTransitionName', 'maskTransitionName'];
+const EXCLUDE_PROPS = {
+  popupPrefixCls:1,
+  pickerPrefixCls:1,
+  minDate:1,
+  maxDate:1,
+  mode:1,
+  onPickerChange:1,
+  onChange:1,
+  locale:1,
+  date:1,
+};
 
 export interface PopupDatePickerProps extends PopupPickerProps {
   popupPrefixCls?:string;
@@ -112,7 +120,7 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
   };
 
   render() {
-    const props:PopupDatePickerProps = pick(this.props, PROPS);
+    const props:PopupPickerProps = exclude(this.props, EXCLUDE_PROPS);
     props.prefixCls = this.props.popupPrefixCls;
     return (<PopupPicker
       {...props}
