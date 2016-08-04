@@ -40,6 +40,19 @@ React Mobile DatePicker Component (web and react-native)
 
 <img src="https://img.alicdn.com/tps/TB1APgXKpXXXXXZXpXXXXXXXXXX-1920-1080.png" width="400"/>
 
+## Usage
+
+see example
+
+config webpack to resolve .web.js
+
+```
+resolve: {
+  extensions: ['', '.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json'],
+},
+```
+
+
 ## Development
 
 ```
@@ -73,8 +86,6 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 [![rmc-date-picker](https://nodei.co/npm/rmc-date-picker.png)](https://npmjs.org/package/rmc-date-picker)
 
-## Usage
-see example
 
 ## API
 
