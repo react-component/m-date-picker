@@ -65,7 +65,7 @@ class Demo extends React.Component<any, any> {
           locale={props.locale}
           maxDate={maxDate}
           minDate={minDate}
-          onDateChange={this.onDateChange}
+          onDateChange={this.onDateChange} data-xx="xxdd"
         />
       </div>
     </div>);
