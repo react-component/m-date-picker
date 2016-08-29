@@ -21,7 +21,7 @@ const DatePickerWeb = React.createClass<DatePickerProps, DatePickerState> ({
     return {
       prefixCls: 'rmc-date-picker',
       pickerPrefixCls: 'rmc-picker',
-    };  
+    };
   },
   
   render() {
@@ -35,7 +35,8 @@ const DatePickerWeb = React.createClass<DatePickerProps, DatePickerState> ({
           prefixCls={pickerPrefixCls}
           pure={false}
           selectedValue={value[i]}
-          onValueChange={(v) => {this.onValueChange(i, v);}}
+          onValueChange={(v) => { this.onValueChange(i, v); }}
+          disabled={props.disabled || false}
         >
           {items}
         </Picker>
