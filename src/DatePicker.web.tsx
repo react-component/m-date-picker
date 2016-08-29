@@ -4,14 +4,24 @@ import classnames from 'classnames';
 import {DatePickerProps, DatePickerState} from './DatePickerTypes';
 import DatePickerMixin from './DatePickerMixin';
 
+function getDataAttr(props) {
+  const dataAttrs = {};
+  Object.keys(props).forEach(i => {
+    if (i.indexOf('data-') === 0) {
+      dataAttrs[i] = props[i];
+    }
+  });
+  return dataAttrs;
+}
+
 const DatePickerWeb = React.createClass<DatePickerProps, DatePickerState> ({
   mixins: [DatePickerMixin],
   
   getDefaultProps() {
     return {
       prefixCls: 'rmc-date-picker',
-        pickerPrefixCls: 'rmc-picker',
-    };  
+      pickerPrefixCls: 'rmc-picker',
+    };
   },
   
   render() {
@@ -25,14 +35,15 @@ const DatePickerWeb = React.createClass<DatePickerProps, DatePickerState> ({
           prefixCls={pickerPrefixCls}
           pure={false}
           selectedValue={value[i]}
-          onValueChange={(v) => {this.onValueChange(i, v);}}
+          onValueChange={(v) => { this.onValueChange(i, v); }}
+          disabled={props.disabled || false}
         >
           {items}
         </Picker>
       </div>);
     });
 
-    return (<div className={classnames(className, prefixCls)}>
+    return (<div {...getDataAttr(props)} className={classnames(className, prefixCls)}>
       {inner}
     </div>);
   },

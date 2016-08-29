@@ -80,7 +80,7 @@ class Demo extends React.Component<any, any> {
           locale={props.locale}
           onPickerChange={this.onPickerChange}
           onDismiss={this.onDismiss}
-          onChange={this.onChange}
+          onChange={this.onChange} data-xx="xxdd"
         >
           <button onClick={this.show}>{date && format(date) || 'open'}</button>
         </PopPicker>
