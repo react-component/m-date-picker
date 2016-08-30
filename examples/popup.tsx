@@ -70,6 +70,7 @@ class Demo extends React.Component<any, any> {
       <h2>popup date picker</h2>
       <div>
         <PopPicker
+          pickerRootNativeProps={{'data-xx':'yy'}}
           popupTransitionName="rmc-picker-popup-slide-fade"
           maskTransitionName="rmc-picker-popup-fade"
           title="Date picker"

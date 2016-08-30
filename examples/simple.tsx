@@ -60,6 +60,7 @@ class Demo extends React.Component<any, any> {
       <div>
         <span>{date && format(date) || format(now)}</span>
         <DatePicker
+          rootNativeProps={{'data-xx':'yy'}}
           defaultDate={date || now}
           mode={props.mode}
           locale={props.locale}
