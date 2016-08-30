@@ -119,7 +119,7 @@ webpackJsonp([1],{
 	                    null,
 	                    date && format(date) || format(now)
 	                ),
-	                React.createElement(_index2.default, { defaultDate: date || now, mode: props.mode, locale: props.locale, maxDate: maxDate, minDate: minDate, onDateChange: this.onDateChange })
+	                React.createElement(_index2.default, { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || now, mode: props.mode, locale: props.locale, maxDate: maxDate, minDate: minDate, onDateChange: this.onDateChange })
 	            )
 	        );
 	    };

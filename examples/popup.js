@@ -127,7 +127,7 @@ webpackJsonp([0],{
 	                null,
 	                React.createElement(
 	                    _Popup2.default,
-	                    { popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', title: 'Date picker', date: date || now, minDate: minDate, maxDate: maxDate, mode: props.mode, locale: props.locale, onPickerChange: this.onPickerChange, onDismiss: this.onDismiss, onChange: this.onChange },
+	                    { pickerRootNativeProps: { 'data-xx': 'yy' }, popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', title: 'Date picker', date: date || now, minDate: minDate, maxDate: maxDate, mode: props.mode, locale: props.locale, onPickerChange: this.onPickerChange, onDismiss: this.onDismiss, onChange: this.onChange },
 	                    React.createElement(
 	                        'button',
 	                        { onClick: this.show },
@@ -202,6 +202,8 @@ webpackJsonp([0],{
 	var EXCLUDE_PROPS = {
 	    popupPrefixCls: 1,
 	    pickerPrefixCls: 1,
+	    pickerRootNativeProps: 1,
+	    prefixCls: 1,
 	    minDate: 1,
 	    maxDate: 1,
 	    mode: 1,
@@ -209,6 +211,15 @@ webpackJsonp([0],{
 	    onChange: 1,
 	    locale: 1,
 	    date: 1
+	};
+	var PICKER_PROPS = {
+	    pickerRootNativeProps: 'rootNativeProps',
+	    minDate: '',
+	    maxDate: '',
+	    pickerPrefixCls: '',
+	    prefixCls: '',
+	    mode: '',
+	    locale: ''
 	};
 	
 	var PopupDatePicker = function (_React$Component) {
@@ -261,21 +272,7 @@ webpackJsonp([0],{
 	    };
 	
 	    PopupDatePicker.prototype.getModal = function getModal() {
-	        var props = this.props;
-	        var dpProps = {};
-	        if (props.minDate) {
-	            dpProps.minDate = props.minDate;
-	        }
-	        if (props.maxDate) {
-	            dpProps.maxDate = props.maxDate;
-	        }
-	        if (props.pickerPrefixCls) {
-	            dpProps.pickerPrefixCls = props.pickerPrefixCls;
-	        }
-	        if (props.prefixCls) {
-	            dpProps.prefixCls = props.prefixCls;
-	        }
-	        return React.createElement(_DatePicker2.default, (0, _extends3.default)({ date: this.state.pickerDate || props.date, mode: props.mode, locale: props.locale, onDateChange: this.onPickerChange }, dpProps));
+	        return React.createElement(_DatePicker2.default, (0, _extends3.default)({ date: this.state.pickerDate || this.props.date, onDateChange: this.onPickerChange }, (0, _utils.pick)(this.props, PICKER_PROPS)));
 	    };
 	
 	    PopupDatePicker.prototype.render = function render() {
@@ -302,99 +299,6 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 255:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _assign = __webpack_require__(256);
-	
-	var _assign2 = _interopRequireDefault(_assign);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _assign2.default || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-	
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-	
-	  return target;
-	};
-
-/***/ },
-
-/***/ 256:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(257), __esModule: true };
-
-/***/ },
-
-/***/ 257:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(258);
-	module.exports = __webpack_require__(15).Object.assign;
-
-/***/ },
-
-/***/ 258:
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.3.1 Object.assign(target, source)
-	var $export = __webpack_require__(13);
-	
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(259)});
-
-/***/ },
-
-/***/ 259:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	// 19.1.2.1 Object.assign(target, source, ...)
-	var getKeys  = __webpack_require__(34)
-	  , gOPS     = __webpack_require__(63)
-	  , pIE      = __webpack_require__(64)
-	  , toObject = __webpack_require__(50)
-	  , IObject  = __webpack_require__(37)
-	  , $assign  = Object.assign;
-	
-	// should work with symbols and should have deterministic property order (V8 bug)
-	module.exports = !$assign || __webpack_require__(24)(function(){
-	  var A = {}
-	    , B = {}
-	    , S = Symbol()
-	    , K = 'abcdefghijklmnopqrst';
-	  A[S] = 7;
-	  K.split('').forEach(function(k){ B[k] = k; });
-	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-	}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
-	  var T     = toObject(target)
-	    , aLen  = arguments.length
-	    , index = 1
-	    , getSymbols = gOPS.f
-	    , isEnum     = pIE.f;
-	  while(aLen > index){
-	    var S      = IObject(arguments[index++])
-	      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
-	      , length = keys.length
-	      , j      = 0
-	      , key;
-	    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
-	  } return T;
-	} : $assign;
-
-/***/ },
-
 /***/ 385:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -409,6 +313,7 @@ webpackJsonp([0],{
 	var _keys2 = _interopRequireDefault(_keys);
 	
 	exports.exclude = exclude;
+	exports.pick = pick;
 	exports.noop = noop;
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -418,6 +323,16 @@ webpackJsonp([0],{
 	    (0, _keys2.default)(props).forEach(function (k) {
 	        if (!bl[k]) {
 	            ret[k] = props[k];
+	        }
+	    });
+	    return ret;
+	}
+	function pick(props, wl) {
+	    var ret = {};
+	    (0, _keys2.default)(wl).forEach(function (w) {
+	        var k = wl[w] || w;
+	        if (w in props) {
+	            ret[k] = props[w];
 	        }
 	    });
 	    return ret;
