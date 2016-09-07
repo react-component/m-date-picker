@@ -118,7 +118,6 @@ in [RNPlayground](https://github.com/react-component/RNPlayground)
 |date | The currently selected date. | moment |  |
 |visible | whether pop picker is visible | Boolean | false |
 |onChange | exec on ok | Function(date: moment) |  |
-|onPickerChange | Date inside picker change handler. | Function(date: moment) | '' |
 |onVisibleChange | called when pop picker visible change | Function | |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | String | 'Ok' |

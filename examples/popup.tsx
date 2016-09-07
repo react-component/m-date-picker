@@ -54,6 +54,11 @@ class Demo extends React.Component<any, any> {
       date,
     });
   };
+
+  onPickerChange(date) {
+    console.log('onPickerChange', format(date));
+  }
+
   onDismiss = () => {
     console.log('onDismiss');
   };
@@ -72,6 +77,7 @@ class Demo extends React.Component<any, any> {
         maxDate={maxDate}
         defaultDate={now}
         mode={props.mode}
+        onDateChange={this.onPickerChange}
         locale={props.locale}
       />
     );

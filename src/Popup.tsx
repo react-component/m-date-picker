@@ -44,7 +44,9 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
     this.setState({
       pickerDate,
     });
-    this.props.onPickerChange(pickerDate);
+    if (this.props.datePicker.props.onDateChange) {
+      this.props.datePicker.props.onDateChange(pickerDate);
+    }
   };
 
   onOk = () => {
@@ -66,14 +68,6 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
     this.datePicker = datePicker;
   };
 
-  getModal() {
-    return React.cloneElement(this.props.datePicker, {
-      date: this.state.pickerDate || this.props.date,
-      onDateChange: this.onPickerChange,
-      ref: this.saveRef,
-    } as DatePickerProps);
-  }
-
   fireVisibleChange = (visible) => {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
@@ -84,11 +78,17 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
   };
 
   render() {
+    const dataPicker = React.cloneElement(this.props.datePicker, {
+      date: this.state.pickerDate || this.props.date,
+      onDateChange: this.onPickerChange,
+      ref: this.saveRef,
+    } as DatePickerProps);
+
     return (<PopupPicker
       {...this.props}
       onVisibleChange={this.fireVisibleChange}
       onOk={this.onOk}
-      content={this.getModal()}
+      content={dataPicker}
       visible={this.state.visible}
     />);
   }

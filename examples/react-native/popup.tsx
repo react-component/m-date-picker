@@ -59,12 +59,11 @@ class Demo extends React.Component<any, any> {
       date,
     });
   };
+
   onDismiss = () => {
     console.log('onDismiss');
   };
-  onPickerChange = (date) => {
-    console.log('onPickerChange', format(date));
-  };
+
   show = () => {
     console.log('my click');
   };
@@ -91,7 +90,6 @@ class Demo extends React.Component<any, any> {
           styles={PopupStyles}
           title="Date picker"
           date={date}
-          onPickerChange={this.onPickerChange}
           onDismiss={this.onDismiss}
           onChange={this.onChange}
         >
