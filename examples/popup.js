@@ -111,11 +111,15 @@ webpackJsonp([0],{
 	        return _this;
 	    }
 	
+	    Demo.prototype.onPickerChange = function onPickerChange(date) {
+	        console.log('onPickerChange', format(date));
+	    };
+	
 	    Demo.prototype.render = function render() {
 	        var props = this.props;
 	        var date = this.state.date;
 	
-	        var datePicker = React.createElement(_DatePicker2.default, { rootNativeProps: { 'data-xx': 'yy' }, minDate: minDate, maxDate: maxDate, defaultDate: now, mode: props.mode, locale: props.locale });
+	        var datePicker = React.createElement(_DatePicker2.default, { rootNativeProps: { 'data-xx': 'yy' }, minDate: minDate, maxDate: maxDate, defaultDate: now, mode: props.mode, onDateChange: this.onPickerChange, locale: props.locale });
 	        return React.createElement(
 	            'div',
 	            { style: { margin: '10px 30px' } },
@@ -205,7 +209,9 @@ webpackJsonp([0],{
 	            _this.setState({
 	                pickerDate: pickerDate
 	            });
-	            _this.props.onPickerChange(pickerDate);
+	            if (_this.props.datePicker.props.onDateChange) {
+	                _this.props.datePicker.props.onDateChange(pickerDate);
+	            }
 	        };
 	        _this.onOk = function () {
 	            _this.props.onChange(_this.datePicker.getDate());
@@ -245,16 +251,13 @@ webpackJsonp([0],{
 	        }
 	    };
 	
-	    PopupDatePicker.prototype.getModal = function getModal() {
-	        return React.cloneElement(this.props.datePicker, {
+	    PopupDatePicker.prototype.render = function render() {
+	        var dataPicker = React.cloneElement(this.props.datePicker, {
 	            date: this.state.pickerDate || this.props.date,
 	            onDateChange: this.onPickerChange,
 	            ref: this.saveRef
 	        });
-	    };
-	
-	    PopupDatePicker.prototype.render = function render() {
-	        return React.createElement(_Popup2.default, (0, _extends3.default)({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: this.getModal(), visible: this.state.visible }));
+	        return React.createElement(_Popup2.default, (0, _extends3.default)({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: dataPicker, visible: this.state.visible }));
 	    };
 	
 	    return PopupDatePicker;
