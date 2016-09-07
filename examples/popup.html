@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-date-picker@4.0.3</title>
+  <title>popup.js - example - rmc-date-picker@5.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -260,7 +260,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-date-picker@4.0.3</h1>
+      <h1>rmc-date-picker@5.0.0</h1>
 
       <p>React Mobile DatePicker Component for web and react-native</p>
     </div>
@@ -275,6 +275,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> PopPicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup'</span>;
+<span class="hljs-keyword">import</span> DatePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/DatePicker'</span>;
 
 <span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
 <span class="hljs-keyword">import</span> zhCn <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/locale/zh_CN'</span>;
@@ -324,9 +325,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   onDismiss = () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
   };
-  onPickerChange = (date) =&gt; {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onPickerChange'</span>, format(date));
-  };
+
   show = () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'my click'</span>);
   };
@@ -334,20 +333,25 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   render() {
     <span class="hljs-keyword">const</span> props = <span class="hljs-keyword">this</span>.props;
     <span class="hljs-keyword">const</span> {date} = <span class="hljs-keyword">this</span>.state;
+    <span class="hljs-keyword">const</span> datePicker = (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">DatePicker</span>
+        <span class="hljs-attribute">rootNativeProps</span>=<span class="hljs-value">{{'data-xx':'yy'}}</span>
+        <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{minDate}</span>
+        <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{maxDate}</span>
+        <span class="hljs-attribute">defaultDate</span>=<span class="hljs-value">{now}</span>
+        <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span>
+        <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
+      /&gt;</span>
+    )</span>;
     <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">margin:</span> '<span class="hljs-attribute">10px</span> <span class="hljs-attribute">30px</span>' }}&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>popup date picker<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">PopPicker</span>
-          <span class="hljs-attribute">pickerRootNativeProps</span>=<span class="hljs-value">{{'data-xx':'yy'}}</span>
+          <span class="hljs-attribute">datePicker</span>=<span class="hljs-value">{datePicker}</span>
           <span class="hljs-attribute">popupTransitionName</span>=<span class="hljs-value">"rmc-picker-popup-slide-fade"</span>
           <span class="hljs-attribute">maskTransitionName</span>=<span class="hljs-value">"rmc-picker-popup-fade"</span>
           <span class="hljs-attribute">title</span>=<span class="hljs-value">"Date picker"</span>
-          <span class="hljs-attribute">date</span>=<span class="hljs-value">{date</span> || <span class="hljs-attribute">now</span>}
-          <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{minDate}</span>
-          <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{maxDate}</span>
-          <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span>
-          <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
-          <span class="hljs-attribute">onPickerChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
+          <span class="hljs-attribute">date</span>=<span class="hljs-value">{date}</span>
           <span class="hljs-attribute">onDismiss</span>=<span class="hljs-value">{this.onDismiss}</span>
           <span class="hljs-attribute">onChange</span>=<span class="hljs-value">{this.onChange}</span>
         &gt;</span>

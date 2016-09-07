@@ -43,28 +43,32 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var _moment = __webpack_require__(284);
+	var _DatePicker = __webpack_require__(277);
+	
+	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+	
+	var _moment = __webpack_require__(301);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _zh_CN = __webpack_require__(411);
+	var _zh_CN = __webpack_require__(406);
 	
 	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _en_US = __webpack_require__(388);
+	var _en_US = __webpack_require__(405);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	__webpack_require__(386);
+	__webpack_require__(403);
 	
-	__webpack_require__(310);
+	__webpack_require__(327);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var cn = location.search.indexOf('cn') !== -1; /* eslint no-console:0 */
-	
+	/* eslint no-console:0 */
+	var cn = location.search.indexOf('cn') !== -1;
 	var minDate = (0, _moment2.default)([2015, 8, 1, 0, 0, 0]);
 	var maxDate = (0, _moment2.default)([2018, 1, 1, 22, 0, 0]);
 	var now = (0, _moment2.default)();
@@ -98,9 +102,6 @@ webpackJsonp([0],{
 	        _this.onDismiss = function () {
 	            console.log('onDismiss');
 	        };
-	        _this.onPickerChange = function (date) {
-	            console.log('onPickerChange', format(date));
-	        };
 	        _this.show = function () {
 	            console.log('my click');
 	        };
@@ -114,6 +115,7 @@ webpackJsonp([0],{
 	        var props = this.props;
 	        var date = this.state.date;
 	
+	        var datePicker = React.createElement(_DatePicker2.default, { rootNativeProps: { 'data-xx': 'yy' }, minDate: minDate, maxDate: maxDate, defaultDate: now, mode: props.mode, locale: props.locale });
 	        return React.createElement(
 	            'div',
 	            { style: { margin: '10px 30px' } },
@@ -127,7 +129,7 @@ webpackJsonp([0],{
 	                null,
 	                React.createElement(
 	                    _Popup2.default,
-	                    { pickerRootNativeProps: { 'data-xx': 'yy' }, popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', title: 'Date picker', date: date || now, minDate: minDate, maxDate: maxDate, mode: props.mode, locale: props.locale, onPickerChange: this.onPickerChange, onDismiss: this.onDismiss, onChange: this.onChange },
+	                    { datePicker: datePicker, popupTransitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', title: 'Date picker', date: date, onDismiss: this.onDismiss, onChange: this.onChange },
 	                    React.createElement(
 	                        'button',
 	                        { onClick: this.show },
@@ -181,17 +183,7 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _DatePicker = __webpack_require__(260);
-	
-	var _DatePicker2 = _interopRequireDefault(_DatePicker);
-	
-	var _en_US = __webpack_require__(388);
-	
-	var _en_US2 = _interopRequireDefault(_en_US);
-	
-	var _utils = __webpack_require__(389);
-	
-	var _Popup = __webpack_require__(394);
+	var _Popup = __webpack_require__(260);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
@@ -199,28 +191,7 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var EXCLUDE_PROPS = {
-	    popupPrefixCls: 1,
-	    pickerPrefixCls: 1,
-	    pickerRootNativeProps: 1,
-	    prefixCls: 1,
-	    minDate: 1,
-	    maxDate: 1,
-	    mode: 1,
-	    onPickerChange: 1,
-	    onChange: 1,
-	    locale: 1,
-	    date: 1
-	};
-	var PICKER_PROPS = {
-	    pickerRootNativeProps: 'rootNativeProps',
-	    minDate: '',
-	    maxDate: '',
-	    pickerPrefixCls: '',
-	    prefixCls: '',
-	    mode: '',
-	    locale: ''
-	};
+	function noop() {}
 	
 	var PopupDatePicker = function (_React$Component) {
 	    (0, _inherits3.default)(PopupDatePicker, _React$Component);
@@ -237,7 +208,10 @@ webpackJsonp([0],{
 	            _this.props.onPickerChange(pickerDate);
 	        };
 	        _this.onOk = function () {
-	            _this.props.onChange(_this.state.pickerDate || _this.props.date);
+	            _this.props.onChange(_this.datePicker.getDate());
+	        };
+	        _this.saveRef = function (datePicker) {
+	            _this.datePicker = datePicker;
 	        };
 	        _this.fireVisibleChange = function (visible) {
 	            if (_this.state.visible !== visible) {
@@ -272,13 +246,15 @@ webpackJsonp([0],{
 	    };
 	
 	    PopupDatePicker.prototype.getModal = function getModal() {
-	        return React.createElement(_DatePicker2.default, (0, _extends3.default)({ date: this.state.pickerDate || this.props.date, onDateChange: this.onPickerChange }, (0, _utils.pick)(this.props, PICKER_PROPS)));
+	        return React.cloneElement(this.props.datePicker, {
+	            date: this.state.pickerDate || this.props.date,
+	            onDateChange: this.onPickerChange,
+	            ref: this.saveRef
+	        });
 	    };
 	
 	    PopupDatePicker.prototype.render = function render() {
-	        var props = (0, _utils.exclude)(this.props, EXCLUDE_PROPS);
-	        props.prefixCls = this.props.popupPrefixCls;
-	        return React.createElement(_Popup2.default, (0, _extends3.default)({}, props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: this.getModal(), visible: this.state.visible }));
+	        return React.createElement(_Popup2.default, (0, _extends3.default)({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: this.getModal(), visible: this.state.visible }));
 	    };
 	
 	    return PopupDatePicker;
@@ -287,107 +263,17 @@ webpackJsonp([0],{
 	exports.default = PopupDatePicker;
 	
 	PopupDatePicker.defaultProps = {
-	    onVisibleChange: _utils.noop,
-	    popupPrefixCls: 'rmc-picker-popup',
-	    mode: 'datetime',
-	    locale: _en_US2.default,
-	    onChange: _utils.noop,
-	    onDismiss: _utils.noop,
-	    onPickerChange: _utils.noop
+	    onVisibleChange: noop,
+	    prefixCls: 'rmc-picker-popup',
+	    onChange: noop,
+	    onDismiss: noop,
+	    onPickerChange: noop
 	};
 	module.exports = exports['default'];
 
 /***/ },
 
-/***/ 389:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _keys = __webpack_require__(390);
-	
-	var _keys2 = _interopRequireDefault(_keys);
-	
-	exports.exclude = exclude;
-	exports.pick = pick;
-	exports.noop = noop;
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function exclude(props, bl) {
-	    var ret = {};
-	    (0, _keys2.default)(props).forEach(function (k) {
-	        if (!bl[k]) {
-	            ret[k] = props[k];
-	        }
-	    });
-	    return ret;
-	}
-	function pick(props, wl) {
-	    var ret = {};
-	    (0, _keys2.default)(wl).forEach(function (w) {
-	        var k = wl[w] || w;
-	        if (w in props) {
-	            ret[k] = props[w];
-	        }
-	    });
-	    return ret;
-	}
-	function noop() {}
-
-/***/ },
-
-/***/ 390:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(391), __esModule: true };
-
-/***/ },
-
-/***/ 391:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(392);
-	module.exports = __webpack_require__(15).Object.keys;
-
-/***/ },
-
-/***/ 392:
-/***/ function(module, exports, __webpack_require__) {
-
-	// 19.1.2.14 Object.keys(O)
-	var toObject = __webpack_require__(50)
-	  , $keys    = __webpack_require__(34);
-	
-	__webpack_require__(393)('keys', function(){
-	  return function keys(it){
-	    return $keys(toObject(it));
-	  };
-	});
-
-/***/ },
-
-/***/ 393:
-/***/ function(module, exports, __webpack_require__) {
-
-	// most Object methods by ES6 should accept primitives
-	var $export = __webpack_require__(13)
-	  , core    = __webpack_require__(15)
-	  , fails   = __webpack_require__(24);
-	module.exports = function(KEY, exec){
-	  var fn  = (core.Object || {})[KEY] || Object[KEY]
-	    , exp = {};
-	  exp[KEY] = exec(fn);
-	  $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
-	};
-
-/***/ },
-
-/***/ 394:
+/***/ 260:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -400,11 +286,11 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _rcDialog = __webpack_require__(395);
+	var _rcDialog = __webpack_require__(261);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _PopupMixin = __webpack_require__(410);
+	var _PopupMixin = __webpack_require__(276);
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
@@ -466,16 +352,16 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 395:
+/***/ 261:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(396);
+	module.exports = __webpack_require__(262);
 
 /***/ },
 
-/***/ 396:
+/***/ 262:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -490,11 +376,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Dialog = __webpack_require__(397);
+	var _Dialog = __webpack_require__(263);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _getContainerRenderMixin = __webpack_require__(409);
+	var _getContainerRenderMixin = __webpack_require__(275);
 	
 	var _getContainerRenderMixin2 = _interopRequireDefault(_getContainerRenderMixin);
 	
@@ -554,7 +440,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 397:
+/***/ 263:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -573,15 +459,15 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(398);
+	var _KeyCode = __webpack_require__(264);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(399);
+	var _rcAnimate = __webpack_require__(265);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(408);
+	var _LazyRenderBox = __webpack_require__(274);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
@@ -996,7 +882,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 398:
+/***/ 264:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1522,17 +1408,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 399:
+/***/ 265:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(400);
+	module.exports = __webpack_require__(266);
 
 /***/ },
 
-/***/ 400:
+/***/ 266:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1545,13 +1431,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(401);
+	var _ChildrenUtils = __webpack_require__(267);
 	
-	var _AnimateChild = __webpack_require__(402);
+	var _AnimateChild = __webpack_require__(268);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(407);
+	var _util = __webpack_require__(273);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1865,7 +1751,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 401:
+/***/ 267:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1988,7 +1874,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 402:
+/***/ 268:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2007,11 +1893,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(403);
+	var _cssAnimation = __webpack_require__(269);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(407);
+	var _util = __webpack_require__(273);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -2093,7 +1979,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 403:
+/***/ 269:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2102,11 +1988,11 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _Event = __webpack_require__(404);
+	var _Event = __webpack_require__(270);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(405);
+	var _componentClasses = __webpack_require__(271);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -2286,7 +2172,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 404:
+/***/ 270:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2380,7 +2266,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 405:
+/***/ 271:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2388,9 +2274,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(406);
+	  var index = __webpack_require__(272);
 	} catch (err) {
-	  var index = __webpack_require__(406);
+	  var index = __webpack_require__(272);
 	}
 	
 	/**
@@ -2578,7 +2464,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 406:
+/***/ 272:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2591,7 +2477,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 407:
+/***/ 273:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2624,7 +2510,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 408:
+/***/ 274:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2670,7 +2556,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 409:
+/***/ 275:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2770,7 +2656,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 410:
+/***/ 276:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
