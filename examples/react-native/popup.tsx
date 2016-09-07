@@ -3,6 +3,7 @@
 import {AppRegistry, View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import * as React from 'react';
 import PopPicker from '../../src/Popup';
+import DatePicker from '../../src/DatePicker';
 import PopupStyles from '../../src/PopupStyles';
 import moment from 'moment';
 import zhCn from '../../src/locale/zh_CN';
@@ -71,19 +72,25 @@ class Demo extends React.Component<any, any> {
   render() {
     const props = this.props;
     const {date} = this.state;
+    const datePicker = (
+      <DatePicker
+        defaultDate={now}
+        minDate={minDate}
+        maxDate={maxDate}
+        mode={props.mode}
+        locale={props.locale}
+      />
+    );
     return (<View style={{ margin: 20 }}>
       <View>
         <Text>popup date picker</Text>
       </View>
       <View>
         <PopPicker
+          datePicker={datePicker}
           styles={PopupStyles}
           title="Date picker"
-          date={date || now}
-          minDate={minDate}
-          maxDate={maxDate}
-          mode={props.mode}
-          locale={props.locale}
+          date={date}
           onPickerChange={this.onPickerChange}
           onDismiss={this.onDismiss}
           onChange={this.onChange}

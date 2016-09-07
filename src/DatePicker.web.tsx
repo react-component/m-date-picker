@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Picker from 'rmc-picker/lib/index.web';
 import classnames from 'classnames';
-import { DatePickerProps, DatePickerState } from './DatePickerTypes';
+import DatePickerProps from './DatePickerProps';
 import DatePickerMixin from './DatePickerMixin';
 
-const DatePickerWeb = React.createClass<DatePickerProps, DatePickerState>({
+const DatePickerWeb = React.createClass<DatePickerProps, any>({
   mixins: [DatePickerMixin],
 
   getDefaultProps() {

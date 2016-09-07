@@ -1,7 +1,7 @@
 import {View, StyleSheet} from 'react-native';
 import * as React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
-import {DatePickerProps, DatePickerState} from './DatePickerTypes';
+import DatePickerProps from './DatePickerProps';
 import DatePickerMixin from './DatePickerMixin';
 import FlexAlignType = __React.FlexAlignType;
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const DatePicker = React.createClass<DatePickerProps, DatePickerState>({
+const DatePicker = React.createClass<DatePickerProps, any>({
   mixins: [DatePickerMixin],
   
   render() {

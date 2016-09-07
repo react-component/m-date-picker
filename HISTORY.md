@@ -1,5 +1,8 @@
 # History
 ----
+## 5.0.0 / 2016-09-07
+
+- extract datePicker element from popup
 
 ## 4.0.0 / 2016-07-28
 

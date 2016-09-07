@@ -7,6 +7,7 @@ import 'rmc-picker/assets/popup.css';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PopPicker from '../src/Popup';
+import DatePicker from '../src/DatePicker';
 
 import moment from 'moment';
 import zhCn from '../src/locale/zh_CN';
@@ -56,9 +57,7 @@ class Demo extends React.Component<any, any> {
   onDismiss = () => {
     console.log('onDismiss');
   };
-  onPickerChange = (date) => {
-    console.log('onPickerChange', format(date));
-  };
+
   show = () => {
     console.log('my click');
   };
@@ -66,20 +65,25 @@ class Demo extends React.Component<any, any> {
   render() {
     const props = this.props;
     const {date} = this.state;
+    const datePicker = (
+      <DatePicker
+        rootNativeProps={{'data-xx':'yy'}}
+        minDate={minDate}
+        maxDate={maxDate}
+        defaultDate={now}
+        mode={props.mode}
+        locale={props.locale}
+      />
+    );
     return (<div style={{ margin: '10px 30px' }}>
       <h2>popup date picker</h2>
       <div>
         <PopPicker
-          pickerRootNativeProps={{'data-xx':'yy'}}
+          datePicker={datePicker}
           popupTransitionName="rmc-picker-popup-slide-fade"
           maskTransitionName="rmc-picker-popup-fade"
           title="Date picker"
-          date={date || now}
-          minDate={minDate}
-          maxDate={maxDate}
-          mode={props.mode}
-          locale={props.locale}
-          onPickerChange={this.onPickerChange}
+          date={date}
           onDismiss={this.onDismiss}
           onChange={this.onChange}
         >

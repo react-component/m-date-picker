@@ -29,7 +29,7 @@ export default {
   componentWillReceiveProps(nextProps) {
     if ('date' in nextProps) {
       this.setState({
-        date: nextProps.date,
+        date: nextProps.date || nextProps.defaultDate,
       });
     }
   },

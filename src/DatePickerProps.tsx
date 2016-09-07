@@ -1,4 +1,4 @@
-export interface DatePickerProps {
+interface DatePickerProps {
   date?: any;
   defaultDate?: any;
   minDate?: any;
@@ -16,6 +16,4 @@ export interface DatePickerProps {
   className?:string;
 }
 
-export interface DatePickerState {
-  date?: any;
-}
+export default DatePickerProps;

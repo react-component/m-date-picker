@@ -5,8 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import moment from 'moment';
-import DatePicker from 'rmc-date-picker';
-import datePickerLocale from 'rmc-date-picker/src/locale/zh_CN';
+import DatePicker from '../src/index';
+import datePickerLocale from '..//src/locale/zh_CN';
 
 function offsetTop(el) {
   return el.getBoundingClientRect().top;

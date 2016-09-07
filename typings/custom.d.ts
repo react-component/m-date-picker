@@ -13,6 +13,11 @@ declare module "object-assign" {
   export default Ret;
 }
 
+declare module "jquery" {
+  var Ret: any;
+  export default Ret;
+}
+
 declare module "expect.js" {
   var Ret: any;
   export default Ret;
