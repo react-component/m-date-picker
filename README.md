@@ -52,7 +52,6 @@ resolve: {
 },
 ```
 
-
 ## Development
 
 ```
@@ -72,15 +71,10 @@ online example: http://react-component.github.io/m-date-picker/
 ## react-native
 
 ```
-npm run rn-start
+npm run watch-tsc
+./node_modules/rc-tools run react-native-init
+react-native run-ios
 ```
-
-load
-
-http://localhost:8081/examples/react-native/picker.bundle?platform=ios
-http://localhost:8081/examples/react-native/popup.bundle?platform=ios
-
-in [RNPlayground](https://github.com/react-component/RNPlayground)
 
 ## install
 

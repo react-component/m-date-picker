@@ -11,7 +11,7 @@ import enUs from '../../src/locale/en_US';
 import 'moment/locale/zh-cn';
 import 'moment/locale/en-gb';
 
-const cn = false;
+const cn = true;
 
 const minDate = moment([2015, 8, 1, 0, 0, 0]);
 const maxDate = moment([2018, 1, 1, 22, 0, 0]);
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class Demo extends React.Component<any, any> {
+class PopupDemo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'datetime',
     locale: cn ? zhCn : enUs,
@@ -102,4 +102,5 @@ class Demo extends React.Component<any, any> {
   }
 }
 
-AppRegistry.registerComponent('popup', () => Demo);
+export const Demo = PopupDemo;
+export const title = 'popup';

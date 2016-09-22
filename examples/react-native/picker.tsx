@@ -1,7 +1,7 @@
 /* eslint no-console:0 */
 
 import DatePicker from '../../src/DatePicker';
-import {View, Text, AppRegistry} from 'react-native';
+import { View, Text, AppRegistry } from 'react-native';
 import * as React from 'react';
 
 import moment from 'moment';
@@ -30,7 +30,7 @@ function format(date) {
   return date.format('YYYY-MM-DD HH:mm');
 }
 
-class Demo extends React.Component<any, any> {
+class PickerDemo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'datetime',
     locale: cn ? zhCn : enUs,
@@ -51,7 +51,7 @@ class Demo extends React.Component<any, any> {
 
   render() {
     const props = this.props;
-    const {date} = this.state;
+    const { date } = this.state;
 
     return (<View style={{ margin: 20 }}>
       <View><Text>date picker</Text></View>
@@ -72,4 +72,5 @@ class Demo extends React.Component<any, any> {
   }
 }
 
-AppRegistry.registerComponent('picker', () => Demo);
+export const Demo = PickerDemo;
+export const title = 'picker';

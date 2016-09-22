@@ -86,7 +86,7 @@ class Demo extends React.Component<any, any> {
       <div>
         <PopPicker
           datePicker={datePicker}
-          popupTransitionName="rmc-picker-popup-slide-fade"
+          transitionName="rmc-picker-popup-slide-fade"
           maskTransitionName="rmc-picker-popup-fade"
           title="Date picker"
           date={date}

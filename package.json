@@ -5,8 +5,8 @@
   "keywords": [
     "react",
     "react-component",
-    "react-m-date-picker",
-    "m-date-picker"
+    "react-mobile-date-picker",
+    "date-picker"
   ],
   "homepage": "https://github.com/react-component/m-date-picker",
   "maitainers": [
@@ -41,20 +41,19 @@
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage",
-    "rn-start": "node node_modules/react-native/local-cli/cli.js start"
+    "coverage": "rc-tools run coverage"
   },
   "devDependencies": {
     "expect.js": "0.3.x",
     "fastclick": "^1.0.6",
-    "gregorian-calendar-format": "~4.0.4",
     "jquery": "^2.1.4",
     "pre-commit": "1.x",
     "rc-tools": "5.x",
-    "react-native": "0.30.0",
     "react": "15.x",
     "react-addons-test-utils": "15.x",
-    "react-dom": "15.x"
+    "react-dom": "15.x",
+    "react-native": "0.33.0",
+    "react-native-index-page": "~0.1.0"
   },
   "typings": "./lib/index.web.d.ts",
   "pre-commit": [
