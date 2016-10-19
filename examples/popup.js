@@ -185,13 +185,11 @@ webpackJsonp([0],{
 	
 	var _react = __webpack_require__(83);
 	
-	var React = _interopRequireWildcard(_react);
+	var _react2 = _interopRequireDefault(_react);
 	
 	var _Popup = __webpack_require__(260);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -214,7 +212,11 @@ webpackJsonp([0],{
 	            }
 	        };
 	        _this.onOk = function () {
-	            _this.props.onChange(_this.datePicker.getDate());
+	            var onChange = _this.props.onChange;
+	
+	            if (onChange) {
+	                onChange(_this.datePicker.getDate());
+	            }
 	        };
 	        _this.saveRef = function (datePicker) {
 	            _this.datePicker = datePicker;
@@ -224,7 +226,11 @@ webpackJsonp([0],{
 	                if (!('visible' in _this.props)) {
 	                    _this.setVisibleState(visible);
 	                }
-	                _this.props.onVisibleChange(visible);
+	                var onVisibleChange = _this.props.onVisibleChange;
+	
+	                if (onVisibleChange) {
+	                    onVisibleChange(visible);
+	                }
 	            }
 	        };
 	        _this.state = {
@@ -252,16 +258,16 @@ webpackJsonp([0],{
 	    };
 	
 	    PopupDatePicker.prototype.render = function render() {
-	        var dataPicker = React.cloneElement(this.props.datePicker, {
+	        var dataPicker = _react2.default.cloneElement(this.props.datePicker, {
 	            date: this.state.pickerDate || this.props.date,
 	            onDateChange: this.onPickerChange,
 	            ref: this.saveRef
 	        });
-	        return React.createElement(_Popup2.default, (0, _extends3.default)({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: dataPicker, visible: this.state.visible }));
+	        return _react2.default.createElement(_Popup2.default, (0, _extends3.default)({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: dataPicker, visible: this.state.visible }));
 	    };
 	
 	    return PopupDatePicker;
-	}(React.Component);
+	}(_react2.default.Component);
 	
 	exports.default = PopupDatePicker;
 	
@@ -437,6 +443,10 @@ webpackJsonp([0],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	
+	var _extends2 = __webpack_require__(255);
+	
+	var _extends3 = _interopRequireDefault(_extends2);
 	
 	var _react = __webpack_require__(83);
 	
@@ -638,7 +648,7 @@ webpackJsonp([0],{
 	                header,
 	                _react2["default"].createElement(
 	                    'div',
-	                    { className: prefixCls + '-body', style: props.bodyStyle, ref: 'body' },
+	                    (0, _extends3["default"])({ className: prefixCls + '-body', style: props.bodyStyle, ref: 'body' }, props.bodyProps),
 	                    props.children
 	                ),
 	                footer
@@ -774,7 +784,7 @@ webpackJsonp([0],{
 	            this.getMaskElement(),
 	            _react2["default"].createElement(
 	                'div',
-	                { tabIndex: '-1', onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: 'wrap', onClick: this.onMaskClick, role: 'dialog', 'aria-labelledby': props.title ? this.titleId : null, style: style },
+	                (0, _extends3["default"])({ tabIndex: '-1', onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: 'wrap', onClick: this.onMaskClick, role: 'dialog', 'aria-labelledby': props.title ? this.titleId : null, style: style }, props.wrapProps),
 	                this.getDialogElement()
 	            )
 	        );

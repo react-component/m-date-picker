@@ -17545,7 +17545,8 @@
 	  if (x === y) {
 	    // Steps 1-5, 7-10
 	    // Steps 6.b-6.e: +0 != -0
-	    return x !== 0 || 1 / x === 1 / y;
+	    // Added the nonzero y check to make Flow happy, but it is redundant
+	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
 	  } else {
 	    // Step 6.a: NaN == NaN
 	    return x !== x && y !== y;
@@ -23066,7 +23067,7 @@
 	
 	var _react = __webpack_require__(83);
 	
-	var React = _interopRequireWildcard(_react);
+	var _react2 = _interopRequireDefault(_react);
 	
 	var _index = __webpack_require__(278);
 	
@@ -23080,11 +23081,9 @@
 	
 	var _DatePickerMixin2 = _interopRequireDefault(_DatePickerMixin);
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DatePickerWeb = React.createClass({
+	var DatePickerWeb = _react2.default.createClass({
 	    displayName: 'DatePickerWeb',
 	
 	    mixins: [_DatePickerMixin2.default],
@@ -23111,10 +23110,10 @@
 	        var dataSource = _getValueDataSource.dataSource;
 	
 	        var inner = dataSource.map(function (items, i) {
-	            return React.createElement(
+	            return _react2.default.createElement(
 	                'div',
 	                { key: i, className: prefixCls + '-item' },
-	                React.createElement(
+	                _react2.default.createElement(
 	                    _index2.default,
 	                    { disabled: disabled, prefixCls: pickerPrefixCls, pure: false, selectedValue: value[i], onValueChange: function onValueChange(v) {
 	                            _this.onValueChange(i, v);
@@ -23123,7 +23122,7 @@
 	                )
 	            );
 	        });
-	        return React.createElement(
+	        return _react2.default.createElement(
 	            'div',
 	            (0, _extends3.default)({}, rootNativeProps, { className: (0, _classnames2.default)(className, prefixCls) }),
 	            inner
@@ -23244,6 +23243,7 @@
 	        return this.state.selectedValue !== nextState.selectedValue || !(0, _isChildrenEqual2["default"])(this.props.children, nextProps.children, this.props.pure);
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
+	        this.zscroller.reflow();
 	        this.select(this.state.selectedValue);
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
@@ -23293,6 +23293,7 @@
 	        var children = _props2.children;
 	        var prefixCls = _props2.prefixCls;
 	        var className = _props2.className;
+	        var itemStyle = _props2.itemStyle;
 	        var selectedValue = this.state.selectedValue;
 	
 	        var itemClassName = prefixCls + '-item';
@@ -23300,7 +23301,7 @@
 	        var items = children.map(function (item) {
 	            return React.createElement(
 	                'div',
-	                { className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
+	                { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
 	                item.label
 	            );
 	        });
@@ -25142,10 +25143,10 @@
 	var millisecondsPerSecond = 1000;
 	var running = {};
 	var counter = 1;
-	var win = typeof window !== undefined ? window : undefined;
+	var win = typeof window !== 'undefined' ? window : undefined;
 	
 	if (!win) {
-	  win = typeof global !== undefined ? global : {};
+	  win = typeof global !== 'undefined' ? global : {};
 	}
 	
 	var Animate = {
