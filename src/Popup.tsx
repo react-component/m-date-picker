@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import DatePickerProps from './DatePickerProps';
 import PopupPicker from 'rmc-picker/lib/Popup';
-import construct = Reflect.construct;
 import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 
 function noop() {
@@ -50,7 +49,12 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
   };
 
   onOk = () => {
-    this.props.onChange(this.datePicker.getDate());
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(
+        this.datePicker.getDate()
+      );
+    }
   };
 
   setVisibleState(visible) {
@@ -73,7 +77,10 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
       if (!('visible' in this.props)) {
         this.setVisibleState(visible);
       }
-      this.props.onVisibleChange(visible);
+      const { onVisibleChange } = this.props;
+      if (onVisibleChange) {
+        onVisibleChange(visible);
+      }
     }
   };
 

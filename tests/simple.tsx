@@ -17,7 +17,7 @@ function isEqTop(t1, t2) {
 }
 
 function map$(node, fn) {
-  const ret = [];
+  const ret:any[] = [];
   for (let i = 0; i < node.length; i++) {
     ret.push(fn($(node[i])));
   }

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Picker from 'rmc-picker/lib/index.web';
 import classnames from 'classnames';
 import DatePickerProps from './DatePickerProps';

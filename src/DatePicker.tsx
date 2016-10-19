@@ -1,9 +1,8 @@
-import { View, StyleSheet } from 'react-native';
-import * as React from 'react';
+import { View, StyleSheet, FlexAlignType } from 'react-native';
+import React from 'react';
 import Picker from 'rmc-picker/lib/Picker';
 import DatePickerProps from './DatePickerProps';
 import DatePickerMixin from './DatePickerMixin';
-import FlexAlignType = __React.FlexAlignType;
 
 type FlexDirection = 'row' | 'column';
 

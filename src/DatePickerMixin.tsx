@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import moment from 'moment';
 import defaultLocale from './locale/en_US';
 
@@ -155,7 +155,7 @@ export default {
     const maxDateMonth = this.getMaxMonth();
     const minDateDay = this.getMinDay();
     const maxDateDay = this.getMaxDay();
-    const years = [];
+    const years: any[] = [];
     for (let i = minDateYear; i <= maxDateYear; i++) {
       years.push({
         value: i,
@@ -163,7 +163,7 @@ export default {
       });
     }
 
-    const months = [];
+    const months:any[] = [];
     let minMonth = 0;
     let maxMonth = 11;
     if (minDateYear === selYear) {
@@ -179,7 +179,7 @@ export default {
       });
     }
 
-    const days = [];
+    const days:any[] = [];
     let minDay = 1;
     let maxDay = getDaysInMonth(date, selYear, selMonth);
 
@@ -203,7 +203,7 @@ export default {
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
-    const {mode, locale} = this.props;
+    const { mode, locale } = this.props;
     const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
@@ -243,7 +243,7 @@ export default {
       }
     }
 
-    const hours = [];
+    const hours:any[] = [];
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i,
@@ -251,7 +251,7 @@ export default {
       });
     }
 
-    const minutes = [];
+    const minutes:any[] = [];
     for (let i = minMinute; i <= maxMinute; i++) {
       minutes.push({
         value: i,
@@ -266,7 +266,7 @@ export default {
   },
 
   clipDate(date) {
-    const {mode} = this.props;
+    const { mode } = this.props;
     const minDate = this.getMinDate();
     const maxDate = this.getMaxDate();
     if (mode === DATETIME) {
@@ -301,10 +301,10 @@ export default {
   },
 
   getValueDataSource() {
-    const {mode} = this.props;
+    const { mode } = this.props;
     const date = this.getDate();
-    let dataSource = [];
-    let value = [];
+    let dataSource: any[] = [];
+    let value:any[] = [];
     if (mode === DATETIME || mode === DATE) {
       dataSource = [...this.getDateData()];
       value = [date.year(), date.month(), date.date()];
