@@ -56,10 +56,7 @@ resolve: {
 
 ```
 npm i
-npm i typings -g
-typings install
 npm start
-npm run watch-tsc
 ```
 
 ## Example
