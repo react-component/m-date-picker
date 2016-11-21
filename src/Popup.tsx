@@ -15,8 +15,6 @@ export interface PopupDatePickerProps extends PopupPickerProps {
 }
 
 export default class PopupDatePicker extends React.Component<PopupDatePickerProps, any> {
-  datePicker: any;
-
   static defaultProps = {
     onVisibleChange: noop,
     prefixCls: 'rmc-picker-popup',
@@ -24,6 +22,8 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
     onDismiss: noop,
     onPickerChange: noop,
   };
+
+  datePicker: any;
 
   constructor(props: PopupDatePickerProps) {
     super(props);

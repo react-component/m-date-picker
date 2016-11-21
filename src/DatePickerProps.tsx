@@ -4,16 +4,16 @@ interface DatePickerProps {
   minDate?: any;
   maxDate?: any;
   mode?: string;
-  disabled?:boolean;
+  disabled?: boolean;
   locale?: any;
   onDateChange?: (date: any) => void;
   /** web only */
-  prefixCls?:string;
-  rootNativeProps?:{};
+  prefixCls?: string;
+  rootNativeProps?: {};
   /** web only */
-  pickerPrefixCls?:string;
+  pickerPrefixCls?: string;
   /** web only */
-  className?:string;
+  className?: string;
 }
 
 export default DatePickerProps;

@@ -1,4 +1,4 @@
-/* eslint no-console:0 */
+/* tslint:disable:no-console */
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
@@ -13,7 +13,7 @@ import 'moment/locale/en-gb';
 
 const cn = location.search.indexOf('cn') !== -1;
 
-const minDate = moment([2015, 8, 1, 0, 0, 0]);
+const minDate = moment([2015, 8, 15, 0, 0, 0]);
 const maxDate = moment([2018, 1, 1, 22, 0, 0]);
 const now = moment();
 

@@ -31,3 +31,5 @@ coverage
 ios/
 android/
 xcuserdata
+yarn.lock
+.vscode

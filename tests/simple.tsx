@@ -1,7 +1,6 @@
 import '../assets/index.less';
 import 'rmc-picker/assets/index.css';
 import expect from 'expect.js';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import moment from 'moment';
@@ -17,7 +16,7 @@ function isEqTop(t1, t2) {
 }
 
 function map$(node, fn) {
-  const ret:any[] = [];
+  const ret: any[] = [];
   for (let i = 0; i < node.length; i++) {
     ret.push(fn($(node[i])));
   }

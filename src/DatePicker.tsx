@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center' as FlexAlignType,
     paddingTop: 10,
     paddingBottom: 10,
-  }
+  },
 });
 
 const DatePicker = React.createClass<DatePickerProps, any>({

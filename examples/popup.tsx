@@ -1,4 +1,4 @@
-/* eslint no-console:0 */
+/* tslint:disable:no-console */
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';

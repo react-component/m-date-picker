@@ -1,6 +1,6 @@
-/* eslint no-console:0 */
+/* tslint:disable:no-console */
 
-import {AppRegistry, View, Text, StyleSheet, TouchableHighlight} from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight} from 'react-native';
 import * as React from 'react';
 import PopPicker from '../../src/Popup';
 import DatePicker from '../../src/DatePicker';
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     padding: 5,
     width: 300,
-  }
+  },
 });
 
 class PopupDemo extends React.Component<any, any> {

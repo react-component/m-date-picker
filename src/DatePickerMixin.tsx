@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 import defaultLocale from './locale/en_US';
 
@@ -163,7 +162,7 @@ export default {
       });
     }
 
-    const months:any[] = [];
+    const months: any[] = [];
     let minMonth = 0;
     let maxMonth = 11;
     if (minDateYear === selYear) {
@@ -179,7 +178,7 @@ export default {
       });
     }
 
-    const days:any[] = [];
+    const days: any[] = [];
     let minDay = 1;
     let maxDay = getDaysInMonth(date, selYear, selMonth);
 
@@ -243,7 +242,7 @@ export default {
       }
     }
 
-    const hours:any[] = [];
+    const hours: any[] = [];
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i,
@@ -251,7 +250,7 @@ export default {
       });
     }
 
-    const minutes:any[] = [];
+    const minutes: any[] = [];
     for (let i = minMinute; i <= maxMinute; i++) {
       minutes.push({
         value: i,
@@ -277,10 +276,10 @@ export default {
         return maxDate.clone();
       }
     } else if (mode === DATE) {
-      if (date.isBefore(minDate, 'day') < 0) {
+      if (date.isBefore(minDate, 'day')) {
         return minDate.clone();
       }
-      if (date.isAfter(maxDate, 'day') > 0) {
+      if (date.isAfter(maxDate, 'day')) {
         return maxDate.clone();
       }
     } else {
@@ -304,7 +303,7 @@ export default {
     const { mode } = this.props;
     const date = this.getDate();
     let dataSource: any[] = [];
-    let value:any[] = [];
+    let value: any[] = [];
     if (mode === DATETIME || mode === DATE) {
       dataSource = [...this.getDateData()];
       value = [date.year(), date.month(), date.date()];
