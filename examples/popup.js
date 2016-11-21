@@ -43,31 +43,31 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var _DatePicker = __webpack_require__(277);
+	var _DatePicker = __webpack_require__(272);
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
-	var _moment = __webpack_require__(300);
+	var _moment = __webpack_require__(295);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _zh_CN = __webpack_require__(302);
+	var _zh_CN = __webpack_require__(297);
 	
 	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _en_US = __webpack_require__(301);
+	var _en_US = __webpack_require__(296);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	__webpack_require__(303);
+	__webpack_require__(298);
 	
-	__webpack_require__(304);
+	__webpack_require__(299);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/* eslint no-console:0 */
+	/* tslint:disable:no-console */
 	var cn = location.search.indexOf('cn') !== -1;
 	var minDate = (0, _moment2.default)([2015, 8, 1, 0, 0, 0]);
 	var maxDate = (0, _moment2.default)([2018, 1, 1, 22, 0, 0]);
@@ -120,28 +120,7 @@ webpackJsonp([0],{
 	        var date = this.state.date;
 	
 	        var datePicker = React.createElement(_DatePicker2.default, { rootNativeProps: { 'data-xx': 'yy' }, minDate: minDate, maxDate: maxDate, defaultDate: now, mode: props.mode, onDateChange: this.onPickerChange, locale: props.locale });
-	        return React.createElement(
-	            'div',
-	            { style: { margin: '10px 30px' } },
-	            React.createElement(
-	                'h2',
-	                null,
-	                'popup date picker'
-	            ),
-	            React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    _Popup2.default,
-	                    { datePicker: datePicker, transitionName: 'rmc-picker-popup-slide-fade', maskTransitionName: 'rmc-picker-popup-fade', title: 'Date picker', date: date, onDismiss: this.onDismiss, onChange: this.onChange },
-	                    React.createElement(
-	                        'button',
-	                        { onClick: this.show },
-	                        date && format(date) || 'open'
-	                    )
-	                )
-	            )
-	        );
+	        return React.createElement("div", { style: { margin: '10px 30px' } }, React.createElement("h2", null, "popup date picker"), React.createElement("div", null, React.createElement(_Popup2.default, { datePicker: datePicker, transitionName: "rmc-picker-popup-slide-fade", maskTransitionName: "rmc-picker-popup-fade", title: "Date picker", date: date, onDismiss: this.onDismiss, onChange: this.onChange }, React.createElement("button", { onClick: this.show }, date && format(date) || 'open'))));
 	    };
 	
 	    return Demo;
@@ -167,10 +146,6 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
-	var _extends2 = __webpack_require__(255);
-	
-	var _extends3 = _interopRequireDefault(_extends2);
-	
 	var _classCallCheck2 = __webpack_require__(2);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -187,11 +162,21 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Popup = __webpack_require__(260);
+	var _Popup = __webpack_require__(255);
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var __assign = undefined && undefined.__assign || Object.assign || function (t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) {
+	            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+	        }
+	    }
+	    return t;
+	};
 	
 	function noop() {}
 	
@@ -263,7 +248,7 @@ webpackJsonp([0],{
 	            onDateChange: this.onPickerChange,
 	            ref: this.saveRef
 	        });
-	        return _react2.default.createElement(_Popup2.default, (0, _extends3.default)({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: dataPicker, visible: this.state.visible }));
+	        return _react2.default.createElement(_Popup2.default, __assign({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: dataPicker, visible: this.state.visible }));
 	    };
 	
 	    return PopupDatePicker;
@@ -282,7 +267,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 260:
+/***/ 255:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -295,11 +280,11 @@ webpackJsonp([0],{
 	
 	var React = _interopRequireWildcard(_react);
 	
-	var _rcDialog = __webpack_require__(261);
+	var _rcDialog = __webpack_require__(256);
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	var _PopupMixin = __webpack_require__(276);
+	var _PopupMixin = __webpack_require__(271);
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
@@ -323,34 +308,7 @@ webpackJsonp([0],{
 	        if (!this.state.visible) {
 	            return null;
 	        }
-	        return React.createElement(
-	            _rcDialog2["default"],
-	            { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
-	            React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    'div',
-	                    { className: props.prefixCls + '-header' },
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss },
-	                        props.dismissText
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
-	                        props.title
-	                    ),
-	                    React.createElement(
-	                        'div',
-	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk },
-	                        props.okText
-	                    )
-	                ),
-	                this.props.content
-	            )
-	        );
+	        return React.createElement(_rcDialog2["default"], { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style }, React.createElement("div", null, React.createElement("div", { className: props.prefixCls + '-header' }, React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss }, props.dismissText), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-title' }, props.title), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk }, props.okText)), this.props.content));
 	    },
 	    render: function render() {
 	        return this.getRender();
@@ -361,7 +319,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 261:
+/***/ 256:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -370,23 +328,29 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
-	var _extends2 = __webpack_require__(255);
-	
-	var _extends3 = _interopRequireDefault(_extends2);
-	
 	var _react = __webpack_require__(83);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Dialog = __webpack_require__(262);
+	var _Dialog = __webpack_require__(257);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _getContainerRenderMixin = __webpack_require__(275);
+	var _getContainerRenderMixin = __webpack_require__(270);
 	
 	var _getContainerRenderMixin2 = _interopRequireDefault(_getContainerRenderMixin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var __assign = undefined && undefined.__assign || Object.assign || function (t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) {
+	            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+	        }
+	    }
+	    return t;
+	};
 	
 	var DialogWrap = _react2["default"].createClass({
 	    displayName: 'DialogWrap',
@@ -398,7 +362,7 @@ webpackJsonp([0],{
 	
 	        autoDestroy: false,
 	        getComponent: function getComponent(instance, extra) {
-	            return _react2["default"].createElement(_Dialog2["default"], (0, _extends3["default"])({}, instance.props, extra, { key: 'dialog' }));
+	            return _react2["default"].createElement(_Dialog2["default"], __assign({}, instance.props, extra, { key: "dialog" }));
 	        }
 	    })],
 	    getDefaultProps: function getDefaultProps() {
@@ -435,7 +399,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 262:
+/***/ 257:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -443,10 +407,6 @@ webpackJsonp([0],{
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
-	var _extends2 = __webpack_require__(255);
-	
-	var _extends3 = _interopRequireDefault(_extends2);
 	
 	var _react = __webpack_require__(83);
 	
@@ -456,19 +416,19 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _KeyCode = __webpack_require__(263);
+	var _KeyCode = __webpack_require__(258);
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _rcAnimate = __webpack_require__(264);
+	var _rcAnimate = __webpack_require__(259);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _LazyRenderBox = __webpack_require__(273);
+	var _LazyRenderBox = __webpack_require__(268);
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
-	var _getScrollBarSize = __webpack_require__(274);
+	var _getScrollBarSize = __webpack_require__(269);
 	
 	var _getScrollBarSize2 = _interopRequireDefault(_getScrollBarSize);
 	
@@ -477,6 +437,16 @@ webpackJsonp([0],{
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var __assign = undefined && undefined.__assign || Object.assign || function (t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) {
+	            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+	        }
+	    }
+	    return t;
+	};
 	
 	var uuid = 0;
 	var openCount = 0;
@@ -610,60 +580,20 @@ webpackJsonp([0],{
 	        }
 	        var footer = void 0;
 	        if (props.footer) {
-	            footer = _react2["default"].createElement(
-	                'div',
-	                { className: prefixCls + '-footer', ref: 'footer' },
-	                props.footer
-	            );
+	            footer = _react2["default"].createElement("div", { className: prefixCls + '-footer', ref: "footer" }, props.footer);
 	        }
 	        var header = void 0;
 	        if (props.title) {
-	            header = _react2["default"].createElement(
-	                'div',
-	                { className: prefixCls + '-header', ref: 'header' },
-	                _react2["default"].createElement(
-	                    'div',
-	                    { className: prefixCls + '-title', id: this.titleId },
-	                    props.title
-	                )
-	            );
+	            header = _react2["default"].createElement("div", { className: prefixCls + '-header', ref: "header" }, _react2["default"].createElement("div", { className: prefixCls + '-title', id: this.titleId }, props.title));
 	        }
 	        var closer = void 0;
 	        if (closable) {
-	            closer = _react2["default"].createElement(
-	                'button',
-	                { onClick: this.close, 'aria-label': 'Close', className: prefixCls + '-close' },
-	                _react2["default"].createElement('span', { className: prefixCls + '-close-x' })
-	            );
+	            closer = _react2["default"].createElement("button", { onClick: this.close, "aria-label": "Close", className: prefixCls + '-close' }, _react2["default"].createElement("span", { className: prefixCls + '-close-x' }));
 	        }
 	        var style = (0, _objectAssign2["default"])({}, props.style, dest);
 	        var transitionName = this.getTransitionName();
-	        var dialogElement = _react2["default"].createElement(
-	            _LazyRenderBox2["default"],
-	            { role: 'document', ref: 'dialog', style: style, className: prefixCls + ' ' + (props.className || ''), visible: props.visible },
-	            _react2["default"].createElement(
-	                'div',
-	                { className: prefixCls + '-content' },
-	                closer,
-	                header,
-	                _react2["default"].createElement(
-	                    'div',
-	                    (0, _extends3["default"])({ className: prefixCls + '-body', style: props.bodyStyle, ref: 'body' }, props.bodyProps),
-	                    props.children
-	                ),
-	                footer
-	            ),
-	            _react2["default"].createElement(
-	                'div',
-	                { tabIndex: '0', ref: 'sentinel', style: { width: 0, height: 0, overflow: 'hidden' } },
-	                'sentinel'
-	            )
-	        );
-	        return _react2["default"].createElement(
-	            _rcAnimate2["default"],
-	            { key: 'dialog', showProp: 'visible', onLeave: this.onAnimateLeave, transitionName: transitionName, component: '', transitionAppear: true },
-	            dialogElement
-	        );
+	        var dialogElement = _react2["default"].createElement(_LazyRenderBox2["default"], { role: "document", ref: "dialog", style: style, className: prefixCls + ' ' + (props.className || ''), visible: props.visible }, _react2["default"].createElement("div", { className: prefixCls + '-content' }, closer, header, _react2["default"].createElement("div", __assign({ className: prefixCls + '-body', style: props.bodyStyle, ref: "body" }, props.bodyProps), props.children), footer), _react2["default"].createElement("div", { tabIndex: 0, ref: "sentinel", style: { width: 0, height: 0, overflow: 'hidden' } }, "sentinel"));
+	        return _react2["default"].createElement(_rcAnimate2["default"], { key: "dialog", showProp: "visible", onLeave: this.onAnimateLeave, transitionName: transitionName, component: "", transitionAppear: true }, dialogElement);
 	    },
 	    getZIndexStyle: function getZIndexStyle() {
 	        var style = {};
@@ -684,13 +614,9 @@ webpackJsonp([0],{
 	        var maskElement = void 0;
 	        if (props.mask) {
 	            var maskTransition = this.getMaskTransitionName();
-	            maskElement = _react2["default"].createElement(_LazyRenderBox2["default"], { style: this.getMaskStyle(), key: 'mask', className: props.prefixCls + '-mask', hiddenClassName: props.prefixCls + '-mask-hidden', visible: props.visible });
+	            maskElement = _react2["default"].createElement(_LazyRenderBox2["default"], __assign({ style: this.getMaskStyle(), key: "mask", className: props.prefixCls + '-mask', hiddenClassName: props.prefixCls + '-mask-hidden', visible: props.visible }, props.maskProps));
 	            if (maskTransition) {
-	                maskElement = _react2["default"].createElement(
-	                    _rcAnimate2["default"],
-	                    { key: 'mask', showProp: 'visible', transitionAppear: true, component: '', transitionName: maskTransition },
-	                    maskElement
-	                );
+	                maskElement = _react2["default"].createElement(_rcAnimate2["default"], { key: "mask", showProp: "visible", transitionAppear: true, component: "", transitionName: maskTransition }, maskElement);
 	            }
 	        }
 	        return maskElement;
@@ -778,16 +704,7 @@ webpackJsonp([0],{
 	        if (props.visible) {
 	            style.display = null;
 	        }
-	        return _react2["default"].createElement(
-	            'div',
-	            null,
-	            this.getMaskElement(),
-	            _react2["default"].createElement(
-	                'div',
-	                (0, _extends3["default"])({ tabIndex: '-1', onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: 'wrap', onClick: this.onMaskClick, role: 'dialog', 'aria-labelledby': props.title ? this.titleId : null, style: style }, props.wrapProps),
-	                this.getDialogElement()
-	            )
-	        );
+	        return _react2["default"].createElement("div", null, this.getMaskElement(), _react2["default"].createElement("div", __assign({ tabIndex: -1, onKeyDown: this.onKeyDown, className: prefixCls + '-wrap ' + (props.wrapClassName || ''), ref: "wrap", onClick: this.onMaskClick, role: "dialog", "aria-labelledby": props.title ? this.titleId : null, style: style }, props.wrapProps), this.getDialogElement()));
 	    }
 	});
 	exports["default"] = Dialog;
@@ -795,7 +712,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 263:
+/***/ 258:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1321,17 +1238,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 264:
+/***/ 259:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// export this package's api
-	module.exports = __webpack_require__(265);
+	module.exports = __webpack_require__(260);
 
 /***/ },
 
-/***/ 265:
+/***/ 260:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1344,13 +1261,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(266);
+	var _ChildrenUtils = __webpack_require__(261);
 	
-	var _AnimateChild = __webpack_require__(267);
+	var _AnimateChild = __webpack_require__(262);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(272);
+	var _util = __webpack_require__(267);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1664,7 +1581,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 266:
+/***/ 261:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1787,7 +1704,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 267:
+/***/ 262:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1806,11 +1723,11 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(268);
+	var _cssAnimation = __webpack_require__(263);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(272);
+	var _util = __webpack_require__(267);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -1899,7 +1816,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 268:
+/***/ 263:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1910,11 +1827,11 @@ webpackJsonp([0],{
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _Event = __webpack_require__(269);
+	var _Event = __webpack_require__(264);
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _componentClasses = __webpack_require__(270);
+	var _componentClasses = __webpack_require__(265);
 	
 	var _componentClasses2 = _interopRequireDefault(_componentClasses);
 	
@@ -2095,7 +2012,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 269:
+/***/ 264:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2189,7 +2106,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 270:
+/***/ 265:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2197,9 +2114,9 @@ webpackJsonp([0],{
 	 */
 	
 	try {
-	  var index = __webpack_require__(271);
+	  var index = __webpack_require__(266);
 	} catch (err) {
-	  var index = __webpack_require__(271);
+	  var index = __webpack_require__(266);
 	}
 	
 	/**
@@ -2387,7 +2304,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 271:
+/***/ 266:
 /***/ function(module, exports) {
 
 	module.exports = function(arr, obj){
@@ -2400,7 +2317,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 272:
+/***/ 267:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2433,7 +2350,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 273:
+/***/ 268:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2452,10 +2369,20 @@ webpackJsonp([0],{
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
+	var __assign = undefined && undefined.__assign || Object.assign || function (t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) {
+	            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+	        }
+	    }
+	    return t;
+	};
+	
 	var LazyRenderBox = _react2["default"].createClass({
 	    displayName: 'LazyRenderBox',
 	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	        return !!nextProps.hiddenClassName || nextProps.visible;
+	        return !!nextProps.hiddenClassName || !!nextProps.visible;
 	    },
 	    render: function render() {
 	        var className = this.props.className;
@@ -2466,7 +2393,7 @@ webpackJsonp([0],{
 	        delete props.hiddenClassName;
 	        delete props.visible;
 	        props.className = className;
-	        return _react2["default"].createElement('div', props);
+	        return _react2["default"].createElement("div", __assign({}, props));
 	    }
 	});
 	exports["default"] = LazyRenderBox;
@@ -2474,7 +2401,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 274:
+/***/ 269:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2522,7 +2449,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 275:
+/***/ 270:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2622,7 +2549,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 276:
+/***/ 271:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2687,12 +2614,7 @@ webpackJsonp([0],{
 	        if (!disabled) {
 	            newChildProps[props.triggerType] = this.onTriggerClick;
 	        }
-	        return React.createElement(
-	            WrapComponent,
-	            { style: props.wrapStyle },
-	            React.cloneElement(child, newChildProps),
-	            this.getModal()
-	        );
+	        return React.createElement(WrapComponent, { style: props.wrapStyle }, React.cloneElement(child, newChildProps), this.getModal());
 	    },
 	    onTriggerClick: function onTriggerClick(e) {
 	        var child = this.props.children;

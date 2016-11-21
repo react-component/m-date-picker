@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(305);
+	module.exports = __webpack_require__(300);
 
 
 /***/ },
 
-/***/ 305:
+/***/ 300:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29,7 +29,7 @@ webpackJsonp([1],{
 	
 	__webpack_require__(81);
 	
-	var _index = __webpack_require__(306);
+	var _index = __webpack_require__(301);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -41,29 +41,29 @@ webpackJsonp([1],{
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _moment = __webpack_require__(300);
+	var _moment = __webpack_require__(295);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _zh_CN = __webpack_require__(302);
+	var _zh_CN = __webpack_require__(297);
 	
 	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _en_US = __webpack_require__(301);
+	var _en_US = __webpack_require__(296);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	__webpack_require__(303);
+	__webpack_require__(298);
 	
-	__webpack_require__(304);
+	__webpack_require__(299);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/* eslint no-console:0 */
+	/* tslint:disable:no-console */
 	var cn = location.search.indexOf('cn') !== -1;
-	var minDate = (0, _moment2.default)([2015, 8, 1, 0, 0, 0]);
+	var minDate = (0, _moment2.default)([2015, 8, 15, 0, 0, 0]);
 	var maxDate = (0, _moment2.default)([2018, 1, 1, 22, 0, 0]);
 	var now = (0, _moment2.default)();
 	if (cn) {
@@ -103,25 +103,7 @@ webpackJsonp([1],{
 	        var props = this.props;
 	        var date = this.state.date;
 	
-	        return React.createElement(
-	            'div',
-	            { style: { margin: '10px 30px' } },
-	            React.createElement(
-	                'h2',
-	                null,
-	                'date picker'
-	            ),
-	            React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                    'span',
-	                    null,
-	                    date && format(date) || format(now)
-	                ),
-	                React.createElement(_index2.default, { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || now, mode: props.mode, locale: props.locale, maxDate: maxDate, minDate: minDate, onDateChange: this.onDateChange })
-	            )
-	        );
+	        return React.createElement("div", { style: { margin: '10px 30px' } }, React.createElement("h2", null, "date picker"), React.createElement("div", null, React.createElement("span", null, date && format(date) || format(now)), React.createElement(_index2.default, { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || now, mode: props.mode, locale: props.locale, maxDate: maxDate, minDate: minDate, onDateChange: this.onDateChange })));
 	    };
 	
 	    return Demo;
@@ -135,7 +117,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 306:
+/***/ 301:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -144,7 +126,7 @@ webpackJsonp([1],{
 	  value: true
 	});
 	
-	var _DatePicker = __webpack_require__(277);
+	var _DatePicker = __webpack_require__(272);
 	
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
