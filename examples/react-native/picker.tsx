@@ -30,7 +30,7 @@ function format(date) {
   return date.format('YYYY-MM-DD HH:mm');
 }
 
-class PickerDemo extends React.Component<any, any> {
+export class PickerDemo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'datetime',
     locale: cn ? zhCn : enUs,

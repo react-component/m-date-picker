@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PopupDemo extends React.Component<any, any> {
+export class PopupDemo extends React.Component<any, any> {
   static defaultProps = {
     mode: 'datetime',
     locale: cn ? zhCn : enUs,
