@@ -1,6 +1,7 @@
 import '../assets/index.less';
 import 'rmc-picker/assets/index.css';
 import expect from 'expect.js';
+/* tslint:disable:no-unused-variable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';

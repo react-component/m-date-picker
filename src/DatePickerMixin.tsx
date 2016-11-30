@@ -250,7 +250,7 @@ export default {
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i,
-        label: pad(i) + locale.hour,
+        label: locale.hour ? i + locale.hour : pad(i),
       });
     }
 
@@ -258,7 +258,7 @@ export default {
     for (let i = minMinute; i <= maxMinute; i++) {
       minutes.push({
         value: i,
-        label: pad(i) + locale.minute,
+        label: locale.minute ? i + locale.minute : pad(i),
       });
     }
     return [hours, minutes];
