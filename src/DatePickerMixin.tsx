@@ -5,6 +5,10 @@ function getDaysInMonth(now, selYear, selMonth) {
   return now.clone().year(selYear).month(selMonth).endOf('month').date();
 }
 
+function pad(n) {
+  return n < 10 ? `0${n}` : n;
+}
+
 const DATETIME = 'datetime';
 const DATE = 'date';
 const TIME = 'time';
@@ -246,7 +250,7 @@ export default {
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i,
-        label: i + locale.hour,
+        label: pad(i) + locale.hour,
       });
     }
 
@@ -254,7 +258,7 @@ export default {
     for (let i = minMinute; i <= maxMinute; i++) {
       minutes.push({
         value: i,
-        label: i + locale.minute,
+        label: pad(i) + locale.minute,
       });
     }
     return [hours, minutes];
