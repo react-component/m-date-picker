@@ -47,21 +47,21 @@ webpackJsonp([0],{
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
-	var _moment = __webpack_require__(295);
+	var _moment = __webpack_require__(296);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _zh_CN = __webpack_require__(297);
+	var _zh_CN = __webpack_require__(298);
 	
 	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _en_US = __webpack_require__(296);
+	var _en_US = __webpack_require__(297);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	__webpack_require__(298);
-	
 	__webpack_require__(299);
+	
+	__webpack_require__(300);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -308,7 +308,34 @@ webpackJsonp([0],{
 	        if (!this.state.visible) {
 	            return null;
 	        }
-	        return React.createElement(_rcDialog2["default"], { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style }, React.createElement("div", null, React.createElement("div", { className: props.prefixCls + '-header' }, React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss }, props.dismissText), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-title' }, props.title), React.createElement("div", { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk }, props.okText)), this.props.content));
+	        return React.createElement(
+	            _rcDialog2["default"],
+	            { prefixCls: '' + props.prefixCls, className: props.className || '', visible: true, closable: false, transitionName: props.transitionName || props.popupTransitionName, maskTransitionName: props.maskTransitionName, onClose: this.hide, style: props.style },
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    'div',
+	                    { className: props.prefixCls + '-header' },
+	                    React.createElement(
+	                        'div',
+	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-header-left', onClick: this.onDismiss },
+	                        props.dismissText
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-title' },
+	                        props.title
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: props.prefixCls + '-item ' + props.prefixCls + '-header-right', onClick: this.onOk },
+	                        props.okText
+	                    )
+	                ),
+	                this.props.content
+	            )
+	        );
 	    },
 	    render: function render() {
 	        return this.getRender();
@@ -2605,16 +2632,21 @@ webpackJsonp([0],{
 	        if (!children) {
 	            return this.getModal();
 	        }
-	        var _props = this.props;
-	        var WrapComponent = _props.WrapComponent;
-	        var disabled = _props.disabled;
+	        var _props = this.props,
+	            WrapComponent = _props.WrapComponent,
+	            disabled = _props.disabled;
 	
 	        var child = children;
 	        var newChildProps = {};
 	        if (!disabled) {
 	            newChildProps[props.triggerType] = this.onTriggerClick;
 	        }
-	        return React.createElement(WrapComponent, { style: props.wrapStyle }, React.cloneElement(child, newChildProps), this.getModal());
+	        return React.createElement(
+	            WrapComponent,
+	            { style: props.wrapStyle },
+	            React.cloneElement(child, newChildProps),
+	            this.getModal()
+	        );
 	    },
 	    onTriggerClick: function onTriggerClick(e) {
 	        var child = this.props.children;
