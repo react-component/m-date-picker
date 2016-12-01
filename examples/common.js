@@ -25330,6 +25330,7 @@
 	        return {
 	            locale: _en_US2.default,
 	            mode: DATE,
+	            minuteStep: 1,
 	            onDateChange: function onDateChange() {}
 	        };
 	    },
@@ -25496,7 +25497,8 @@
 	        var maxMinute = 59;
 	        var _props = this.props,
 	            mode = _props.mode,
-	            locale = _props.locale;
+	            locale = _props.locale,
+	            minuteStep = _props.minuteStep;
 	
 	        var date = this.getDate();
 	        var minDateMinute = this.getMinMinute();
@@ -25544,7 +25546,7 @@
 	            });
 	        }
 	        var minutes = [];
-	        for (var _i3 = minMinute; _i3 <= maxMinute; _i3++) {
+	        for (var _i3 = minMinute; _i3 <= maxMinute; _i3 += minuteStep) {
 	            minutes.push({
 	                value: _i3,
 	                label: locale.minute ? _i3 + locale.minute : pad(_i3)
