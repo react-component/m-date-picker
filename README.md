@@ -94,6 +94,7 @@ react-native run-ios
 |maxDate | max date | moment | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
 |onDateChange | Date change handler. | Function(date: moment) | '' |
+|minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
 
 ### rmc-date-picker/lib/Popup props
 
