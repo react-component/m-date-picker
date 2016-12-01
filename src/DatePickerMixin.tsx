@@ -149,7 +149,7 @@ export default {
   },
 
   getDateData() {
-    const locale = this.props.locale;
+    const { locale, formatMonth, formatDay } = this.props;
     const date = this.getDate();
     const selYear = date.year();
     const selMonth = date.month();
@@ -177,9 +177,10 @@ export default {
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
+      const label = formatMonth ? moment().month(i).format(formatMonth) : i + 1;
       months.push({
         value: i,
-        label: (i + 1) + locale.month,
+        label: (label) + locale.month,
       });
     }
 
@@ -194,9 +195,10 @@ export default {
       maxDay = maxDateDay;
     }
     for (let i = minDay; i <= maxDay; i++) {
+      const label = formatDay ? date.clone().date(i).format(formatDay) : i;
       days.push({
         value: i,
-        label: i + locale.day,
+        label: label + locale.day,
       });
     }
     return [years, months, days];
