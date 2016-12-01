@@ -1,5 +1,11 @@
 # History
 ----
+
+## 5.1.0 / 2016-12-01
+
+- support minuteStep
+
+
 ## 5.0.0 / 2016-09-07
 
 - extract datePicker element from popup

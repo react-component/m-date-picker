@@ -6,6 +6,7 @@ interface DatePickerProps {
   mode?: string;
   disabled?: boolean;
   locale?: any;
+  minuteStep?: number;
   onDateChange?: (date: any) => void;
   /** web only */
   prefixCls?: string;
