@@ -95,6 +95,8 @@ react-native run-ios
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
 |onDateChange | Date change handler. | Function(date: moment) | '' |
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
+|formatMonth | Customize display value of months. Use [moment.js display tokens](http://momentjs.com/docs/#/displaying/format/) | String | |
+|formatDay | Customize display value of days. Use [moment.js display tokens](http://momentjs.com/docs/#/displaying/format/) | String | |
 
 ### rmc-date-picker/lib/Popup props
 
