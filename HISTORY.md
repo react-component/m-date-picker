@@ -1,6 +1,10 @@
 # History
 ----
 
+## 5.2.0 / 2016-12-17
+
+- support formatMonth/formatDay
+
 ## 5.1.0 / 2016-12-01
 
 - support minuteStep

@@ -7,8 +7,8 @@ interface DatePickerProps {
   disabled?: boolean;
   locale?: any;
   minuteStep?: number;
-  formatMonth?: string;
-  formatDay?: string;
+  formatMonth?: (month: number, date?: any) => any;
+  formatDay?: (day: number, date?: any) => any;
   onDateChange?: (date: any) => void;
   /** web only */
   prefixCls?: string;

@@ -1,8 +1,8 @@
 import moment from 'moment';
 import defaultLocale from './locale/en_US';
 
-function getDaysInMonth(now, selYear, selMonth) {
-  return now.clone().year(selYear).month(selMonth).endOf('month').date();
+function getDaysInMonth(now) {
+  return now.clone().endOf('month').date();
 }
 
 function pad(n) {
@@ -177,16 +177,16 @@ export default {
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      const label = formatMonth ? moment().month(i).format(formatMonth) : i + 1;
+      const label = formatMonth ? formatMonth(i, date) : (i + 1 + locale.month);
       months.push({
         value: i,
-        label: (label) + locale.month,
+        label,
       });
     }
 
     const days: any[] = [];
     let minDay = 1;
-    let maxDay = getDaysInMonth(date, selYear, selMonth);
+    let maxDay = getDaysInMonth(date);
 
     if (minDateYear === selYear && minDateMonth === selMonth) {
       minDay = minDateDay;
@@ -195,10 +195,10 @@ export default {
       maxDay = maxDateDay;
     }
     for (let i = minDay; i <= maxDay; i++) {
-      const label = formatDay ? date.clone().date(i).format(formatDay) : i;
+      const label = formatDay ? formatDay(i, date) : (i + locale.day);
       days.push({
         value: i,
-        label: label + locale.day,
+        label,
       });
     }
     return [years, months, days];
