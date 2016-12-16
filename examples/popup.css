@@ -41,16 +41,18 @@
   background-size: 100% 1px;
   background-repeat: no-repeat;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
-.rmc-picker-popup-header-left {
-  position: absolute;
-  left: 16px;
-  top: 0;
-}
+.rmc-picker-popup-header-left,
 .rmc-picker-popup-header-right {
-  position: absolute;
-  right: 16px;
-  top: 0;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .rmc-picker-popup-item {
   color: #0ae;
@@ -62,7 +64,13 @@
   text-align: center;
   -webkit-tap-highlight-color: transparent;
 }
+.rmc-picker-popup-item-active {
+  background-color: #ddd;
+}
 .rmc-picker-popup-title {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   color: #666;
   cursor: default;
 }
