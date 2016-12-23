@@ -22526,8 +22526,61 @@
 /* 275 */,
 /* 276 */,
 /* 277 */,
-/* 278 */,
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	var _defineProperty = __webpack_require__(279);
+	
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (obj, key, value) {
+	  if (key in obj) {
+	    (0, _defineProperty2.default)(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+	
+	  return obj;
+	};
+
+/***/ },
 /* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(280), __esModule: true };
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(281);
+	var $Object = __webpack_require__(15).Object;
+	module.exports = function defineProperty(it, key, desc){
+	  return $Object.defineProperty(it, key, desc);
+	};
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $export = __webpack_require__(13);
+	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+	$export($export.S + $export.F * !__webpack_require__(23), 'Object', {defineProperty: __webpack_require__(19).f});
+
+/***/ },
+/* 282 */,
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22536,7 +22589,7 @@
 	    value: true
 	});
 	
-	var _toConsumableArray2 = __webpack_require__(280);
+	var _toConsumableArray2 = __webpack_require__(284);
 	
 	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 	
@@ -22544,7 +22597,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _MultiPicker = __webpack_require__(290);
+	var _MultiPicker = __webpack_require__(294);
 	
 	var _MultiPicker2 = _interopRequireDefault(_MultiPicker);
 	
@@ -22652,6 +22705,9 @@
 	    },
 	    getDate: function getDate() {
 	        return this.state.date || this.getDefaultMinDate();
+	    },
+	    getValue: function getValue() {
+	        return this.getDate();
 	    },
 	    getMinYear: function getMinYear() {
 	        return this.getMinDate().year();
@@ -22885,14 +22941,14 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 280 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _from = __webpack_require__(281);
+	var _from = __webpack_require__(285);
 	
 	var _from2 = _interopRequireDefault(_from);
 	
@@ -22911,34 +22967,34 @@
 	};
 
 /***/ },
-/* 281 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(282), __esModule: true };
+	module.exports = { "default": __webpack_require__(286), __esModule: true };
 
 /***/ },
-/* 282 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(7);
-	__webpack_require__(283);
+	__webpack_require__(287);
 	module.exports = __webpack_require__(15).Array.from;
 
 /***/ },
-/* 283 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var ctx            = __webpack_require__(16)
 	  , $export        = __webpack_require__(13)
 	  , toObject       = __webpack_require__(50)
-	  , call           = __webpack_require__(284)
-	  , isArrayIter    = __webpack_require__(285)
+	  , call           = __webpack_require__(288)
+	  , isArrayIter    = __webpack_require__(289)
 	  , toLength       = __webpack_require__(40)
-	  , createProperty = __webpack_require__(286)
-	  , getIterFn      = __webpack_require__(287);
+	  , createProperty = __webpack_require__(290)
+	  , getIterFn      = __webpack_require__(291);
 	
-	$export($export.S + $export.F * !__webpack_require__(289)(function(iter){ Array.from(iter); }), 'Array', {
+	$export($export.S + $export.F * !__webpack_require__(293)(function(iter){ Array.from(iter); }), 'Array', {
 	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
 	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
 	    var O       = toObject(arrayLike)
@@ -22968,7 +23024,7 @@
 
 
 /***/ },
-/* 284 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// call something on iterator step with safe closing on error
@@ -22985,7 +23041,7 @@
 	};
 
 /***/ },
-/* 285 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// check on default Array iterator
@@ -22998,7 +23054,7 @@
 	};
 
 /***/ },
-/* 286 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23011,10 +23067,10 @@
 	};
 
 /***/ },
-/* 287 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(288)
+	var classof   = __webpack_require__(292)
 	  , ITERATOR  = __webpack_require__(48)('iterator')
 	  , Iterators = __webpack_require__(30);
 	module.exports = __webpack_require__(15).getIteratorMethod = function(it){
@@ -23024,7 +23080,7 @@
 	};
 
 /***/ },
-/* 288 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
@@ -23052,7 +23108,7 @@
 	};
 
 /***/ },
-/* 289 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ITERATOR     = __webpack_require__(48)('iterator')
@@ -23078,7 +23134,7 @@
 	};
 
 /***/ },
-/* 290 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23087,7 +23143,7 @@
 	    value: true
 	});
 	
-	var _extends2 = __webpack_require__(291);
+	var _extends2 = __webpack_require__(295);
 	
 	var _extends3 = _interopRequireDefault(_extends2);
 	
@@ -23095,11 +23151,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(296);
+	var _classnames = __webpack_require__(300);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _Picker = __webpack_require__(297);
+	var _Picker = __webpack_require__(301);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -23125,9 +23181,9 @@
 	            pickerItemStyle = props.pickerItemStyle,
 	            indicatorStyle = props.indicatorStyle,
 	            pure = props.pure,
-	            children = props.children,
-	            selectedValue = props.selectedValue;
+	            children = props.children;
 	
+	        var selectedValue = this.getValue();
 	        var colElements = children.map(function (col, i) {
 	            return _react2["default"].createElement(
 	                'div',
@@ -23146,14 +23202,14 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 291 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _assign = __webpack_require__(292);
+	var _assign = __webpack_require__(296);
 	
 	var _assign2 = _interopRequireDefault(_assign);
 	
@@ -23174,29 +23230,29 @@
 	};
 
 /***/ },
-/* 292 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(293), __esModule: true };
+	module.exports = { "default": __webpack_require__(297), __esModule: true };
 
 /***/ },
-/* 293 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(294);
+	__webpack_require__(298);
 	module.exports = __webpack_require__(15).Object.assign;
 
 /***/ },
-/* 294 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(13);
 	
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(295)});
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(299)});
 
 /***/ },
-/* 295 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23234,7 +23290,7 @@
 	} : $assign;
 
 /***/ },
-/* 296 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -23288,7 +23344,7 @@
 
 
 /***/ },
-/* 297 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23297,7 +23353,7 @@
 	    value: true
 	});
 	
-	var _defineProperty2 = __webpack_require__(298);
+	var _defineProperty2 = __webpack_require__(278);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
@@ -23305,7 +23361,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(296);
+	var _classnames = __webpack_require__(300);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -23409,6 +23465,9 @@
 	    getChildMember: function getChildMember(child, m) {
 	        return child[m];
 	    },
+	    getValue: function getValue() {
+	        return this.props.selectedValue || this.props.children && this.props.children[0] && this.props.children[0].value;
+	    },
 	    toChildrenArray: function toChildrenArray(children) {
 	        return children;
 	    },
@@ -23448,59 +23507,6 @@
 	});
 	exports["default"] = Picker;
 	module.exports = exports['default'];
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _defineProperty = __webpack_require__(299);
-	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-	
-	  return obj;
-	};
-
-/***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(300), __esModule: true };
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(301);
-	var $Object = __webpack_require__(15).Object;
-	module.exports = function defineProperty(it, key, desc){
-	  return $Object.defineProperty(it, key, desc);
-	};
-
-/***/ },
-/* 301 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var $export = __webpack_require__(13);
-	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(23), 'Object', {defineProperty: __webpack_require__(19).f});
 
 /***/ },
 /* 302 */
@@ -25525,14 +25531,22 @@
 	        return {
 	            prefixCls: 'rmc-multi-picker',
 	            pickerPrefixCls: 'rmc-picker',
-	            cols: [],
 	            onValueChange: function onValueChange() {},
 	
 	            disabled: false
 	        };
 	    },
+	    getValue: function getValue() {
+	        if (this.props.selectedValue) {
+	            return this.props.selectedValue;
+	        } else {
+	            return this.props.children.map(function (c) {
+	                return c.props.children[0].value;
+	            });
+	        }
+	    },
 	    onValueChange: function onValueChange(i, v) {
-	        var value = this.props.selectedValue.concat();
+	        var value = this.getValue().concat();
 	        value[i] = v;
 	        this.props.onValueChange(value, i);
 	    }

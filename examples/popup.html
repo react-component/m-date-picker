@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-date-picker@5.3.0</title>
+  <title>popup.js - example - rmc-date-picker@5.3.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-date-picker@5.3.0</h1>
+      <h1>rmc-date-picker@5.3.1</h1>
 
       <p>React Mobile DatePicker Component for web and react-native</p>
     </div>
@@ -325,10 +325,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     });
   }
 
-  onPickerChange(date) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onPickerChange'</span>, format(date));
-  }
-
   onDismiss = () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
   }
@@ -347,7 +343,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{maxDate}</span>
         <span class="hljs-attribute">defaultDate</span>=<span class="hljs-value">{now}</span>
         <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span>
-        <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onPickerChange}</span>
         <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
       /&gt;</span>
     )</span>;

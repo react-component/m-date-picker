@@ -43,7 +43,7 @@ webpackJsonp([0],{
 	
 	var _Popup2 = _interopRequireDefault(_Popup);
 	
-	var _DatePicker = __webpack_require__(279);
+	var _DatePicker = __webpack_require__(283);
 	
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 	
@@ -111,15 +111,11 @@ webpackJsonp([0],{
 	        return _this;
 	    }
 	
-	    Demo.prototype.onPickerChange = function onPickerChange(date) {
-	        console.log('onPickerChange', format(date));
-	    };
-	
 	    Demo.prototype.render = function render() {
 	        var props = this.props;
 	        var date = this.state.date;
 	
-	        var datePicker = React.createElement(_DatePicker2.default, { rootNativeProps: { 'data-xx': 'yy' }, minDate: minDate, maxDate: maxDate, defaultDate: now, mode: props.mode, onDateChange: this.onPickerChange, locale: props.locale });
+	        var datePicker = React.createElement(_DatePicker2.default, { rootNativeProps: { 'data-xx': 'yy' }, minDate: minDate, maxDate: maxDate, defaultDate: now, mode: props.mode, locale: props.locale });
 	        return React.createElement("div", { style: { margin: '10px 30px' } }, React.createElement("h2", null, "popup date picker"), React.createElement("div", null, React.createElement(_Popup2.default, { datePicker: datePicker, transitionName: "rmc-picker-popup-slide-fade", maskTransitionName: "rmc-picker-popup-fade", title: "Date picker", date: date, onDismiss: this.onDismiss, onChange: this.onChange }, React.createElement("button", { onClick: this.show }, date && format(date) || 'open'))));
 	    };
 	
@@ -166,76 +162,28 @@ webpackJsonp([0],{
 	    return t;
 	};
 	
-	function noop() {}
 	var PopupDatePicker = _react2.default.createClass({
 	    displayName: 'PopupDatePicker',
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            onVisibleChange: noop,
-	            prefixCls: 'rmc-picker-popup',
-	            onChange: noop,
-	            onDismiss: noop,
-	            onPickerChange: noop
+	            pickerValueProp: 'date',
+	            pickerValueChangeProp: 'onDateChange'
 	        };
 	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            pickerDate: null,
-	            visible: this.props.visible || false
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if ('visible' in nextProps) {
-	            this.setVisibleState(nextProps.visible);
-	        }
-	    },
-	    onPickerChange: function onPickerChange(pickerDate) {
-	        this.setState({
-	            pickerDate: pickerDate
-	        });
-	        if (this.props.datePicker.props.onDateChange) {
-	            this.props.datePicker.props.onDateChange(pickerDate);
-	        }
-	    },
-	    onOk: function onOk() {
-	        var onChange = this.props.onChange;
+	    onOk: function onOk(v) {
+	        var _props = this.props,
+	            onChange = _props.onChange,
+	            onOk = _props.onOk;
 	
 	        if (onChange) {
-	            onChange(this.datePicker.getDate());
+	            onChange(v);
 	        }
-	    },
-	    setVisibleState: function setVisibleState(visible) {
-	        this.setState({
-	            visible: visible
-	        });
-	        if (!visible) {
-	            this.setState({
-	                pickerDate: null
-	            });
-	        }
-	    },
-	    saveRef: function saveRef(datePicker) {
-	        this.datePicker = datePicker;
-	    },
-	    fireVisibleChange: function fireVisibleChange(visible) {
-	        if (this.state.visible !== visible) {
-	            if (!('visible' in this.props)) {
-	                this.setVisibleState(visible);
-	            }
-	            var onVisibleChange = this.props.onVisibleChange;
-	
-	            if (onVisibleChange) {
-	                onVisibleChange(visible);
-	            }
+	        if (onOk) {
+	            onOk(v);
 	        }
 	    },
 	    render: function render() {
-	        var dataPicker = _react2.default.cloneElement(this.props.datePicker, {
-	            date: this.state.pickerDate || this.props.date,
-	            onDateChange: this.onPickerChange,
-	            ref: this.saveRef
-	        });
-	        return _react2.default.createElement(_Popup2.default, __assign({}, this.props, { onVisibleChange: this.fireVisibleChange, onOk: this.onOk, content: dataPicker, visible: this.state.visible }));
+	        return _react2.default.createElement(_Popup2.default, __assign({ picker: this.props.datePicker, value: this.props.date }, this.props, { onOk: this.onOk }));
 	    }
 	});
 	exports.default = PopupDatePicker;
@@ -264,7 +212,7 @@ webpackJsonp([0],{
 	
 	var _PopupMixin2 = _interopRequireDefault(_PopupMixin);
 	
-	var _rcTouchable = __webpack_require__(278);
+	var _rcTouchable = __webpack_require__(282);
 	
 	var _rcTouchable2 = _interopRequireDefault(_rcTouchable);
 	
@@ -321,7 +269,7 @@ webpackJsonp([0],{
 	            )
 	          )
 	        ),
-	        this.props.content
+	        this.getContent()
 	      )
 	    );
 	  },
@@ -2585,6 +2533,10 @@ webpackJsonp([0],{
 	    value: true
 	});
 	
+	var _defineProperty2 = __webpack_require__(278);
+	
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+	
 	var _react = __webpack_require__(83);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -2597,6 +2549,8 @@ webpackJsonp([0],{
 	        return {
 	            onVisibleChange: noop,
 	            okText: 'Ok',
+	            pickerValueProp: 'selectedValue',
+	            pickerValueChangeProp: 'onValueChange',
 	            dismissText: 'Dismiss',
 	            title: '',
 	            onOk: noop,
@@ -2605,6 +2559,7 @@ webpackJsonp([0],{
 	    },
 	    getInitialState: function getInitialState() {
 	        return {
+	            pickerValue: null,
 	            visible: this.props.visible || false
 	        };
 	    },
@@ -2613,10 +2568,28 @@ webpackJsonp([0],{
 	            this.setVisibleState(nextProps.visible);
 	        }
 	    },
+	    onPickerChange: function onPickerChange(pickerValue) {
+	        if (this.state.pickerValue !== pickerValue) {
+	            this.setState({
+	                pickerValue: pickerValue
+	            });
+	            if (this.picker && this.picker.props[this.props.pickerValueChangeProp]) {
+	                this.picker.props[this.props.pickerValueChangeProp](pickerValue);
+	            }
+	        }
+	    },
+	    saveRef: function saveRef(picker) {
+	        this.picker = picker;
+	    },
 	    setVisibleState: function setVisibleState(visible) {
 	        this.setState({
 	            visible: visible
 	        });
+	        if (!visible) {
+	            this.setState({
+	                pickerValue: null
+	            });
+	        }
 	    },
 	    fireVisibleChange: function fireVisibleChange(visible) {
 	        if (this.state.visible !== visible) {
@@ -2657,8 +2630,17 @@ webpackJsonp([0],{
 	        this.fireVisibleChange(!this.state.visible);
 	    },
 	    onOk: function onOk() {
-	        this.props.onOk();
+	        this.props.onOk(this.picker && this.picker.getValue());
 	        this.fireVisibleChange(false);
+	    },
+	    getContent: function getContent() {
+	        if (this.props.picker) {
+	            var _React$cloneElement;
+	
+	            return _react2["default"].cloneElement(this.props.picker, (_React$cloneElement = {}, (0, _defineProperty3["default"])(_React$cloneElement, this.props.pickerValueProp, this.state.pickerValue || this.props.value), (0, _defineProperty3["default"])(_React$cloneElement, this.props.pickerValueChangeProp, this.onPickerChange), (0, _defineProperty3["default"])(_React$cloneElement, 'ref', this.saveRef), _React$cloneElement));
+	        } else {
+	            return this.props.content;
+	        }
 	    },
 	    onDismiss: function onDismiss() {
 	        this.props.onDismiss();
@@ -2672,7 +2654,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 278:
+/***/ 282:
 /***/ function(module, exports, __webpack_require__) {
 
 	// inspired by react-native
