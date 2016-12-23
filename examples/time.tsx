@@ -2,7 +2,7 @@
 
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
-import DatePicker from '../src/index.web';
+import DatePicker from '../src/index';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -53,7 +53,7 @@ class Demo extends React.Component<any, any> {
     this.setState({
       date,
     });
-  };
+  }
 
   render() {
     const props = this.props;

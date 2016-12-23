@@ -47,13 +47,13 @@ export class PickerDemo extends React.Component<any, any> {
     this.setState({
       date,
     });
-  };
+  }
 
   render() {
     const props = this.props;
     const { date } = this.state;
 
-    return (<View style={{ margin: 20 }}>
+    return (<View style={{ padding: 10 }}>
       <View><Text>date picker</Text></View>
       <View>
         <View>

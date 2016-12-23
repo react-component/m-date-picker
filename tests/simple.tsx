@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import moment from 'moment';
 import DatePicker from '../src/index';
-import datePickerLocale from '..//src/locale/zh_CN';
+import datePickerLocale from '../src/locale/zh_CN';
 
 function offsetTop(el) {
   return el.getBoundingClientRect().top;

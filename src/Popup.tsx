@@ -1,61 +1,57 @@
 import React from 'react';
-import DatePickerProps from './DatePickerProps';
+import IDatePickerProps from './IDatePickerProps';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 
 function noop() {
 }
 
-export interface PopupDatePickerProps extends PopupPickerProps {
+export interface IPopupDatePickerProps extends PopupPickerProps {
   prefixCls?: string;
-  datePicker: React.ReactElement<DatePickerProps>;
-  onPickerChange?: (date) => void;
-  onChange?: (date) => void;
+  datePicker: React.ReactElement<IDatePickerProps>;
+  onPickerChange?: (date?) => void;
+  onChange?: (date?) => void;
   date?: any;
 }
+const PopupDatePicker = React.createClass<IPopupDatePickerProps, any>({
+  getDefaultProps() {
+    return {
+      onVisibleChange: noop,
+      prefixCls: 'rmc-picker-popup',
+      onChange: noop,
+      onDismiss: noop,
+      onPickerChange: noop,
+    } as any;
+  },
 
-export default class PopupDatePicker extends React.Component<PopupDatePickerProps, any> {
-  static defaultProps = {
-    onVisibleChange: noop,
-    prefixCls: 'rmc-picker-popup',
-    onChange: noop,
-    onDismiss: noop,
-    onPickerChange: noop,
-  };
-
-  datePicker: any;
-
-  constructor(props: PopupDatePickerProps) {
-    super(props);
-    this.state = {
+  getInitialState() {
+    return {
       pickerDate: null,
       visible: this.props.visible || false,
     };
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
     if ('visible' in nextProps) {
       this.setVisibleState(nextProps.visible);
     }
-  }
+  },
 
-  onPickerChange = (pickerDate) => {
+  onPickerChange(pickerDate) {
     this.setState({
       pickerDate,
     });
     if (this.props.datePicker.props.onDateChange) {
       this.props.datePicker.props.onDateChange(pickerDate);
     }
-  };
+  },
 
-  onOk = () => {
+  onOk() {
     const { onChange } = this.props;
     if (onChange) {
-      onChange(
-        this.datePicker.getDate()
-      );
+      onChange(this.datePicker.getDate());
     }
-  };
+  },
 
   setVisibleState(visible) {
     this.setState({
@@ -66,13 +62,13 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
         pickerDate: null,
       });
     }
-  }
+  },
 
-  saveRef = (datePicker) => {
+  saveRef(datePicker) {
     this.datePicker = datePicker;
-  };
+  },
 
-  fireVisibleChange = (visible) => {
+  fireVisibleChange(visible) {
     if (this.state.visible !== visible) {
       if (!('visible' in this.props)) {
         this.setVisibleState(visible);
@@ -82,14 +78,14 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
         onVisibleChange(visible);
       }
     }
-  };
+  },
 
   render() {
     const dataPicker = React.cloneElement(this.props.datePicker, {
       date: this.state.pickerDate || this.props.date,
       onDateChange: this.onPickerChange,
       ref: this.saveRef,
-    } as DatePickerProps);
+    } as IDatePickerProps);
 
     return (<PopupPicker
       {...this.props}
@@ -98,5 +94,7 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
       content={dataPicker}
       visible={this.state.visible}
     />);
-  }
-}
+  },
+});
+
+export default PopupDatePicker;

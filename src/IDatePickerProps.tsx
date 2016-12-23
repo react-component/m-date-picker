@@ -1,4 +1,4 @@
-interface DatePickerProps {
+interface IDatePickerProps {
   date?: any;
   defaultDate?: any;
   minDate?: any;
@@ -19,4 +19,4 @@ interface DatePickerProps {
   className?: string;
 }
 
-export default DatePickerProps;
+export default IDatePickerProps;

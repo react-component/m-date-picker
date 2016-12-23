@@ -3,7 +3,6 @@
 import 'rmc-picker/assets/index.css';
 import 'rmc-date-picker/assets/index.less';
 import 'rmc-picker/assets/popup.css';
-// const zhCnCalendar = null;
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PopPicker from '../src/Popup';
@@ -53,7 +52,7 @@ class Demo extends React.Component<any, any> {
     this.setState({
       date,
     });
-  };
+  }
 
   onPickerChange(date) {
     console.log('onPickerChange', format(date));
@@ -61,11 +60,11 @@ class Demo extends React.Component<any, any> {
 
   onDismiss = () => {
     console.log('onDismiss');
-  };
+  }
 
   show = () => {
     console.log('my click');
-  };
+  }
 
   render() {
     const props = this.props;
