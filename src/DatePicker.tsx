@@ -110,6 +110,10 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
     return this.state.date || this.getDefaultMinDate();
   },
 
+  getValue() {
+    return this.getDate();
+  },
+
   getMinYear() {
     return this.getMinDate().year();
   },
