@@ -2153,7 +2153,7 @@
 
 /***/ },
 /* 88 */
-[313, 89],
+[318, 89],
 /* 89 */
 /***/ function(module, exports) {
 
@@ -2223,12 +2223,18 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
+	var validateFormat = function validateFormat(format) {};
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  validateFormat = function validateFormat(format) {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
 	    }
-	  }
+	  };
+	}
+	
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
 	
 	  if (!condition) {
 	    var error;
@@ -7845,7 +7851,7 @@
 
 /***/ },
 /* 132 */
-[313, 117],
+[318, 117],
 /* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22524,122 +22530,555 @@
 /* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(280)
-	  , root = typeof window === 'undefined' ? global : window
-	  , vendors = ['moz', 'webkit']
-	  , suffix = 'AnimationFrame'
-	  , raf = root['request' + suffix]
-	  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
+	'use strict';
 	
-	for(var i = 0; !raf && i < vendors.length; i++) {
-	  raf = root[vendors[i] + 'Request' + suffix]
-	  caf = root[vendors[i] + 'Cancel' + suffix]
-	      || root[vendors[i] + 'CancelRequest' + suffix]
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _toConsumableArray2 = __webpack_require__(280);
+	
+	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+	
+	var _react = __webpack_require__(83);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _MultiPicker = __webpack_require__(290);
+	
+	var _MultiPicker2 = _interopRequireDefault(_MultiPicker);
+	
+	var _moment = __webpack_require__(310);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _en_US = __webpack_require__(311);
+	
+	var _en_US2 = _interopRequireDefault(_en_US);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function getDaysInMonth(now) {
+	    return now.clone().endOf('month').date();
 	}
-	
-	// Some versions of FF have rAF but not cAF
-	if(!raf || !caf) {
-	  var last = 0
-	    , id = 0
-	    , queue = []
-	    , frameDuration = 1000 / 60
-	
-	  raf = function(callback) {
-	    if(queue.length === 0) {
-	      var _now = now()
-	        , next = Math.max(0, frameDuration - (_now - last))
-	      last = next + _now
-	      setTimeout(function() {
-	        var cp = queue.slice(0)
-	        // Clear queue here to prevent
-	        // callbacks from appending listeners
-	        // to the current frame's queue
-	        queue.length = 0
-	        for(var i = 0; i < cp.length; i++) {
-	          if(!cp[i].cancelled) {
-	            try{
-	              cp[i].callback(last)
-	            } catch(e) {
-	              setTimeout(function() { throw e }, 0)
-	            }
-	          }
+	function pad(n) {
+	    return n < 10 ? '0' + n : n + '';
+	}
+	var smallPickerItem = {
+	    fontSize: 20
+	};
+	var DATETIME = 'datetime';
+	var DATE = 'date';
+	var TIME = 'time';
+	var DatePicker = _react2.default.createClass({
+	    displayName: 'DatePicker',
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            prefixCls: 'rmc-date-picker',
+	            pickerPrefixCls: 'rmc-picker',
+	            locale: _en_US2.default,
+	            mode: DATE,
+	            minuteStep: 1,
+	            onDateChange: function onDateChange() {}
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            date: this.props.date || this.props.defaultDate
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if ('date' in nextProps) {
+	            this.setState({
+	                date: nextProps.date || nextProps.defaultDate
+	            });
 	        }
-	      }, Math.round(next))
+	    },
+	    onValueChange: function onValueChange(values, index) {
+	        var value = parseInt(values[index], 10);
+	        var props = this.props;
+	        var newValue = this.getDate().clone();
+	        if (props.mode === DATETIME || props.mode === DATE) {
+	            switch (index) {
+	                case 0:
+	                    newValue.year(value);
+	                    break;
+	                case 1:
+	                    newValue.month(value);
+	                    break;
+	                case 2:
+	                    newValue.date(value);
+	                    break;
+	                case 3:
+	                    newValue.hour(value);
+	                    break;
+	                case 4:
+	                    newValue.minute(value);
+	                    break;
+	                default:
+	                    break;
+	            }
+	        } else {
+	            switch (index) {
+	                case 0:
+	                    newValue.hour(value);
+	                    break;
+	                case 1:
+	                    newValue.minute(value);
+	                    break;
+	                default:
+	                    break;
+	            }
+	        }
+	        newValue = this.clipDate(newValue);
+	        if (!('date' in this.props)) {
+	            this.setState({
+	                date: newValue
+	            });
+	        }
+	        props.onDateChange(newValue);
+	    },
+	    getDefaultMinDate: function getDefaultMinDate() {
+	        if (!this.defaultMinDate) {
+	            this.defaultMinDate = this.getGregorianCalendar([2000, 1, 1, 0, 0, 0]);
+	        }
+	        return this.defaultMinDate;
+	    },
+	    getDefaultMaxDate: function getDefaultMaxDate() {
+	        if (!this.defaultMaxDate) {
+	            this.defaultMaxDate = this.getGregorianCalendar([2030, 1, 1, 23, 59, 59]);
+	        }
+	        return this.defaultMaxDate;
+	    },
+	    getDate: function getDate() {
+	        return this.state.date || this.getDefaultMinDate();
+	    },
+	    getMinYear: function getMinYear() {
+	        return this.getMinDate().year();
+	    },
+	    getMaxYear: function getMaxYear() {
+	        return this.getMaxDate().year();
+	    },
+	    getMinMonth: function getMinMonth() {
+	        return this.getMinDate().month();
+	    },
+	    getMaxMonth: function getMaxMonth() {
+	        return this.getMaxDate().month();
+	    },
+	    getMinDay: function getMinDay() {
+	        return this.getMinDate().date();
+	    },
+	    getMaxDay: function getMaxDay() {
+	        return this.getMaxDate().date();
+	    },
+	    getMinHour: function getMinHour() {
+	        return this.getMinDate().hour();
+	    },
+	    getMaxHour: function getMaxHour() {
+	        return this.getMaxDate().hour();
+	    },
+	    getMinMinute: function getMinMinute() {
+	        return this.getMinDate().minute();
+	    },
+	    getMaxMinute: function getMaxMinute() {
+	        return this.getMaxDate().minute();
+	    },
+	    getMinDate: function getMinDate() {
+	        return this.props.minDate || this.getDefaultMinDate();
+	    },
+	    getMaxDate: function getMaxDate() {
+	        return this.props.maxDate || this.getDefaultMaxDate();
+	    },
+	    getDateData: function getDateData() {
+	        var _props = this.props,
+	            locale = _props.locale,
+	            formatMonth = _props.formatMonth,
+	            formatDay = _props.formatDay;
+	
+	        var date = this.getDate();
+	        var selYear = date.year();
+	        var selMonth = date.month();
+	        var minDateYear = this.getMinYear();
+	        var maxDateYear = this.getMaxYear();
+	        var minDateMonth = this.getMinMonth();
+	        var maxDateMonth = this.getMaxMonth();
+	        var minDateDay = this.getMinDay();
+	        var maxDateDay = this.getMaxDay();
+	        var years = [];
+	        for (var i = minDateYear; i <= maxDateYear; i++) {
+	            years.push({
+	                value: i + '',
+	                label: i + locale.year + ''
+	            });
+	        }
+	        var months = [];
+	        var minMonth = 0;
+	        var maxMonth = 11;
+	        if (minDateYear === selYear) {
+	            minMonth = minDateMonth;
+	        }
+	        if (maxDateYear === selYear) {
+	            maxMonth = maxDateMonth;
+	        }
+	        for (var _i = minMonth; _i <= maxMonth; _i++) {
+	            var label = formatMonth ? formatMonth(_i, date) : _i + 1 + locale.month + '';
+	            months.push({
+	                value: _i + '',
+	                label: label
+	            });
+	        }
+	        var days = [];
+	        var minDay = 1;
+	        var maxDay = getDaysInMonth(date);
+	        if (minDateYear === selYear && minDateMonth === selMonth) {
+	            minDay = minDateDay;
+	        }
+	        if (maxDateYear === selYear && maxDateMonth === selMonth) {
+	            maxDay = maxDateDay;
+	        }
+	        for (var _i2 = minDay; _i2 <= maxDay; _i2++) {
+	            var _label = formatDay ? formatDay(_i2, date) : _i2 + locale.day + '';
+	            days.push({
+	                value: _i2 + '',
+	                label: _label
+	            });
+	        }
+	        return [{ key: 'year', props: { children: years } }, { key: 'month', props: { children: months } }, { key: 'day', props: { children: days } }];
+	    },
+	    getTimeData: function getTimeData() {
+	        var minHour = 0;
+	        var maxHour = 23;
+	        var minMinute = 0;
+	        var maxMinute = 59;
+	        var _props2 = this.props,
+	            mode = _props2.mode,
+	            locale = _props2.locale,
+	            minuteStep = _props2.minuteStep;
+	
+	        var date = this.getDate();
+	        var minDateMinute = this.getMinMinute();
+	        var maxDateMinute = this.getMaxMinute();
+	        var minDateHour = this.getMinHour();
+	        var maxDateHour = this.getMaxHour();
+	        var hour = date.hour();
+	        if (mode === DATETIME) {
+	            var year = date.year();
+	            var month = date.month();
+	            var day = date.date();
+	            var minDateYear = this.getMinYear();
+	            var maxDateYear = this.getMaxYear();
+	            var minDateMonth = this.getMinMonth();
+	            var maxDateMonth = this.getMaxMonth();
+	            var minDateDay = this.getMinDay();
+	            var maxDateDay = this.getMaxDay();
+	            if (minDateYear === year && minDateMonth === month && minDateDay === day) {
+	                minHour = minDateHour;
+	                if (minDateHour === hour) {
+	                    minMinute = minDateMinute;
+	                }
+	            }
+	            if (maxDateYear === year && maxDateMonth === month && maxDateDay === day) {
+	                maxHour = maxDateHour;
+	                if (maxDateHour === hour) {
+	                    maxMinute = maxDateMinute;
+	                }
+	            }
+	        } else {
+	            minHour = minDateHour;
+	            if (minDateHour === hour) {
+	                minMinute = minDateMinute;
+	            }
+	            maxHour = maxDateHour;
+	            if (maxDateHour === hour) {
+	                maxMinute = maxDateMinute;
+	            }
+	        }
+	        var hours = [];
+	        for (var i = minHour; i <= maxHour; i++) {
+	            hours.push({
+	                value: i + '',
+	                label: locale.hour ? i + locale.hour + '' : pad(i)
+	            });
+	        }
+	        var minutes = [];
+	        for (var _i3 = minMinute; _i3 <= maxMinute; _i3 += minuteStep) {
+	            minutes.push({
+	                value: _i3 + '',
+	                label: locale.minute ? _i3 + locale.minute + '' : pad(_i3)
+	            });
+	        }
+	        return [{ key: 'hours', props: { children: hours } }, { key: 'minutes', props: { children: minutes } }];
+	    },
+	    getGregorianCalendar: function getGregorianCalendar(arg) {
+	        return (0, _moment2.default)(arg);
+	    },
+	    clipDate: function clipDate(date) {
+	        var mode = this.props.mode;
+	
+	        var minDate = this.getMinDate();
+	        var maxDate = this.getMaxDate();
+	        if (mode === DATETIME) {
+	            if (date.isBefore(minDate)) {
+	                return minDate.clone();
+	            }
+	            if (date.isAfter(maxDate)) {
+	                return maxDate.clone();
+	            }
+	        } else if (mode === DATE) {
+	            if (date.isBefore(minDate, 'day')) {
+	                return minDate.clone();
+	            }
+	            if (date.isAfter(maxDate, 'day')) {
+	                return maxDate.clone();
+	            }
+	        } else {
+	            var maxHour = maxDate.hour();
+	            var maxMinutes = maxDate.minute();
+	            var minHour = minDate.hour();
+	            var minMinutes = minDate.minute();
+	            var hour = date.hour();
+	            var minutes = date.minute();
+	            if (hour < minHour || hour === minHour && minutes < minMinutes) {
+	                return minDate.clone();
+	            }
+	            if (hour > maxHour || hour === maxHour && minutes > maxMinutes) {
+	                return maxDate.clone();
+	            }
+	        }
+	        return date;
+	    },
+	    getValueCols: function getValueCols() {
+	        var mode = this.props.mode;
+	
+	        var date = this.getDate();
+	        var cols = [];
+	        var value = [];
+	        if (mode === DATETIME || mode === DATE) {
+	            cols = [].concat((0, _toConsumableArray3.default)(this.getDateData()));
+	            value = [date.year() + '', date.month() + '', date.date() + ''];
+	        }
+	        if (mode === DATETIME || mode === TIME) {
+	            cols = cols.concat(this.getTimeData());
+	            value = value.concat([date.hour() + '', date.minute() + '']);
+	        }
+	        return {
+	            value: value,
+	            cols: cols
+	        };
+	    },
+	    render: function render() {
+	        var _getValueCols = this.getValueCols(),
+	            value = _getValueCols.value,
+	            cols = _getValueCols.cols;
+	
+	        var _props3 = this.props,
+	            mode = _props3.mode,
+	            prefixCls = _props3.prefixCls,
+	            pickerPrefixCls = _props3.pickerPrefixCls,
+	            rootNativeProps = _props3.rootNativeProps,
+	            className = _props3.className;
+	
+	        return _react2.default.createElement(_MultiPicker2.default, { rootNativeProps: rootNativeProps, className: className, prefixCls: prefixCls, pickerPrefixCls: pickerPrefixCls, pickerItemStyle: typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined, selectedValue: value, onValueChange: this.onValueChange }, cols);
 	    }
-	    queue.push({
-	      handle: ++id,
-	      callback: callback,
-	      cancelled: false
-	    })
-	    return id
-	  }
-	
-	  caf = function(handle) {
-	    for(var i = 0; i < queue.length; i++) {
-	      if(queue[i].handle === handle) {
-	        queue[i].cancelled = true
-	      }
-	    }
-	  }
-	}
-	
-	module.exports = function(fn) {
-	  // Wrap in a new function to prevent
-	  // `cancel` potentially being assigned
-	  // to the native rAF function
-	  return raf.call(root, fn)
-	}
-	module.exports.cancel = function() {
-	  caf.apply(root, arguments)
-	}
-	module.exports.polyfill = function() {
-	  root.requestAnimationFrame = raf
-	  root.cancelAnimationFrame = caf
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	});
+	exports.default = DatePicker;
+	module.exports = exports['default'];
 
 /***/ },
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
-	(function() {
-	  var getNanoSeconds, hrtime, loadTime;
+	"use strict";
 	
-	  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
-	    module.exports = function() {
-	      return performance.now();
-	    };
-	  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
-	    module.exports = function() {
-	      return (getNanoSeconds() - loadTime) / 1e6;
-	    };
-	    hrtime = process.hrtime;
-	    getNanoSeconds = function() {
-	      var hr;
-	      hr = hrtime();
-	      return hr[0] * 1e9 + hr[1];
-	    };
-	    loadTime = getNanoSeconds();
-	  } else if (Date.now) {
-	    module.exports = function() {
-	      return Date.now() - loadTime;
-	    };
-	    loadTime = Date.now();
+	exports.__esModule = true;
+	
+	var _from = __webpack_require__(281);
+	
+	var _from2 = _interopRequireDefault(_from);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (arr) {
+	  if (Array.isArray(arr)) {
+	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+	      arr2[i] = arr[i];
+	    }
+	
+	    return arr2;
 	  } else {
-	    module.exports = function() {
-	      return new Date().getTime() - loadTime;
-	    };
-	    loadTime = new Date().getTime();
+	    return (0, _from2.default)(arr);
 	  }
-	
-	}).call(this);
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(85)))
+	};
 
 /***/ },
 /* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(282), __esModule: true };
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(7);
+	__webpack_require__(283);
+	module.exports = __webpack_require__(15).Array.from;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var ctx            = __webpack_require__(16)
+	  , $export        = __webpack_require__(13)
+	  , toObject       = __webpack_require__(50)
+	  , call           = __webpack_require__(284)
+	  , isArrayIter    = __webpack_require__(285)
+	  , toLength       = __webpack_require__(40)
+	  , createProperty = __webpack_require__(286)
+	  , getIterFn      = __webpack_require__(287);
+	
+	$export($export.S + $export.F * !__webpack_require__(289)(function(iter){ Array.from(iter); }), 'Array', {
+	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
+	    var O       = toObject(arrayLike)
+	      , C       = typeof this == 'function' ? this : Array
+	      , aLen    = arguments.length
+	      , mapfn   = aLen > 1 ? arguments[1] : undefined
+	      , mapping = mapfn !== undefined
+	      , index   = 0
+	      , iterFn  = getIterFn(O)
+	      , length, result, step, iterator;
+	    if(mapping)mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+	    // if object isn't iterable or it's array with default iterator - use simple case
+	    if(iterFn != undefined && !(C == Array && isArrayIter(iterFn))){
+	      for(iterator = iterFn.call(O), result = new C; !(step = iterator.next()).done; index++){
+	        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+	      }
+	    } else {
+	      length = toLength(O.length);
+	      for(result = new C(length); length > index; index++){
+	        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+	      }
+	    }
+	    result.length = index;
+	    return result;
+	  }
+	});
+
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// call something on iterator step with safe closing on error
+	var anObject = __webpack_require__(20);
+	module.exports = function(iterator, fn, value, entries){
+	  try {
+	    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+	  // 7.4.6 IteratorClose(iterator, completion)
+	  } catch(e){
+	    var ret = iterator['return'];
+	    if(ret !== undefined)anObject(ret.call(iterator));
+	    throw e;
+	  }
+	};
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// check on default Array iterator
+	var Iterators  = __webpack_require__(30)
+	  , ITERATOR   = __webpack_require__(48)('iterator')
+	  , ArrayProto = Array.prototype;
+	
+	module.exports = function(it){
+	  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+	};
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var $defineProperty = __webpack_require__(19)
+	  , createDesc      = __webpack_require__(27);
+	
+	module.exports = function(object, index, value){
+	  if(index in object)$defineProperty.f(object, index, createDesc(0, value));
+	  else object[index] = value;
+	};
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var classof   = __webpack_require__(288)
+	  , ITERATOR  = __webpack_require__(48)('iterator')
+	  , Iterators = __webpack_require__(30);
+	module.exports = __webpack_require__(15).getIteratorMethod = function(it){
+	  if(it != undefined)return it[ITERATOR]
+	    || it['@@iterator']
+	    || Iterators[classof(it)];
+	};
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// getting tag from 19.1.3.6 Object.prototype.toString()
+	var cof = __webpack_require__(38)
+	  , TAG = __webpack_require__(48)('toStringTag')
+	  // ES3 wrong here
+	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
+	
+	// fallback for IE11 Script Access Denied error
+	var tryGet = function(it, key){
+	  try {
+	    return it[key];
+	  } catch(e){ /* empty */ }
+	};
+	
+	module.exports = function(it){
+	  var O, T, B;
+	  return it === undefined ? 'Undefined' : it === null ? 'Null'
+	    // @@toStringTag case
+	    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+	    // builtinTag case
+	    : ARG ? cof(O)
+	    // ES3 arguments fallback
+	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+	};
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ITERATOR     = __webpack_require__(48)('iterator')
+	  , SAFE_CLOSING = false;
+	
+	try {
+	  var riter = [7][ITERATOR]();
+	  riter['return'] = function(){ SAFE_CLOSING = true; };
+	  Array.from(riter, function(){ throw 2; });
+	} catch(e){ /* empty */ }
+	
+	module.exports = function(exec, skipClosing){
+	  if(!skipClosing && !SAFE_CLOSING)return false;
+	  var safe = false;
+	  try {
+	    var arr  = [7]
+	      , iter = arr[ITERATOR]();
+	    iter.next = function(){ return {done: safe = true}; };
+	    arr[ITERATOR] = function(){ return iter; };
+	    exec(arr);
+	  } catch(e){ /* empty */ }
+	  return safe;
+	};
+
+/***/ },
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22648,45 +23087,32 @@
 	    value: true
 	});
 	
+	var _extends2 = __webpack_require__(291);
+	
+	var _extends3 = _interopRequireDefault(_extends2);
+	
 	var _react = __webpack_require__(83);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(282);
-	
-	var _index2 = _interopRequireDefault(_index);
-	
-	var _classnames = __webpack_require__(288);
+	var _classnames = __webpack_require__(296);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _DatePickerMixin = __webpack_require__(294);
+	var _Picker = __webpack_require__(297);
 	
-	var _DatePickerMixin2 = _interopRequireDefault(_DatePickerMixin);
+	var _Picker2 = _interopRequireDefault(_Picker);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _MultiPickerMixin = __webpack_require__(309);
 	
-	var __assign = undefined && undefined.__assign || Object.assign || function (t) {
-	    for (var s, i = 1, n = arguments.length; i < n; i++) {
-	        s = arguments[i];
-	        for (var p in s) {
-	            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-	        }
-	    }
-	    return t;
-	};
+	var _MultiPickerMixin2 = _interopRequireDefault(_MultiPickerMixin);
 	
-	var DatePickerWeb = _react2.default.createClass({
-	    displayName: 'DatePickerWeb',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	    mixins: [_DatePickerMixin2.default],
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            prefixCls: 'rmc-date-picker',
-	            pickerPrefixCls: 'rmc-picker',
-	            disabled: false
-	        };
-	    },
+	var MultiPicker = _react2["default"].createClass({
+	    displayName: 'MultiPicker',
+	
+	    mixins: [_MultiPickerMixin2["default"]],
 	    render: function render() {
 	        var _this = this;
 	
@@ -22695,259 +23121,120 @@
 	            pickerPrefixCls = props.pickerPrefixCls,
 	            className = props.className,
 	            rootNativeProps = props.rootNativeProps,
-	            disabled = props.disabled;
+	            disabled = props.disabled,
+	            pickerItemStyle = props.pickerItemStyle,
+	            indicatorStyle = props.indicatorStyle,
+	            pure = props.pure,
+	            children = props.children,
+	            selectedValue = props.selectedValue;
 	
-	        var _getValueDataSource = this.getValueDataSource(),
-	            value = _getValueDataSource.value,
-	            dataSource = _getValueDataSource.dataSource;
-	
-	        var inner = dataSource.map(function (items, i) {
-	            return _react2.default.createElement("div", { key: i, className: prefixCls + '-item' }, _react2.default.createElement(_index2.default, { disabled: disabled, prefixCls: pickerPrefixCls, pure: false, selectedValue: value[i], onValueChange: function onValueChange(v) {
-	                    _this.onValueChange(i, v);
-	                } }, items));
-	        });
-	        return _react2.default.createElement("div", __assign({}, rootNativeProps, { className: (0, _classnames2.default)(className, prefixCls) }), inner);
-	    }
-	});
-	exports.default = DatePickerWeb;
-	module.exports = exports['default'];
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _Picker = __webpack_require__(283);
-	
-	Object.defineProperty(exports, 'default', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_Picker)["default"];
-	  }
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	module.exports = exports['default'];
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _defineProperty2 = __webpack_require__(284);
-	
-	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-	
-	var _react = __webpack_require__(83);
-	
-	var React = _interopRequireWildcard(_react);
-	
-	var _classnames = __webpack_require__(288);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
-	var _zscroller = __webpack_require__(289);
-	
-	var _zscroller2 = _interopRequireDefault(_zscroller);
-	
-	var _PickerMixin = __webpack_require__(292);
-	
-	var _PickerMixin2 = _interopRequireDefault(_PickerMixin);
-	
-	var _isChildrenEqual = __webpack_require__(293);
-	
-	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	var Picker = React.createClass({
-	    displayName: 'Picker',
-	
-	    mixins: [_PickerMixin2["default"]],
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            prefixCls: 'rmc-picker',
-	            pure: true,
-	            onValueChange: function onValueChange() {}
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        var selectedValueState = void 0;
-	        var _props = this.props,
-	            selectedValue = _props.selectedValue,
-	            defaultSelectedValue = _props.defaultSelectedValue,
-	            children = _props.children;
-	
-	        if (selectedValue !== undefined) {
-	            selectedValueState = selectedValue;
-	        } else if (defaultSelectedValue !== undefined) {
-	            selectedValueState = defaultSelectedValue;
-	        } else if (children.length) {
-	            selectedValueState = children[0].value;
-	        }
-	        return {
-	            selectedValue: selectedValueState
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.itemHeight = this.refs.indicator.offsetHeight;
-	        // compact
-	        this.refs.content.style.padding = this.itemHeight * 3 + 'px 0';
-	        this.zscroller = new _zscroller2["default"](this.refs.content, {
-	            scrollingX: false,
-	            snapping: true,
-	            penetrationDeceleration: .1,
-	            minVelocityToKeepDecelerating: 0.5,
-	            scrollingComplete: this.scrollingComplete
-	        });
-	        this.zscroller.setDisabled(this.props.disabled);
-	        this.zscroller.scroller.setSnapSize(0, this.itemHeight);
-	        this.select(this.state.selectedValue);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if ('selectedValue' in nextProps) {
-	            this.setState({
-	                selectedValue: nextProps.selectedValue
-	            });
-	        }
-	        this.zscroller.setDisabled(nextProps.disabled);
-	    },
-	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
-	        return this.state.selectedValue !== nextState.selectedValue || !(0, _isChildrenEqual2["default"])(this.props.children, nextProps.children, this.props.pure);
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        this.zscroller.reflow();
-	        this.select(this.state.selectedValue);
-	    },
-	    componentWillUnmount: function componentWillUnmount() {
-	        this.zscroller.destroy();
-	    },
-	    scrollTo: function scrollTo(top) {
-	        this.zscroller.scroller.scrollTo(0, top);
-	    },
-	    fireValueChange: function fireValueChange(selectedValue) {
-	        if (selectedValue !== this.state.selectedValue) {
-	            if (!('selectedValue' in this.props)) {
-	                this.setState({
-	                    selectedValue: selectedValue
-	                });
-	            }
-	            this.props.onValueChange(selectedValue);
-	        }
-	    },
-	    scrollingComplete: function scrollingComplete() {
-	        this.doScrollingComplete(this.zscroller.scroller.getValues().top);
-	    },
-	    getChildMember: function getChildMember(child, m) {
-	        return child[m];
-	    },
-	    toChildrenArray: function toChildrenArray(children) {
-	        return children;
-	    },
-	    render: function render() {
-	        var _pickerCls;
-	
-	        var _props2 = this.props,
-	            children = _props2.children,
-	            prefixCls = _props2.prefixCls,
-	            className = _props2.className,
-	            itemStyle = _props2.itemStyle;
-	        var selectedValue = this.state.selectedValue;
-	
-	        var itemClassName = prefixCls + '-item';
-	        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
-	        var items = children.map(function (item) {
-	            return React.createElement(
+	        var colElements = children.map(function (col, i) {
+	            return _react2["default"].createElement(
 	                'div',
-	                { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
-	                item.label
+	                { key: col.key || i, className: prefixCls + '-item' },
+	                _react2["default"].createElement(_Picker2["default"], (0, _extends3["default"])({ itemStyle: pickerItemStyle, disabled: disabled, pure: pure, indicatorStyle: indicatorStyle, prefixCls: pickerPrefixCls, selectedValue: selectedValue[i], onValueChange: _this.onValueChange.bind(_this, i) }, col.props))
 	            );
 	        });
-	        var pickerCls = (_pickerCls = {}, (0, _defineProperty3["default"])(_pickerCls, className, !!className), (0, _defineProperty3["default"])(_pickerCls, prefixCls, true), _pickerCls);
-	        return React.createElement(
+	        return _react2["default"].createElement(
 	            'div',
-	            { className: (0, _classnames2["default"])(pickerCls) },
-	            React.createElement('div', { className: prefixCls + '-mask' }),
-	            React.createElement('div', { className: prefixCls + '-indicator', ref: 'indicator' }),
-	            React.createElement(
-	                'div',
-	                { className: prefixCls + '-content', ref: 'content' },
-	                items
-	            )
+	            (0, _extends3["default"])({}, rootNativeProps, { className: (0, _classnames2["default"])(className, prefixCls) }),
+	            colElements
 	        );
 	    }
 	});
-	exports["default"] = Picker;
+	exports["default"] = MultiPicker;
 	module.exports = exports['default'];
 
 /***/ },
-/* 284 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(285);
+	var _assign = __webpack_require__(292);
 	
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+	var _assign2 = _interopRequireDefault(_assign);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
+	exports.default = _assign2.default || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+	
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
 	  }
 	
-	  return obj;
+	  return target;
 	};
 
 /***/ },
-/* 285 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(286), __esModule: true };
+	module.exports = { "default": __webpack_require__(293), __esModule: true };
 
 /***/ },
-/* 286 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(287);
-	var $Object = __webpack_require__(15).Object;
-	module.exports = function defineProperty(it, key, desc){
-	  return $Object.defineProperty(it, key, desc);
-	};
+	__webpack_require__(294);
+	module.exports = __webpack_require__(15).Object.assign;
 
 /***/ },
-/* 287 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(13);
-	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-	$export($export.S + $export.F * !__webpack_require__(23), 'Object', {defineProperty: __webpack_require__(19).f});
+	
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(295)});
 
 /***/ },
-/* 288 */
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	// 19.1.2.1 Object.assign(target, source, ...)
+	var getKeys  = __webpack_require__(34)
+	  , gOPS     = __webpack_require__(63)
+	  , pIE      = __webpack_require__(64)
+	  , toObject = __webpack_require__(50)
+	  , IObject  = __webpack_require__(37)
+	  , $assign  = Object.assign;
+	
+	// should work with symbols and should have deterministic property order (V8 bug)
+	module.exports = !$assign || __webpack_require__(24)(function(){
+	  var A = {}
+	    , B = {}
+	    , S = Symbol()
+	    , K = 'abcdefghijklmnopqrst';
+	  A[S] = 7;
+	  K.split('').forEach(function(k){ B[k] = k; });
+	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+	}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
+	  var T     = toObject(target)
+	    , aLen  = arguments.length
+	    , index = 1
+	    , getSymbols = gOPS.f
+	    , isEnum     = pIE.f;
+	  while(aLen > index){
+	    var S      = IObject(arguments[index++])
+	      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
+	      , length = keys.length
+	      , j      = 0
+	      , key;
+	    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+	  } return T;
+	} : $assign;
+
+/***/ },
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -23001,16 +23288,231 @@
 
 
 /***/ },
-/* 289 */
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _defineProperty2 = __webpack_require__(298);
+	
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+	
+	var _react = __webpack_require__(83);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(296);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _zscroller = __webpack_require__(302);
+	
+	var _zscroller2 = _interopRequireDefault(_zscroller);
+	
+	var _PickerMixin = __webpack_require__(307);
+	
+	var _PickerMixin2 = _interopRequireDefault(_PickerMixin);
+	
+	var _isChildrenEqual = __webpack_require__(308);
+	
+	var _isChildrenEqual2 = _interopRequireDefault(_isChildrenEqual);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var Picker = _react2["default"].createClass({
+	    displayName: 'Picker',
+	
+	    mixins: [_PickerMixin2["default"]],
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            prefixCls: 'rmc-picker',
+	            pure: true,
+	            onValueChange: function onValueChange() {}
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        var selectedValueState = void 0;
+	        var _props = this.props,
+	            selectedValue = _props.selectedValue,
+	            defaultSelectedValue = _props.defaultSelectedValue,
+	            children = _props.children;
+	
+	        if (selectedValue !== undefined) {
+	            selectedValueState = selectedValue;
+	        } else if (defaultSelectedValue !== undefined) {
+	            selectedValueState = defaultSelectedValue;
+	        } else if (children && children.length) {
+	            selectedValueState = children[0].value;
+	        }
+	        return {
+	            selectedValue: selectedValueState
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.itemHeight = this.refs.indicator.offsetHeight;
+	        // compact
+	        this.refs.content.style.padding = this.itemHeight * 3 + 'px 0';
+	        this.zscroller = new _zscroller2["default"](this.refs.content, {
+	            scrollingX: false,
+	            snapping: true,
+	            penetrationDeceleration: .1,
+	            minVelocityToKeepDecelerating: 0.5,
+	            scrollingComplete: this.scrollingComplete
+	        });
+	        this.zscroller.setDisabled(this.props.disabled);
+	        this.zscroller.scroller.setSnapSize(0, this.itemHeight);
+	        this.select(this.state.selectedValue);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if ('selectedValue' in nextProps) {
+	            this.setState({
+	                selectedValue: nextProps.selectedValue
+	            });
+	        }
+	        this.zscroller.setDisabled(nextProps.disabled);
+	    },
+	    shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+	        return this.state.selectedValue !== nextState.selectedValue || !(0, _isChildrenEqual2["default"])(this.props.children, nextProps.children, this.props.pure);
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        this.zscroller.reflow();
+	        this.select(this.state.selectedValue);
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        this.zscroller.destroy();
+	    },
+	    scrollTo: function scrollTo(top) {
+	        this.zscroller.scroller.scrollTo(0, top);
+	    },
+	    fireValueChange: function fireValueChange(selectedValue) {
+	        if (selectedValue !== this.state.selectedValue) {
+	            if (!('selectedValue' in this.props)) {
+	                this.setState({
+	                    selectedValue: selectedValue
+	                });
+	            }
+	            this.props.onValueChange(selectedValue);
+	        }
+	    },
+	    scrollingComplete: function scrollingComplete() {
+	        var _zscroller$scroller$g = this.zscroller.scroller.getValues(),
+	            top = _zscroller$scroller$g.top;
+	
+	        if (top >= 0) {
+	            this.doScrollingComplete(top);
+	        }
+	    },
+	    getChildMember: function getChildMember(child, m) {
+	        return child[m];
+	    },
+	    toChildrenArray: function toChildrenArray(children) {
+	        return children;
+	    },
+	    render: function render() {
+	        var _pickerCls;
+	
+	        var _props2 = this.props,
+	            children = _props2.children,
+	            prefixCls = _props2.prefixCls,
+	            className = _props2.className,
+	            itemStyle = _props2.itemStyle,
+	            indicatorStyle = _props2.indicatorStyle;
+	        var selectedValue = this.state.selectedValue;
+	
+	        var itemClassName = prefixCls + '-item';
+	        var selectedItemClassName = itemClassName + ' ' + prefixCls + '-item-selected';
+	        var items = children.map(function (item) {
+	            return _react2["default"].createElement(
+	                'div',
+	                { style: itemStyle, className: selectedValue === item.value ? selectedItemClassName : itemClassName, key: item.value },
+	                item.label
+	            );
+	        });
+	        var pickerCls = (_pickerCls = {}, (0, _defineProperty3["default"])(_pickerCls, className, !!className), (0, _defineProperty3["default"])(_pickerCls, prefixCls, true), _pickerCls);
+	        return _react2["default"].createElement(
+	            'div',
+	            { className: (0, _classnames2["default"])(pickerCls) },
+	            _react2["default"].createElement('div', { className: prefixCls + '-mask' }),
+	            _react2["default"].createElement('div', { className: prefixCls + '-indicator', ref: 'indicator', style: indicatorStyle }),
+	            _react2["default"].createElement(
+	                'div',
+	                { className: prefixCls + '-content', ref: 'content' },
+	                items
+	            )
+	        );
+	    }
+	});
+	exports["default"] = Picker;
+	module.exports = exports['default'];
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	var _defineProperty = __webpack_require__(299);
+	
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (obj, key, value) {
+	  if (key in obj) {
+	    (0, _defineProperty2.default)(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+	
+	  return obj;
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(300), __esModule: true };
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(301);
+	var $Object = __webpack_require__(15).Object;
+	module.exports = function defineProperty(it, key, desc){
+	  return $Object.defineProperty(it, key, desc);
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $export = __webpack_require__(13);
+	// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+	$export($export.S + $export.F * !__webpack_require__(23), 'Object', {defineProperty: __webpack_require__(19).f});
+
+/***/ },
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	__webpack_require__(279); // vendor check
+	__webpack_require__(303); // vendor check
 	
-	var Scroller = __webpack_require__(290);
+	var Scroller = __webpack_require__(305);
 	var MIN_INDICATOR_SIZE = 8;
 	
 	function setTransform(nodeStyle, value) {
@@ -23296,7 +23798,125 @@
 	module.exports = DOMScroller;
 
 /***/ },
-/* 290 */
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(304)
+	  , root = typeof window === 'undefined' ? global : window
+	  , vendors = ['moz', 'webkit']
+	  , suffix = 'AnimationFrame'
+	  , raf = root['request' + suffix]
+	  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
+	
+	for(var i = 0; !raf && i < vendors.length; i++) {
+	  raf = root[vendors[i] + 'Request' + suffix]
+	  caf = root[vendors[i] + 'Cancel' + suffix]
+	      || root[vendors[i] + 'CancelRequest' + suffix]
+	}
+	
+	// Some versions of FF have rAF but not cAF
+	if(!raf || !caf) {
+	  var last = 0
+	    , id = 0
+	    , queue = []
+	    , frameDuration = 1000 / 60
+	
+	  raf = function(callback) {
+	    if(queue.length === 0) {
+	      var _now = now()
+	        , next = Math.max(0, frameDuration - (_now - last))
+	      last = next + _now
+	      setTimeout(function() {
+	        var cp = queue.slice(0)
+	        // Clear queue here to prevent
+	        // callbacks from appending listeners
+	        // to the current frame's queue
+	        queue.length = 0
+	        for(var i = 0; i < cp.length; i++) {
+	          if(!cp[i].cancelled) {
+	            try{
+	              cp[i].callback(last)
+	            } catch(e) {
+	              setTimeout(function() { throw e }, 0)
+	            }
+	          }
+	        }
+	      }, Math.round(next))
+	    }
+	    queue.push({
+	      handle: ++id,
+	      callback: callback,
+	      cancelled: false
+	    })
+	    return id
+	  }
+	
+	  caf = function(handle) {
+	    for(var i = 0; i < queue.length; i++) {
+	      if(queue[i].handle === handle) {
+	        queue[i].cancelled = true
+	      }
+	    }
+	  }
+	}
+	
+	module.exports = function(fn) {
+	  // Wrap in a new function to prevent
+	  // `cancel` potentially being assigned
+	  // to the native rAF function
+	  return raf.call(root, fn)
+	}
+	module.exports.cancel = function() {
+	  caf.apply(root, arguments)
+	}
+	module.exports.polyfill = function() {
+	  root.requestAnimationFrame = raf
+	  root.cancelAnimationFrame = caf
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.7.1
+	(function() {
+	  var getNanoSeconds, hrtime, loadTime;
+	
+	  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
+	    module.exports = function() {
+	      return performance.now();
+	    };
+	  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
+	    module.exports = function() {
+	      return (getNanoSeconds() - loadTime) / 1e6;
+	    };
+	    hrtime = process.hrtime;
+	    getNanoSeconds = function() {
+	      var hr;
+	      hr = hrtime();
+	      return hr[0] * 1e9 + hr[1];
+	    };
+	    loadTime = getNanoSeconds();
+	  } else if (Date.now) {
+	    module.exports = function() {
+	      return Date.now() - loadTime;
+	    };
+	    loadTime = Date.now();
+	  } else {
+	    module.exports = function() {
+	      return new Date().getTime() - loadTime;
+	    };
+	    loadTime = new Date().getTime();
+	  }
+	
+	}).call(this);
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(85)))
+
+/***/ },
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -23314,7 +23934,7 @@
 	 */
 	
 	var Scroller;
-	var Animate = __webpack_require__(291);
+	var Animate = __webpack_require__(306);
 	
 	var NOOP = function () {
 	};
@@ -24656,7 +25276,7 @@
 
 
 /***/ },
-/* 291 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*
@@ -24683,7 +25303,7 @@
 	 * rendering. This eases a lot of cases where it might be pretty complex to break down a state
 	 * based on the pure time difference.
 	 */
-	var raf = __webpack_require__(279);
+	var raf = __webpack_require__(303);
 	
 	var desiredFrames = 60;
 	var millisecondsPerSecond = 1000;
@@ -24817,7 +25437,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 292 */
+/* 307 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24859,7 +25479,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 293 */
+/* 308 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24892,532 +25512,39 @@
 	}
 
 /***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
+/* 309 */
+/***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
-	var _toConsumableArray2 = __webpack_require__(295);
-	
-	var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-	
-	var _moment = __webpack_require__(305);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
-	var _en_US = __webpack_require__(306);
-	
-	var _en_US2 = _interopRequireDefault(_en_US);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function getDaysInMonth(now) {
-	    return now.clone().endOf('month').date();
-	}
-	function pad(n) {
-	    return n < 10 ? '0' + n : n;
-	}
-	var DATETIME = 'datetime';
-	var DATE = 'date';
-	var TIME = 'time';
-	exports.default = {
+	exports["default"] = {
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            locale: _en_US2.default,
-	            mode: DATE,
-	            minuteStep: 1,
-	            onDateChange: function onDateChange() {}
+	            prefixCls: 'rmc-multi-picker',
+	            pickerPrefixCls: 'rmc-picker',
+	            cols: [],
+	            onValueChange: function onValueChange() {},
+	
+	            disabled: false
 	        };
 	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            date: this.props.date || this.props.defaultDate
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if ('date' in nextProps) {
-	            this.setState({
-	                date: nextProps.date || nextProps.defaultDate
-	            });
-	        }
-	    },
-	    onValueChange: function onValueChange(index, value) {
-	        var props = this.props;
-	        var newValue = this.getDate().clone();
-	        if (props.mode === DATETIME || props.mode === DATE) {
-	            switch (index) {
-	                case 0:
-	                    newValue.year(value);
-	                    break;
-	                case 1:
-	                    newValue.month(value);
-	                    break;
-	                case 2:
-	                    newValue.date(value);
-	                    break;
-	                case 3:
-	                    newValue.hour(value);
-	                    break;
-	                case 4:
-	                    newValue.minute(value);
-	                    break;
-	                default:
-	                    break;
-	            }
-	        } else {
-	            switch (index) {
-	                case 0:
-	                    newValue.hour(value);
-	                    break;
-	                case 1:
-	                    newValue.minute(value);
-	                    break;
-	                default:
-	                    break;
-	            }
-	        }
-	        newValue = this.clipDate(newValue);
-	        if (!('date' in this.props)) {
-	            this.setState({
-	                date: newValue
-	            });
-	        }
-	        props.onDateChange(newValue);
-	    },
-	    getDefaultMinDate: function getDefaultMinDate() {
-	        if (!this.defaultMinDate) {
-	            this.defaultMinDate = this.getGregorianCalendar([2000, 1, 1, 0, 0, 0]);
-	        }
-	        return this.defaultMinDate;
-	    },
-	    getDefaultMaxDate: function getDefaultMaxDate() {
-	        if (!this.defaultMaxDate) {
-	            this.defaultMaxDate = this.getGregorianCalendar([2030, 1, 1, 23, 59, 59]);
-	        }
-	        return this.defaultMaxDate;
-	    },
-	    getDate: function getDate() {
-	        return this.state.date || this.getDefaultMinDate();
-	    },
-	    getMinYear: function getMinYear() {
-	        return this.getMinDate().year();
-	    },
-	    getMaxYear: function getMaxYear() {
-	        return this.getMaxDate().year();
-	    },
-	    getMinMonth: function getMinMonth() {
-	        return this.getMinDate().month();
-	    },
-	    getMaxMonth: function getMaxMonth() {
-	        return this.getMaxDate().month();
-	    },
-	    getMinDay: function getMinDay() {
-	        return this.getMinDate().date();
-	    },
-	    getMaxDay: function getMaxDay() {
-	        return this.getMaxDate().date();
-	    },
-	    getMinHour: function getMinHour() {
-	        return this.getMinDate().hour();
-	    },
-	    getMaxHour: function getMaxHour() {
-	        return this.getMaxDate().hour();
-	    },
-	    getMinMinute: function getMinMinute() {
-	        return this.getMinDate().minute();
-	    },
-	    getMaxMinute: function getMaxMinute() {
-	        return this.getMaxDate().minute();
-	    },
-	    getMinDate: function getMinDate() {
-	        return this.props.minDate || this.getDefaultMinDate();
-	    },
-	    getMaxDate: function getMaxDate() {
-	        return this.props.maxDate || this.getDefaultMaxDate();
-	    },
-	    getDateData: function getDateData() {
-	        var _props = this.props,
-	            locale = _props.locale,
-	            formatMonth = _props.formatMonth,
-	            formatDay = _props.formatDay;
-	
-	        var date = this.getDate();
-	        var selYear = date.year();
-	        var selMonth = date.month();
-	        var minDateYear = this.getMinYear();
-	        var maxDateYear = this.getMaxYear();
-	        var minDateMonth = this.getMinMonth();
-	        var maxDateMonth = this.getMaxMonth();
-	        var minDateDay = this.getMinDay();
-	        var maxDateDay = this.getMaxDay();
-	        var years = [];
-	        for (var i = minDateYear; i <= maxDateYear; i++) {
-	            years.push({
-	                value: i,
-	                label: i + locale.year
-	            });
-	        }
-	        var months = [];
-	        var minMonth = 0;
-	        var maxMonth = 11;
-	        if (minDateYear === selYear) {
-	            minMonth = minDateMonth;
-	        }
-	        if (maxDateYear === selYear) {
-	            maxMonth = maxDateMonth;
-	        }
-	        for (var _i = minMonth; _i <= maxMonth; _i++) {
-	            var label = formatMonth ? formatMonth(_i, date) : _i + 1 + locale.month;
-	            months.push({
-	                value: _i,
-	                label: label
-	            });
-	        }
-	        var days = [];
-	        var minDay = 1;
-	        var maxDay = getDaysInMonth(date);
-	        if (minDateYear === selYear && minDateMonth === selMonth) {
-	            minDay = minDateDay;
-	        }
-	        if (maxDateYear === selYear && maxDateMonth === selMonth) {
-	            maxDay = maxDateDay;
-	        }
-	        for (var _i2 = minDay; _i2 <= maxDay; _i2++) {
-	            var _label = formatDay ? formatDay(_i2, date) : _i2 + locale.day;
-	            days.push({
-	                value: _i2,
-	                label: _label
-	            });
-	        }
-	        return [years, months, days];
-	    },
-	    getTimeData: function getTimeData() {
-	        var minHour = 0;
-	        var maxHour = 23;
-	        var minMinute = 0;
-	        var maxMinute = 59;
-	        var _props2 = this.props,
-	            mode = _props2.mode,
-	            locale = _props2.locale,
-	            minuteStep = _props2.minuteStep;
-	
-	        var date = this.getDate();
-	        var minDateMinute = this.getMinMinute();
-	        var maxDateMinute = this.getMaxMinute();
-	        var minDateHour = this.getMinHour();
-	        var maxDateHour = this.getMaxHour();
-	        var hour = date.hour();
-	        if (mode === DATETIME) {
-	            var year = date.year();
-	            var month = date.month();
-	            var day = date.date();
-	            var minDateYear = this.getMinYear();
-	            var maxDateYear = this.getMaxYear();
-	            var minDateMonth = this.getMinMonth();
-	            var maxDateMonth = this.getMaxMonth();
-	            var minDateDay = this.getMinDay();
-	            var maxDateDay = this.getMaxDay();
-	            if (minDateYear === year && minDateMonth === month && minDateDay === day) {
-	                minHour = minDateHour;
-	                if (minDateHour === hour) {
-	                    minMinute = minDateMinute;
-	                }
-	            }
-	            if (maxDateYear === year && maxDateMonth === month && maxDateDay === day) {
-	                maxHour = maxDateHour;
-	                if (maxDateHour === hour) {
-	                    maxMinute = maxDateMinute;
-	                }
-	            }
-	        } else {
-	            minHour = minDateHour;
-	            if (minDateHour === hour) {
-	                minMinute = minDateMinute;
-	            }
-	            maxHour = maxDateHour;
-	            if (maxDateHour === hour) {
-	                maxMinute = maxDateMinute;
-	            }
-	        }
-	        var hours = [];
-	        for (var i = minHour; i <= maxHour; i++) {
-	            hours.push({
-	                value: i,
-	                label: locale.hour ? i + locale.hour : pad(i)
-	            });
-	        }
-	        var minutes = [];
-	        for (var _i3 = minMinute; _i3 <= maxMinute; _i3 += minuteStep) {
-	            minutes.push({
-	                value: _i3,
-	                label: locale.minute ? _i3 + locale.minute : pad(_i3)
-	            });
-	        }
-	        return [hours, minutes];
-	    },
-	    getGregorianCalendar: function getGregorianCalendar(arg) {
-	        return (0, _moment2.default)(arg);
-	    },
-	    clipDate: function clipDate(date) {
-	        var mode = this.props.mode;
-	
-	        var minDate = this.getMinDate();
-	        var maxDate = this.getMaxDate();
-	        if (mode === DATETIME) {
-	            if (date.isBefore(minDate)) {
-	                return minDate.clone();
-	            }
-	            if (date.isAfter(maxDate)) {
-	                return maxDate.clone();
-	            }
-	        } else if (mode === DATE) {
-	            if (date.isBefore(minDate, 'day')) {
-	                return minDate.clone();
-	            }
-	            if (date.isAfter(maxDate, 'day')) {
-	                return maxDate.clone();
-	            }
-	        } else {
-	            var maxHour = maxDate.hour();
-	            var maxMinutes = maxDate.minute();
-	            var minHour = minDate.hour();
-	            var minMinutes = minDate.minute();
-	            var hour = date.hour();
-	            var minutes = date.minute();
-	            if (hour < minHour || hour === minHour && minutes < minMinutes) {
-	                return minDate.clone();
-	            }
-	            if (hour > maxHour || hour === maxHour && minutes > maxMinutes) {
-	                return maxDate.clone();
-	            }
-	        }
-	        return date;
-	    },
-	    getValueDataSource: function getValueDataSource() {
-	        var mode = this.props.mode;
-	
-	        var date = this.getDate();
-	        var dataSource = [];
-	        var value = [];
-	        if (mode === DATETIME || mode === DATE) {
-	            dataSource = [].concat((0, _toConsumableArray3.default)(this.getDateData()));
-	            value = [date.year(), date.month(), date.date()];
-	        }
-	        if (mode === DATETIME || mode === TIME) {
-	            dataSource = dataSource.concat(this.getTimeData());
-	            value = value.concat([date.hour(), date.minute()]);
-	        }
-	        return {
-	            value: value,
-	            dataSource: dataSource
-	        };
+	    onValueChange: function onValueChange(i, v) {
+	        var value = this.props.selectedValue.concat();
+	        value[i] = v;
+	        this.props.onValueChange(value, i);
 	    }
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	exports.__esModule = true;
-	
-	var _from = __webpack_require__(296);
-	
-	var _from2 = _interopRequireDefault(_from);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (arr) {
-	  if (Array.isArray(arr)) {
-	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	      arr2[i] = arr[i];
-	    }
-	
-	    return arr2;
-	  } else {
-	    return (0, _from2.default)(arr);
-	  }
-	};
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(297), __esModule: true };
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(7);
-	__webpack_require__(298);
-	module.exports = __webpack_require__(15).Array.from;
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var ctx            = __webpack_require__(16)
-	  , $export        = __webpack_require__(13)
-	  , toObject       = __webpack_require__(50)
-	  , call           = __webpack_require__(299)
-	  , isArrayIter    = __webpack_require__(300)
-	  , toLength       = __webpack_require__(40)
-	  , createProperty = __webpack_require__(301)
-	  , getIterFn      = __webpack_require__(302);
-	
-	$export($export.S + $export.F * !__webpack_require__(304)(function(iter){ Array.from(iter); }), 'Array', {
-	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
-	    var O       = toObject(arrayLike)
-	      , C       = typeof this == 'function' ? this : Array
-	      , aLen    = arguments.length
-	      , mapfn   = aLen > 1 ? arguments[1] : undefined
-	      , mapping = mapfn !== undefined
-	      , index   = 0
-	      , iterFn  = getIterFn(O)
-	      , length, result, step, iterator;
-	    if(mapping)mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-	    // if object isn't iterable or it's array with default iterator - use simple case
-	    if(iterFn != undefined && !(C == Array && isArrayIter(iterFn))){
-	      for(iterator = iterFn.call(O), result = new C; !(step = iterator.next()).done; index++){
-	        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-	      }
-	    } else {
-	      length = toLength(O.length);
-	      for(result = new C(length); length > index; index++){
-	        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-	      }
-	    }
-	    result.length = index;
-	    return result;
-	  }
-	});
-
-
-/***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// call something on iterator step with safe closing on error
-	var anObject = __webpack_require__(20);
-	module.exports = function(iterator, fn, value, entries){
-	  try {
-	    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-	  // 7.4.6 IteratorClose(iterator, completion)
-	  } catch(e){
-	    var ret = iterator['return'];
-	    if(ret !== undefined)anObject(ret.call(iterator));
-	    throw e;
-	  }
-	};
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// check on default Array iterator
-	var Iterators  = __webpack_require__(30)
-	  , ITERATOR   = __webpack_require__(48)('iterator')
-	  , ArrayProto = Array.prototype;
-	
-	module.exports = function(it){
-	  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-	};
-
-/***/ },
-/* 301 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var $defineProperty = __webpack_require__(19)
-	  , createDesc      = __webpack_require__(27);
-	
-	module.exports = function(object, index, value){
-	  if(index in object)$defineProperty.f(object, index, createDesc(0, value));
-	  else object[index] = value;
-	};
-
-/***/ },
-/* 302 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var classof   = __webpack_require__(303)
-	  , ITERATOR  = __webpack_require__(48)('iterator')
-	  , Iterators = __webpack_require__(30);
-	module.exports = __webpack_require__(15).getIteratorMethod = function(it){
-	  if(it != undefined)return it[ITERATOR]
-	    || it['@@iterator']
-	    || Iterators[classof(it)];
-	};
-
-/***/ },
-/* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// getting tag from 19.1.3.6 Object.prototype.toString()
-	var cof = __webpack_require__(38)
-	  , TAG = __webpack_require__(48)('toStringTag')
-	  // ES3 wrong here
-	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
-	
-	// fallback for IE11 Script Access Denied error
-	var tryGet = function(it, key){
-	  try {
-	    return it[key];
-	  } catch(e){ /* empty */ }
-	};
-	
-	module.exports = function(it){
-	  var O, T, B;
-	  return it === undefined ? 'Undefined' : it === null ? 'Null'
-	    // @@toStringTag case
-	    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-	    // builtinTag case
-	    : ARG ? cof(O)
-	    // ES3 arguments fallback
-	    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-	};
-
-/***/ },
-/* 304 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ITERATOR     = __webpack_require__(48)('iterator')
-	  , SAFE_CLOSING = false;
-	
-	try {
-	  var riter = [7][ITERATOR]();
-	  riter['return'] = function(){ SAFE_CLOSING = true; };
-	  Array.from(riter, function(){ throw 2; });
-	} catch(e){ /* empty */ }
-	
-	module.exports = function(exec, skipClosing){
-	  if(!skipClosing && !SAFE_CLOSING)return false;
-	  var safe = false;
-	  try {
-	    var arr  = [7]
-	      , iter = arr[ITERATOR]();
-	    iter.next = function(){ return {done: safe = true}; };
-	    arr[ITERATOR] = function(){ return iter; };
-	    exec(arr);
-	  } catch(e){ /* empty */ }
-	  return safe;
-	};
-
-/***/ },
-/* 305 */
+/* 310 */
 /***/ function(module, exports) {
 
 	//! moment.js
-	//! version : 2.17.0
+	//! version : 2.17.1
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 	//! license : MIT
 	//! momentjs.com
@@ -29682,7 +29809,7 @@
 	// Side effect imports
 	
 	
-	hooks.version = '2.17.0';
+	hooks.version = '2.17.1';
 	
 	setHookCallback(createLocal);
 	
@@ -29720,7 +29847,7 @@
 
 
 /***/ },
-/* 306 */
+/* 311 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29738,7 +29865,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 307 */
+/* 312 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29756,7 +29883,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 308 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29765,7 +29892,7 @@
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(305)) :
+	    true ? factory(__webpack_require__(310)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -29888,7 +30015,7 @@
 
 
 /***/ },
-/* 309 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -29896,7 +30023,7 @@
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(305)) :
+	    true ? factory(__webpack_require__(310)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -29960,10 +30087,10 @@
 
 
 /***/ },
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**

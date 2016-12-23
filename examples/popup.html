@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>popup.js - example - rmc-date-picker@5.2.0</title>
+  <title>popup.js - example - rmc-date-picker@5.3.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-date-picker@5.2.0</h1>
+      <h1>rmc-date-picker@5.3.0</h1>
 
       <p>React Mobile DatePicker Component for web and react-native</p>
     </div>
@@ -274,7 +274,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-date-picker/assets/index.css'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">'rmc-picker/assets/popup.css'</span>;
-<span class="hljs-comment">// const zhCnCalendar = null;</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> PopPicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Popup'</span>;
@@ -324,7 +323,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     <span class="hljs-keyword">this</span>.setState({
       date,
     });
-  };
+  }
 
   onPickerChange(date) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onPickerChange'</span>, format(date));
@@ -332,11 +331,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
   onDismiss = () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onDismiss'</span>);
-  };
+  }
 
   show = () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'my click'</span>);
-  };
+  }
 
   render() {
     <span class="hljs-keyword">const</span> props = <span class="hljs-keyword">this</span>.props;
