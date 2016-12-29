@@ -114,9 +114,9 @@ react-native run-ios
 |onChange | exec on ok | Function(date: moment) |  |
 |onVisibleChange | called when pop picker visible change | Function | |
 |onDismiss | exec on dismiss | function |  |
-|okText | ok button text | String | 'Ok' |
-|dismissText | dismiss button text | String | 'Dismiss' |
-|title | Popup title | String | '' |
+|okText | ok button text | string/React.ReactElement | 'Ok' |
+|dismissText | dismiss button text | string/React.ReactElement | 'Dismiss' |
+|title | Popup title | string/React.ReactElement | '' |
 
 
 ## Test Case
