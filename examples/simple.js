@@ -3,12 +3,12 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(315);
+	module.exports = __webpack_require__(305);
 
 
 /***/ },
 
-/***/ 315:
+/***/ 305:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29,7 +29,7 @@ webpackJsonp([1],{
 	
 	__webpack_require__(81);
 	
-	var _index = __webpack_require__(316);
+	var _index = __webpack_require__(306);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -41,21 +41,21 @@ webpackJsonp([1],{
 	
 	var ReactDOM = _interopRequireWildcard(_reactDom);
 	
-	var _moment = __webpack_require__(310);
+	var _moment = __webpack_require__(300);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _zh_CN = __webpack_require__(312);
+	var _zh_CN = __webpack_require__(302);
 	
 	var _zh_CN2 = _interopRequireDefault(_zh_CN);
 	
-	var _en_US = __webpack_require__(311);
+	var _en_US = __webpack_require__(301);
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	__webpack_require__(313);
+	__webpack_require__(303);
 	
-	__webpack_require__(314);
+	__webpack_require__(304);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -64,15 +64,15 @@ webpackJsonp([1],{
 	/* tslint:disable:no-console */
 	var cn = location.search.indexOf('cn') !== -1;
 	var minDate = (0, _moment2.default)([2015, 8, 15, 0, 0, 0]);
-	var maxDate = (0, _moment2.default)([2018, 1, 1, 22, 0, 0]);
+	var maxDate = (0, _moment2.default)([2018, 1, 1, 23, 59, 59]);
 	var now = (0, _moment2.default)();
 	if (cn) {
-	    minDate.locale('zh-cn').utcOffset(8);
-	    maxDate.locale('zh-cn').utcOffset(8);
+	    // minDate.locale('zh-cn').utcOffset(8);
+	    // maxDate.locale('zh-cn').utcOffset(8);
 	    now.locale('zh-cn').utcOffset(8);
 	} else {
-	    minDate.locale('en-gb').utcOffset(0);
-	    maxDate.locale('en-gb').utcOffset(0);
+	    // minDate.locale('en-gb').utcOffset(0);
+	    // maxDate.locale('en-gb').utcOffset(0);
 	    now.locale('en-gb').utcOffset(0);
 	}
 	function format(date) {
@@ -93,31 +93,38 @@ webpackJsonp([1],{
 	                date: date
 	            });
 	        };
+	        _this.changeMode = function (e) {
+	            _this.setState({
+	                mode: e.target.value
+	            });
+	        };
 	        _this.state = {
-	            date: null
+	            date: null,
+	            mode: 'datetime'
 	        };
 	        return _this;
 	    }
 	
 	    Demo.prototype.render = function render() {
 	        var props = this.props;
-	        var date = this.state.date;
+	        var _state = this.state,
+	            date = _state.date,
+	            mode = _state.mode;
 	
-	        return React.createElement("div", { style: { margin: '10px 30px' } }, React.createElement("h2", null, "date picker"), React.createElement("div", null, React.createElement("span", null, date && format(date) || format(now)), React.createElement(_index2.default, { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || now, mode: props.mode, locale: props.locale, maxDate: maxDate, minDate: minDate, onDateChange: this.onDateChange })));
+	        return React.createElement("div", { style: { margin: '10px 30px' } }, React.createElement("h2", null, "date picker"), React.createElement("select", { value: this.state.mode, onChange: this.changeMode }, React.createElement("option", null, "datetime"), React.createElement("option", null, "date"), React.createElement("option", null, "time"), React.createElement("option", null, "month"), React.createElement("option", null, "year")), React.createElement("div", null, React.createElement("span", null, date && format(date) || format(now)), React.createElement(_index2.default, { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || now, mode: mode, locale: props.locale, maxDate: maxDate, minDate: minDate, onDateChange: this.onDateChange })));
 	    };
 	
 	    return Demo;
 	}(React.Component);
 	
 	Demo.defaultProps = {
-	    mode: 'datetime',
 	    locale: cn ? _zh_CN2.default : _en_US2.default
 	};
 	ReactDOM.render(React.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ },
 
-/***/ 316:
+/***/ 306:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
