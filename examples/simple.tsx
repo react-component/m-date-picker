@@ -14,16 +14,16 @@ import 'moment/locale/en-gb';
 const cn = location.search.indexOf('cn') !== -1;
 
 const minDate = moment([2015, 8, 15, 0, 0, 0]);
-const maxDate = moment([2018, 1, 1, 22, 0, 0]);
+const maxDate = moment([2018, 1, 1, 23, 59, 59]);
 const now = moment();
 
 if (cn) {
-  minDate.locale('zh-cn').utcOffset(8);
-  maxDate.locale('zh-cn').utcOffset(8);
+  // minDate.locale('zh-cn').utcOffset(8);
+  // maxDate.locale('zh-cn').utcOffset(8);
   now.locale('zh-cn').utcOffset(8);
 } else {
-  minDate.locale('en-gb').utcOffset(0);
-  maxDate.locale('en-gb').utcOffset(0);
+  // minDate.locale('en-gb').utcOffset(0);
+  // maxDate.locale('en-gb').utcOffset(0);
   now.locale('en-gb').utcOffset(0);
 }
 
@@ -33,7 +33,6 @@ function format(date) {
 
 class Demo extends React.Component<any, any> {
   static defaultProps = {
-    mode: 'datetime',
     locale: cn ? zhCn : enUs,
   };
 
@@ -41,6 +40,7 @@ class Demo extends React.Component<any, any> {
     super(props);
     this.state = {
       date: null,
+      mode: 'datetime',
     };
   }
 
@@ -51,18 +51,33 @@ class Demo extends React.Component<any, any> {
     });
   }
 
+  changeMode = (e) => {
+    this.setState({
+      mode: e.target.value,
+    });
+  }
+
   render() {
     const props = this.props;
-    const {date} = this.state;
+    const { date, mode } = this.state;
 
     return (<div style={{ margin: '10px 30px' }}>
       <h2>date picker</h2>
+
+      <select value={this.state.mode} onChange={this.changeMode}>
+        <option>datetime</option>
+        <option>date</option>
+        <option>time</option>
+        <option>month</option>
+        <option>year</option>
+      </select>
+
       <div>
         <span>{date && format(date) || format(now)}</span>
         <DatePicker
           rootNativeProps={{'data-xx':'yy'}}
           defaultDate={date || now}
-          mode={props.mode}
+          mode={mode}
           locale={props.locale}
           maxDate={maxDate}
           minDate={minDate}

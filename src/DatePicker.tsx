@@ -19,6 +19,8 @@ const smallPickerItem = {
 const DATETIME = 'datetime';
 const DATE = 'date';
 const TIME = 'time';
+const MONTH = 'month';
+const YEAR = 'year';
 
 const DatePicker = React.createClass<IDatePickerProps, any>({
   getDefaultProps() {
@@ -50,8 +52,9 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
   onValueChange(values, index) {
     const value = parseInt(values[index], 10);
     const props = this.props;
+    const { mode } = props;
     let newValue = this.getDate().clone();
-    if (props.mode === DATETIME || props.mode === DATE) {
+    if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
       switch (index) {
         case 0:
           newValue.year(value);
@@ -84,7 +87,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       }
     }
     newValue = this.clipDate(newValue);
-    if (!('date' in this.props)) {
+    if (!('date' in props)) {
       this.setState({
         date: newValue,
       });
@@ -163,7 +166,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
   },
 
   getDateData() {
-    const { locale, formatMonth, formatDay } = this.props;
+    const { locale, formatMonth, formatDay, mode } = this.props;
     const date = this.getDate();
     const selYear = date.year();
     const selMonth = date.month();
@@ -179,6 +182,10 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
         value: i + '',
         label: i + locale.year + '',
       });
+    }
+    const yearCol = { key: 'year', props: { children: years } };
+    if (mode === YEAR) {
+      return [ yearCol ];
     }
 
     const months: any[] = [];
@@ -196,6 +203,10 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
         value: i + '',
         label,
       });
+    }
+    const monthCol = { key: 'month', props: { children: months } };
+    if (mode === MONTH) {
+      return [yearCol, monthCol];
     }
 
     const days: any[] = [];
@@ -216,8 +227,8 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       });
     }
     return [
-      { key: 'year', props: { children: years } },
-      { key: 'month', props: { children: months } },
+      yearCol,
+      monthCol,
       { key: 'day', props: { children: days } },
     ];
   },
@@ -332,8 +343,23 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
     const date = this.getDate();
     let cols: any[] = [];
     let value: any[] = [];
+
+    if (mode === YEAR) {
+      return {
+        cols: this.getDateData(),
+        value: [date.year() + ''],
+      };
+    }
+
+    if (mode === MONTH) {
+      return {
+        cols: this.getDateData(),
+        value: [date.year() + '', date.month() + ''],
+      };
+    }
+
     if (mode === DATETIME || mode === DATE) {
-      cols = [...this.getDateData()];
+      cols = this.getDateData();
       value = [date.year() + '', date.month() + '', date.date() + ''];
     }
 

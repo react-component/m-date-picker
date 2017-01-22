@@ -89,7 +89,7 @@ react-native run-ios
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
 |defaultDate | default selected date. | moment | |
 |date | The currently selected date. | moment |  |
-|mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime') |
+|mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month') |
 |minDate | min date | moment | 2000-1-1 |
 |maxDate | max date | moment | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
