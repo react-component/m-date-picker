@@ -462,6 +462,7 @@ webpackJsonp([0],{
 	        };
 	    },
 	    componentWillMount: function componentWillMount() {
+	        this.inTransition = false;
 	        this.titleId = 'rcDialogTitle' + uuid++;
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -486,6 +487,7 @@ webpackJsonp([0],{
 	                }
 	            }
 	        } else if (prevProps.visible) {
+	            this.inTransition = true;
 	            if (props.mask && this.lastOutSideFocusNode) {
 	                try {
 	                    this.lastOutSideFocusNode.focus();
@@ -497,7 +499,7 @@ webpackJsonp([0],{
 	        }
 	    },
 	    componentWillUnmount: function componentWillUnmount() {
-	        if (this.props.visible) {
+	        if (this.props.visible || this.inTransition) {
 	            this.removeScrollingEffect();
 	        }
 	    },
@@ -507,6 +509,7 @@ webpackJsonp([0],{
 	        if (this.refs.wrap) {
 	            this.refs.wrap.style.display = 'none';
 	        }
+	        this.inTransition = false;
 	        this.removeScrollingEffect();
 	        this.props.afterClose();
 	    },
@@ -1800,7 +1803,7 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _Event = __webpack_require__(270);
 	
@@ -2573,8 +2576,12 @@ webpackJsonp([0],{
 	            this.setState({
 	                pickerValue: pickerValue
 	            });
-	            if (this.picker && this.picker.props[this.props.pickerValueChangeProp]) {
-	                this.picker.props[this.props.pickerValueChangeProp](pickerValue);
+	            var _props = this.props,
+	                picker = _props.picker,
+	                pickerValueChangeProp = _props.pickerValueChangeProp;
+	
+	            if (picker && picker.props[pickerValueChangeProp]) {
+	                picker.props[pickerValueChangeProp](pickerValue);
 	            }
 	        }
 	    },
@@ -2605,9 +2612,9 @@ webpackJsonp([0],{
 	        if (!children) {
 	            return this.getModal();
 	        }
-	        var _props = this.props,
-	            WrapComponent = _props.WrapComponent,
-	            disabled = _props.disabled;
+	        var _props2 = this.props,
+	            WrapComponent = _props2.WrapComponent,
+	            disabled = _props2.disabled;
 	
 	        var child = children;
 	        var newChildProps = {};
@@ -2958,7 +2965,7 @@ webpackJsonp([0],{
 	            clearTimeout(this.pressOutDelayTimeout);
 	            this.pressOutDelayTimeout = null;
 	        }
-	        if (!isAllowPress()) {
+	        if (this.props.fixClickPenetration && !isAllowPress()) {
 	            return;
 	        }
 	        this._remeasureMetricsOnInit(e);
@@ -2986,8 +2993,7 @@ webpackJsonp([0],{
 	        }
 	    },
 	    touchableHandleResponderRelease: function touchableHandleResponderRelease(e) {
-	        if (!isAllowPress()) {
-	            this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
+	        if (!this.touchable.startMouse) {
 	            return;
 	        }
 	        var touch = extractSingleTouch(e);
@@ -3001,6 +3007,9 @@ webpackJsonp([0],{
 	        this._receiveSignal(Signals.RESPONDER_RELEASE, e);
 	    },
 	    touchableHandleResponderTerminate: function touchableHandleResponderTerminate(e) {
+	        if (!this.touchable.startMouse) {
+	            return;
+	        }
 	        this._receiveSignal(Signals.RESPONDER_TERMINATED, e);
 	    },
 	    checkTouchWithinActive: function checkTouchWithinActive(e) {
@@ -3025,6 +3034,9 @@ webpackJsonp([0],{
 	        return pageX > positionOnGrant.left - pressExpandLeft && pageY > positionOnGrant.top - pressExpandTop && pageX < positionOnGrant.left + positionOnGrant.width + pressExpandRight && pageY < positionOnGrant.top + positionOnGrant.height + pressExpandBottom;
 	    },
 	    touchableHandleResponderMove: function touchableHandleResponderMove(e) {
+	        if (!this.touchable.startMouse) {
+	            return;
+	        }
 	        // Measurement may not have returned yet.
 	        if (!this.touchable.dimensionsOnActivate || this.touchable.touchState === States.NOT_RESPONDER) {
 	            return;
