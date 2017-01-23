@@ -1,9 +1,9 @@
 import React from 'react';
 import IDatePickerProps from './IDatePickerProps';
 import PopupPicker from 'rmc-picker/lib/Popup';
-import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
+import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 
-export interface IPopupDatePickerProps extends PopupPickerProps {
+export interface IPopupDatePickerProps extends IPopupPickerProps {
   datePicker: React.ReactElement<IDatePickerProps>;
   onChange?: (date?) => void;
   date?: any;
