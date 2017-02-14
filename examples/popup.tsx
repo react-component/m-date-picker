@@ -64,10 +64,10 @@ class Demo extends React.Component<any, any> {
 
   render() {
     const props = this.props;
-    const {date} = this.state;
+    const { date } = this.state;
     const datePicker = (
       <DatePicker
-        rootNativeProps={{'data-xx':'yy'}}
+        rootNativeProps={{'data-xx': 'yy'}}
         minDate={minDate}
         maxDate={maxDate}
         defaultDate={now}
