@@ -1,6 +1,3 @@
-import '../assets/index.less';
-import 'rmc-picker/assets/index.css';
-import expect from 'expect.js';
 /* tslint:disable:no-unused-variable */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -45,7 +42,7 @@ describe('m-date-picker', () => {
 
   it('render works', () => {
     const wrappers = rootDom.find('.rmc-picker');
-    expect(wrappers.length).to.be(5);
+    expect(wrappers.length).toBe(5);
     const indicators = map$(wrappers, (n) => {
       return n.find('.rmc-picker-indicator')[0];
     });
@@ -73,10 +70,10 @@ describe('m-date-picker', () => {
       return parseInt(this.innerHTML.slice(0, -1), 10) === date.minute();
     });
 
-    expect(isEqTop(yearEl[0], indicators[0])).to.be(true);
-    expect(isEqTop(monthEl[0], indicators[1])).to.be(true);
-    expect(isEqTop(dayEl[0], indicators[2])).to.be(true);
-    expect(isEqTop(hourEl[0], indicators[3])).to.be(true);
-    expect(isEqTop(minuteEl[0], indicators[4])).to.be(true);
+    expect(isEqTop(yearEl[0], indicators[0])).toBe(true);
+    expect(isEqTop(monthEl[0], indicators[1])).toBe(true);
+    expect(isEqTop(dayEl[0], indicators[2])).toBe(true);
+    expect(isEqTop(hourEl[0], indicators[3])).toBe(true);
+    expect(isEqTop(minuteEl[0], indicators[4])).toBe(true);
   });
 });
