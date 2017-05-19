@@ -56,7 +56,6 @@
     "fastclick": "^1.0.6",
     "jquery": "^2.1.4",
     "pre-commit": "1.x",
-    "rc-test": "6.x",
     "rc-tools": "6.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
