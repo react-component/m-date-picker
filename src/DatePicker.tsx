@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import MultiPicker from 'rmc-picker/lib/MultiPicker';
 import IDatePickerProps from './IDatePickerProps';
 import moment from 'moment';
@@ -22,7 +23,7 @@ const TIME = 'time';
 const MONTH = 'month';
 const YEAR = 'year';
 
-const DatePicker = React.createClass<IDatePickerProps, any>({
+const DatePicker = createReactClass<IDatePickerProps, any>({
   getDefaultProps() {
     return {
       prefixCls: 'rmc-date-picker',

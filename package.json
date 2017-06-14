@@ -50,6 +50,7 @@
   "devDependencies": {
     "coveralls": "^2.11.15",
     "jest": "^20.0.0",
+    "@types/jest": "^19.2.4",
     "@types/react": "~0.14.41",
     "@types/react-dom": "~0.14.18",
     "@types/react-native": "~0.29.36",
@@ -68,6 +69,7 @@
   ],
   "dependencies": {
     "babel-runtime": "6.x",
+    "create-react-class": "^15.5.4",
     "moment": "2.x",
     "rmc-picker": "^3.8.0"
   }

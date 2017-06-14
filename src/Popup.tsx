@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import IDatePickerProps from './IDatePickerProps';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
@@ -8,7 +9,7 @@ export interface IPopupDatePickerProps extends IPopupPickerProps {
   onChange?: (date?) => void;
   date?: any;
 }
-const PopupDatePicker = React.createClass<IPopupDatePickerProps, any>({
+const PopupDatePicker = createReactClass<IPopupDatePickerProps, any>({
   getDefaultProps() {
     return {
       pickerValueProp: 'date',
