@@ -61,7 +61,7 @@
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-native": "0.41.x",
-    "react-native-index-page": "~0.1.0"
+    "react-native-index-page": "~0.2.0"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [
@@ -69,7 +69,6 @@
   ],
   "dependencies": {
     "babel-runtime": "6.x",
-    "create-react-class": "^15.5.4",
     "moment": "2.x",
     "rmc-picker": "^3.8.0"
   }
