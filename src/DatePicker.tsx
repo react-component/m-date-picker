@@ -239,7 +239,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
-    const { mode, locale, minuteStep = 1 } = this.props;
+    const { mode, locale, minuteStep } = this.props;
     const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
@@ -288,7 +288,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const minutes: any[] = [];
-    for (let i = minMinute; i <= maxMinute; i += minuteStep) {
+    for (let i = minMinute; i <= maxMinute; i += minuteStep!) {
       minutes.push({
         value: i + '',
         label: locale.minute ? i + locale.minute + '' : pad(i),
