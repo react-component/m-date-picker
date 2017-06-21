@@ -1,5 +1,5 @@
 import React from 'react';
-import Picker from 'rmc-picker/lib/index.web';
+import Picker from 'rmc-picker/lib/index';
 import classnames from 'classnames';
 import DatePickerProps from './DatePickerProps';
 import DatePickerMixin from './DatePickerMixin';
@@ -31,7 +31,7 @@ const DatePickerWeb = React.createClass<DatePickerProps, any>({
             prefixCls={pickerPrefixCls}
             pure={false}
             selectedValue={value[i]}
-            onValueChange={(v) => {this.onValueChange(i, v);}}
+            onValueChange={(v) => {this.onValueChange(i, v); }}
           >
             {items}
           </Picker>

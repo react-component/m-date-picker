@@ -53,7 +53,7 @@ class Demo extends React.Component<any, any> {
     this.setState({
       date,
     });
-  };
+  }
 
   render() {
     const props = this.props;

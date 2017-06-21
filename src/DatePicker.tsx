@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlexAlignType } from 'react-native';
 import React from 'react';
-import Picker from 'rmc-picker/lib/Picker';
+import Picker from 'rmc-picker/lib/Picker.native';
 import DatePickerProps from './DatePickerProps';
 import DatePickerMixin from './DatePickerMixin';
 
@@ -33,7 +33,7 @@ const DatePicker = React.createClass<DatePickerProps, any>({
           itemStyle={mode === 'datetime' ? styles.smallPickerItem : undefined}
           pure={false}
           selectedValue={value[i]}
-          onValueChange={(v) => {this.onValueChange(i, v);}}
+          onValueChange={(v) => {this.onValueChange(i, v); }}
         >
           {items}
         </Picker>

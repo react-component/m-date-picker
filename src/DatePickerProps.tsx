@@ -1,3 +1,4 @@
+/* tslint:disable: interface-name */
 interface DatePickerProps {
   date?: any;
   defaultDate?: any;

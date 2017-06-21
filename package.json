@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "React Mobile DatePicker Component for web and react-native",
   "keywords": [
     "react",
@@ -41,7 +41,8 @@
     "saucelabs": "rc-tools run saucelabs",
     "test": "rc-tools run test",
     "chrome-test": "rc-tools run chrome-test",
-    "coverage": "rc-tools run coverage"
+    "coverage": "rc-tools run coverage",
+    "rn-init": "rc-tools run react-native-init"
   },
   "devDependencies": {
     "@types/mocha": "~2.2.32",
@@ -56,7 +57,7 @@
     "react": "15.3.2",
     "react-addons-test-utils": "15.3.2",
     "react-dom": "15.3.2",
-    "react-native": "0.34.1",
+    "react-native": "0.39.0",
     "react-native-index-page": "~0.1.0"
   },
   "typings": "./lib/index.web.d.ts",

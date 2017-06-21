@@ -1,12 +1,13 @@
+/* tslint:disable: interface-name */
 import React from 'react';
 import DatePickerProps from './DatePickerProps';
 import PopupPicker from 'rmc-picker/lib/Popup';
-import { PopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
+import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 
 function noop() {
 }
 
-export interface PopupDatePickerProps extends PopupPickerProps {
+export interface PopupDatePickerProps extends IPopupPickerProps {
   prefixCls?: string;
   datePicker: React.ReactElement<DatePickerProps>;
   onPickerChange?: (date) => void;
@@ -46,16 +47,16 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
     if (this.props.datePicker.props.onDateChange) {
       this.props.datePicker.props.onDateChange(pickerDate);
     }
-  };
+  }
 
   onOk = () => {
     const { onChange } = this.props;
     if (onChange) {
       onChange(
-        this.datePicker.getDate()
+        this.datePicker.getDate(),
       );
     }
-  };
+  }
 
   setVisibleState(visible) {
     this.setState({
@@ -70,7 +71,7 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
 
   saveRef = (datePicker) => {
     this.datePicker = datePicker;
-  };
+  }
 
   fireVisibleChange = (visible) => {
     if (this.state.visible !== visible) {
@@ -82,7 +83,7 @@ export default class PopupDatePicker extends React.Component<PopupDatePickerProp
         onVisibleChange(visible);
       }
     }
-  };
+  }
 
   render() {
     const dataPicker = React.cloneElement(this.props.datePicker, {

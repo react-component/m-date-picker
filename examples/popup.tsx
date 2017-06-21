@@ -53,7 +53,7 @@ class Demo extends React.Component<any, any> {
     this.setState({
       date,
     });
-  };
+  }
 
   onPickerChange(date) {
     console.log('onPickerChange', format(date));
@@ -61,18 +61,18 @@ class Demo extends React.Component<any, any> {
 
   onDismiss = () => {
     console.log('onDismiss');
-  };
+  }
 
   show = () => {
     console.log('my click');
-  };
+  }
 
   render() {
     const props = this.props;
     const {date} = this.state;
     const datePicker = (
       <DatePicker
-        rootNativeProps={{'data-xx':'yy'}}
+        rootNativeProps={{'data-xx': 'yy'}}
         minDate={minDate}
         maxDate={maxDate}
         defaultDate={now}

@@ -58,15 +58,15 @@ export class PopupDemo extends React.Component<any, any> {
     this.setState({
       date,
     });
-  };
+  }
 
   onDismiss = () => {
     console.log('onDismiss');
-  };
+  }
 
   show = () => {
     console.log('my click');
-  };
+  }
 
   render() {
     const props = this.props;

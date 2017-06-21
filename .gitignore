@@ -1,5 +1,6 @@
 *.iml
 *.log
+*.log.*
 .idea
 .ipr
 .iws
@@ -33,3 +34,4 @@ android/
 xcuserdata
 yarn.lock
 .vscode
+_ts2js/
