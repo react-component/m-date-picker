@@ -40,7 +40,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/*"
+      "lib/*"
     ],
     "transform": {
       "\\.tsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js",
