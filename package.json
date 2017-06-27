@@ -40,7 +40,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/*"
+      "lib/*"
     ],
     "transform": {
       "\\.tsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js",
@@ -50,6 +50,7 @@
   "devDependencies": {
     "coveralls": "^2.11.15",
     "jest": "^20.0.0",
+    "@types/jest": "^19.2.4",
     "@types/react": "~0.14.41",
     "@types/react-dom": "~0.14.18",
     "@types/react-native": "~0.29.36",
@@ -60,7 +61,7 @@
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-native": "0.41.x",
-    "react-native-index-page": "~0.1.0"
+    "react-native-index-page": "~0.2.0"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [

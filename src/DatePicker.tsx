@@ -22,24 +22,23 @@ const TIME = 'time';
 const MONTH = 'month';
 const YEAR = 'year';
 
-const DatePicker = React.createClass<IDatePickerProps, any>({
-  getDefaultProps() {
-    return {
-      prefixCls: 'rmc-date-picker',
-      pickerPrefixCls: 'rmc-picker',
-      locale: defaultLocale,
-      mode: DATE,
-      minuteStep: 1,
-      onDateChange() {
-      },
-    };
-  },
+class DatePicker extends React.Component<IDatePickerProps, any> {
+  static defaultProps = {
+    prefixCls: 'rmc-date-picker',
+    pickerPrefixCls: 'rmc-picker',
+    locale: defaultLocale,
+    mode: DATE,
+    minuteStep: 1,
+    onDateChange() {
+    },
+  };
 
-  getInitialState() {
-    return {
-      date: this.props.date || this.props.defaultDate,
-    };
-  },
+  state = {
+    date: this.props.date || this.props.defaultDate,
+  };
+
+  defaultMinDate: any;
+  defaultMaxDate: any;
 
   componentWillReceiveProps(nextProps) {
     if ('date' in nextProps) {
@@ -47,9 +46,9 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
         date: nextProps.date || nextProps.defaultDate,
       });
     }
-  },
+  }
 
-  onValueChange(values, index) {
+  onValueChange = (values, index) => {
     const value = parseInt(values[index], 10);
     const props = this.props;
     const { mode } = props;
@@ -92,78 +91,80 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
         date: newValue,
       });
     }
-    props.onDateChange(newValue);
-  },
+    if (props.onDateChange) {
+      props.onDateChange(newValue);
+    }
+  }
 
   getDefaultMinDate() {
     if (!this.defaultMinDate) {
       this.defaultMinDate = this.getGregorianCalendar([2000, 1, 1, 0, 0, 0]);
     }
     return this.defaultMinDate;
-  },
+  }
 
   getDefaultMaxDate() {
     if (!this.defaultMaxDate) {
       this.defaultMaxDate = this.getGregorianCalendar([2030, 1, 1, 23, 59, 59]);
     }
     return this.defaultMaxDate;
-  },
+  }
 
   getDate() {
     return this.state.date || this.getDefaultMinDate();
-  },
+  }
 
   getValue() {
     return this.getDate();
-  },
+  }
 
   getMinYear() {
     return this.getMinDate().year();
-  },
+  }
 
   getMaxYear() {
     return this.getMaxDate().year();
-  },
+  }
 
   getMinMonth() {
     return this.getMinDate().month();
-  },
+  }
 
   getMaxMonth() {
     return this.getMaxDate().month();
-  },
+  }
 
   getMinDay() {
     return this.getMinDate().date();
-  },
+  }
 
   getMaxDay() {
     return this.getMaxDate().date();
-  },
+  }
 
   getMinHour() {
     return this.getMinDate().hour();
-  },
+  }
 
   getMaxHour() {
     return this.getMaxDate().hour();
-  },
+  }
 
   getMinMinute() {
     return this.getMinDate().minute();
-  },
+  }
 
   getMaxMinute() {
     return this.getMaxDate().minute();
-  },
+  }
 
   getMinDate() {
     return this.props.minDate || this.getDefaultMinDate();
-  },
+  }
 
   getMaxDate() {
     return this.props.maxDate || this.getDefaultMaxDate();
-  },
+  }
 
   getDateData() {
     const { locale, formatMonth, formatDay, mode } = this.props;
@@ -231,7 +232,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       monthCol,
       { key: 'day', props: { children: days } },
     ];
-  },
+  }
 
   getTimeData() {
     let minHour = 0;
@@ -287,7 +288,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
     }
 
     const minutes: any[] = [];
-    for (let i = minMinute; i <= maxMinute; i += minuteStep) {
+    for (let i = minMinute; i <= maxMinute; i += minuteStep!) {
       minutes.push({
         value: i + '',
         label: locale.minute ? i + locale.minute + '' : pad(i),
@@ -297,11 +298,11 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       { key: 'hours', props: { children: hours } },
       { key: 'minutes', props: { children: minutes } },
     ];
-  },
+  }
 
   getGregorianCalendar(arg) {
     return moment(arg);
-  },
+  }
 
   clipDate(date) {
     const { mode } = this.props;
@@ -336,7 +337,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       }
     }
     return date;
-  },
+  }
 
   getValueCols() {
     const { mode } = this.props;
@@ -371,7 +372,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
       value,
       cols,
     };
-  },
+  }
 
   render() {
     const { value, cols } = this.getValueCols();
@@ -389,7 +390,7 @@ const DatePicker = React.createClass<IDatePickerProps, any>({
         {cols}
       </MultiPicker>
     );
-  },
-});
+  }
+}
 
 export default DatePicker;
