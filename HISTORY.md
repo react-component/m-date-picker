@@ -1,6 +1,10 @@
 # History
 ----
 
+## 6.x
+
+- Note: remove moment.js
+
 ## 5.2.0 / 2016-12-17
 
 - support formatMonth/formatDay
