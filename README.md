@@ -87,16 +87,16 @@ react-native run-ios
 |className(web) | additional css class of root dom node | String | '' |
 |prefixCls(web) | prefix class | String | 'rmc-date-picker' |
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
-|defaultDate | default selected date. | moment | |
-|date | The currently selected date. | moment |  |
+|defaultDate | default selected date. | Date | |
+|date | The currently selected date. | Date |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month') |
-|minDate | min date | moment | 2000-1-1 |
-|maxDate | max date | moment | 2030-1-1 |
+|minDate | min date | Date | 2000-1-1 |
+|maxDate | max date | Date | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
-|onDateChange | Date change handler. | Function(date: moment) | '' |
+|onDateChange | Date change handler. | Function(date: Date) | '' |
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
-|formatMonth | Customize display value of months | (month:number, current:moment) => React.Node | |
-|formatDay | Customize display value of days | (day:number, current:moment) => React.Node | |
+|formatMonth | Customize display value of months | (month:number, current:Date) => React.Node | |
+|formatDay | Customize display value of days | (day:number, current:Date) => React.Node | |
 
 ### rmc-date-picker/lib/Popup props
 
@@ -109,9 +109,9 @@ react-native run-ios
 |prefixCls(web) | popup's prefix class | String | 'rmc-picker-popup' |
 |styles(react-native) | PopupPicker's styles | StyleSheet.create |  |
 |datePicker | DatePicker element | React DatePicker element |  |
-|date | The currently selected date. | moment |  |
+|date | The currently selected date. | Date |  |
 |visible | whether pop picker is visible | Boolean | false |
-|onChange | exec on ok | Function(date: moment) |  |
+|onChange | exec on ok | Function(date: Date) |  |
 |onVisibleChange | called when pop picker visible change | Function | |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | string/React.ReactElement | 'Ok' |
