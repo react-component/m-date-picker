@@ -24,6 +24,7 @@ const DATE = 'date';
 const TIME = 'time';
 const MONTH = 'month';
 const YEAR = 'year';
+const ONE_DAY = 24 * 60 * 60 * 1000;
 
 class DatePicker extends React.Component<IDatePickerProps, any> {
   static defaultProps = {
@@ -319,10 +320,11 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         return cloneDate(maxDate);
       }
     } else if (mode === DATE) {
-      if (+date + 24 * 60 * 60 * 1000 <= minDate) {
+      // compare-two-dates: https://stackoverflow.com/a/14629978/2190503
+      if (+date + ONE_DAY <= minDate) {
         return cloneDate(minDate);
       }
-      if (date >= +maxDate + 24 * 60 * 60 * 1000) {
+      if (date >= +maxDate + ONE_DAY) {
         return cloneDate(maxDate);
       }
     } else {
