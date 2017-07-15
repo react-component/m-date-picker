@@ -4,4 +4,4 @@ export default {
   day: 'روز',
   hour: 'ساعت',
   minute: 'دقیقه',
-}
+};
