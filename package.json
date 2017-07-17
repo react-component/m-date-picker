@@ -69,6 +69,6 @@
   ],
   "dependencies": {
     "babel-runtime": "6.x",
-    "rmc-picker": "^3.8.0"
+    "rmc-picker": "^4.0.1"
   }
 }
