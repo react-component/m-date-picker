@@ -8,7 +8,7 @@ React Mobile DatePicker Component (web and react-native)
 ![react-native](https://img.shields.io/badge/react--native-%3E%3D_0.30.0-green.svg)
 ![react](https://img.shields.io/badge/react-%3E%3D_15.2.0-green.svg)
 [![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
+[![Codecov](https://img.shields.io/codecov/c/github/react-component/m-date-picker.svg?style=flat-square)](https://codecov.io/gh/react-component/m-date-picker)
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
@@ -17,8 +17,6 @@ React Mobile DatePicker Component (web and react-native)
 [npm-url]: http://npmjs.org/package/rmc-date-picker
 [travis-image]: https://img.shields.io/travis/react-component/m-date-picker.svg?style=flat-square
 [travis-url]: https://travis-ci.org/react-component/m-date-picker
-[coveralls-image]: https://img.shields.io/coveralls/react-component/m-date-picker.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/react-component/m-date-picker?branch=master
 [gemnasium-image]: http://img.shields.io/gemnasium/react-component/m-date-picker.svg?style=flat-square
 [gemnasium-url]: https://gemnasium.com/react-component/m-date-picker
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square

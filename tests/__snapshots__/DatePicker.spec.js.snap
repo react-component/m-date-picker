@@ -1,0 +1,733 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker renders correctly 1`] = `
+<div
+  class="rmc-date-picker"
+>
+  <div
+    class="rmc-picker"
+  >
+    <div
+      class="rmc-picker-mask"
+    />
+    <div
+      class="rmc-picker-indicator "
+    />
+    <div
+      class="rmc-picker-content"
+    >
+      <div
+        class="rmc-picker-item "
+      >
+        2015
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        2016
+      </div>
+      <div
+        class="rmc-picker-item rmc-picker-item-selected "
+      >
+        2017
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        2018
+      </div>
+    </div>
+  </div>
+  <div
+    class="rmc-picker"
+  >
+    <div
+      class="rmc-picker-mask"
+    />
+    <div
+      class="rmc-picker-indicator "
+    />
+    <div
+      class="rmc-picker-content"
+    >
+      <div
+        class="rmc-picker-item "
+      >
+        1
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        2
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        3
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        4
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        5
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        6
+      </div>
+      <div
+        class="rmc-picker-item rmc-picker-item-selected "
+      >
+        7
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        8
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        9
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        10
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        11
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        12
+      </div>
+    </div>
+  </div>
+  <div
+    class="rmc-picker"
+  >
+    <div
+      class="rmc-picker-mask"
+    />
+    <div
+      class="rmc-picker-indicator "
+    />
+    <div
+      class="rmc-picker-content"
+    >
+      <div
+        class="rmc-picker-item "
+      >
+        1
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        2
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        3
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        4
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        5
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        6
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        7
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        8
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        9
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        10
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        11
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        12
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        13
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        14
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        15
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        16
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        17
+      </div>
+      <div
+        class="rmc-picker-item rmc-picker-item-selected "
+      >
+        18
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        19
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        20
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        21
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        22
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        23
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        24
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        25
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        26
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        27
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        28
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        29
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        30
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        31
+      </div>
+    </div>
+  </div>
+  <div
+    class="rmc-picker"
+  >
+    <div
+      class="rmc-picker-mask"
+    />
+    <div
+      class="rmc-picker-indicator "
+    />
+    <div
+      class="rmc-picker-content"
+    >
+      <div
+        class="rmc-picker-item "
+      >
+        00
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        01
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        02
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        03
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        04
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        05
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        06
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        07
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        08
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        09
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        10
+      </div>
+      <div
+        class="rmc-picker-item rmc-picker-item-selected "
+      >
+        11
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        12
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        13
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        14
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        15
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        16
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        17
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        18
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        19
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        20
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        21
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        22
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        23
+      </div>
+    </div>
+  </div>
+  <div
+    class="rmc-picker"
+  >
+    <div
+      class="rmc-picker-mask"
+    />
+    <div
+      class="rmc-picker-indicator "
+    />
+    <div
+      class="rmc-picker-content"
+    >
+      <div
+        class="rmc-picker-item "
+      >
+        00
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        01
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        02
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        03
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        04
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        05
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        06
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        07
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        08
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        09
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        10
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        11
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        12
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        13
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        14
+      </div>
+      <div
+        class="rmc-picker-item rmc-picker-item-selected "
+      >
+        15
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        16
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        17
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        18
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        19
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        20
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        21
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        22
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        23
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        24
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        25
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        26
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        27
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        28
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        29
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        30
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        31
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        32
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        33
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        34
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        35
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        36
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        37
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        38
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        39
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        40
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        41
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        42
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        43
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        44
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        45
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        46
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        47
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        48
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        49
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        50
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        51
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        52
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        53
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        54
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        55
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        56
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        57
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        58
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        59
+      </div>
+    </div>
+  </div>
+</div>
+`;
