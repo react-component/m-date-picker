@@ -16,6 +16,11 @@ function cloneDate(date) {
   return new Date(+date);
 }
 
+function setMonth(date, month) {
+  date.setDate(Math.min(date.getDate(), getDaysInMonth(new Date(date.getFullYear(), month))));
+  date.setMonth(month);
+}
+
 const smallPickerItem = {
   fontSize: 20,
 };
@@ -64,7 +69,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
           newValue.setFullYear(value);
           break;
         case 1:
-          newValue.setMonth(value);
+          // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
+          // e.g. from 2017-03-31 to 2017-02-28
+          setMonth(newValue, value);
           break;
         case 2:
           newValue.setDate(value);

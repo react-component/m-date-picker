@@ -17,7 +17,7 @@ class Demo extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      date: null,
+      date: new Date(2017, 2, 31, 15, 1, 1),
       mode: 'datetime',
     };
   }
