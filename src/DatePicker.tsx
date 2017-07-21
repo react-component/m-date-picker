@@ -41,6 +41,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     minuteStep: 1,
     onDateChange() {
     },
+    use12Hours: false,
   };
 
   state = {
@@ -77,10 +78,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
           newValue.setDate(value);
           break;
         case 3:
-          newValue.setHours(value);
+          this.setHours(newValue, value);
           break;
         case 4:
           newValue.setMinutes(value);
+          break;
+        case 5:
+          this.setAmPm(newValue, value);
           break;
         default:
           break;
@@ -88,10 +92,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     } else {
       switch (index) {
         case 0:
-          newValue.setHours(value);
+          this.setHours(newValue, value);
           break;
         case 1:
           newValue.setMinutes(value);
+          break;
+        case 2:
+          this.setAmPm(newValue, value);
           break;
         default:
           break;
@@ -105,6 +112,25 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
     if (props.onDateChange) {
       props.onDateChange(newValue);
+    }
+  }
+
+  setHours(date, hour) {
+    if (this.props.use12Hours) {
+      const dh = date.getHours();
+      let nhour = dh === 0 ? 0 : hour;
+      nhour = dh > 12 ? hour + 12 : hour;
+      date.setHours(nhour);
+    } else {
+      date.setHours(hour);
+    }
+  }
+
+  setAmPm(date, index) {
+    if (index === 0) {
+      date.setTime(+date - ONE_DAY / 2);
+    } else {
+      date.setTime(+date + ONE_DAY / 2);
     }
   }
 
@@ -126,9 +152,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     return this.state.date || this.getDefaultMinDate();
   }
 
-  getValue() {
-    return this.getDate();
-  }
+  // getValue() {
+  //   return this.getDate();
+  // }
 
   getMinYear() {
     return this.getMinDate().getFullYear();
@@ -246,12 +272,26 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     ];
   }
 
+  getDisplayHour(rawHour) {
+    // 12 hour am (midnight 00:00) -> 12 hour pm (noon 12:00) -> 12 hour am (midnight 00:00)
+    if (this.props.use12Hours) {
+      if (rawHour === 0) {
+        rawHour = 12;
+      }
+      if (rawHour > 12) {
+        rawHour -= 12;
+      }
+      return rawHour;
+    }
+    return rawHour;
+  }
+
   getTimeData() {
     let minHour = 0;
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
-    const { mode, locale, minuteStep } = this.props;
+    const { mode, locale, minuteStep, use12Hours } = this.props;
     const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
@@ -292,6 +332,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const hours: any[] = [];
+    if (minHour === 0 && maxHour === 0 || minHour !== 0 && maxDateHour !== 0) {
+      minHour = this.getDisplayHour(minHour);
+    } else if (minHour === 0) {
+      minHour = 1;
+      hours.push({ value: '12', label: locale.hour ? '12' + locale.hour : '12' });
+    }
+    maxHour = this.getDisplayHour(maxHour);
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i + '',
@@ -309,7 +356,10 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     return [
       { key: 'hours', props: { children: hours } },
       { key: 'minutes', props: { children: minutes } },
-    ];
+    ].concat(use12Hours ? [{
+      key: 'ampm',
+      props: { children: [{ value: 0, label: locale.am }, { value: 1, label: locale.pm }]},
+    }] : []);
   }
 
   getGregorianCalendar(arg) {
@@ -353,7 +403,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   getValueCols() {
-    const { mode } = this.props;
+    const { mode, use12Hours } = this.props;
     const date = this.getDate();
     let cols: any[] = [];
     let value: any[] = [];
@@ -379,7 +429,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
     if (mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
-      value = value.concat([date.getHours() + '', date.getMinutes() + '']);
+      let hour = date.getHours();
+      let dtValue = [hour + '', date.getMinutes() + ''];
+      if (use12Hours) {
+        hour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+        dtValue = [hour + '', date.getMinutes() + '', (hour >= 12 ? 1 : 0) + ''];
+      }
+      value = value.concat(dtValue);
     }
     return {
       value,

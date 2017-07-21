@@ -60,6 +60,7 @@ class Demo extends React.Component<any, any> {
           maxDate={maxDate}
           minDate={minDate}
           onDateChange={this.onDateChange}
+          use12Hours
         />
       </div>
     </div>);

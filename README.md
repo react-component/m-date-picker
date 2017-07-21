@@ -95,6 +95,7 @@ react-native run-ios
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
 |formatMonth | Customize display value of months | (month:number, current:Date) => React.Node | |
 |formatDay | Customize display value of days | (day:number, current:Date) => React.Node | |
+|use12Hours | 12 hours display mode | Boolean | false |
 
 ### rmc-date-picker/lib/Popup props
 
