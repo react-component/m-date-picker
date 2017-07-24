@@ -118,8 +118,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   setHours(date, hour) {
     if (this.props.use12Hours) {
       const dh = date.getHours();
-      let nhour = dh === 0 ? 0 : hour;
-      nhour = dh > 12 ? hour + 12 : hour;
+      let nhour = hour;
+      nhour = dh >= 12 ? hour + 12 : hour;
+      nhour = nhour >= 24 ? 0 : nhour; // Make sure no more than one day
       date.setHours(nhour);
     } else {
       date.setHours(hour);
@@ -332,11 +333,11 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const hours: any[] = [];
-    if (minHour === 0 && maxHour === 0 || minHour !== 0 && maxDateHour !== 0) {
+    if (minHour === 0 && maxHour === 0 || minHour !== 0 && maxHour !== 0) {
       minHour = this.getDisplayHour(minHour);
-    } else if (minHour === 0) {
+    } else if (minHour === 0 && use12Hours) {
       minHour = 1;
-      hours.push({ value: '12', label: locale.hour ? '12' + locale.hour : '12' });
+      hours.push({ value: '0', label: locale.hour ? '12' + locale.hour : '12' });
     }
     maxHour = this.getDisplayHour(maxHour);
     for (let i = minHour; i <= maxHour; i++) {
@@ -358,7 +359,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       { key: 'minutes', props: { children: minutes } },
     ].concat(use12Hours ? [{
       key: 'ampm',
-      props: { children: [{ value: 0, label: locale.am }, { value: 1, label: locale.pm }]},
+      props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }]},
     }] : []);
   }
 
@@ -429,11 +430,12 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
     if (mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
-      let hour = date.getHours();
+      const hour = date.getHours();
       let dtValue = [hour + '', date.getMinutes() + ''];
+      let nhour = hour;
       if (use12Hours) {
-        hour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
-        dtValue = [hour + '', date.getMinutes() + '', (hour >= 12 ? 1 : 0) + ''];
+        nhour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+        dtValue = [nhour + '', date.getMinutes() + '', (hour >= 12 ? 1 : 0) + ''];
       }
       value = value.concat(dtValue);
     }
