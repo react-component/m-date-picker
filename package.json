@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0-alpha.1",
   "description": "React Mobile DatePicker Component for web and react-native",
   "keywords": [
     "react",
@@ -53,15 +53,14 @@
     "enzyme-to-json": "^1.4.5",
     "jest": "^20.0.0",
     "@types/jest": "^19.2.4",
-    "@types/react": "~0.14.41",
-    "@types/react-dom": "~0.14.18",
-    "@types/react-native": "~0.29.36",
+    "@types/react": "^15.5.0",
+    "@types/react-dom": "^15.5.0",
     "fastclick": "^1.0.6",
     "pre-commit": "1.x",
     "rc-tools": "6.x",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
-    "react-native": "0.41.x",
+    "react-native": "0.42.x",
     "react-native-index-page": "~0.2.0",
     "react-test-renderer": "^15.5.0"
   },

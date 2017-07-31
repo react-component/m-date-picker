@@ -3,6 +3,7 @@
 exports[`DatePicker renders correctly 1`] = `
 <div
   class="rmc-date-picker"
+  data-xx="yy"
 >
   <div
     class="rmc-picker"
@@ -210,7 +211,7 @@ exports[`DatePicker renders correctly 1`] = `
         17
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         18
       </div>
@@ -275,7 +276,7 @@ exports[`DatePicker renders correctly 1`] = `
         30
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         31
       </div>
@@ -296,7 +297,7 @@ exports[`DatePicker renders correctly 1`] = `
       <div
         class="rmc-picker-item "
       >
-        00
+        12
       </div>
       <div
         class="rmc-picker-item "
@@ -324,7 +325,7 @@ exports[`DatePicker renders correctly 1`] = `
         05
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         06
       </div>
@@ -349,69 +350,9 @@ exports[`DatePicker renders correctly 1`] = `
         10
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         11
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        12
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        13
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        14
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        15
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        16
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        17
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        18
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        19
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        20
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        21
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        22
-      </div>
-      <div
-        class="rmc-picker-item "
-      >
-        23
       </div>
     </div>
   </div>
@@ -503,7 +444,7 @@ exports[`DatePicker renders correctly 1`] = `
         14
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         15
       </div>
@@ -658,7 +599,7 @@ exports[`DatePicker renders correctly 1`] = `
         45
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         46
       </div>
@@ -726,6 +667,30 @@ exports[`DatePicker renders correctly 1`] = `
         class="rmc-picker-item "
       >
         59
+      </div>
+    </div>
+  </div>
+  <div
+    class="rmc-picker"
+  >
+    <div
+      class="rmc-picker-mask"
+    />
+    <div
+      class="rmc-picker-indicator "
+    />
+    <div
+      class="rmc-picker-content"
+    >
+      <div
+        class="rmc-picker-item rmc-picker-item-selected "
+      >
+        AM
+      </div>
+      <div
+        class="rmc-picker-item "
+      >
+        PM
       </div>
     </div>
   </div>
