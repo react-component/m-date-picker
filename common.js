@@ -5409,10 +5409,13 @@ var DatePicker = function (_React$Component) {
         value: function getDate() {
             return this.state.date || this.getDefaultMinDate();
         }
-        // getValue() {
-        //   return this.getDate();
-        // }
+        // used by rmc-picker/lib/PopupMixin.js
 
+    }, {
+        key: 'getValue',
+        value: function getValue() {
+            return this.getDate();
+        }
     }, {
         key: 'getMinYear',
         value: function getMinYear() {
