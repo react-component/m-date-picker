@@ -3,7 +3,8 @@
 
 ## 6.x
 
-- Note: remove moment.js
+- Remove moment.js and change date type from Moment to Date.
+- Add use12Hours prop.
 
 ## 5.2.0 / 2016-12-17
 
