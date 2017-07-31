@@ -17,6 +17,7 @@ interface IDatePickerProps {
   pickerPrefixCls?: string;
   /** web only */
   className?: string;
+  use12Hours?: boolean;
 }
 
 export default IDatePickerProps;

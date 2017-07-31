@@ -1,15 +1,24 @@
 import React from 'react';
 import MultiPicker from 'rmc-picker/lib/MultiPicker';
+import Picker from 'rmc-picker/lib/Picker';
 import IDatePickerProps from './IDatePickerProps';
-import moment from 'moment';
 import defaultLocale from './locale/en_US';
 
-function getDaysInMonth(now) {
-  return now.clone().endOf('month').date();
+function getDaysInMonth(date) {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
 function pad(n) {
   return n < 10 ? `0${n}` : n + '';
+}
+
+function cloneDate(date) {
+  return new Date(+date);
+}
+
+function setMonth(date, month) {
+  date.setDate(Math.min(date.getDate(), getDaysInMonth(new Date(date.getFullYear(), month))));
+  date.setMonth(month);
 }
 
 const smallPickerItem = {
@@ -21,6 +30,7 @@ const DATE = 'date';
 const TIME = 'time';
 const MONTH = 'month';
 const YEAR = 'year';
+const ONE_DAY = 24 * 60 * 60 * 1000;
 
 class DatePicker extends React.Component<IDatePickerProps, any> {
   static defaultProps = {
@@ -31,6 +41,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     minuteStep: 1,
     onDateChange() {
     },
+    use12Hours: false,
   };
 
   state = {
@@ -52,23 +63,28 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const value = parseInt(values[index], 10);
     const props = this.props;
     const { mode } = props;
-    let newValue = this.getDate().clone();
+    let newValue = cloneDate(this.getDate());
     if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
       switch (index) {
         case 0:
-          newValue.year(value);
+          newValue.setFullYear(value);
           break;
         case 1:
-          newValue.month(value);
+          // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
+          // e.g. from 2017-03-31 to 2017-02-28
+          setMonth(newValue, value);
           break;
         case 2:
-          newValue.date(value);
+          newValue.setDate(value);
           break;
         case 3:
-          newValue.hour(value);
+          this.setHours(newValue, value);
           break;
         case 4:
-          newValue.minute(value);
+          newValue.setMinutes(value);
+          break;
+        case 5:
+          this.setAmPm(newValue, value);
           break;
         default:
           break;
@@ -76,10 +92,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     } else {
       switch (index) {
         case 0:
-          newValue.hour(value);
+          this.setHours(newValue, value);
           break;
         case 1:
-          newValue.minute(value);
+          newValue.setMinutes(value);
+          break;
+        case 2:
+          this.setAmPm(newValue, value);
           break;
         default:
           break;
@@ -93,6 +112,26 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
     if (props.onDateChange) {
       props.onDateChange(newValue);
+    }
+  }
+
+  setHours(date, hour) {
+    if (this.props.use12Hours) {
+      const dh = date.getHours();
+      let nhour = hour;
+      nhour = dh >= 12 ? hour + 12 : hour;
+      nhour = nhour >= 24 ? 0 : nhour; // Make sure no more than one day
+      date.setHours(nhour);
+    } else {
+      date.setHours(hour);
+    }
+  }
+
+  setAmPm(date, index) {
+    if (index === 0) {
+      date.setTime(+date - ONE_DAY / 2);
+    } else {
+      date.setTime(+date + ONE_DAY / 2);
     }
   }
 
@@ -114,48 +153,48 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     return this.state.date || this.getDefaultMinDate();
   }
 
-  getValue() {
-    return this.getDate();
-  }
+  // getValue() {
+  //   return this.getDate();
+  // }
 
   getMinYear() {
-    return this.getMinDate().year();
+    return this.getMinDate().getFullYear();
   }
 
   getMaxYear() {
-    return this.getMaxDate().year();
+    return this.getMaxDate().getFullYear();
   }
 
   getMinMonth() {
-    return this.getMinDate().month();
+    return this.getMinDate().getMonth();
   }
 
   getMaxMonth() {
-    return this.getMaxDate().month();
+    return this.getMaxDate().getMonth();
   }
 
   getMinDay() {
-    return this.getMinDate().date();
+    return this.getMinDate().getDate();
   }
 
   getMaxDay() {
-    return this.getMaxDate().date();
+    return this.getMaxDate().getDate();
   }
 
   getMinHour() {
-    return this.getMinDate().hour();
+    return this.getMinDate().getHours();
   }
 
   getMaxHour() {
-    return this.getMaxDate().hour();
+    return this.getMaxDate().getHours();
   }
 
   getMinMinute() {
-    return this.getMinDate().minute();
+    return this.getMinDate().getMinutes();
   }
 
   getMaxMinute() {
-    return this.getMaxDate().minute();
+    return this.getMaxDate().getMinutes();
   }
 
   getMinDate() {
@@ -169,8 +208,8 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   getDateData() {
     const { locale, formatMonth, formatDay, mode } = this.props;
     const date = this.getDate();
-    const selYear = date.year();
-    const selMonth = date.month();
+    const selYear = date.getFullYear();
+    const selMonth = date.getMonth();
     const minDateYear = this.getMinYear();
     const maxDateYear = this.getMaxYear();
     const minDateMonth = this.getMinMonth();
@@ -234,22 +273,36 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     ];
   }
 
+  getDisplayHour(rawHour) {
+    // 12 hour am (midnight 00:00) -> 12 hour pm (noon 12:00) -> 12 hour am (midnight 00:00)
+    if (this.props.use12Hours) {
+      if (rawHour === 0) {
+        rawHour = 12;
+      }
+      if (rawHour > 12) {
+        rawHour -= 12;
+      }
+      return rawHour;
+    }
+    return rawHour;
+  }
+
   getTimeData() {
     let minHour = 0;
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
-    const { mode, locale, minuteStep } = this.props;
+    const { mode, locale, minuteStep, use12Hours } = this.props;
     const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
     const minDateHour = this.getMinHour();
     const maxDateHour = this.getMaxHour();
-    const hour = date.hour();
+    const hour = date.getHours();
     if (mode === DATETIME) {
-      const year = date.year();
-      const month = date.month();
-      const day = date.date();
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
       const minDateYear = this.getMinYear();
       const maxDateYear = this.getMaxYear();
       const minDateMonth = this.getMinMonth();
@@ -280,6 +333,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const hours: any[] = [];
+    if (minHour === 0 && maxHour === 0 || minHour !== 0 && maxHour !== 0) {
+      minHour = this.getDisplayHour(minHour);
+    } else if (minHour === 0 && use12Hours) {
+      minHour = 1;
+      hours.push({ value: '0', label: locale.hour ? '12' + locale.hour : '12' });
+    }
+    maxHour = this.getDisplayHour(maxHour);
     for (let i = minHour; i <= maxHour; i++) {
       hours.push({
         value: i + '',
@@ -297,11 +357,14 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     return [
       { key: 'hours', props: { children: hours } },
       { key: 'minutes', props: { children: minutes } },
-    ];
+    ].concat(use12Hours ? [{
+      key: 'ampm',
+      props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }]},
+    }] : []);
   }
 
   getGregorianCalendar(arg) {
-    return moment(arg);
+    return new Date(...arg);
   }
 
   clipDate(date) {
@@ -309,38 +372,39 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const minDate = this.getMinDate();
     const maxDate = this.getMaxDate();
     if (mode === DATETIME) {
-      if (date.isBefore(minDate)) {
-        return minDate.clone();
+      if (date < minDate) {
+        return cloneDate(minDate);
       }
-      if (date.isAfter(maxDate)) {
-        return maxDate.clone();
+      if (date > maxDate) {
+        return cloneDate(maxDate);
       }
     } else if (mode === DATE) {
-      if (date.isBefore(minDate, 'day')) {
-        return minDate.clone();
+      // compare-two-dates: https://stackoverflow.com/a/14629978/2190503
+      if (+date + ONE_DAY <= minDate) {
+        return cloneDate(minDate);
       }
-      if (date.isAfter(maxDate, 'day')) {
-        return maxDate.clone();
+      if (date >= +maxDate + ONE_DAY) {
+        return cloneDate(maxDate);
       }
     } else {
-      const maxHour = maxDate.hour();
-      const maxMinutes = maxDate.minute();
-      const minHour = minDate.hour();
-      const minMinutes = minDate.minute();
-      const hour = date.hour();
-      const minutes = date.minute();
+      const maxHour = maxDate.getHours();
+      const maxMinutes = maxDate.getMinutes();
+      const minHour = minDate.getHours();
+      const minMinutes = minDate.getMinutes();
+      const hour = date.getHours();
+      const minutes = date.getMinutes();
       if (hour < minHour || hour === minHour && minutes < minMinutes) {
-        return minDate.clone();
+        return cloneDate(minDate);
       }
       if (hour > maxHour || hour === maxHour && minutes > maxMinutes) {
-        return maxDate.clone();
+        return cloneDate(maxDate);
       }
     }
     return date;
   }
 
   getValueCols() {
-    const { mode } = this.props;
+    const { mode, use12Hours } = this.props;
     const date = this.getDate();
     let cols: any[] = [];
     let value: any[] = [];
@@ -348,25 +412,32 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     if (mode === YEAR) {
       return {
         cols: this.getDateData(),
-        value: [date.year() + ''],
+        value: [date.getFullYear() + ''],
       };
     }
 
     if (mode === MONTH) {
       return {
         cols: this.getDateData(),
-        value: [date.year() + '', date.month() + ''],
+        value: [date.getFullYear() + '', date.getMonth() + ''],
       };
     }
 
     if (mode === DATETIME || mode === DATE) {
       cols = this.getDateData();
-      value = [date.year() + '', date.month() + '', date.date() + ''];
+      value = [date.getFullYear() + '', date.getMonth() + '', date.getDate() + ''];
     }
 
     if (mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
-      value = value.concat([date.hour() + '', date.minute() + '']);
+      const hour = date.getHours();
+      let dtValue = [hour + '', date.getMinutes() + ''];
+      let nhour = hour;
+      if (use12Hours) {
+        nhour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+        dtValue = [nhour + '', date.getMinutes() + '', (hour >= 12 ? 1 : 0) + ''];
+      }
+      value = value.concat(dtValue);
     }
     return {
       value,
@@ -382,12 +453,22 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         rootNativeProps={rootNativeProps}
         className={className}
         prefixCls={prefixCls}
-        pickerPrefixCls={pickerPrefixCls}
-        pickerItemStyle={typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined}
         selectedValue={value}
         onValueChange={this.onValueChange}
       >
-        {cols}
+        {cols.map(p => (
+          <Picker
+            key={p.key}
+            prefixCls={pickerPrefixCls}
+            itemStyle={typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined}
+          >
+            {p.props.children.map(item => (
+              <Picker.Item key={item.value} value={item.value}>
+                {item.label}
+              </Picker.Item>
+            ))}
+          </Picker>
+        ))}
       </MultiPicker>
     );
   }

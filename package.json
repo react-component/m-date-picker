@@ -1,6 +1,6 @@
 {
   "name": "rmc-date-picker",
-  "version": "5.4.1",
+  "version": "6.0.0-alpha.0",
   "description": "React Mobile DatePicker Component for web and react-native",
   "keywords": [
     "react",
@@ -21,7 +21,7 @@
     "es",
     "assets/*.css"
   ],
-  "licenses": "MIT",
+  "license": "MIT",
   "main": "./lib/index",
   "module": "./es/index",
   "config": {
@@ -36,11 +36,12 @@
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
     "test": "jest",
-    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
+    "coverage": "jest --coverage"
   },
   "jest": {
+    "moduleFileExtensions": ["tsx", "js"],
     "collectCoverageFrom": [
-      "lib/*"
+      "src/**/*"
     ],
     "transform": {
       "\\.tsx?$": "./node_modules/rc-tools/scripts/jestPreprocessor.js",
@@ -48,20 +49,21 @@
     }
   },
   "devDependencies": {
-    "coveralls": "^2.11.15",
+    "enzyme": "^2.6.0",
+    "enzyme-to-json": "^1.4.5",
     "jest": "^20.0.0",
     "@types/jest": "^19.2.4",
     "@types/react": "~0.14.41",
     "@types/react-dom": "~0.14.18",
     "@types/react-native": "~0.29.36",
     "fastclick": "^1.0.6",
-    "jquery": "^2.1.4",
     "pre-commit": "1.x",
     "rc-tools": "6.x",
-    "react": "15.5.x",
-    "react-dom": "15.5.x",
+    "react": "^15.5.0",
+    "react-dom": "^15.5.0",
     "react-native": "0.41.x",
-    "react-native-index-page": "~0.2.0"
+    "react-native-index-page": "~0.2.0",
+    "react-test-renderer": "^15.5.0"
   },
   "typings": "./lib/index.d.ts",
   "pre-commit": [
@@ -69,7 +71,6 @@
   ],
   "dependencies": {
     "babel-runtime": "6.x",
-    "moment": "2.x",
-    "rmc-picker": "^3.8.0"
+    "rmc-picker": "^4.0.1"
   }
 }

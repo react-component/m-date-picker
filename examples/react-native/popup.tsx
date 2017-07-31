@@ -5,31 +5,9 @@ import * as React from 'react';
 import PopPicker from '../../src/Popup';
 import DatePicker from '../../src/DatePicker';
 import PopupStyles from '../../src/PopupStyles';
-import moment from 'moment';
 import zhCn from '../../src/locale/zh_CN';
 import enUs from '../../src/locale/en_US';
-import 'moment/locale/zh-cn';
-import 'moment/locale/en-gb';
-
-const cn = true;
-
-const minDate = moment([2015, 8, 1, 0, 0, 0]);
-const maxDate = moment([2018, 1, 1, 22, 0, 0]);
-const now = moment();
-
-if (cn) {
-  minDate.locale('zh-cn').utcOffset(8);
-  maxDate.locale('zh-cn').utcOffset(8);
-  now.locale('zh-cn').utcOffset(8);
-} else {
-  minDate.locale('en-gb').utcOffset(0);
-  maxDate.locale('en-gb').utcOffset(0);
-  now.locale('en-gb').utcOffset(0);
-}
-
-function format(date) {
-  return date.format('YYYY-MM-DD HH:mm');
-}
+import { cn, format, minDate, maxDate, now } from '../utils';
 
 const styles = StyleSheet.create({
   button: {

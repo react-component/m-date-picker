@@ -8,7 +8,7 @@ React Mobile DatePicker Component (web and react-native)
 ![react-native](https://img.shields.io/badge/react--native-%3E%3D_0.30.0-green.svg)
 ![react](https://img.shields.io/badge/react-%3E%3D_15.2.0-green.svg)
 [![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
+[![Codecov](https://img.shields.io/codecov/c/github/react-component/m-date-picker.svg?style=flat-square)](https://codecov.io/gh/react-component/m-date-picker)
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
@@ -17,8 +17,6 @@ React Mobile DatePicker Component (web and react-native)
 [npm-url]: http://npmjs.org/package/rmc-date-picker
 [travis-image]: https://img.shields.io/travis/react-component/m-date-picker.svg?style=flat-square
 [travis-url]: https://travis-ci.org/react-component/m-date-picker
-[coveralls-image]: https://img.shields.io/coveralls/react-component/m-date-picker.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/react-component/m-date-picker?branch=master
 [gemnasium-image]: http://img.shields.io/gemnasium/react-component/m-date-picker.svg?style=flat-square
 [gemnasium-url]: https://gemnasium.com/react-component/m-date-picker
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
@@ -87,16 +85,17 @@ react-native run-ios
 |className(web) | additional css class of root dom node | String | '' |
 |prefixCls(web) | prefix class | String | 'rmc-date-picker' |
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
-|defaultDate | default selected date. | moment | |
-|date | The currently selected date. | moment |  |
+|defaultDate | default selected date. | Date | |
+|date | The currently selected date. | Date |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month') |
-|minDate | min date | moment | 2000-1-1 |
-|maxDate | max date | moment | 2030-1-1 |
+|minDate | min date | Date | 2000-1-1 |
+|maxDate | max date | Date | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
-|onDateChange | Date change handler. | Function(date: moment) | '' |
+|onDateChange | Date change handler. | Function(date: Date) | '' |
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
-|formatMonth | Customize display value of months | (month:number, current:moment) => React.Node | |
-|formatDay | Customize display value of days | (day:number, current:moment) => React.Node | |
+|formatMonth | Customize display value of months | (month:number, current:Date) => React.Node | |
+|formatDay | Customize display value of days | (day:number, current:Date) => React.Node | |
+|use12Hours | 12 hours display mode | Boolean | false |
 
 ### rmc-date-picker/lib/Popup props
 
@@ -109,9 +108,9 @@ react-native run-ios
 |prefixCls(web) | popup's prefix class | String | 'rmc-picker-popup' |
 |styles(react-native) | PopupPicker's styles | StyleSheet.create |  |
 |datePicker | DatePicker element | React DatePicker element |  |
-|date | The currently selected date. | moment |  |
+|date | The currently selected date. | Date |  |
 |visible | whether pop picker is visible | Boolean | false |
-|onChange | exec on ok | Function(date: moment) |  |
+|onChange | exec on ok | Function(date: Date) |  |
 |onVisibleChange | called when pop picker visible change | Function | |
 |onDismiss | exec on dismiss | function |  |
 |okText | ok button text | string/React.ReactElement | 'Ok' |

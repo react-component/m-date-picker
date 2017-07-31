@@ -7,32 +7,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PopPicker from '../src/Popup';
 import DatePicker from '../src/DatePicker';
-
-import moment from 'moment';
 import zhCn from '../src/locale/zh_CN';
 import enUs from '../src/locale/en_US';
-import 'moment/locale/zh-cn';
-import 'moment/locale/en-gb';
-
-const cn = location.search.indexOf('cn') !== -1;
-
-const minDate = moment([2015, 8, 1, 0, 0, 0]);
-const maxDate = moment([2018, 1, 1, 22, 0, 0]);
-const now = moment();
-
-if (cn) {
-  minDate.locale('zh-cn').utcOffset(8);
-  maxDate.locale('zh-cn').utcOffset(8);
-  now.locale('zh-cn').utcOffset(8);
-} else {
-  minDate.locale('en-gb').utcOffset(0);
-  maxDate.locale('en-gb').utcOffset(0);
-  now.locale('en-gb').utcOffset(0);
-}
-
-function format(date) {
-  return date.format('YYYY-MM-DD HH:mm');
-}
+import { cn, format, minDate, maxDate, now } from './utils';
 
 class Demo extends React.Component<any, any> {
   static defaultProps = {

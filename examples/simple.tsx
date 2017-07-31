@@ -5,31 +5,9 @@ import 'rmc-date-picker/assets/index.less';
 import DatePicker from '../src/index';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import moment from 'moment';
 import zhCn from '../src/locale/zh_CN';
 import enUs from '../src/locale/en_US';
-import 'moment/locale/zh-cn';
-import 'moment/locale/en-gb';
-
-const cn = location.search.indexOf('cn') !== -1;
-
-const minDate = moment([2015, 8, 15, 0, 0, 0]);
-const maxDate = moment([2018, 1, 1, 23, 59, 59]);
-const now = moment();
-
-if (cn) {
-  // minDate.locale('zh-cn').utcOffset(8);
-  // maxDate.locale('zh-cn').utcOffset(8);
-  now.locale('zh-cn').utcOffset(8);
-} else {
-  // minDate.locale('en-gb').utcOffset(0);
-  // maxDate.locale('en-gb').utcOffset(0);
-  now.locale('en-gb').utcOffset(0);
-}
-
-function format(date) {
-  return date.format('YYYY-MM-DD HH:mm');
-}
+import { cn, format, minDate, maxDate, now } from './utils';
 
 class Demo extends React.Component<any, any> {
   static defaultProps = {
@@ -39,7 +17,7 @@ class Demo extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
-      date: null,
+      date: new Date(2017, 2, 31, 15, 1, 1),
       mode: 'datetime',
     };
   }
@@ -82,6 +60,7 @@ class Demo extends React.Component<any, any> {
           maxDate={maxDate}
           minDate={minDate}
           onDateChange={this.onDateChange}
+          use12Hours
         />
       </div>
     </div>);
