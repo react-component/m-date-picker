@@ -23,12 +23,12 @@ exports[`DatePicker renders correctly 1`] = `
         2015
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         2016
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         2017
       </div>
@@ -82,7 +82,7 @@ exports[`DatePicker renders correctly 1`] = `
         6
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         7
       </div>
@@ -92,7 +92,7 @@ exports[`DatePicker renders correctly 1`] = `
         8
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         9
       </div>
@@ -196,7 +196,7 @@ exports[`DatePicker renders correctly 1`] = `
         14
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         15
       </div>
@@ -275,11 +275,6 @@ exports[`DatePicker renders correctly 1`] = `
       >
         30
       </div>
-      <div
-        class="rmc-picker-item rmc-picker-item-selected "
-      >
-        31
-      </div>
     </div>
   </div>
   <div
@@ -345,7 +340,7 @@ exports[`DatePicker renders correctly 1`] = `
         09
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         10
       </div>
@@ -519,7 +514,7 @@ exports[`DatePicker renders correctly 1`] = `
         29
       </div>
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         30
       </div>
@@ -639,7 +634,7 @@ exports[`DatePicker renders correctly 1`] = `
         53
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         54
       </div>
@@ -683,12 +678,12 @@ exports[`DatePicker renders correctly 1`] = `
       class="rmc-picker-content"
     >
       <div
-        class="rmc-picker-item "
+        class="rmc-picker-item rmc-picker-item-selected "
       >
         AM
       </div>
       <div
-        class="rmc-picker-item rmc-picker-item-selected "
+        class="rmc-picker-item "
       >
         PM
       </div>

@@ -38,6 +38,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     pickerPrefixCls: 'rmc-picker',
     locale: defaultLocale,
     mode: DATE,
+    disabled: false,
     minuteStep: 1,
     onDateChange() {
     },
@@ -448,7 +449,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   render() {
     const { value, cols } = this.getValueCols();
-    const { mode, prefixCls, pickerPrefixCls, rootNativeProps, className } = this.props;
+    const { mode, disabled, pickerPrefixCls, prefixCls, rootNativeProps, className } = this.props;
     return (
       <MultiPicker
         rootNativeProps={rootNativeProps}
@@ -460,6 +461,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         {cols.map(p => (
           <Picker
             key={p.key}
+            disabled={disabled}
             prefixCls={pickerPrefixCls}
             itemStyle={typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined}
           >
