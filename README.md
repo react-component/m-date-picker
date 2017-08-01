@@ -91,11 +91,12 @@ react-native run-ios
 |minDate | min date | Date | 2000-1-1 |
 |maxDate | max date | Date | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
-|onDateChange | Date change handler. | Function(date: Date) | '' |
+|use12Hours | 12 hours display mode | Boolean | false |
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
+|onDateChange | Date change handler. | Function(date: Date) | '' |
+|onValueChange | fire when picker change | (vals: any, index: number) => void |  |
 |formatMonth | Customize display value of months | (month:number, current:Date) => React.Node | |
 |formatDay | Customize display value of days | (day:number, current:Date) => React.Node | |
-|use12Hours | 12 hours display mode | Boolean | false |
 
 ### rmc-date-picker/lib/Popup props
 

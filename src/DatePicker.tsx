@@ -114,6 +114,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     if (props.onDateChange) {
       props.onDateChange(newValue);
     }
+    if (props.onValueChange) {
+      props.onValueChange(values, index);
+    }
   }
 
   setHours(date, hour) {

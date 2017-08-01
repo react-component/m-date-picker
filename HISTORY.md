@@ -4,7 +4,7 @@
 ## 6.x
 
 - Remove moment.js and change date type from Moment to Date.
-- Add use12Hours prop.
+- Add `use12Hours`/`onValueChange` props.
 
 ## 5.2.0 / 2016-12-17
 

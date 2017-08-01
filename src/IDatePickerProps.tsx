@@ -10,6 +10,7 @@ interface IDatePickerProps {
   formatMonth?: (month: number, date?: any) => any;
   formatDay?: (day: number, date?: any) => any;
   onDateChange?: (date: any) => void;
+  onValueChange?: (vals: any, index: number) => void;
   /** web only */
   prefixCls?: string;
   rootNativeProps?: {};

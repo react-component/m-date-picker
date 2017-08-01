@@ -29,6 +29,10 @@ class Demo extends React.Component<any, any> {
     });
   }
 
+  onValueChange = (values, index) => {
+    console.log(values, index);
+  }
+
   changeMode = (e) => {
     this.setState({
       mode: e.target.value,
@@ -60,6 +64,7 @@ class Demo extends React.Component<any, any> {
           maxDate={maxDate}
           minDate={minDate}
           onDateChange={this.onDateChange}
+          onValueChange={this.onValueChange}
           use12Hours
         />
       </div>
