@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-date-picker@6.0.0-alpha.3 - React Mobile DatePicker Component for web and react-native</title>
+  <title>rmc-date-picker@6.0.0-alpha.4 - React Mobile DatePicker Component for web and react-native</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-date-picker@6.0.0-alpha.3</h1>
+  <h1>rmc-date-picker@6.0.0-alpha.4</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -846,16 +846,28 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <td>import from &#39;rmc-date-picker/lib/locale/en_US&#39;</td>
 </tr>
 <tr>
-<td>onDateChange</td>
-<td>Date change handler.</td>
-<td>Function(date: Date)</td>
-<td>&#39;&#39;</td>
+<td>use12Hours</td>
+<td>12 hours display mode</td>
+<td>Boolean</td>
+<td>false</td>
 </tr>
 <tr>
 <td>minuteStep</td>
 <td>The amount of time, in minutes, between each minute item.</td>
 <td>Number</td>
 <td>1</td>
+</tr>
+<tr>
+<td>onDateChange</td>
+<td>Date change handler.</td>
+<td>Function(date: Date)</td>
+<td>&#39;&#39;</td>
+</tr>
+<tr>
+<td>onValueChange</td>
+<td>fire when picker change</td>
+<td>(vals: any, index: number) =&gt; void</td>
+<td></td>
 </tr>
 <tr>
 <td>formatMonth</td>
@@ -867,13 +879,6 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <td>formatDay</td>
 <td>Customize display value of days</td>
 <td>(day:number, current:Date) =&gt; React.Node</td>
-<td></td>
-</tr>
-<tr>
-<td>use12Hours</td>
-<td>12 hours display mode</td>
-<td>Boolean</td>
-<td>false</td>
 </tr>
 </tbody>
 </table>

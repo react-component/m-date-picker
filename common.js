@@ -5353,6 +5353,9 @@ var DatePicker = function (_React$Component) {
             if (props.onDateChange) {
                 props.onDateChange(newValue);
             }
+            if (props.onValueChange) {
+                props.onValueChange(values, index);
+            }
         };
         return _this;
     }
@@ -25437,6 +25440,7 @@ var Picker = (0, _createReactClass2['default'])({
 });
 exports['default'] = Picker;
 module.exports = exports['default'];
+
 
 /***/ }),
 /* 319 */
