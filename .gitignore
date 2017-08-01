@@ -27,3 +27,6 @@ lib
 /coverage
 yarn.lock
 es/
+ios/
+android/
+_ts2js/
