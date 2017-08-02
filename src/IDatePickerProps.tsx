@@ -11,12 +11,11 @@ interface IDatePickerProps {
   formatDay?: (day: number, date?: any) => any;
   onDateChange?: (date: any) => void;
   onValueChange?: (vals: any, index: number) => void;
+  style?: any;
   /** web only */
   prefixCls?: string;
   rootNativeProps?: {};
-  /** web only */
   pickerPrefixCls?: string;
-  /** web only */
   className?: string;
   use12Hours?: boolean;
 }

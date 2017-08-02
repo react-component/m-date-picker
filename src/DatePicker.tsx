@@ -452,9 +452,15 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   render() {
     const { value, cols } = this.getValueCols();
-    const { mode, disabled, pickerPrefixCls, prefixCls, rootNativeProps, className } = this.props;
+    const { mode, disabled, pickerPrefixCls, prefixCls, rootNativeProps, className, style } = this.props;
+    const multiStyle = {
+      flexDirection: 'row',
+      alignItems: 'center',
+      ...style,
+    };
     return (
       <MultiPicker
+        style={multiStyle}
         rootNativeProps={rootNativeProps}
         className={className}
         prefixCls={prefixCls}
@@ -463,6 +469,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       >
         {cols.map(p => (
           <Picker
+            style={{ flex: 1 }}
             key={p.key}
             disabled={disabled}
             prefixCls={pickerPrefixCls}
