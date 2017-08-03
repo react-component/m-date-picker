@@ -4,9 +4,11 @@ exports[`DatePicker renders correctly 1`] = `
 <div
   class="rmc-date-picker"
   data-xx="yy"
+  style="flex-direction:row;align-items:center;"
 >
   <div
     class="rmc-picker"
+    style="flex:1;"
   >
     <div
       class="rmc-picker-mask"
@@ -41,6 +43,7 @@ exports[`DatePicker renders correctly 1`] = `
   </div>
   <div
     class="rmc-picker"
+    style="flex:1;"
   >
     <div
       class="rmc-picker-mask"
@@ -115,6 +118,7 @@ exports[`DatePicker renders correctly 1`] = `
   </div>
   <div
     class="rmc-picker"
+    style="flex:1;"
   >
     <div
       class="rmc-picker-mask"
@@ -279,6 +283,7 @@ exports[`DatePicker renders correctly 1`] = `
   </div>
   <div
     class="rmc-picker"
+    style="flex:1;"
   >
     <div
       class="rmc-picker-mask"
@@ -353,6 +358,7 @@ exports[`DatePicker renders correctly 1`] = `
   </div>
   <div
     class="rmc-picker"
+    style="flex:1;"
   >
     <div
       class="rmc-picker-mask"
@@ -667,6 +673,7 @@ exports[`DatePicker renders correctly 1`] = `
   </div>
   <div
     class="rmc-picker"
+    style="flex:1;"
   >
     <div
       class="rmc-picker-mask"
