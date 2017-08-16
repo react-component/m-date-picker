@@ -1,5 +1,6 @@
 import React from 'react';
 import MultiPicker from 'rmc-picker/lib/MultiPicker';
+import Picker from 'rmc-picker/lib/Picker';
 import IDatePickerProps from './IDatePickerProps';
 import moment from 'moment';
 import defaultLocale from './locale/en_US';
@@ -376,18 +377,36 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   render() {
     const { value, cols } = this.getValueCols();
-    const { mode, prefixCls, pickerPrefixCls, rootNativeProps, className } = this.props;
+    const { mode, prefixCls, pickerPrefixCls, rootNativeProps, className, disabled, style } = this.props;
+    const multiStyle = {
+      flexDirection: 'row',
+      alignItems: 'center',
+      ...style,
+    };
     return (
       <MultiPicker
+        style={multiStyle}
         rootNativeProps={rootNativeProps}
         className={className}
         prefixCls={prefixCls}
-        pickerPrefixCls={pickerPrefixCls}
-        pickerItemStyle={typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined}
         selectedValue={value}
         onValueChange={this.onValueChange}
       >
-        {cols}
+      {cols.map(p => (
+        <Picker
+          style={{ flex: 1 }}
+          key={p.key}
+          disabled={disabled}
+          prefixCls={pickerPrefixCls}
+          itemStyle={typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined}
+        >
+          {p.props.children.map(item => (
+            <Picker.Item key={item.value} value={item.value}>
+              {item.label}
+            </Picker.Item>
+          ))}
+        </Picker>
+      ))}
       </MultiPicker>
     );
   }
