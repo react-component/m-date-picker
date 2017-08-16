@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-date-picker@6.0.0-alpha.5 - React Mobile DatePicker Component for web and react-native</title>
+  <title>rmc-date-picker@5.5.0 - React Mobile DatePicker Component for web and react-native</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-date-picker@6.0.0-alpha.5</h1>
+  <h1>rmc-date-picker@5.5.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -749,8 +749,6 @@
       <li><a href="examples/simple.html">simple</a></li>
       
       <li><a href="examples/time.html">time</a></li>
-      
-      <li><a href="examples/utils.html">utils</a></li>
       
     </ul>
   </div>
@@ -764,7 +762,7 @@
 <img src="https://img.shields.io/badge/react--native-%3E%3D_0.30.0-green.svg" alt="react-native">
 <img src="https://img.shields.io/badge/react-%3E%3D_15.2.0-green.svg" alt="react">
 <a href="https://travis-ci.org/react-component/m-date-picker" title="null"><img src="https://img.shields.io/travis/react-component/m-date-picker.svg?style=flat-square" alt="build status"></a>
-<a href="https://codecov.io/gh/react-component/m-date-picker" title="null"><img src="https://img.shields.io/codecov/c/github/react-component/m-date-picker.svg?style=flat-square" alt="Codecov"></a>
+<a href="https://coveralls.io/r/react-component/m-date-picker?branch=master" title="null"><img src="https://img.shields.io/coveralls/react-component/m-date-picker.svg?style=flat-square" alt="Test coverage"></a>
 <a href="https://gemnasium.com/react-component/m-date-picker" title="null"><img src="http://img.shields.io/gemnasium/react-component/m-date-picker.svg?style=flat-square" alt="gemnasium deps"></a>
 <a href="http://nodejs.org/download/" title="null"><img src="https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square" alt="node version"></a>
 <a href="https://npmjs.org/package/rmc-date-picker" title="null"><img src="https://img.shields.io/npm/dm/rmc-date-picker.svg?style=flat-square" alt="npm download"></a></p>
@@ -812,13 +810,13 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <tr>
 <td>defaultDate</td>
 <td>default selected date.</td>
-<td>Date</td>
+<td>moment</td>
 <td></td>
 </tr>
 <tr>
 <td>date</td>
 <td>The currently selected date.</td>
-<td>Date</td>
+<td>moment</td>
 <td></td>
 </tr>
 <tr>
@@ -830,13 +828,13 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <tr>
 <td>minDate</td>
 <td>min date</td>
-<td>Date</td>
+<td>moment</td>
 <td>2000-1-1</td>
 </tr>
 <tr>
 <td>maxDate</td>
 <td>max date</td>
-<td>Date</td>
+<td>moment</td>
 <td>2030-1-1</td>
 </tr>
 <tr>
@@ -846,10 +844,10 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <td>import from &#39;rmc-date-picker/lib/locale/en_US&#39;</td>
 </tr>
 <tr>
-<td>use12Hours</td>
-<td>12 hours display mode</td>
-<td>Boolean</td>
-<td>false</td>
+<td>onDateChange</td>
+<td>Date change handler.</td>
+<td>Function(date: moment)</td>
+<td>&#39;&#39;</td>
 </tr>
 <tr>
 <td>minuteStep</td>
@@ -858,27 +856,15 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <td>1</td>
 </tr>
 <tr>
-<td>onDateChange</td>
-<td>Date change handler.</td>
-<td>Function(date: Date)</td>
-<td>&#39;&#39;</td>
-</tr>
-<tr>
-<td>onValueChange</td>
-<td>fire when picker change</td>
-<td>(vals: any, index: number) =&gt; void</td>
-<td></td>
-</tr>
-<tr>
 <td>formatMonth</td>
 <td>Customize display value of months</td>
-<td>(month:number, current:Date) =&gt; React.Node</td>
+<td>(month:number, current:moment) =&gt; React.Node</td>
 <td></td>
 </tr>
 <tr>
 <td>formatDay</td>
 <td>Customize display value of days</td>
-<td>(day:number, current:Date) =&gt; React.Node</td>
+<td>(day:number, current:moment) =&gt; React.Node</td>
 </tr>
 </tbody>
 </table>
@@ -937,7 +923,7 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <tr>
 <td>date</td>
 <td>The currently selected date.</td>
-<td>Date</td>
+<td>moment</td>
 <td></td>
 </tr>
 <tr>
@@ -949,7 +935,7 @@ react-native run-ios</code></pre></div><h2>install<a id="user-content-install" n
 <tr>
 <td>onChange</td>
 <td>exec on ok</td>
-<td>Function(date: Date)</td>
+<td>Function(date: moment)</td>
 <td></td>
 </tr>
 <tr>
