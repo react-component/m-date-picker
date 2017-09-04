@@ -28,6 +28,7 @@
     "port": 8007
   },
   "scripts": {
+    "rn-init": "rc-tools run react-native-init",
     "watch-tsc": "rc-tools run watch-tsc",
     "compile": "rc-tools run compile --babel-runtime",
     "build": "rc-tools run build",

@@ -67,7 +67,7 @@ online example: http://react-component.github.io/m-date-picker/
 
 ```
 npm run watch-tsc
-./node_modules/rc-tools run react-native-init
+npm run rn-init
 react-native run-ios
 ```
 
