@@ -8,10 +8,6 @@ function getDaysInMonth(date) {
   return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
-function getDaysWithYearAndMonth(year, month) {
-  return new Date(year, month + 1, 0).getDate();
-}
-
 function increaseDay(date) {
   return new Date(date.getTime() + ONE_DAY)
 }
@@ -33,10 +29,9 @@ function setMonth(date, month) {
 const smallPickerItem = {
   fontSize: 20,
 };
-// mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH
-// const MIXDATETIME = 'mixdatetime';
+
 const DATETIME = 'datetime';
-const SINGLEDATETIME = 'singledatetime';
+const SINGLEDATE_TIME = 'singledate_time';
 const DATE = 'date';
 const TIME = 'time';
 const MONTH = 'month';
@@ -78,7 +73,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
     const value = parseInt(values[index], 10);
 
-    if (mode === SINGLEDATETIME) {
+    if (mode === SINGLEDATE_TIME) {
 
       switch (index) {
         case 0:
@@ -510,7 +505,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
 
-    if (mode === SINGLEDATETIME) {
+    if (mode === SINGLEDATE_TIME) {
       cols = this.getDayData();
       value = [`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`];
     }
@@ -522,7 +517,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
 
-    if (mode === SINGLEDATETIME || mode === DATETIME || mode === TIME) {
+    if (mode === SINGLEDATE_TIME || mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
       const hour = date.getHours();
       let dtValue = [hour + '', date.getMinutes() + ''];
