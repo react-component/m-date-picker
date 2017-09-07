@@ -154,7 +154,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   getDate() {
-    return this.state.date || this.getDefaultMinDate();
+    return this.clipDate(this.state.date || this.getDefaultMinDate());
   }
 
   // used by rmc-picker/lib/PopupMixin.js
