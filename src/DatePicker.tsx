@@ -31,7 +31,7 @@ const smallPickerItem = {
 };
 
 const DATETIME = 'datetime';
-const SINGLEDATE_TIME = 'singledate_time';
+const RECENT_TIME = 'recenttime';
 const DATE = 'date';
 const TIME = 'time';
 const MONTH = 'month';
@@ -73,7 +73,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
     const value = parseInt(values[index], 10);
 
-    if (mode === SINGLEDATE_TIME) {
+    if (mode === RECENT_TIME) {
 
       switch (index) {
         case 0:
@@ -316,10 +316,12 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     ];
   }
 
-  getDayData = () => {
-    const {formatSingleDate, locale, formatMonth, formatDay,minDate,maxDate} = this.props;
+  getRecentDateData = () => {
+    const {formatSingleDate, locale, formatMonth, formatDay,} = this.props;
     const singleDate = [];
     const date = this.getDate();
+    const minDate = this.getMinDate()
+    const maxDate= this.getMaxDate();
 
     for (let d = minDate; d <= maxDate; d = increaseDay(d)) {
       const year = d.getFullYear();
@@ -380,7 +382,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const minDateHour = this.getMinHour();
     const maxDateHour = this.getMaxHour();
     const hour = date.getHours();
-    if (mode === DATETIME) {
+    if (mode === DATETIME || mode === RECENT_TIME) {
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
@@ -452,7 +454,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const {mode} = this.props;
     const minDate = this.getMinDate();
     const maxDate = this.getMaxDate();
-    if (mode === DATETIME) {
+    if (mode === DATETIME || mode === RECENT_TIME) {
       if (date < minDate) {
         return cloneDate(minDate);
       }
@@ -505,7 +507,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
 
-    if (mode === SINGLEDATE_TIME) {
+    if (mode === RECENT_TIME) {
       cols = this.getDayData();
       value = [`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`];
     }
@@ -517,7 +519,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
 
-    if (mode === SINGLEDATE_TIME || mode === DATETIME || mode === TIME) {
+    if (mode === RECENT_TIME || mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
       const hour = date.getHours();
       let dtValue = [hour + '', date.getMinutes() + ''];
