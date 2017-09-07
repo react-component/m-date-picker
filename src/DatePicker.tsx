@@ -317,7 +317,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   getRecentDateData = () => {
-    const {formatSingleDate, locale, formatMonth, formatDay,} = this.props;
+    const {formatRecentDate, locale, formatMonth, formatDay,} = this.props;
     const singleDate = [];
     const date = this.getDate();
     const minDate = this.getMinDate()
@@ -336,8 +336,8 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       const dLabel = formatDay ? formatDay(day, date) : (day + locale.day + '');
 
       const value = `${yValue}-${mValue}-${dValue}`;
-      const label = formatSingleDate ?
-        formatSingleDate(yLabel, mLabel, dLabel, date) :
+      const label = formatRecentDate ?
+        formatRecentDate(yLabel, mLabel, dLabel, date) :
         `${yLabel}${mLabel}${dLabel}`;
 
       singleDate.push({
