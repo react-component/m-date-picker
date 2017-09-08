@@ -30,7 +30,7 @@ const smallPickerItem = {
 };
 
 const DATETIME = 'datetime';
-const RECENT_TIME = 'recenttime';
+const RECENT_TIME = 'recentTime';
 const DATE = 'date';
 const TIME = 'time';
 const MONTH = 'month';
