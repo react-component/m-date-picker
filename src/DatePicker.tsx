@@ -9,9 +9,8 @@ function getDaysInMonth(date) {
 }
 
 function increaseDay(date) {
-  return new Date(date.getTime() + ONE_DAY)
+  return new Date(date.getTime() + ONE_DAY);
 }
-
 
 function pad(n) {
   return n < 10 ? `0${n}` : n + '';
@@ -78,9 +77,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       switch (index) {
         case 0:
           const mixValue = values[0].split('-');
-          const year = parseInt(mixValue[0], 10)
-          const month = parseInt(mixValue[1], 10)
-          const day = parseInt(mixValue[2], 10)
+          const year = parseInt(mixValue[0], 10);
+          const month = parseInt(mixValue[1], 10);
+          const day = parseInt(mixValue[2], 10);
 
           newValue.setFullYear(year);
           setMonth(newValue, month);
@@ -141,7 +140,6 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
           break;
       }
     }
-
 
     newValue = this.clipDate(newValue);
     if (!('date' in props)) {
@@ -316,12 +314,12 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     ];
   }
 
-  getRecentDateData = () => {
-    const {formatRecentDate, locale, formatMonth, formatDay,} = this.props;
-    const singleDate = [];
+  getRecentDateData() {
+    const { formatRecentDate, locale, formatMonth, formatDay } = this.props;
+    const recent: any[] = [];
     const date = this.getDate();
-    const minDate = this.getMinDate()
-    const maxDate= this.getMaxDate();
+    const minDate = this.getMinDate();
+    const maxDate = this.getMaxDate();
 
     for (let d = minDate; d <= maxDate; d = increaseDay(d)) {
       const year = d.getFullYear();
@@ -329,31 +327,31 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       const day = d.getDate();
 
       const yValue = year + '';
-      const yLabel = year + locale.year + ''
+      const yLabel = year + locale.year + '';
       const mValue = month + '';
-      const mLabel = formatMonth ? formatMonth(month, date) : (month + 1 + locale.month + '')
+      const mLabel = formatMonth ? formatMonth(month, date) : (month + 1 + locale.month + '');
       const dValue = day + '';
       const dLabel = formatDay ? formatDay(day, date) : (day + locale.day + '');
 
       const value = `${yValue}-${mValue}-${dValue}`;
       const label = formatRecentDate ?
-        formatRecentDate(yLabel, mLabel, dLabel, date) :
+        formatRecentDate(year, month, day, date) :
         `${yLabel}${mLabel}${dLabel}`;
 
-      singleDate.push({
-        value: value,
-        label: label,
-      })
+      recent.push({
+        value,
+        label,
+      });
     }
 
     return [
       {
         key: 'mix',
         props: {
-          children: singleDate,
-        }
-      }
-    ]
+          children: recent,
+        },
+      },
+    ];
   }
 
   getDisplayHour(rawHour) {
@@ -506,18 +504,15 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       };
     }
 
-
     if (mode === RECENT_TIME) {
-      cols = this.getDayData();
+      cols = this.getRecentDateData();
       value = [`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`];
     }
-
 
     if (mode === DATETIME || mode === DATE) {
       cols = this.getDateData();
       value = [date.getFullYear() + '', date.getMonth() + '', date.getDate() + ''];
     }
-
 
     if (mode === RECENT_TIME || mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
@@ -531,7 +526,6 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       value = value.concat(dtValue);
     }
 
-
     return {
       value,
       cols,
@@ -540,8 +534,6 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   render() {
     const {value, cols} = this.getValueCols();
-
-
     const {mode, disabled, pickerPrefixCls, prefixCls, rootNativeProps, className, style} = this.props;
     const multiStyle = {
       flexDirection: 'row',
