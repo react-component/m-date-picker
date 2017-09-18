@@ -87,7 +87,7 @@ react-native run-ios
 |pickerPrefixCls(web) | picker prefix class | String | 'rmc-picker' |
 |defaultDate | default selected date. | Date | |
 |date | The currently selected date. | Date |  |
-|mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month') |
+|mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month', 'recenttime') |
 |minDate | min date | Date | 2000-1-1 |
 |maxDate | max date | Date | 2030-1-1 |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
@@ -97,6 +97,8 @@ react-native run-ios
 |onValueChange | fire when picker change | (vals: any, index: number) => void |  |
 |formatMonth | Customize display value of months | (month:number, current:Date) => React.Node | |
 |formatDay | Customize display value of days | (day:number, current:Date) => React.Node | |
+|formatRecentDate | only use in `recenttime` mode. Customize display value of recent date | (year: number, month: number, day:number, current:Date) => React.Node | |
+
 
 ### rmc-date-picker/lib/Popup props
 

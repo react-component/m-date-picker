@@ -9,6 +9,7 @@ interface IDatePickerProps {
   minuteStep?: number;
   formatMonth?: (month: number, date?: any) => any;
   formatDay?: (day: number, date?: any) => any;
+  formatRecentDate?: (year: number, month: number, day: number, date?: any) => any;
   onDateChange?: (date: any) => void;
   onValueChange?: (vals: any, index: number) => void;
   style?: any;

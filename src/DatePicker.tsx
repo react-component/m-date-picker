@@ -8,6 +8,10 @@ function getDaysInMonth(date) {
   return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 
+function increaseDay(date) {
+  return new Date(date.getTime() + ONE_DAY);
+}
+
 function pad(n) {
   return n < 10 ? `0${n}` : n + '';
 }
@@ -26,6 +30,7 @@ const smallPickerItem = {
 };
 
 const DATETIME = 'datetime';
+const RECENT_TIME = 'recentTime';
 const DATE = 'date';
 const TIME = 'time';
 const MONTH = 'month';
@@ -61,11 +66,40 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   onValueChange = (values, index) => {
-    const value = parseInt(values[index], 10);
     const props = this.props;
     const { mode } = props;
     let newValue = cloneDate(this.getDate());
-    if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
+
+    const value = parseInt(values[index], 10);
+
+    if (mode === RECENT_TIME) {
+
+      switch (index) {
+        case 0:
+          const mixValue = values[0].split('-');
+          const year = parseInt(mixValue[0], 10);
+          const month = parseInt(mixValue[1], 10);
+          const day = parseInt(mixValue[2], 10);
+
+          newValue.setFullYear(year);
+          setMonth(newValue, month);
+          newValue.setDate(day);
+          break;
+        case 1:
+          this.setHours(newValue, value);
+          break;
+        case 2:
+          newValue.setMinutes(value);
+          break;
+        case 3:
+          this.setAmPm(newValue, value);
+          break;
+        default:
+          break;
+      }
+
+    } else if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
+
       switch (index) {
         case 0:
           newValue.setFullYear(value);
@@ -154,7 +188,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   getDate() {
-    return this.state.date || this.getDefaultMinDate();
+    return this.clipDate(this.state.date || this.getDefaultMinDate());
   }
 
   // used by rmc-picker/lib/PopupMixin.js
@@ -278,6 +312,46 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     ];
   }
 
+  getRecentDateData() {
+    const {formatRecentDate, locale, formatMonth, formatDay} = this.props;
+    const recent: any[] = [];
+    const date = this.getDate();
+    const minDate = this.getMinDate();
+    const maxDate = this.getMaxDate();
+
+    for (let d = minDate; d <= maxDate; d = increaseDay(d)) {
+      const year = d.getFullYear();
+      const month = d.getMonth();
+      const day = d.getDate();
+
+      const yValue = year + '';
+      const yLabel = year + locale.year + '';
+      const mValue = month + '';
+      const mLabel = formatMonth ? formatMonth(month, date) : (month + 1 + locale.month + '');
+      const dValue = day + '';
+      const dLabel = formatDay ? formatDay(day, date) : (day + locale.day + '');
+
+      const value = `${yValue}-${mValue}-${dValue}`;
+      const label = formatRecentDate ?
+        formatRecentDate(year, month, day, date) :
+        `${yLabel}${mLabel}${dLabel}`;
+
+      recent.push({
+        value,
+        label,
+      });
+    }
+
+    return [
+      {
+        key: 'mix',
+        props: {
+          children: recent,
+        },
+      },
+    ];
+  }
+
   getDisplayHour(rawHour) {
     // 12 hour am (midnight 00:00) -> 12 hour pm (noon 12:00) -> 12 hour am (midnight 00:00)
     if (this.props.use12Hours) {
@@ -304,7 +378,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const minDateHour = this.getMinHour();
     const maxDateHour = this.getMaxHour();
     const hour = date.getHours();
-    if (mode === DATETIME) {
+    if (mode === DATETIME || mode === RECENT_TIME) {
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
@@ -376,7 +450,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const { mode } = this.props;
     const minDate = this.getMinDate();
     const maxDate = this.getMaxDate();
-    if (mode === DATETIME) {
+    if (mode === DATETIME || mode === RECENT_TIME) {
       if (date < minDate) {
         return cloneDate(minDate);
       }
@@ -428,12 +502,17 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       };
     }
 
+    if (mode === RECENT_TIME) {
+      cols = this.getRecentDateData();
+      value = [`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`];
+    }
+
     if (mode === DATETIME || mode === DATE) {
       cols = this.getDateData();
       value = [date.getFullYear() + '', date.getMonth() + '', date.getDate() + ''];
     }
 
-    if (mode === DATETIME || mode === TIME) {
+    if (mode === RECENT_TIME || mode === DATETIME || mode === TIME) {
       cols = cols.concat(this.getTimeData());
       const hour = date.getHours();
       let dtValue = [hour + '', date.getMinutes() + ''];
