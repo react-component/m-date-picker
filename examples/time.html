@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>time.js - example - rmc-date-picker@5.5.0</title>
+  <title>time.js - example - rmc-date-picker@6.0.0-alpha.7</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-date-picker@5.5.0</h1>
+      <h1>rmc-date-picker@6.0.0-alpha.7</h1>
 
       <p>React Mobile DatePicker Component for web and react-native</p>
     </div>
@@ -276,36 +276,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> DatePicker <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-
-<span class="hljs-keyword">import</span> moment <span class="hljs-keyword">from</span> <span class="hljs-string">'moment'</span>;
 <span class="hljs-keyword">import</span> zhCn <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/locale/zh_CN'</span>;
 <span class="hljs-keyword">import</span> enUs <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/locale/en_US'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">'moment/locale/zh-cn'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">'moment/locale/en-gb'</span>;
+<span class="hljs-keyword">import</span> { cn, format, minDate, maxDate, now } <span class="hljs-keyword">from</span> <span class="hljs-string">'./utils'</span>;
 
-<span class="hljs-keyword">const</span> cn = location.search.indexOf(<span class="hljs-string">'cn'</span>) !== -<span class="hljs-number">1</span>;
-
-<span class="hljs-keyword">const</span> minDate = moment();
-<span class="hljs-keyword">const</span> maxDate = moment();
-<span class="hljs-keyword">const</span> now = moment();
-
-<span class="hljs-keyword">if</span> (cn) {
-  minDate.locale(<span class="hljs-string">'zh-cn'</span>).utcOffset(<span class="hljs-number">8</span>);
-  maxDate.locale(<span class="hljs-string">'zh-cn'</span>).utcOffset(<span class="hljs-number">8</span>);
-  now.locale(<span class="hljs-string">'zh-cn'</span>).utcOffset(<span class="hljs-number">8</span>);
-} <span class="hljs-keyword">else</span> {
-  minDate.locale(<span class="hljs-string">'en-gb'</span>).utcOffset(<span class="hljs-number">0</span>);
-  maxDate.locale(<span class="hljs-string">'en-gb'</span>).utcOffset(<span class="hljs-number">0</span>);
-  now.locale(<span class="hljs-string">'en-gb'</span>).utcOffset(<span class="hljs-number">0</span>);
-}
-
-minDate.hour(<span class="hljs-number">10</span>).minute(<span class="hljs-number">30</span>);
-maxDate.hour(<span class="hljs-number">22</span>).minute(<span class="hljs-number">49</span>);
-now.hour(<span class="hljs-number">15</span>).minute(<span class="hljs-number">49</span>);
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">format</span>(<span class="hljs-params">date</span>) </span>{
-  <span class="hljs-keyword">return</span> date.format(<span class="hljs-string">'YYYY-MM-DD HH:mm'</span>);
-}
+now.setHours(<span class="hljs-number">15</span>);
+now.setMinutes(<span class="hljs-number">49</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">any</span>&gt; </span>{
   static defaultProps = {
