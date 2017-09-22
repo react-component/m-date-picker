@@ -5340,7 +5340,7 @@ var DatePicker = function (_React$Component) {
         _this.state = {
             date: _this.props.date || _this.props.defaultDate
         };
-        _this.onValueChange = function (values, index) {
+        _this.getNewDate = function (values, index) {
             var value = parseInt(values[index], 10);
             var props = _this.props;
             var mode = props.mode;
@@ -5386,7 +5386,11 @@ var DatePicker = function (_React$Component) {
                         break;
                 }
             }
-            newValue = _this.clipDate(newValue);
+            return _this.clipDate(newValue);
+        };
+        _this.onValueChange = function (values, index) {
+            var props = _this.props;
+            var newValue = _this.getNewDate(values, index);
             if (!('date' in props)) {
                 _this.setState({
                     date: newValue
@@ -5397,6 +5401,13 @@ var DatePicker = function (_React$Component) {
             }
             if (props.onValueChange) {
                 props.onValueChange(values, index);
+            }
+        };
+        _this.onScrollChange = function (values, index) {
+            var props = _this.props;
+            if (props.onScrollChange) {
+                var newValue = _this.getNewDate(values, index);
+                props.onScrollChange(newValue, values, index);
             }
         };
         return _this;
@@ -5782,7 +5793,7 @@ var DatePicker = function (_React$Component) {
                 style = _props4.style;
 
             var multiStyle = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({ flexDirection: 'row', alignItems: 'center' }, style);
-            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_rmc_picker_lib_MultiPicker___default.a, { style: multiStyle, rootNativeProps: rootNativeProps, className: className, prefixCls: prefixCls, selectedValue: value, onValueChange: this.onValueChange, onScrollChange: this.props.onScrollChange }, cols.map(function (p) {
+            return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_rmc_picker_lib_MultiPicker___default.a, { style: multiStyle, rootNativeProps: rootNativeProps, className: className, prefixCls: prefixCls, selectedValue: value, onValueChange: this.onValueChange, onScrollChange: this.onScrollChange }, cols.map(function (p) {
                 return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_rmc_picker_lib_Picker___default.a, { style: { flex: 1 }, key: p.key, disabled: disabled, prefixCls: pickerPrefixCls, itemStyle: typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined }, p.props.children.map(function (item) {
                     return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_rmc_picker_lib_Picker___default.a.Item, { key: item.value, value: item.value }, item.label);
                 }));
