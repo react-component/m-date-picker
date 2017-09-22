@@ -44,7 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(217)();
+  module.exports = __webpack_require__(218)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -720,7 +720,7 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 
 /***/ }),
 
-/***/ 217:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1659,6 +1659,13 @@ var DialogWrap = function (_React$Component) {
             }
         }
     }, {
+        key: 'shouldComponentUpdate',
+        value: function shouldComponentUpdate(_ref) {
+            var visible = _ref.visible;
+
+            return !!(this.props.visible || visible);
+        }
+    }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             this.renderDialog(false);
@@ -1829,7 +1836,7 @@ var TouchFeedback = function (_React$Component) {
         };
         _this.onMouseUp = function (e) {
             if (_this.props.onTouchEnd) {
-                _this.triggerEvent('TouchEnd', true, e);
+                _this.triggerEvent('TouchEnd', false, e);
             }
             _this.triggerEvent('MouseUp', false, e);
         };
@@ -2151,7 +2158,12 @@ function PopupMixin(getModal, platformProps) {
                 var props = this.props;
                 var children = props.children;
                 if (!children) {
-                    return getModal(props, this.state.visible, this.getContent);
+                    return getModal(props, this.state.visible, {
+                        getContent: this.getContent,
+                        onOk: this.onOk,
+                        hide: this.hide,
+                        onDismiss: this.onDismiss
+                    });
                 }
                 var _props = this.props,
                     WrapComponent = _props.WrapComponent,

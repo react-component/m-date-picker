@@ -54,7 +54,10 @@ var Demo = function (_React$Component) {
             });
         };
         _this.onValueChange = function (values, index) {
-            console.log(values, index);
+            console.log('onValueChange', values, index);
+        };
+        _this.onScrollChange = function (values, index) {
+            console.log('onScrollChange', values, index);
         };
         _this.changeMode = function (e) {
             _this.setState({
@@ -76,7 +79,7 @@ var Demo = function (_React$Component) {
                 date = _state.date,
                 mode = _state.mode;
 
-            return __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", { style: { margin: '10px 30px' } }, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("h2", null, "date picker"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("select", { value: this.state.mode, onChange: this.changeMode }, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "datetime"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "date"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "time"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "month"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "year")), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", null, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("span", null, date && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(date) || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */])), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6__src_index__["a" /* default */], { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || __WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */], mode: mode, locale: props.locale, maxDate: __WEBPACK_IMPORTED_MODULE_11__utils__["c" /* maxDate */], minDate: __WEBPACK_IMPORTED_MODULE_11__utils__["d" /* minDate */], onDateChange: this.onDateChange, onValueChange: this.onValueChange, use12Hours: true })));
+            return __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", { style: { margin: '10px 30px' } }, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("h2", null, "date picker"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("select", { value: this.state.mode, onChange: this.changeMode }, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "datetime"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "date"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "time"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "month"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("option", null, "year")), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", null, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("span", null, date && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(date) || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */])), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6__src_index__["a" /* default */], { rootNativeProps: { 'data-xx': 'yy' }, defaultDate: date || __WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */], mode: mode, locale: props.locale, maxDate: __WEBPACK_IMPORTED_MODULE_11__utils__["c" /* maxDate */], minDate: __WEBPACK_IMPORTED_MODULE_11__utils__["d" /* minDate */], onDateChange: this.onDateChange, onValueChange: this.onValueChange, onScrollChange: this.onScrollChange, use12Hours: true })));
         }
     }]);
 

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-date-picker@6.0.0-alpha.7</title>
+  <title>simple.js - example - rmc-date-picker@6.0.0-alpha.8</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-date-picker@6.0.0-alpha.7</h1>
+      <h1>rmc-date-picker@6.0.0-alpha.8</h1>
 
       <p>React Mobile DatePicker Component for web and react-native</p>
     </div>
@@ -301,7 +301,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   }
 
   onValueChange = (values, index) =&gt; {
-    <span class="hljs-built_in">console</span>.log(values, index);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onValueChange'</span>, values, index);
+  }
+
+  onScrollChange = (values, index) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onScrollChange'</span>, values, index);
   }
 
   changeMode = (e) =&gt; {
@@ -336,6 +340,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{minDate}</span>
           <span class="hljs-attribute">onDateChange</span>=<span class="hljs-value">{this.onDateChange}</span>
           <span class="hljs-attribute">onValueChange</span>=<span class="hljs-value">{this.onValueChange}</span>
+          <span class="hljs-attribute">onScrollChange</span>=<span class="hljs-value">{this.onScrollChange}</span>
           <span class="hljs-attribute">use12Hours</span>
         /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
