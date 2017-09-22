@@ -30,7 +30,11 @@ class Demo extends React.Component<any, any> {
   }
 
   onValueChange = (values, index) => {
-    console.log(values, index);
+    console.log('onValueChange', values, index);
+  }
+
+  onScrollChange = (values, index) => {
+    console.log('onScrollChange', values, index);
   }
 
   changeMode = (e) => {
@@ -65,6 +69,7 @@ class Demo extends React.Component<any, any> {
           minDate={minDate}
           onDateChange={this.onDateChange}
           onValueChange={this.onValueChange}
+          onScrollChange={this.onScrollChange}
           use12Hours
         />
       </div>

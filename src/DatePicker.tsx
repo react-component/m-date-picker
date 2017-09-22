@@ -466,6 +466,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         prefixCls={prefixCls}
         selectedValue={value}
         onValueChange={this.onValueChange}
+        onScrollChange={this.props.onScrollChange}
       >
         {cols.map(p => (
           <Picker
