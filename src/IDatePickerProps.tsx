@@ -15,7 +15,7 @@ interface IDatePickerProps {
   /** web only */
   prefixCls?: string;
   /** web only */
-  onScrollChange?: (vals: any, index: number) => void;
+  onScrollChange?: (date: any, vals: any, index: number) => void;
   rootNativeProps?: {};
   pickerPrefixCls?: string;
   className?: string;

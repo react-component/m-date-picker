@@ -60,7 +60,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
   }
 
-  onValueChange = (values, index) => {
+  getNewDate = (values, index) => {
     const value = parseInt(values[index], 10);
     const props = this.props;
     const { mode } = props;
@@ -105,7 +105,12 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
           break;
       }
     }
-    newValue = this.clipDate(newValue);
+    return this.clipDate(newValue);
+  }
+
+  onValueChange = (values, index) => {
+    const props = this.props;
+    const newValue = this.getNewDate(values, index);
     if (!('date' in props)) {
       this.setState({
         date: newValue,
@@ -116,6 +121,14 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
     if (props.onValueChange) {
       props.onValueChange(values, index);
+    }
+  }
+
+  onScrollChange = (values, index) => {
+    const props = this.props;
+    if (props.onScrollChange) {
+      const newValue = this.getNewDate(values, index);
+      props.onScrollChange(newValue, values, index);
     }
   }
 
@@ -230,7 +243,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
     const yearCol = { key: 'year', props: { children: years } };
     if (mode === YEAR) {
-      return [ yearCol ];
+      return [yearCol];
     }
 
     const months: any[] = [];
@@ -364,7 +377,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       { key: 'minutes', props: { children: minutes } },
     ].concat(use12Hours ? [{
       key: 'ampm',
-      props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }]},
+      props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }] },
     }] : []);
   }
 
@@ -466,7 +479,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         prefixCls={prefixCls}
         selectedValue={value}
         onValueChange={this.onValueChange}
-        onScrollChange={this.props.onScrollChange}
+        onScrollChange={this.onScrollChange}
       >
         {cols.map(p => (
           <Picker
