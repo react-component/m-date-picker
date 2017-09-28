@@ -44,7 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(218)();
+  module.exports = __webpack_require__(217)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -720,7 +720,7 @@ cssAnimation.isCssAnimationSupported = isCssAnimationSupported;
 
 /***/ }),
 
-/***/ 218:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1696,7 +1696,7 @@ var DialogWrap = function (_React$Component) {
                 container.setAttribute('id', prefixCls + '-container');
                 document.body.appendChild(container);
             }
-            __WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.unstable_renderSubtreeIntoContainer(this, this.getComponent(visible), container);
+            __WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.render(this.getComponent(visible), container);
         }
     }, {
         key: 'render',
@@ -1836,7 +1836,7 @@ var TouchFeedback = function (_React$Component) {
         };
         _this.onMouseUp = function (e) {
             if (_this.props.onTouchEnd) {
-                _this.triggerEvent('TouchEnd', false, e);
+                _this.triggerEvent('TouchEnd', true, e);
             }
             _this.triggerEvent('MouseUp', false, e);
         };
