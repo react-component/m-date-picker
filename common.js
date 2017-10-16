@@ -5319,9 +5319,6 @@ function setMonth(date, month) {
     date.setDate(Math.min(date.getDate(), getDaysInMonth(new Date(date.getFullYear(), month))));
     date.setMonth(month);
 }
-var smallPickerItem = {
-    fontSize: 20
-};
 var DATETIME = 'datetime';
 var DATE = 'date';
 var TIME = 'time';
@@ -5784,17 +5781,17 @@ var DatePicker = function (_React$Component) {
                 cols = _getValueCols.cols;
 
             var _props4 = this.props,
-                mode = _props4.mode,
                 disabled = _props4.disabled,
                 pickerPrefixCls = _props4.pickerPrefixCls,
                 prefixCls = _props4.prefixCls,
                 rootNativeProps = _props4.rootNativeProps,
                 className = _props4.className,
-                style = _props4.style;
+                style = _props4.style,
+                itemStyle = _props4.itemStyle;
 
             var multiStyle = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({ flexDirection: 'row', alignItems: 'center' }, style);
             return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7_rmc_picker_lib_MultiPicker___default.a, { style: multiStyle, rootNativeProps: rootNativeProps, className: className, prefixCls: prefixCls, selectedValue: value, onValueChange: this.onValueChange, onScrollChange: this.onScrollChange }, cols.map(function (p) {
-                return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_rmc_picker_lib_Picker___default.a, { style: { flex: 1 }, key: p.key, disabled: disabled, prefixCls: pickerPrefixCls, itemStyle: typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined }, p.props.children.map(function (item) {
+                return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_rmc_picker_lib_Picker___default.a, { style: { flex: 1 }, key: p.key, disabled: disabled, prefixCls: pickerPrefixCls, itemStyle: itemStyle }, p.props.children.map(function (item) {
                     return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_rmc_picker_lib_Picker___default.a.Item, { key: item.value, value: item.value }, item.label);
                 }));
             }));
