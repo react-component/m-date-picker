@@ -11,6 +11,7 @@ interface IDatePickerProps {
   formatDay?: (day: number, date?: any) => any;
   onDateChange?: (date: any) => void;
   onValueChange?: (vals: any, index: number) => void;
+  itemStyle?: any;
   style?: any;
   /** web only */
   prefixCls?: string;

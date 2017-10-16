@@ -21,10 +21,6 @@ function setMonth(date, month) {
   date.setMonth(month);
 }
 
-const smallPickerItem = {
-  fontSize: 20,
-};
-
 const DATETIME = 'datetime';
 const DATE = 'date';
 const TIME = 'time';
@@ -465,7 +461,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   render() {
     const { value, cols } = this.getValueCols();
-    const { mode, disabled, pickerPrefixCls, prefixCls, rootNativeProps, className, style } = this.props;
+    const {
+      disabled, pickerPrefixCls, prefixCls, rootNativeProps, className, style, itemStyle,
+    } = this.props;
     const multiStyle = {
       flexDirection: 'row',
       alignItems: 'center',
@@ -487,7 +485,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
             key={p.key}
             disabled={disabled}
             prefixCls={pickerPrefixCls}
-            itemStyle={typeof window === 'undefined' && mode === 'datetime' ? smallPickerItem : undefined}
+            itemStyle={itemStyle}
           >
             {p.props.children.map(item => (
               <Picker.Item key={item.value} value={item.value}>
