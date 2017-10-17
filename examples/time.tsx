@@ -42,7 +42,7 @@ class Demo extends React.Component<any, any> {
         <DatePicker
           defaultDate={date || now}
           mode={props.mode}
-          minuteStep={2}
+          minuteStep={4}
           locale={props.locale}
           maxDate={maxDate}
           minDate={minDate}
