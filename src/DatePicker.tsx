@@ -361,19 +361,30 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const minutes: any[] = [];
+    const min = date.getMinutes();
+    let selMinute = min;
+    let pre: any = null;
     for (let i = minMinute; i <= maxMinute; i += minuteStep!) {
+      const diff = Math.abs(min - i);
+      if (diff <= minuteStep) {
+        if (pre === null || pre > diff) {
+          pre = diff;
+          selMinute = i;
+        }
+      }
       minutes.push({
         value: i + '',
         label: locale.minute ? i + locale.minute + '' : pad(i),
       });
     }
-    return [
+    const cols = [
       { key: 'hours', props: { children: hours } },
       { key: 'minutes', props: { children: minutes } },
     ].concat(use12Hours ? [{
       key: 'ampm',
       props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }] },
     }] : []);
+    return { cols, selMinute };
   }
 
   getGregorianCalendar(arg) {
@@ -442,13 +453,14 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     if (mode === DATETIME || mode === TIME) {
-      cols = cols.concat(this.getTimeData(date));
+      const time = this.getTimeData(date);
+      cols = cols.concat(time.cols);
       const hour = date.getHours();
-      let dtValue = [hour + '', date.getMinutes() + ''];
+      let dtValue = [hour + '', time.selMinute + ''];
       let nhour = hour;
       if (use12Hours) {
         nhour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
-        dtValue = [nhour + '', date.getMinutes() + '', (hour >= 12 ? 1 : 0) + ''];
+        dtValue = [nhour + '', time.selMinute + '', (hour >= 12 ? 1 : 0) + ''];
       }
       value = value.concat(dtValue);
     }

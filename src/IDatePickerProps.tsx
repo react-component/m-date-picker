@@ -6,7 +6,7 @@ interface IDatePickerProps {
   mode?: string;
   disabled?: boolean;
   locale?: any;
-  minuteStep?: number;
+  minuteStep: number;
   formatMonth?: (month: number, date?: any) => any;
   formatDay?: (day: number, date?: any) => any;
   onDateChange?: (date: any) => void;

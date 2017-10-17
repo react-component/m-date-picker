@@ -10,7 +10,7 @@ import enUs from '../src/locale/en_US';
 import { cn, format, minDate, maxDate, now } from './utils';
 
 now.setHours(15);
-now.setMinutes(49);
+now.setMinutes(39);
 
 class Demo extends React.Component<any, any> {
   static defaultProps = {
@@ -42,6 +42,7 @@ class Demo extends React.Component<any, any> {
         <DatePicker
           defaultDate={date || now}
           mode={props.mode}
+          minuteStep={2}
           locale={props.locale}
           maxDate={maxDate}
           minDate={minDate}
