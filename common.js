@@ -5591,21 +5591,18 @@ var DatePicker = function (_React$Component) {
                 });
             }
             var minutes = [];
-            var min = date.getMinutes();
-            var selMinute = min;
-            var pre = null;
+            var selMinute = date.getMinutes();
             for (var _i3 = minMinute; _i3 <= maxMinute; _i3 += minuteStep) {
-                var diff = Math.abs(min - _i3);
-                if (diff <= minuteStep) {
-                    if (pre === null || pre > diff) {
-                        pre = diff;
-                        selMinute = _i3;
-                    }
-                }
                 minutes.push({
                     value: _i3 + '',
                     label: locale.minute ? _i3 + locale.minute + '' : pad(_i3)
                 });
+                if (selMinute > _i3 && selMinute < _i3 + minuteStep) {
+                    minutes.push({
+                        value: selMinute + '',
+                        label: locale.minute ? selMinute + locale.minute + '' : pad(selMinute)
+                    });
+                }
             }
             var cols = [{ key: 'hours', props: { children: hours } }, { key: 'minutes', props: { children: minutes } }].concat(use12Hours ? [{
                 key: 'ampm',
