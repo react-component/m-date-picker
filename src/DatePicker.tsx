@@ -366,7 +366,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     let pre: any = null;
     for (let i = minMinute; i <= maxMinute; i += minuteStep!) {
       const diff = Math.abs(min - i);
-      if (diff <= minuteStep) {
+      if (diff <= minuteStep!) {
         if (pre === null || pre > diff) {
           pre = diff;
           selMinute = i;
