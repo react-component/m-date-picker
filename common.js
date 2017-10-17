@@ -5591,16 +5591,27 @@ var DatePicker = function (_React$Component) {
                 });
             }
             var minutes = [];
+            var min = date.getMinutes();
+            var selMinute = min;
+            var pre = null;
             for (var _i3 = minMinute; _i3 <= maxMinute; _i3 += minuteStep) {
+                var diff = Math.abs(min - _i3);
+                if (diff <= minuteStep) {
+                    if (pre === null || pre > diff) {
+                        pre = diff;
+                        selMinute = _i3;
+                    }
+                }
                 minutes.push({
                     value: _i3 + '',
                     label: locale.minute ? _i3 + locale.minute + '' : pad(_i3)
                 });
             }
-            return [{ key: 'hours', props: { children: hours } }, { key: 'minutes', props: { children: minutes } }].concat(use12Hours ? [{
+            var cols = [{ key: 'hours', props: { children: hours } }, { key: 'minutes', props: { children: minutes } }].concat(use12Hours ? [{
                 key: 'ampm',
                 props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }] }
             }] : []);
+            return { cols: cols, selMinute: selMinute };
         }
     }, {
         key: 'getGregorianCalendar',
@@ -5672,13 +5683,14 @@ var DatePicker = function (_React$Component) {
                 value = [date.getFullYear() + '', date.getMonth() + '', date.getDate() + ''];
             }
             if (mode === DATETIME || mode === TIME) {
-                cols = cols.concat(this.getTimeData(date));
+                var time = this.getTimeData(date);
+                cols = cols.concat(time.cols);
                 var hour = date.getHours();
-                var dtValue = [hour + '', date.getMinutes() + ''];
+                var dtValue = [hour + '', time.selMinute + ''];
                 var nhour = hour;
                 if (use12Hours) {
                     nhour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-                    dtValue = [nhour + '', date.getMinutes() + '', (hour >= 12 ? 1 : 0) + ''];
+                    dtValue = [nhour + '', time.selMinute + '', (hour >= 12 ? 1 : 0) + ''];
                 }
                 value = value.concat(dtValue);
             }

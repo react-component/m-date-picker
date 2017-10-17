@@ -39,7 +39,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */].setHours(15);
-__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */].setMinutes(49);
+__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */].setMinutes(39);
 
 var Demo = function (_React$Component) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(Demo, _React$Component);
@@ -66,7 +66,7 @@ var Demo = function (_React$Component) {
             var props = this.props;
             var date = this.state.date;
 
-            return __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", { style: { margin: '10px 30px' } }, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("h2", null, "date picker"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", null, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("span", null, date && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(date) || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */])), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6__src_index__["a" /* default */], { defaultDate: date || __WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */], mode: props.mode, locale: props.locale, maxDate: __WEBPACK_IMPORTED_MODULE_11__utils__["c" /* maxDate */], minDate: __WEBPACK_IMPORTED_MODULE_11__utils__["d" /* minDate */], onDateChange: this.onDateChange })));
+            return __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", { style: { margin: '10px 30px' } }, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("h2", null, "date picker"), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("div", null, __WEBPACK_IMPORTED_MODULE_7_react__["createElement"]("span", null, date && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(date) || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* format */])(__WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */])), __WEBPACK_IMPORTED_MODULE_7_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6__src_index__["a" /* default */], { defaultDate: date || __WEBPACK_IMPORTED_MODULE_11__utils__["a" /* now */], mode: props.mode, minuteStep: 2, locale: props.locale, maxDate: __WEBPACK_IMPORTED_MODULE_11__utils__["c" /* maxDate */], minDate: __WEBPACK_IMPORTED_MODULE_11__utils__["d" /* minDate */], onDateChange: this.onDateChange })));
         }
     }]);
 

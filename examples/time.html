@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>time.js - example - rmc-date-picker@6.0.2</title>
+  <title>time.js - example - rmc-date-picker@6.0.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-date-picker@6.0.2</h1>
+      <h1>rmc-date-picker@6.0.3</h1>
 
       <p>React Mobile DatePicker Component for web and react-native</p>
     </div>
@@ -281,7 +281,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> { cn, format, minDate, maxDate, now } <span class="hljs-keyword">from</span> <span class="hljs-string">'./utils'</span>;
 
 now.setHours(<span class="hljs-number">15</span>);
-now.setMinutes(<span class="hljs-number">49</span>);
+now.setMinutes(<span class="hljs-number">39</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">any</span>&gt; </span>{
   static defaultProps = {
@@ -313,6 +313,7 @@ now.setMinutes(<span class="hljs-number">49</span>);
         <span class="hljs-tag">&lt;<span class="hljs-title">DatePicker</span>
           <span class="hljs-attribute">defaultDate</span>=<span class="hljs-value">{date</span> || <span class="hljs-attribute">now</span>}
           <span class="hljs-attribute">mode</span>=<span class="hljs-value">{props.mode}</span>
+          <span class="hljs-attribute">minuteStep</span>=<span class="hljs-value">{2}</span>
           <span class="hljs-attribute">locale</span>=<span class="hljs-value">{props.locale}</span>
           <span class="hljs-attribute">maxDate</span>=<span class="hljs-value">{maxDate}</span>
           <span class="hljs-attribute">minDate</span>=<span class="hljs-value">{minDate}</span>
