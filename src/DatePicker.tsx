@@ -301,13 +301,12 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     return rawHour;
   }
 
-  getTimeData() {
+  getTimeData(date) {
     let minHour = 0;
     let maxHour = 23;
     let minMinute = 0;
     let maxMinute = 59;
     const { mode, locale, minuteStep, use12Hours } = this.props;
-    const date = this.getDate();
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
     const minDateHour = this.getMinHour();
@@ -443,7 +442,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     if (mode === DATETIME || mode === TIME) {
-      cols = cols.concat(this.getTimeData());
+      cols = cols.concat(this.getTimeData(date));
       const hour = date.getHours();
       let dtValue = [hour + '', date.getMinutes() + ''];
       let nhour = hour;
