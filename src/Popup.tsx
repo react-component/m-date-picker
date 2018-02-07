@@ -5,7 +5,7 @@ import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
 
 export interface IPopupDatePickerProps extends IPopupPickerProps {
   datePicker: React.ReactElement<IDatePickerProps>;
-  onChange?: (date?) => void;
+  onChange?: (date?: any) => void;
   date?: any;
 }
 
