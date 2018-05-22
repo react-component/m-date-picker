@@ -86,7 +86,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         default:
           break;
       }
-    } else {
+    } else if (mode === TIME) {
       switch (index) {
         case 0:
           this.setHours(newValue, value);
@@ -395,7 +395,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       if (date > maxDate) {
         return cloneDate(maxDate);
       }
-    } else if (mode === DATE) {
+    } else if (mode === DATE || mode === YEAR || mode === MONTH) {
       // compare-two-dates: https://stackoverflow.com/a/14629978/2190503
       if (+date + ONE_DAY <= minDate) {
         return cloneDate(minDate);
@@ -403,7 +403,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       if (date >= +maxDate + ONE_DAY) {
         return cloneDate(maxDate);
       }
-    } else {
+    } else if (mode === TIME) {
       const maxHour = maxDate.getHours();
       const maxMinutes = maxDate.getMinutes();
       const minHour = minDate.getHours();
