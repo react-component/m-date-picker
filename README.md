@@ -42,14 +42,6 @@ React Mobile DatePicker Component (web and react-native)
 
 see example
 
-config webpack to resolve .web.js
-
-```
-resolve: {
-  extensions: ['', '.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json'],
-},
-```
-
 ## Development
 
 ```

@@ -150,14 +150,14 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   getDefaultMinDate() {
     if (!this.defaultMinDate) {
-      this.defaultMinDate = this.getGregorianCalendar([2000, 1, 1, 0, 0, 0]);
+      this.defaultMinDate = new Date(2000, 1, 1, 0, 0, 0);
     }
     return this.defaultMinDate;
   }
 
   getDefaultMaxDate() {
     if (!this.defaultMaxDate) {
-      this.defaultMaxDate = this.getGregorianCalendar([2030, 1, 1, 23, 59, 59]);
+      this.defaultMaxDate = new Date(2030, 1, 1, 23, 59, 59);
     }
     return this.defaultMaxDate;
   }
@@ -382,10 +382,6 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }] },
     }] : []);
     return { cols, selMinute };
-  }
-
-  getGregorianCalendar(arg) {
-    return new Date(...arg);
   }
 
   clipDate(date) {
