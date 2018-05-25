@@ -28,7 +28,6 @@
     "port": 8007
   },
   "scripts": {
-    "rn-init": "rc-tools run react-native-init",
     "watch-tsc": "rc-tools run watch-tsc",
     "compile": "rc-tools run compile --babel-runtime",
     "build": "rc-tools run build",
@@ -37,7 +36,9 @@
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "rn-start": "node node_modules/react-native/local-cli/cli.js start",
+    "rn-init": "rc-tools run react-native-init"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -65,7 +66,7 @@
     "rc-tools": "6.x",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
-    "react-native": "0.42.x",
+    "react-native": "~0.42.0",
     "react-native-index-page": "~0.2.0",
     "react-test-renderer": "^15.5.0"
   },
