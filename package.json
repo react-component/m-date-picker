@@ -58,9 +58,10 @@
   },
   "devDependencies": {
     "@types/jest": "^19.2.4",
-    "@types/react": "^15.5.0",
-    "@types/react-dom": "^15.5.0",
-    "@types/react-native": "^0.46.9",
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
+    "@types/react-native": "^0.55.0",
+    "babel-runtime": "6.x",
     "enzyme": "^2.6.0",
     "enzyme-to-json": "^1.4.5",
     "fastclick": "^1.0.6",
@@ -78,7 +79,6 @@
     "lint"
   ],
   "dependencies": {
-    "babel-runtime": "6.x",
     "rmc-picker": "~5.0.0"
   }
 }

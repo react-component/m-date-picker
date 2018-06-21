@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import MultiPicker from 'rmc-picker/lib/MultiPicker';
 import Picker from 'rmc-picker/lib/Picker';
 import IDatePickerProps from './IDatePickerProps';
