@@ -81,8 +81,8 @@ react-native run-ios
 |defaultDate | default selected date. | Date | |
 |date | The currently selected date. | Date |  |
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month') |
-|minDate | min date | Date | 2000-1-1 |
-|maxDate | max date | Date | 2030-1-1 |
+|minDate | min date | Date | `new Date(2000, 1, 1, 0, 0, 0)` |
+|maxDate | max date | Date | `new Date(2030, 1, 1, 23, 59, 59)` |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
 |use12Hours | 12 hours display mode | Boolean | false |
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
