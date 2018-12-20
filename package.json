@@ -70,7 +70,7 @@
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-native": "~0.42.0",
-    "react-native-index-page": "~0.2.0",
+    "react-native-index-page": "~2.0.0",
     "react-test-renderer": "^15.5.0"
   },
   "typings": "./lib/index.d.ts",
