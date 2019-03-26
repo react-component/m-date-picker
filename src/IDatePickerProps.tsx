@@ -3,6 +3,10 @@ interface IDatePickerProps {
   defaultDate?: any;
   minDate?: any;
   maxDate?: any;
+  minHour?: number;
+  maxHour?: number;
+  minMinute?: number;
+  maxMinute?: number;
   mode?: string;
   disabled?: boolean;
   locale?: any;
