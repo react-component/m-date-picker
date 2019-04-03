@@ -302,10 +302,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   getTimeData(date) {
-    let minHour = 0;
-    let maxHour = 23;
-    let minMinute = 0;
-    let maxMinute = 59;
+    let { minHour = 0, maxHour = 23, minMinute = 0, maxMinute = 59 } = this.props;
     const { mode, locale, minuteStep, use12Hours } = this.props;
     const minDateMinute = this.getMinMinute();
     const maxDateMinute = this.getMaxMinute();
