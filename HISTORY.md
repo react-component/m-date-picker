@@ -1,6 +1,10 @@
 # History
 ----
 
+## 6.0.9
+
+- add ru_RU and sv_SE locale
+
 ## 6.0.7
 
 - add ru_RU and sv_SE locale

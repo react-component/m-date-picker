@@ -83,6 +83,10 @@ react-native run-ios
 |mode | The date picker mode. | String | 'date' enum('date', 'time', 'datetime', 'year', 'month') |
 |minDate | min date | Date | `new Date(2000, 1, 1, 0, 0, 0)` |
 |maxDate | max date | Date | `new Date(2030, 1, 1, 23, 59, 59)` |
+|minHour | min Hour `[0, 23]`| Number | `0` |
+|maxHour | max Hour `[0, 23]`| Number | `23` |
+|minMinute | max Minute `[0, 59]`| Number | `0` |
+|maxMinute | max Minute `[0, 59]`| Number| `59` |
 |locale | the locale of area | Object | import from 'rmc-date-picker/lib/locale/en_US' |
 |use12Hours | 12 hours display mode | Boolean | false |
 |minuteStep | The amount of time, in minutes, between each minute item. | Number | 1 |
