@@ -347,7 +347,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       minHour = this.getDisplayHour(minHour);
     } else if (minHour === 0 && use12Hours) {
       minHour = 1;
-      hours.push({ value: '12', label: locale.hour ? '12' + locale.hour : '12' });
+      hours.push({ value: '0', label: locale.hour ? '12' + locale.hour : '12' });
     }
     maxHour = this.getDisplayHour(maxHour);
     for (let i = minHour; i <= maxHour; i++) {
@@ -449,7 +449,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       let dtValue = [hour + '', time.selMinute + ''];
       let nhour = hour;
       if (use12Hours) {
-        nhour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+        nhour = hour === 0 ? 0 : (hour > 12 ? hour - 12 : hour);
         dtValue = [nhour + '', time.selMinute + '', (hour >= 12 ? 1 : 0) + ''];
       }
       value = value.concat(dtValue);
