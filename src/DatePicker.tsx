@@ -449,7 +449,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       let dtValue = [hour + '', time.selMinute + ''];
       let nhour = hour;
       if (use12Hours) {
-        nhour = hour === 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+        nhour = hour > 12 ? hour - 12 : hour;
         dtValue = [nhour + '', time.selMinute + '', (hour >= 12 ? 1 : 0) + ''];
       }
       value = value.concat(dtValue);
