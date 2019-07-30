@@ -1,5 +1,10 @@
 # History
-----
+
+---
+
+## 6.0.10
+
+- fix calendar recursive when use12Hours
 
 ## 6.0.9
 
@@ -21,7 +26,6 @@
 ## 5.1.0 / 2016-12-01
 
 - support minuteStep
-
 
 ## 5.0.0 / 2016-09-07
 
