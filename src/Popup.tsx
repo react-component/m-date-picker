@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import IDatePickerProps from './IDatePickerProps';
 import PopupPicker from 'rmc-picker/lib/Popup';
 import { IPopupPickerProps } from 'rmc-picker/lib/PopupPickerTypes';
