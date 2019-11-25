@@ -150,7 +150,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
 
   getDefaultMinDate() {
     if (!this.defaultMinDate) {
-      this.defaultMinDate = new Date(2000, 1, 1, 0, 0, 0);
+      this.defaultMinDate = new Date(1900, 1, 1, 0, 0, 0);
     }
     return this.defaultMinDate;
   }
@@ -260,7 +260,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
     const monthCol = { key: 'month', props: { children: months } };
     if (mode === MONTH) {
-      return [yearCol, monthCol];
+      return [monthCol, yearCol];
     }
 
     const days: any[] = [];
@@ -281,9 +281,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       });
     }
     return [
-      yearCol,
       monthCol,
       { key: 'day', props: { children: days } },
+      yearCol
     ];
   }
 
