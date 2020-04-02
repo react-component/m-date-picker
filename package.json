@@ -57,7 +57,7 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^19.2.4",
+    "@types/jest": "^25.1.5",
     "@types/react": "^15.5.0",
     "@types/react-dom": "^15.5.0",
     "@types/react-native": "^0.46.9",
