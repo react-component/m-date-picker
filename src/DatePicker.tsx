@@ -27,6 +27,12 @@ const TIME = 'time';
 const MONTH = 'month';
 const YEAR = 'year';
 const ONE_DAY = 24 * 60 * 60 * 1000;
+const DAY_ORDER = 'd';
+const MONTH_ORDER = 'M';
+const YEAR_ORDER = 'y';
+const HOUR_ORDER = 'H';
+const MINUTE_ORDER = 'm';
+const AMPM_ORDER = 'ampm';
 
 class DatePicker extends React.Component<IDatePickerProps, any> {
   static defaultProps = {
@@ -41,12 +47,59 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     use12Hours: false,
   };
 
-  state = {
-    date: this.props.date || this.props.defaultDate,
-  };
-
   defaultMinDate: any;
   defaultMaxDate: any;
+  dateOrder: string[];
+  dateIndex: {
+    day: number;
+    month: number;
+    year: number;
+    hour: number;
+    minute: number;
+    ampm: number;
+  };
+
+  constructor(props: IDatePickerProps) {
+    super(props);
+    this.state = {
+      date: props.date || props.defaultDate,
+    };
+    let dateOrder = props.dateOrder;
+    const mode = props.mode;
+    if (!dateOrder) {
+      if (mode === DATETIME) {
+        dateOrder = [
+          YEAR_ORDER,
+          MONTH_ORDER,
+          DAY_ORDER,
+          HOUR_ORDER,
+          MINUTE_ORDER,
+          AMPM_ORDER,
+        ];
+      }
+      if (mode === TIME) {
+        dateOrder = [HOUR_ORDER, MINUTE_ORDER, AMPM_ORDER];
+      }
+      if (mode === DATE) {
+        dateOrder = [DAY_ORDER, MONTH_ORDER, YEAR_ORDER];
+      }
+      if (mode === YEAR) {
+        dateOrder = [YEAR_ORDER];
+      }
+      if (mode === MONTH) {
+        dateOrder = [YEAR_ORDER, MONTH_ORDER];
+      }
+    }
+    this.dateIndex = {
+      day: dateOrder!.indexOf(DAY_ORDER),
+      month: dateOrder!.indexOf(MONTH_ORDER),
+      year: dateOrder!.indexOf(YEAR_ORDER),
+      hour: dateOrder!.indexOf(HOUR_ORDER),
+      minute: dateOrder!.indexOf(MINUTE_ORDER),
+      ampm: dateOrder!.indexOf(AMPM_ORDER),
+    };
+    this.dateOrder = dateOrder!;
+  }
 
   componentWillReceiveProps(nextProps) {
     if ('date' in nextProps) {
@@ -56,50 +109,32 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
   }
 
-  getNewDate = (values, index) => {
+  getNewDate = (values: string[], index: number) => {
     const value = parseInt(values[index], 10);
-    const props = this.props;
-    const { mode } = props;
     let newValue = cloneDate(this.getDate());
-    if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
-      switch (index) {
-        case 0:
-          newValue.setFullYear(value);
-          break;
-        case 1:
-          // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
-          // e.g. from 2017-03-31 to 2017-02-28
-          setMonth(newValue, value);
-          break;
-        case 2:
-          newValue.setDate(value);
-          break;
-        case 3:
-          this.setHours(newValue, value);
-          break;
-        case 4:
-          newValue.setMinutes(value);
-          break;
-        case 5:
-          this.setAmPm(newValue, value);
-          break;
-        default:
-          break;
-      }
-    } else if (mode === TIME) {
-      switch (index) {
-        case 0:
-          this.setHours(newValue, value);
-          break;
-        case 1:
-          newValue.setMinutes(value);
-          break;
-        case 2:
-          this.setAmPm(newValue, value);
-          break;
-        default:
-          break;
-      }
+    switch (index) {
+      case this.dateIndex.year:
+        newValue.setFullYear(value);
+        break;
+      case this.dateIndex.month:
+        // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
+        // e.g. from 2017-03-31 to 2017-02-28
+        setMonth(newValue, value);
+        break;
+      case this.dateIndex.day:
+        newValue.setDate(value);
+        break;
+      case this.dateIndex.hour:
+        this.setHours(newValue, value);
+        break;
+      case this.dateIndex.minute:
+        newValue.setMinutes(value);
+        break;
+      case this.dateIndex.ampm:
+        this.setAmPm(newValue, value);
+        break;
+      default:
+        break;
     }
     return this.clipDate(newValue);
   }
@@ -237,9 +272,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         label: i + locale.year + '',
       });
     }
-    const yearCol = { key: 'year', props: { children: years } };
+    const yearColObj = { [YEAR_ORDER]: { key: 'year', props: { children: years } } };
     if (mode === YEAR) {
-      return [yearCol];
+      return yearColObj;
     }
 
     const months: any[] = [];
@@ -252,15 +287,15 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      const label = formatMonth ? formatMonth(i, date) : (i + 1 + locale.month + '');
+      const label = formatMonth ? formatMonth(i, date) : i + 1 + locale.month + '';
       months.push({
         value: i + '',
         label,
       });
     }
-    const monthCol = { key: 'month', props: { children: months } };
+    const monthColObj = { [MONTH_ORDER]: { key: 'month', props: { children: months } } };
     if (mode === MONTH) {
-      return [yearCol, monthCol];
+      return { ...yearColObj, ...monthColObj };
     }
 
     const days: any[] = [];
@@ -274,17 +309,17 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       maxDay = maxDateDay;
     }
     for (let i = minDay; i <= maxDay; i++) {
-      const label = formatDay ? formatDay(i, date) : (i + locale.day + '');
+      const label = formatDay ? formatDay(i, date) : i + locale.day + '';
       days.push({
         value: i + '',
         label,
       });
     }
-    return [
-      yearCol,
-      monthCol,
-      { key: 'day', props: { children: days } },
-    ];
+    return {
+      ...yearColObj,
+      ...monthColObj,
+      ...{ [DAY_ORDER]: { key: 'day', props: { children: days } } },
+    };
   }
 
   getDisplayHour(rawHour) {
@@ -301,7 +336,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     return rawHour;
   }
 
-  getTimeData(date) {
+  getTimeData(date: Date) {
     let { minHour = 0, maxHour = 23, minMinute = 0, maxMinute = 59 } = this.props;
     const { mode, locale, minuteStep, use12Hours } = this.props;
     const minDateMinute = this.getMinMinute();
@@ -343,7 +378,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const hours: any[] = [];
-    if (minHour === 0 && maxHour === 0 || minHour !== 0 && maxHour !== 0) {
+    if ((minHour === 0 && maxHour === 0) || (minHour !== 0 && maxHour !== 0)) {
       minHour = this.getDisplayHour(minHour);
     } else if (minHour === 0 && use12Hours) {
       minHour = 1;
@@ -371,14 +406,26 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         });
       }
     }
-    const cols = [
-      { key: 'hours', props: { children: hours } },
-      { key: 'minutes', props: { children: minutes } },
-    ].concat(use12Hours ? [{
-      key: 'ampm',
-      props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }] },
-    }] : []);
-    return { cols, selMinute };
+    let amapmObj = {};
+    if (use12Hours) {
+      amapmObj = {
+        [AMPM_ORDER]: {
+          key: 'ampm',
+          props: {
+            children: [
+              { value: '0', label: locale.am },
+              { value: '1', label: locale.pm },
+            ],
+          },
+        },
+      };
+    }
+    const colsObj = {
+      [HOUR_ORDER]: { key: 'hours', props: { children: hours } },
+      [MINUTE_ORDER]: { key: 'minutes', props: { children: minutes } },
+      ...amapmObj,
+    };
+    return { colsObj, selMinute };
   }
 
   clipDate(date) {
@@ -420,48 +467,71 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   getValueCols() {
     const { mode, use12Hours } = this.props;
     const date = this.getDate();
-    let cols: any[] = [];
-    let value: any[] = [];
+    let colsObj = {};
+    let valueObj = {};
 
     if (mode === YEAR) {
       return {
-        cols: this.getDateData(),
-        value: [date.getFullYear() + ''],
+        colsObj: this.getDateData(),
+        valueObj: { [YEAR_ORDER]: date.getFullYear() + '' },
       };
     }
 
     if (mode === MONTH) {
       return {
-        cols: this.getDateData(),
-        value: [date.getFullYear() + '', date.getMonth() + ''],
+        colsObj: this.getDateData(),
+        valueObj: {
+          [YEAR_ORDER]: date.getFullYear() + '',
+          [MONTH_ORDER]: date.getMonth() + '',
+        },
       };
     }
 
     if (mode === DATETIME || mode === DATE) {
-      cols = this.getDateData();
-      value = [date.getFullYear() + '', date.getMonth() + '', date.getDate() + ''];
+      colsObj = this.getDateData();
+      valueObj = {
+        [YEAR_ORDER]: date.getFullYear() + '',
+        [MONTH_ORDER]: date.getMonth() + '',
+        [DAY_ORDER]: date.getDate() + '',
+      };
     }
 
     if (mode === DATETIME || mode === TIME) {
       const time = this.getTimeData(date);
-      cols = cols.concat(time.cols);
+      colsObj = { ...colsObj, ...time.colsObj };
       const hour = date.getHours();
-      let dtValue = [hour + '', time.selMinute + ''];
+      let dtValueObj: any = { [HOUR_ORDER]: hour + '', [MINUTE_ORDER]: time.selMinute + '' };
       let nhour = hour;
       if (use12Hours) {
         nhour = hour > 12 ? hour - 12 : hour;
-        dtValue = [nhour + '', time.selMinute + '', (hour >= 12 ? 1 : 0) + ''];
+        dtValueObj = {
+          [HOUR_ORDER]: nhour + '',
+          [MINUTE_ORDER]: time.selMinute + '',
+          [AMPM_ORDER]: (hour >= 12 ? 1 : 0) + '',
+        };
       }
-      value = value.concat(dtValue);
+      valueObj = { ...valueObj, ...dtValueObj };
     }
     return {
-      value,
-      cols,
+      valueObj,
+      colsObj,
     };
   }
 
+  getOrderedValueCols() {
+    const { valueObj, colsObj }: any = this.getValueCols();
+    const newValue: any[] = [];
+    const newCols: any[] = [];
+    this.dateOrder.forEach((orderKey: string, index: number) => {
+      newValue[index] = valueObj[orderKey];
+      newCols[index] = colsObj[orderKey];
+    });
+
+    return { value: newValue, cols: newCols };
+  }
+
   render() {
-    const { value, cols } = this.getValueCols();
+    const { value, cols } = this.getOrderedValueCols();
     const {
       disabled, pickerPrefixCls, prefixCls, rootNativeProps, className, style, itemStyle,
     } = this.props;
