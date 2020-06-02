@@ -74,11 +74,10 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
           DAY_ORDER,
           HOUR_ORDER,
           MINUTE_ORDER,
-          AMPM_ORDER,
         ];
       }
       if (mode === TIME) {
-        dateOrder = [HOUR_ORDER, MINUTE_ORDER, AMPM_ORDER];
+        dateOrder = [HOUR_ORDER, MINUTE_ORDER];
       }
       if (mode === DATE) {
         dateOrder = [DAY_ORDER, MONTH_ORDER, YEAR_ORDER];
@@ -88,6 +87,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       }
       if (mode === MONTH) {
         dateOrder = [YEAR_ORDER, MONTH_ORDER];
+      }
+      if (props.use12Hours && (mode === DATETIME || mode === TIME)) {
+        dateOrder!.push(AMPM_ORDER);
       }
     }
     this.dateIndex = {
