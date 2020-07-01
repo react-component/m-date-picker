@@ -1,8 +1,8 @@
 # rmc-date-picker
+
 ---
 
 React Mobile DatePicker Component (web and react-native)
-
 
 [![NPM version][npm-image]][npm-url]
 ![react-native](https://img.shields.io/badge/react--native-%3E%3D_0.30.0-green.svg)
@@ -51,9 +51,9 @@ npm start
 
 ## Example
 
-http://localhost:8000/examples/
+<http://localhost:8000/examples/>
 
-online example: http://react-component.github.io/m-date-picker/
+online example: <http://react-component.github.io/m-date-picker/>
 
 ## react-native
 
@@ -67,7 +67,6 @@ react-native run-ios
 ## install
 
 [![rmc-date-picker](https://nodei.co/npm/rmc-date-picker.png)](https://npmjs.org/package/rmc-date-picker)
-
 
 ## API
 
@@ -94,6 +93,7 @@ react-native run-ios
 |onValueChange | fire when picker change | (vals: any, index: number) => void |  |
 |formatMonth | Customize display value of months | (month:number, current:Date) => React.Node | |
 |formatDay | Customize display value of days | (day:number, current:Date) => React.Node | |
+|format | Customize year、month、day sequence | string:[] | ['year','month','date'] |
 
 ### rmc-date-picker/lib/Popup props
 
@@ -114,7 +114,6 @@ react-native run-ios
 |okText | ok button text | string/React.ReactElement | 'Ok' |
 |dismissText | dismiss button text | string/React.ReactElement | 'Dismiss' |
 |title | Popup title | string/React.ReactElement | '' |
-
 
 ## Test Case
 
