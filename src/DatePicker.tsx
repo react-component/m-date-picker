@@ -62,10 +62,10 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const { mode } = props;
     let newValue = cloneDate(this.getDate());
     if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
-      let type:any = index;
+      let type = index;
       const formatArray = this.getFormatArray();
-      if( formatArray.length >= 1 && (index + 1 <= formatArray.length)) {
-        type = formatArray[index]
+      if ( formatArray.length >= 1 && (index + 1 <= formatArray.length)) {
+        type = formatArray[index];
       }
       switch (type) {
         case 0:
@@ -484,9 +484,9 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   getFormatArray = () => {
     const props = this.props;
     const { mode, format = [] } = props;
-    let defaultFormat:string[] = [];
+    let defaultFormat: string[] = [];
     let formatArray = format || defaultFormat;
-    if(mode === DATETIME || mode === DATE) {
+    if (mode === DATETIME || mode === DATE) {
       defaultFormat = ['year', 'month', 'day'];
       formatArray = formatArray.length === 3 ? formatArray : defaultFormat;
     } else if (mode === MONTH) {
@@ -494,8 +494,8 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       formatArray = formatArray.length === 2 ? formatArray : ['year', 'month'];
       formatArray = format.filter((item) => {
         return item !== 'day';
-      })
-    } else if(mode === YEAR) {
+      });
+    } else if (mode === YEAR) {
       formatArray = ['year'];
     }
     return formatArray;
