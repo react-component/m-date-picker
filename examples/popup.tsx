@@ -13,8 +13,9 @@ import { cn, format, minDate, maxDate, now } from './utils';
 
 class Demo extends React.Component<any, any> {
   static defaultProps = {
-    mode: 'datetime',
-    locale: cn ? zhCn : enUs,
+    mode: 'year',
+    // locale: cn ? zhCn : enUs,
+    locale: zhCn
   };
 
   constructor(props) {
@@ -50,6 +51,7 @@ class Demo extends React.Component<any, any> {
         defaultDate={now}
         mode={props.mode}
         locale={props.locale}
+        format={['day', 'month', ]}
       />
     );
     return (<div style={{ margin: '10px 30px' }}>
