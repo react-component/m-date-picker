@@ -228,7 +228,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   }
 
   getDateData() {
-    const { locale, formatMonth, formatDay, mode, format } = this.props;
+    const { locale, formatMonth, formatDay, mode } = this.props;
     const date = this.getDate();
     const selYear = date.getFullYear();
     const selMonth = date.getMonth();
@@ -484,15 +484,12 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   getFormatArray = () => {
     const props = this.props;
     const { mode, format = [] } = props;
-    let defaultFormat: string[] = [];
-    let formatArray = format || defaultFormat;
+    let formatArray = format;
     if (mode === DATETIME || mode === DATE) {
-      defaultFormat = ['year', 'month', 'day'];
-      formatArray = formatArray.length === 3 ? formatArray : defaultFormat;
+      formatArray = formatArray.length === 3 ? formatArray : ['year', 'month', 'day'];
     } else if (mode === MONTH) {
-      defaultFormat = ['year', 'month'];
       formatArray = formatArray.length === 2 ? formatArray : ['year', 'month'];
-      formatArray = format.filter((item) => {
+      formatArray = formatArray.filter((item) => {
         return item !== 'day';
       });
     } else if (mode === YEAR) {
