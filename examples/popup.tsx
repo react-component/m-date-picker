@@ -50,6 +50,7 @@ class Demo extends React.Component<any, any> {
         defaultDate={now}
         mode={props.mode}
         locale={props.locale}
+        format={['month', 'day', 'year']}
       />
     );
     return (<div style={{ margin: '10px 30px' }}>

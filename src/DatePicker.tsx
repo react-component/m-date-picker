@@ -62,16 +62,24 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const { mode } = props;
     let newValue = cloneDate(this.getDate());
     if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
-      switch (index) {
+      let type = index;
+      const formatArray = this.getFormatArray();
+      if ( formatArray.length >= 1 && (index + 1 <= formatArray.length)) {
+        type = formatArray[index];
+      }
+      switch (type) {
         case 0:
+        case 'year':
           newValue.setFullYear(value);
           break;
         case 1:
+        case 'month':
           // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
           // e.g. from 2017-03-31 to 2017-02-28
           setMonth(newValue, value);
           break;
         case 2:
+        case 'day':
           newValue.setDate(value);
           break;
         case 3:
@@ -260,7 +268,15 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
     const monthCol = { key: 'month', props: { children: months } };
     if (mode === MONTH) {
-      return [yearCol, monthCol];
+      const formatArray = this.getFormatArray();
+      const dateSequence = formatArray.map((item) => {
+        if (item === 'year') {
+          return yearCol;
+        } else if (item === 'month') {
+          return monthCol;
+        }
+      });
+      return dateSequence;
     }
 
     const days: any[] = [];
@@ -280,11 +296,17 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
         label,
       });
     }
-    return [
-      yearCol,
-      monthCol,
-      { key: 'day', props: { children: days } },
-    ];
+    const formatArray = this.getFormatArray();
+    const dateSequence = formatArray.map((item) => {
+      if (item === 'year') {
+        return yearCol;
+      } else if (item === 'month') {
+        return monthCol;
+      } else if (item === 'day') {
+        return { key: 'day', props: { children: days } };
+      }
+    });
+    return dateSequence;
   }
 
   getDisplayHour(rawHour) {
@@ -422,24 +444,23 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const date = this.getDate();
     let cols: any[] = [];
     let value: any[] = [];
-
     if (mode === YEAR) {
       return {
         cols: this.getDateData(),
-        value: [date.getFullYear() + ''],
+        value: this.formatValue(),
       };
     }
 
     if (mode === MONTH) {
       return {
         cols: this.getDateData(),
-        value: [date.getFullYear() + '', date.getMonth() + ''],
+        value: this.formatValue(),
       };
     }
 
     if (mode === DATETIME || mode === DATE) {
       cols = this.getDateData();
-      value = [date.getFullYear() + '', date.getMonth() + '', date.getDate() + ''];
+      value = this.formatValue();
     }
 
     if (mode === DATETIME || mode === TIME) {
@@ -458,6 +479,38 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       value,
       cols,
     };
+  }
+
+  getFormatArray = () => {
+    const props = this.props;
+    const { mode, format = [] } = props;
+    let formatArray = format;
+    if (mode === DATETIME || mode === DATE) {
+      formatArray = formatArray.length === 3 ? formatArray : ['year', 'month', 'day'];
+    } else if (mode === MONTH) {
+      formatArray = formatArray.length === 2 ? formatArray : ['year', 'month'];
+      formatArray = formatArray.filter((item) => {
+        return item !== 'day';
+      });
+    } else if (mode === YEAR) {
+      formatArray = ['year'];
+    }
+    return formatArray;
+  }
+
+  formatValue = () => {
+    const formatArray = this.getFormatArray();
+    const date = this.getDate();
+    const values = formatArray.map((item) => {
+      if (item === 'year') {
+        return date.getFullYear() + '';
+      } else if (item === 'month') {
+        return date.getMonth() + '';
+      } else if (item === 'day') {
+        return date.getDate() + '';
+      }
+    });
+    return values;
   }
 
   render() {
