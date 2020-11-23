@@ -59,7 +59,7 @@
   "devDependencies": {
     "@types/jest": "^19.2.4",
     "@types/react": "^15.5.0",
-    "@types/react-dom": "^15.5.0",
+    "@types/react-dom": "^17.0.0",
     "@types/react-native": "^0.46.9",
     "enzyme": "^2.6.0",
     "enzyme-to-json": "^1.4.5",
