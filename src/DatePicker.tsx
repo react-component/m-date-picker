@@ -36,9 +36,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     mode: DATE,
     disabled: false,
     minuteStep: 1,
-    onDateChange() {
-    },
+    onDateChange() {},
     use12Hours: false,
+    sortCols: {
+      year: 0,
+      month: 1,
+      day: 2,
+    },
   };
 
   state = {
@@ -59,19 +63,19 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   getNewDate = (values, index) => {
     const value = parseInt(values[index], 10);
     const props = this.props;
-    const { mode } = props;
+    const { mode, sortCols } = props;
     let newValue = cloneDate(this.getDate());
     if (mode === DATETIME || mode === DATE || mode === YEAR || mode === MONTH) {
       switch (index) {
-        case 0:
+        case sortCols['year']:
           newValue.setFullYear(value);
           break;
-        case 1:
+        case sortCols['month']:
           // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
           // e.g. from 2017-03-31 to 2017-02-28
           setMonth(newValue, value);
           break;
-        case 2:
+        case sortCols['day']:
           newValue.setDate(value);
           break;
         case 3:
@@ -102,7 +106,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       }
     }
     return this.clipDate(newValue);
-  }
+  };
 
   onValueChange = (values, index) => {
     const props = this.props;
@@ -118,7 +122,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     if (props.onValueChange) {
       props.onValueChange(values, index);
     }
-  }
+  };
 
   onScrollChange = (values, index) => {
     const props = this.props;
@@ -126,7 +130,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       const newValue = this.getNewDate(values, index);
       props.onScrollChange(newValue, values, index);
     }
-  }
+  };
 
   setHours(date, hour) {
     if (this.props.use12Hours) {
@@ -252,7 +256,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       maxMonth = maxDateMonth;
     }
     for (let i = minMonth; i <= maxMonth; i++) {
-      const label = formatMonth ? formatMonth(i, date) : (i + 1 + locale.month + '');
+      const label = formatMonth ? formatMonth(i, date) : i + 1 + locale.month + '';
       months.push({
         value: i + '',
         label,
@@ -274,17 +278,13 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       maxDay = maxDateDay;
     }
     for (let i = minDay; i <= maxDay; i++) {
-      const label = formatDay ? formatDay(i, date) : (i + locale.day + '');
+      const label = formatDay ? formatDay(i, date) : i + locale.day + '';
       days.push({
         value: i + '',
         label,
       });
     }
-    return [
-      yearCol,
-      monthCol,
-      { key: 'day', props: { children: days } },
-    ];
+    return [yearCol, monthCol, { key: 'day', props: { children: days } }];
   }
 
   getDisplayHour(rawHour) {
@@ -343,7 +343,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     }
 
     const hours: any[] = [];
-    if (minHour === 0 && maxHour === 0 || minHour !== 0 && maxHour !== 0) {
+    if ((minHour === 0 && maxHour === 0) || (minHour !== 0 && maxHour !== 0)) {
       minHour = this.getDisplayHour(minHour);
     } else if (minHour === 0 && use12Hours) {
       minHour = 1;
@@ -374,10 +374,18 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
     const cols = [
       { key: 'hours', props: { children: hours } },
       { key: 'minutes', props: { children: minutes } },
-    ].concat(use12Hours ? [{
-      key: 'ampm',
-      props: { children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }] },
-    }] : []);
+    ].concat(
+      use12Hours
+        ? [
+            {
+              key: 'ampm',
+              props: {
+                children: [{ value: '0', label: locale.am }, { value: '1', label: locale.pm }],
+              },
+            },
+          ]
+        : []
+    );
     return { cols, selMinute };
   }
 
@@ -407,10 +415,10 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
       const minMinutes = minDate.getMinutes();
       const hour = date.getHours();
       const minutes = date.getMinutes();
-      if (hour < minHour || hour === minHour && minutes < minMinutes) {
+      if (hour < minHour || (hour === minHour && minutes < minMinutes)) {
         return cloneDate(minDate);
       }
-      if (hour > maxHour || hour === maxHour && minutes > maxMinutes) {
+      if (hour > maxHour || (hour === maxHour && minutes > maxMinutes)) {
         return cloneDate(maxDate);
       }
     }
@@ -463,24 +471,46 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
   render() {
     const { value, cols } = this.getValueCols();
     const {
-      disabled, pickerPrefixCls, prefixCls, rootNativeProps, className, style, itemStyle,
+      disabled,
+      pickerPrefixCls,
+      prefixCls,
+      rootNativeProps,
+      className,
+      style,
+      itemStyle,
+      sortCols,
     } = this.props;
     const multiStyle = {
       flexDirection: 'row',
       alignItems: 'center',
       ...style,
     };
+
+    let formatCols = [...cols];
+    let formatValue = [...value];
+
+    if (sortCols) {
+      const [year, month, day] = formatCols;
+      formatCols[sortCols.year || 0] = year;
+      formatCols[sortCols.month || 0] = month;
+      formatCols[sortCols.day || 0] = day;
+      const [year_v, month_v, day_v] = formatValue;
+      formatValue[sortCols.year || 0] = year_v;
+      formatValue[sortCols.month || 0] = month_v;
+      formatValue[sortCols.day || 0] = day_v;
+    }
+
     return (
       <MultiPicker
         style={multiStyle}
         rootNativeProps={rootNativeProps}
         className={className}
         prefixCls={prefixCls}
-        selectedValue={value}
+        selectedValue={formatValue}
         onValueChange={this.onValueChange}
         onScrollChange={this.onScrollChange}
       >
-        {cols.map(p => (
+        {formatCols.map((p) => (
           <Picker
             style={{ flex: 1 }}
             key={p.key}
@@ -488,7 +518,7 @@ class DatePicker extends React.Component<IDatePickerProps, any> {
             prefixCls={pickerPrefixCls}
             itemStyle={itemStyle}
           >
-            {p.props.children.map(item => (
+            {p.props.children.map((item) => (
               <Picker.Item key={item.value} value={item.value}>
                 {item.label}
               </Picker.Item>
